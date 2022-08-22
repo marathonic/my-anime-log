@@ -31,3 +31,23 @@ body {
 .cursor:hover {
     cursor: pointer;
 }
+
+.nav {
+    display: flex;
+}
+
+ul {
+    display: flex;
+    background-color: var(--dark-blue);
+    color: white;
+    width:100%;
+}
+
+.nav li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
