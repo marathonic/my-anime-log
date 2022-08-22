@@ -1,0 +1,33 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root{
+    /* color */
+
+    /* blues */
+    --dark-blue: #053742;
+
+    /* whites */
+    --chalk-white: #E8F0F2;
+    --pastel-white: #FAF3F3;
+    --mint-white: #EFFFFD;
+    font-family: sans-serif;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--mint-white);
+    height: 100%;
+}
+
+.cursor:hover {
+    cursor: pointer;
+}
