@@ -1,17 +1,24 @@
 import "./style.css";
-import Header from "./components/Header";
 import { Headr, AppContainer } from "./components/primedComps";
-import { FaUser } from "react-icons/fa";
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
-
+import Profile from "./pages/Profile";
+import { useEffect, useState } from "react";
+import { useMediaQuery } from "react-responsive";
 function App() {
+  const isMobile = useMediaQuery({ query: "(max-width:428px)" });
+
+  const [animeList, setAnimeList] = useState([]);
+  const [topAnime, setTopAnime] = useState([]);
+  const [search, setSearch] = useState([]);
+
   return (
     <AppContainer>
-      <Navbar />
+      <Navbar isMobile={isMobile} />
       <Routes>
-        <Route path="/" element={<Home />}></Route>
+        <Route path="/" element={<Home setSearch={setSearch} />}></Route>
+        <Route path="/dashboard" element={<Profile />}></Route>
       </Routes>
     </AppContainer>
   );

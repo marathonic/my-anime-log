@@ -32,12 +32,16 @@ export const NavBar = styled.nav`
 
 export const UList = styled.ul`
   display: flex;
+  justify-content: center;
   background-color: var(--dark-blue);
   color: white;
   width: 100%;
+  gap: 3%;
 
   @media only screen and (max-width: 480px) {
+    justify-content: space-between;
     background-color: teal;
+    gap: 0;
   }
 `;
 
@@ -54,4 +58,13 @@ export const Container = styled.div`
   height: 100%;
   justify-content: space-around;
   align-items: center;
+`;
+
+export const Sidebar = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 33%;
+  height: 100%;
+  align-items: center;
+  justify.content: space-around;
 `;

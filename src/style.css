@@ -9,12 +9,14 @@
 
     /* blues */
     --dark-blue: #053742;
+    --light-blue: #39A2DB;
+    --lightest-blue: #A2DBFA;
 
     /* whites */
     --chalk-white: #E8F0F2;
     --pastel-white: #FAF3F3;
     --mint-white: #EFFFFD;
-    font-family: sans-serif;
+    font-family: 'Jost', sans-serif;
 }
 
 html {
@@ -36,18 +38,27 @@ body {
     display: flex;
 }
 
-ul {
-    display: flex;
-    background-color: var(--dark-blue);
-    color: white;
-    width:100%;
-}
 
-.nav li {
+li {
     list-style: none;
 }
 
 a {
     text-decoration: none;
     color: white;
+}
+
+a:hover {
+    color: var(--lightest-blue);
+
+}
+
+.logo {
+    width: 20%;
+
+}
+
+@font-face {
+    font-family: Jost;
+    src: url('./assets/fonts/Jost-VariableFont_wght.ttf') format('truetype');
 }
