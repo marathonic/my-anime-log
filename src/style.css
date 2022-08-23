@@ -58,6 +58,21 @@ a:hover {
 
 }
 
+.category-span:first-of-type {
+}
+
+.category-span {
+    padding: 1%;
+    width: 20%;
+    height: 28%;
+}
+
+.thumbnail-category {
+    /* width: 225px; */
+    /* height: 317px; */
+    /* height is 140% of width */
+}
+
 @font-face {
     font-family: Jost;
     src: url('./assets/fonts/Jost-VariableFont_wght.ttf') format('truetype');

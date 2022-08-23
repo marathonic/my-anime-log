@@ -66,5 +66,16 @@ export const Sidebar = styled.div`
   width: 33%;
   height: 100%;
   align-items: center;
-  justify.content: space-around;
+  justify-content: space-around;
+`;
+
+export const Category = styled.div`
+  display: flex;
+  width: 70%;
+  height: 20%;
+  max-height: 30%;
+  align-items: center;
+  justify-content: start;
+  background-color: beige;
+  overflow: auto;
 `;
