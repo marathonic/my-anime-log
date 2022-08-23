@@ -59,15 +59,20 @@ a:hover {
 }
 
 .category-span:first-of-type {
+
 }
 
 .category-span {
     padding: 1%;
-    width: 20%;
-    height: 28%;
+    /* min-width: 20%;
+    min-height: 28%; */
+    /* max-width: 20%; */
+    /* max-height: 28%; */
 }
 
 .thumbnail-category {
+    max-width: 11.7rem;
+    max-height: 16.38rem
     /* width: 225px; */
     /* height: 317px; */
     /* height is 140% of width */
