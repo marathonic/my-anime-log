@@ -78,4 +78,10 @@ export const Category = styled.div`
   justify-content: start;
   background-color: beige;
   overflow: auto;
+
+  ${(props) =>
+    props.isMobile &&
+    css`
+      width: 100%;
+    `}
 `;

@@ -33,7 +33,13 @@ function App() {
       <Routes>
         <Route
           path="/"
-          element={<Home setSearch={setSearch} topAnime={topAnime} />}
+          element={
+            <Home
+              setSearch={setSearch}
+              topAnime={topAnime}
+              isMobile={isMobile}
+            />
+          }
         ></Route>
         <Route path="/dashboard" element={<Profile />}></Route>
       </Routes>

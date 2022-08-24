@@ -78,7 +78,25 @@ a:hover {
     /* height is 140% of width */
 }
 
+
+.scoll-pane::-webkit-scrollbar { 
+    display: none;
+    }
+
 @font-face {
     font-family: Jost;
     src: url('./assets/fonts/Jost-VariableFont_wght.ttf') format('truetype');
 }
+
+/* micro-adjustments for mobile */
+
+@media only screen and (max-width: 480px) {
+    .category-span {
+        padding: 2.6%;
+    }
+
+    .thumbnail-category {
+        max-width: 9.36rem;
+        max-height: 13.10rem;
+    }
+  }
