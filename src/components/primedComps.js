@@ -26,17 +26,17 @@ export const NavBar = styled.nav`
   justify-content: space-between;
   align-items:center;
   font-size: 2rem;
-
   
 `;
 
 export const UList = styled.ul`
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   background-color: var(--dark-blue);
   color: white;
   width: 100%;
   gap: 3%;
+  padding-block: 0.7%;
 
   @media only screen and (max-width: 480px) {
     justify-content: space-between;
@@ -76,12 +76,13 @@ export const Category = styled.div`
   max-height: 30%;
   align-items: center;
   justify-content: start;
-  background-color: beige;
-  overflow: auto;
+  background-color: #3f3351;
+  overflow: hidden;
 
   ${(props) =>
     props.isMobile &&
     css`
       width: 100%;
+      overflow: auto;
     `}
 `;

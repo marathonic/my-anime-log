@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { NavBar, UList } from "./primedComps";
-import { FaUser, FaHome } from "react-icons/fa";
+import { FaUser, FaHome, FaSearch } from "react-icons/fa";
 
 export default function Navbar({ isMobile }) {
   return (
@@ -17,7 +17,8 @@ export default function Navbar({ isMobile }) {
     // </nav>
     <NavBar isMobile>
       <UList>
-        <div className="logo">Logo</div>
+        <div className="logo">myAnimeLog</div>
+        <input className="search-bar" type="search" placeholder="search..." />
         <li>
           <Link to="/">{isMobile ? <FaHome /> : "Home"}</Link>
         </li>
