@@ -40,8 +40,8 @@ export const UList = styled.ul`
 
   @media only screen and (max-width: 480px) {
     justify-content: space-between;
-    background-color: teal;
     gap: 0;
+    padding: 1.75%;
   }
 `;
 

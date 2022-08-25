@@ -16,7 +16,11 @@ export default function Home({ setSearch, topAnime, isMobile }) {
 
   return (
     <div>
-      <h1>Home</h1>
+      <h1>
+        <span className="centered-span">
+          <h3>Explore</h3>
+        </span>
+      </h1>
       <Sidebar></Sidebar>
       <h3>Top anime</h3>
       <Category isMobile={isMobile}>{topTen}</Category>
