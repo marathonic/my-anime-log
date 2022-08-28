@@ -1,15 +1,27 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Category, Sidebar } from "../components/primedComps";
+import AnimeCard from "../components/AnimeCard";
 
-export default function Home({ setSearch, topAnime, isMobile }) {
+export default function Home({
+  handleSearch,
+  search,
+  setSearch,
+  topAnime,
+  animeList,
+  isMobile,
+}) {
   const topTen = topAnime.map((anime) => {
     return (
       <span className="category-span" key={anime.mal_id}>
-        <img
-          src={anime.images.jpg.image_url}
-          alt={anime.title}
-          className="thumbnail-category"
-        />
+        {/* This img goes inside a <Link> <img/> </Link>! */}
+        <Link to={`/anime/${anime.mal_id}`}>
+          <img
+            src={anime.images.jpg.image_url}
+            alt={anime.title}
+            className="thumbnail-category"
+          />
+        </Link>
       </span>
     );
   });
