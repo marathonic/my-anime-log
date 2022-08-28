@@ -15,7 +15,8 @@ export default function Home({
     return (
       <span className="category-span" key={anime.mal_id}>
         {/* This img goes inside a <Link> <img/> </Link>! */}
-        <Link to={`/anime/${anime.mal_id}`}>
+        {/* <AnimeCard clickedAnime={anime} /> */}
+        <Link to={`/anime/${anime.mal_id}`} key={anime.mal_id}>
           <img
             src={anime.images.jpg.image_url}
             alt={anime.title}

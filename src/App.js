@@ -38,7 +38,6 @@ function App() {
   };
 
   useEffect(() => {
-    console.log(topAnime);
     getTopAnime();
   }, []);
 
@@ -53,7 +52,12 @@ function App() {
         ))} */}
         <Route
           path="anime/:mal_id"
-          element={<AnimeCard topAnime={topAnime} />}
+          element={
+            <AnimeCard
+              topAnime={topAnime}
+              message={"HELLO FROM LINE 55 IN APP.JS"}
+            />
+          }
         />
 
         <Route
@@ -70,7 +74,10 @@ function App() {
         ></Route>
         <Route path="/explore">
           <Route index element={<Explore />} />
-          <Route path=":animeId" element={<AnimeCard />} />
+          <Route
+            path=":animeId"
+            element={<AnimeCard message={"HELLO FROM LINE 72 IN APP.JS"} />}
+          />
         </Route>
         {/* <Route path=":animeId" element={<SingleAnime />}></Route> */}
         <Route path="/dashboard" element={<Profile />}></Route>
