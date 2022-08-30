@@ -56,6 +56,7 @@ function App() {
             <SingleAnime
               topAnime={topAnime}
               message={"HELLO FROM LINE 55 IN APP.JS"}
+              isMobile={isMobile}
             />
           }
         />

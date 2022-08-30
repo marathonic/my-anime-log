@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { AnimeCard, CardThumbnail, CardDetails } from "./primedComps";
 
-function SingleAnime({ message }) {
+function SingleAnime({ message, isMobile }) {
   const urlID = useParams();
   const animeID = urlID.mal_id;
   const [loading, setLoading] = useState(true);
@@ -27,13 +27,16 @@ function SingleAnime({ message }) {
   if (error) return <h2>Error</h2>;
 
   return (
-    <AnimeCard>
+    <AnimeCard isMobile={isMobile}>
       {/* <h4 style={{ color: "white" }}>{message}</h4> */}
-      <CardThumbnail
-        src={myAnimeData.images.jpg.image_url}
-        alt={myAnimeData.title}
-      />
-      <h4 style={{ color: "white" }}>{myAnimeData.title}</h4>
+      <div className="pic-container">
+        <CardThumbnail
+          src={myAnimeData.images.jpg.image_url}
+          alt={myAnimeData.title}
+          isMobile={isMobile}
+        />
+        <h4 style={{ color: "white" }}>{myAnimeData.title}</h4>
+      </div>
       <CardDetails>
         <li>Episodes: {myAnimeData.episodes}</li>
         <li>{myAnimeData.status}</li>

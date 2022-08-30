@@ -141,5 +141,14 @@ a:hover {
         padding: 0.5%;
         letter-spacing: 1px;
     }
+
+    .pic-container {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+    }
     
   }

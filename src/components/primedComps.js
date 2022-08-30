@@ -91,13 +91,32 @@ export const AnimeCard = styled.div`
   width: 100%;
   min-height: max-content;
   display: flex;
-  flex-direction: column;
-  justify-items: center;
-  align-items: center;
+  flex-direction: row;
+  justify-items: start;
+  align-items: start;
+  margin-block: 6%;
+
+  ${(props) =>
+    props.isMobile &&
+    css`
+      width: 100%;
+      min-height: max-content;
+      display: flex;
+      flex-direction: column;
+      justify-items: center;
+      align-items: center;
+      margin-block: 6%;
+    `}
 `;
 
 export const CardThumbnail = styled.img`
-  max-width: 50%;
+  max-width: 100%;
+
+  ${(props) =>
+    props.isMobile &&
+    css`
+      max-width: 50%;
+    `}
 `;
 
 export const CardDetails = styled.ul`
@@ -111,4 +130,5 @@ export const CardDetails = styled.ul`
   gap: 3%;
   padding-block: 5%;
   color: white;
+  margin-block: 3%;
 `;
