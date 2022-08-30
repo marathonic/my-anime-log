@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
+import { AnimeCard, CardThumbnail, CardDetails } from "./primedComps";
 
-function AnimeCard({ message }) {
+function SingleAnime({ message }) {
   const urlID = useParams();
   const animeID = urlID.mal_id;
   const [loading, setLoading] = useState(true);
@@ -26,12 +27,19 @@ function AnimeCard({ message }) {
   if (error) return <h2>Error</h2>;
 
   return (
-    <div>
-      <h4 style={{ color: "white" }}>{message}</h4>
-      <img src={myAnimeData.images.jpg.image_url} alt={myAnimeData.title} />
+    <AnimeCard>
+      {/* <h4 style={{ color: "white" }}>{message}</h4> */}
+      <CardThumbnail
+        src={myAnimeData.images.jpg.image_url}
+        alt={myAnimeData.title}
+      />
       <h4 style={{ color: "white" }}>{myAnimeData.title}</h4>
-    </div>
+      <CardDetails>
+        <li>Episodes: {myAnimeData.episodes}</li>
+        <li>{myAnimeData.status}</li>
+      </CardDetails>
+    </AnimeCard>
   );
 }
 
-export default AnimeCard;
+export default SingleAnime;

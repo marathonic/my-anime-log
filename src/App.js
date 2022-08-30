@@ -7,7 +7,7 @@ import Profile from "./pages/Profile";
 import { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import Explore from "./components/Explore";
-import AnimeCard from "./components/AnimeCard";
+import SingleAnime from "./components/SingleAnime";
 
 function App() {
   const [animeList, setAnimeList] = useState([]);
@@ -53,7 +53,7 @@ function App() {
         <Route
           path="anime/:mal_id"
           element={
-            <AnimeCard
+            <SingleAnime
               topAnime={topAnime}
               message={"HELLO FROM LINE 55 IN APP.JS"}
             />
@@ -76,7 +76,7 @@ function App() {
           <Route index element={<Explore />} />
           <Route
             path=":animeId"
-            element={<AnimeCard message={"HELLO FROM LINE 72 IN APP.JS"} />}
+            element={<SingleAnime message={"HELLO FROM LINE 72 IN APP.JS"} />}
           />
         </Route>
         {/* <Route path=":animeId" element={<SingleAnime />}></Route> */}

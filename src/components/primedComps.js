@@ -86,3 +86,29 @@ export const Category = styled.div`
       overflow: auto;
     `}
 `;
+
+export const AnimeCard = styled.div`
+  width: 100%;
+  min-height: max-content;
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+`;
+
+export const CardThumbnail = styled.img`
+  max-width: 50%;
+`;
+
+export const CardDetails = styled.ul`
+  width: 50%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  background-color: #3f3351;
+  justify-items: space-evenly;
+  align-items: center;
+  gap: 3%;
+  padding-block: 5%;
+  color: white;
+`;

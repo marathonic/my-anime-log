@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Category, Sidebar } from "../components/primedComps";
-import AnimeCard from "../components/AnimeCard";
 
 export default function Home({
   handleSearch,
