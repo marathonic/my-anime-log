@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { AnimeCard, CardThumbnail, CardDetails } from "./primedComps";
+import { BsFillBookmarkPlusFill } from "react-icons/bs";
 
 function SingleAnime({ message, isMobile }) {
   const urlID = useParams();
@@ -26,9 +27,10 @@ function SingleAnime({ message, isMobile }) {
   if (loading) return <h1>Loading...</h1>;
   if (error) return <h2>Error</h2>;
 
+  //   conditional font size for the title
   const myAnimeTitle = myAnimeData.title;
   const bigStyle = {
-    fontSize: myAnimeTitle.length < 12 ? "3rem" : "1.2rem",
+    fontSize: myAnimeTitle.length < 13 ? "3rem" : "1.6rem",
   };
 
   return (
@@ -49,6 +51,10 @@ function SingleAnime({ message, isMobile }) {
         <li className="card-li">{myAnimeData.status}</li>
         <li className="card-li">MAL Score: {myAnimeData.score}</li>
       </CardDetails>
+      <button className="add-list-btn">
+        <BsFillBookmarkPlusFill /> log
+      </button>
+      <span>{myAnimeData.synopsis}</span>
     </AnimeCard>
   );
 }

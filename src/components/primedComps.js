@@ -133,7 +133,7 @@ export const CardDetails = styled.ul`
   padding-block: 5%;
   color: white;
   margin-block: 3%;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
 `;
 
 export const CardTitle = styled.span`

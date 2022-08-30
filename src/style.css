@@ -17,6 +17,10 @@
     --pastel-white: #FAF3F3;
     --mint-white: #EFFFFD;
     --mysterious-blue: #42032C;
+
+    /* reds */
+    --soft-peach: #E9A6A6;
+
     /* font-family: 'Jost', sans-serif; */
     font-family: 'Questrial-Regular';
 }
@@ -62,7 +66,7 @@ a:hover {
 
 .logo {
     width: 20%;
-    color: #E9A6A6;
+    color: var(--soft-peach);
     /* font-family: 'Yellowtail-Regular', sans-serif; */
 }
 
@@ -112,6 +116,15 @@ a:hover {
     align-items: center;
 }
 
+.add-list-btn {
+    width: 50%;
+    background-color: var(--soft-peach);
+    color: var(--dark-blue);
+    font-size: 1.2rem;
+    font-weight: bold;
+    border: transparent;
+}
+
 @font-face {
     font-family: Jost;
     src: url('./assets/fonts/Jost-VariableFont_wght.ttf') format('truetype');
@@ -156,7 +169,7 @@ a:hover {
     }
 
     .card-title {
-        max-width: 77%;
+        max-width: 74%;
         display: flex;
         flex-wrap: wrap;
         text-align: center;
