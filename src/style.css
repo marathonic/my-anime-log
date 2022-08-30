@@ -17,7 +17,8 @@
     --pastel-white: #FAF3F3;
     --mint-white: #EFFFFD;
     --mysterious-blue: #42032C;
-    font-family: 'Jost', sans-serif;
+    /* font-family: 'Jost', sans-serif; */
+    font-family: 'Questrial-Regular';
 }
 
 html {
@@ -117,6 +118,9 @@ a:hover {
 
     font-family: Yellowtail-Regular;
     src: url('./assets/fonts/Yellowtail-Regular.ttf') format('truetype');
+
+    font-family: Questrial-Regular;
+    src: url('./assets/fonts/Questrial-Regular.ttf') format('truetype')
 }
 
 /* micro-adjustments for mobile */
@@ -149,6 +153,17 @@ a:hover {
         justify-content: center;
         align-items: center;
         flex-wrap: wrap;
+    }
+
+    .card-title {
+        max-width: 77%;
+        display: flex;
+        flex-wrap: wrap;
+        text-align: center;
+    }
+
+    .card-li {
+        margin-block: 1.2%;
     }
     
   }

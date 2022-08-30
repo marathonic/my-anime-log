@@ -26,6 +26,11 @@ function SingleAnime({ message, isMobile }) {
   if (loading) return <h1>Loading...</h1>;
   if (error) return <h2>Error</h2>;
 
+  const myAnimeTitle = myAnimeData.title;
+  const bigStyle = {
+    fontSize: myAnimeTitle.length < 12 ? "3rem" : "1.2rem",
+  };
+
   return (
     <AnimeCard isMobile={isMobile}>
       {/* <h4 style={{ color: "white" }}>{message}</h4> */}
@@ -35,11 +40,14 @@ function SingleAnime({ message, isMobile }) {
           alt={myAnimeData.title}
           isMobile={isMobile}
         />
-        <h4 style={{ color: "white" }}>{myAnimeData.title}</h4>
+        <span className="card-title">
+          <h3 style={bigStyle}>{myAnimeTitle}</h3>
+        </span>
       </div>
       <CardDetails>
-        <li>Episodes: {myAnimeData.episodes}</li>
-        <li>{myAnimeData.status}</li>
+        <li className="card-li">Episodes: {myAnimeData.episodes}</li>
+        <li className="card-li">{myAnimeData.status}</li>
+        <li className="card-li">MAL Score: {myAnimeData.score}</li>
       </CardDetails>
     </AnimeCard>
   );

@@ -95,6 +95,7 @@ export const AnimeCard = styled.div`
   justify-items: start;
   align-items: start;
   margin-block: 6%;
+  color: white;
 
   ${(props) =>
     props.isMobile &&
@@ -106,6 +107,7 @@ export const AnimeCard = styled.div`
       justify-items: center;
       align-items: center;
       margin-block: 6%;
+      color: white;
     `}
 `;
 
@@ -131,4 +133,11 @@ export const CardDetails = styled.ul`
   padding-block: 5%;
   color: white;
   margin-block: 3%;
+  font-size: 1.2rem;
+`;
+
+export const CardTitle = styled.span`
+  max-width: 70%;
+  display: flex;
+  flex-wrap: wrap;
 `;
