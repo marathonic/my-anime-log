@@ -144,6 +144,18 @@ a:hover {
     text-align: center;
 }
 
+.details-section {
+    width: 50%;
+}
+
+.desktop-title {
+    /* position: absolute; */
+    display: block;
+    margin: 0;
+    padding: 0;
+    /* margin-left: 1vw; */
+}
+
 @font-face {
     font-family: Jost;
     src: url('./assets/fonts/Jost-VariableFont_wght.ttf') format('truetype');

@@ -124,7 +124,7 @@ export const CardThumbnail = styled.img`
 `;
 
 export const CardDetails = styled.ul`
-  width: 50%;
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
@@ -136,6 +136,12 @@ export const CardDetails = styled.ul`
   color: white;
   margin-block: 3%;
   font-size: 1.3rem;
+
+  ${(props) =>
+    props.isMobile &&
+    css`
+      max-width: 50%;
+    `}
 `;
 
 export const CardTitle = styled.span`

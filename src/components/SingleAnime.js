@@ -42,17 +42,32 @@ function SingleAnime({ message, isMobile }) {
           alt={myAnimeData.title}
           isMobile={isMobile}
         />
+
         <span className="card-title">
           {/* Commenting out while beginning styling for desktop: 
           <h3 style={bigStyle}>{myAnimeTitle}</h3> */}
-          <h3>{myAnimeTitle}</h3>
+          {isMobile && <h3>{myAnimeTitle}</h3>}
         </span>
       </div>
-      <CardDetails>
-        <li className="card-li">Episodes: {myAnimeData.episodes}</li>
-        <li className="card-li">{myAnimeData.status}</li>
-        <li className="card-li">MAL Score: {myAnimeData.score}</li>
-      </CardDetails>
+      {/* CONDITION: Render either layout depending on whether device is mobile or desktop */}
+      {isMobile ? (
+        <CardDetails isMobile={isMobile}>
+          <li className="card-li">Episodes: {myAnimeData.episodes}</li>
+          <li className="card-li">{myAnimeData.status}</li>
+          <li className="card-li">MAL Score: {myAnimeData.score}</li>
+        </CardDetails>
+      ) : (
+        <div className="details-section">
+          <span className="desktop-title">
+            <h2>{myAnimeTitle}</h2>
+          </span>
+          <CardDetails>
+            <li className="card-li">Episodes: {myAnimeData.episodes}</li>
+            <li className="card-li">{myAnimeData.status}</li>
+            <li className="card-li">MAL Score: {myAnimeData.score}</li>
+          </CardDetails>
+        </div>
+      )}
       {/* Somewhere in this AnimeCard component,
       we want React-responsive to conditionally render
       either the "add" button, or an "update" button,
@@ -61,9 +76,11 @@ function SingleAnime({ message, isMobile }) {
       1 for Credentials <email, password> and 1 for their Log <watching, plan to watch, etc...>)  */}
 
       {/* Commenting The following lines while beginning styling for desktop: */}
-      {/* <button className="add-list-btn"> */}
-      {/* <BsFillBookmarkPlusFill size={22} /> add */}
-      {/* </button> */}
+      {isMobile && (
+        <button className="add-list-btn">
+          <BsFillBookmarkPlusFill size={22} /> add
+        </button>
+      )}
       {/* <span>{myAnimeData.synopsis}</span> */}
     </AnimeCard>
   );
