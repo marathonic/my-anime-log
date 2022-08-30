@@ -92,7 +92,7 @@ export const AnimeCard = styled.div`
   min-height: max-content;
   display: flex;
   flex-direction: row;
-  justify-items: start;
+  justify-content: center;
   align-items: start;
   margin-block: 6%;
   color: white;
@@ -113,6 +113,8 @@ export const AnimeCard = styled.div`
 
 export const CardThumbnail = styled.img`
   max-width: 100%;
+  margin: 0;
+  padding: 0;
 
   ${(props) =>
     props.isMobile &&

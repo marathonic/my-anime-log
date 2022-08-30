@@ -125,6 +125,25 @@ a:hover {
     border: transparent;
 }
 
+.pic-container {
+    width: 20%;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    flex-wrap: wrap;
+}
+
+
+.card-title {
+    max-width: 50%;
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+}
+
 @font-face {
     font-family: Jost;
     src: url('./assets/fonts/Jost-VariableFont_wght.ttf') format('truetype');

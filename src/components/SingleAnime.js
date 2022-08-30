@@ -43,7 +43,9 @@ function SingleAnime({ message, isMobile }) {
           isMobile={isMobile}
         />
         <span className="card-title">
-          <h3 style={bigStyle}>{myAnimeTitle}</h3>
+          {/* Commenting out while beginning styling for desktop: 
+          <h3 style={bigStyle}>{myAnimeTitle}</h3> */}
+          <h3>{myAnimeTitle}</h3>
         </span>
       </div>
       <CardDetails>
@@ -57,10 +59,12 @@ function SingleAnime({ message, isMobile }) {
       based on whether the anime's ID is stored in the firebase object for the user.
       (Each user will have an entry in Firestore that contains 2 objects, 
       1 for Credentials <email, password> and 1 for their Log <watching, plan to watch, etc...>)  */}
-      <button className="add-list-btn">
-        <BsFillBookmarkPlusFill size={22} /> add
-      </button>
-      <span>{myAnimeData.synopsis}</span>
+
+      {/* Commenting The following lines while beginning styling for desktop: */}
+      {/* <button className="add-list-btn"> */}
+      {/* <BsFillBookmarkPlusFill size={22} /> add */}
+      {/* </button> */}
+      {/* <span>{myAnimeData.synopsis}</span> */}
     </AnimeCard>
   );
 }
