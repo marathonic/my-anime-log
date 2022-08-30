@@ -51,8 +51,14 @@ function SingleAnime({ message, isMobile }) {
         <li className="card-li">{myAnimeData.status}</li>
         <li className="card-li">MAL Score: {myAnimeData.score}</li>
       </CardDetails>
+      {/* Somewhere in this AnimeCard component,
+      we want React-responsive to conditionally render
+      either the "add" button, or an "update" button,
+      based on whether the anime's ID is stored in the firebase object for the user.
+      (Each user will have an entry in Firestore that contains 2 objects, 
+      1 for Credentials <email, password> and 1 for their Log <watching, plan to watch, etc...>)  */}
       <button className="add-list-btn">
-        <BsFillBookmarkPlusFill /> log
+        <BsFillBookmarkPlusFill size={22} /> add
       </button>
       <span>{myAnimeData.synopsis}</span>
     </AnimeCard>
