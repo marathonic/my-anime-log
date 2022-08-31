@@ -182,3 +182,21 @@ export const VideoFrame = styled.iframe`
       margin-bottom: 3rem;
     `}
 `;
+
+export const AnimeSynopsis = styled.div`
+  opacity: 93%;
+  background-color: var(--mint-white);
+  max-width: 95%;
+  font-size: 1.5rem;
+  margin-bottom: 20%;
+  display: block;
+  transform: translateY(-1);
+  transition: visibility 0s, opacity 0.5s, linear;
+
+  ${(props) =>
+    !props.showSynopsis &&
+    css`
+      display: none;
+      opacity: 0;
+    `}
+`;

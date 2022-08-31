@@ -8,6 +8,7 @@
     /* color */
 
     /* blues */
+    --bebop-blue: #1F1D36;
     --dark-blue: #053742;
     --light-blue: #39A2DB;
     --lightest-blue: #A2DBFA;
@@ -242,6 +243,7 @@ hr {
         margin-block: 1.2%;
     }
 
+
     .synopsis-section {
         width: 100%;
         display: flex;
@@ -255,7 +257,22 @@ hr {
         background-color: var(--mint-white);
         max-width: 95%;
         font-size: 1.5rem;
+        margin-bottom: 20%;
+        /* visibility: hidden; */
+
     }
+
+    .centered-span.synopsis-bar {
+        width: 100%;
+        height: max-content;
+        display: flex;
+        background-color: var(--bebop-blue);
+        z-index: 99;
+        /* position: -webkit-sticky; */
+        position: sticky;
+        top: 0;
+    }
+
 
     .synopsis-text {
         white-space: pre-line;
