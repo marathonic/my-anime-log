@@ -4,6 +4,8 @@ import { useState } from "react";
 import { AnimeCard, CardThumbnail, CardDetails } from "./primedComps";
 import { BsFillBookmarkPlusFill } from "react-icons/bs";
 import YoutubeEmbed from "./YoutubeTrailer";
+import { FaQuestion, FaQuestionCircle } from "react-icons/fa";
+import Synopsis from "./Synopsis";
 
 function SingleAnime({ message, isMobile }) {
   const urlID = useParams();
@@ -53,16 +55,24 @@ function SingleAnime({ message, isMobile }) {
         </div>
         {/* CONDITION: Render either layout depending on whether device is mobile or desktop */}
         {isMobile ? (
-          <CardDetails isMobile={isMobile}>
-            <li className="card-li">Episodes: {myAnimeData.episodes}</li>
-            <li className="card-li">{myAnimeData.status}</li>
-            <li className="card-li">MAL Score: {myAnimeData.score}</li>
-          </CardDetails>
+          <>
+            <span className="synopsis-btn-span">
+              <button className="synopsis-btn">
+                <FaQuestionCircle color="lightgreen" />
+              </button>
+            </span>
+            <CardDetails isMobile={isMobile}>
+              <li className="card-li">Episodes: {myAnimeData.episodes}</li>
+              <li className="card-li">{myAnimeData.status}</li>
+              <li className="card-li">MAL Score: {myAnimeData.score}</li>
+            </CardDetails>
+          </>
         ) : (
           <div className="details-section">
             <span className="desktop-title">
               <h2>{myAnimeTitle}</h2>
             </span>
+
             <CardDetails>
               <li className="card-li">Episodes: {myAnimeData.episodes}</li>
               <li className="card-li">{myAnimeData.status}</li>
@@ -99,6 +109,7 @@ function SingleAnime({ message, isMobile }) {
           isMobile={isMobile}
         />
       )}
+      <Synopsis animeSynopsis={myAnimeData.synopsis} />
     </>
   );
 }

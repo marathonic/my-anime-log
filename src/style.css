@@ -241,5 +241,40 @@ hr {
     .card-li {
         margin-block: 1.2%;
     }
+
+    .synopsis-section {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .synopsis-div {
+        opacity: 93%;
+        background-color: var(--mint-white);
+        max-width: 95%;
+        font-size: 1.5rem;
+    }
+
+    .synopsis-text {
+        white-space: pre-line;
+        /* text-indent: 2%; */
+        line-height: 1.2;
+        padding-left: 1%;
+    }
+
+    .synopsis-text::first-letter {
+        font-size: 2rem;
+        /* letter-spacing: 1px; */
+    }
+
+    .synopsis-btn {
+        width: 100%;
+        background-color: var(--dark-blue);
+        color: whitesmoke;
+        border: transparent;
+        font-size: 1.2rem;
+    }
     
   }
