@@ -149,3 +149,35 @@ export const CardTitle = styled.span`
   display: flex;
   flex-wrap: wrap;
 `;
+
+export const TrailerContainer = styled.div`
+  min-height: max-content;
+  min-width: max-content;
+  display: flex;
+  justify-content: center;
+
+  ${(props) =>
+    props.isMobile === false &&
+    css`
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      height: auto;
+    `}
+`;
+
+export const VideoFrame = styled.iframe`
+  position: absolute;
+  height: 40vh;
+  width: 50%;
+  border: transparent;
+
+  ${(props) =>
+    props.isMobile &&
+    css`
+      width: 72%;
+      height: 100%;
+      position: relative;
+      margin-bottom: 3rem;
+    `}
+`;
