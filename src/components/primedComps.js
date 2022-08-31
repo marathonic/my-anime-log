@@ -178,6 +178,7 @@ export const VideoFrame = styled.iframe`
       width: 72%;
       height: 100%;
       position: relative;
+      margin-top: 1rem;
       margin-bottom: 3rem;
     `}
 `;

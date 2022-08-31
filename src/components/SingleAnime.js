@@ -89,14 +89,16 @@ function SingleAnime({ message, isMobile }) {
         )}
         {/* <span>{myAnimeData.synopsis}</span> */}
         {/* Anime trailer */}
-        <h1>Trailer</h1>
-        <h5>{myAnimeData.trailer.youtube_id}</h5>
+        {/* <h5>{myAnimeData.trailer.youtube_id}</h5> */}
+        {isMobile && <hr />}
         {/* {isMobile && <YoutubeEmbed embedId={myAnimeData.trailer.embed_url} />} */}
       </AnimeCard>
-      <YoutubeEmbed
-        embedId={myAnimeData.trailer.embed_url}
-        isMobile={isMobile}
-      />
+      {myAnimeData.trailer.embed_url !== null && (
+        <YoutubeEmbed
+          embedId={myAnimeData.trailer.embed_url}
+          isMobile={isMobile}
+        />
+      )}
     </>
   );
 }
