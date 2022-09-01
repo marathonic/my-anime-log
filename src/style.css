@@ -266,11 +266,13 @@ hr {
         width: 100%;
         height: max-content;
         display: flex;
+        flex-direction: column;
         background-color: var(--bebop-blue);
         z-index: 99;
         /* position: -webkit-sticky; */
         position: sticky;
         top: 0;
+        padding: 0;
     }
 
 
@@ -292,6 +294,22 @@ hr {
         color: whitesmoke;
         border: transparent;
         font-size: 1.2rem;
+    }
+
+    .synopsis-chevron {
+        /* margin-left: 20%; */
+        background-color: transparent;
+        border: transparent;
+        color: white;
+        font-size: 2rem;
+        /* position: absolute; */
+        /* margin-top: 1%; */
+        padding: 0;
+        /* margin-top: 14.6%; */
+        
+        /* right: 0; */
+        /* margin-right: 2%; */
+        
     }
     
   }

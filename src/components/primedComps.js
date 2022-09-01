@@ -200,3 +200,17 @@ export const AnimeSynopsis = styled.div`
       opacity: 0;
     `}
 `;
+
+export const SynopsisBar = styled.span`
+  width: 100%;
+  height: max-content;
+  display: flex;
+  flex-direction: ${(props) => (props.showSynopsis ? "row" : "column")}
+  justify-content: center;
+  align-items: center;
+  background-color: var(--bebop-blue);
+  z-index: 99;
+  /* position: -webkit-sticky; */
+  position: sticky;
+  top: 0;
+`;
