@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import ReactPaginate from "react-paginate";
 
 function SearchResults() {
   // following the pluralsight tutorial, allResults is our --hits-- array
   const [allResults, setAllResults] = useState([]);
   const [pagination, setPagination] = useState([]);
-  const [pageCount, setPageCount] = useState(1);
+  // const [pageCount, setPageCount] = useState(1);
   const [currentPage, setCurrentPage] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -15,6 +16,25 @@ function SearchResults() {
   // const API_URL = `https://api.jikan.moe/v4/anime?q=${query}&page=${currentPage}`;
   //   if above doesn't work, try:
   //   const API_URL = `https://api.jikan.moe/v4/search/anime?q=${query}&sfw`;
+  const PER_PAGE = 10;
+  const offset = PER_PAGE * currentPage;
+  // going with Urvashi's guide, this is where we could make our currentPageData function
+
+  const currentPageData = allResults
+    .slice(offset, offset + PER_PAGE)
+    .map((result) => {
+      return <li style={{ color: "white" }}>{result.title}</li>;
+    });
+
+  const handlePageClick = ({ selected: selectedPage }) => {
+    setCurrentPage(selectedPage);
+  };
+
+  const pageCount = Math.ceil(allResults.length / PER_PAGE);
+
+  // const handlePageChange = (selectedObject) => {
+  //   setCurrentPage(selectedObject.selected);
+  // };
 
   useEffect(() => {
     fetch(API_URL).then((response) =>
@@ -49,7 +69,18 @@ function SearchResults() {
   return (
     <div>
       <h3 style={{ color: "white" }}>Search results for: {query}</h3>
-      <ul>{myResults}</ul>
+      <ReactPaginate
+        previousLabel={"Prev"}
+        nextLabel={"Next"}
+        pageCount={pageCount}
+        onPageChange={handlePageClick}
+        containerClassName={"pagination"}
+        previousLinkClassName={"pagionation__link"}
+        nextLinkClassName={"pagination__link--disabled"}
+        activeClassName={"pagination__link--active"}
+      />
+      {currentPageData}
+      {/* <ul>{myResults}</ul> */}
     </div>
   );
 }
