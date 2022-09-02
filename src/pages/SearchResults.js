@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ReactPaginate from "react-paginate";
+import {
+  CardThumbnail,
+  ResultSpan,
+  ResultThumbnail,
+} from "../components/primedComps";
 
-function SearchResults() {
+function SearchResults({ isMobile }) {
   // following the pluralsight tutorial, allResults is our --hits-- array
   const [allResults, setAllResults] = useState([]);
   const [pagination, setPagination] = useState([]);
@@ -23,7 +28,28 @@ function SearchResults() {
   const currentPageData = allResults
     .slice(offset, offset + PER_PAGE)
     .map((result) => {
-      return <li style={{ color: "white" }}>{result.title}</li>;
+      return (
+        <li style={{ color: "white" }} key={result.mal_id}>
+          <ResultSpan>
+            {/* <CardThumbnail
+              src={result.images.jpg.image_url}
+              alt={result.title}
+            /> */}
+            <ResultThumbnail
+              src={result.images.jpg.image_url}
+              alt={result.title}
+              isMobile={isMobile}
+            />
+
+            {/* <img src={result.images.jpg.image_url} alt={result.title} /> */}
+            <p className="result-title-mobile">
+              {result.title.length <= 43
+                ? result.title
+                : result.title.slice(0, 43) + "..."}
+            </p>
+          </ResultSpan>
+        </li>
+      );
     });
 
   const handlePageClick = ({ selected: selectedPage }) => {
@@ -69,6 +95,7 @@ function SearchResults() {
   return (
     <div>
       <h3 style={{ color: "white" }}>Search results for: {query}</h3>
+      <ul>{currentPageData}</ul>
       <ReactPaginate
         previousLabel={"Prev"}
         nextLabel={"Next"}
@@ -79,7 +106,6 @@ function SearchResults() {
         nextLinkClassName={"pagination__link--disabled"}
         activeClassName={"pagination__link--active"}
       />
-      {currentPageData}
       {/* <ul>{myResults}</ul> */}
     </div>
   );

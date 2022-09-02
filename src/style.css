@@ -311,5 +311,9 @@ hr {
         /* margin-right: 2%; */
         
     }
+
+    .result-title-mobile {
+        margin-left: 3%;
+    }
     
   }

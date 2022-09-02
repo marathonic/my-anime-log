@@ -214,3 +214,17 @@ export const SynopsisBar = styled.span`
   position: sticky;
   top: 0;
 `;
+
+export const ResultSpan = styled.span`
+  width: 100%;
+  display: flex;
+  color: white;
+  font-size: 1.2rem;
+  justify-content: flex-start;
+  align-items: center;
+  margin-block: 3%;
+`;
+
+export const ResultThumbnail = styled.img`
+  width: ${(props) => (props.isMobile ? "30%" : "10%")};
+`;
