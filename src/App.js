@@ -1,5 +1,5 @@
 import "./style.css";
-import {AppContainer } from "./components/primedComps";
+import { AppContainer } from "./components/primedComps";
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import Explore from "./components/Explore";
 import SingleAnime from "./components/SingleAnime";
+import SearchResults from "./pages/SearchResults";
 
 function App() {
   const [animeList, setAnimeList] = useState([]);
@@ -49,9 +50,6 @@ function App() {
     <AppContainer>
       <Navbar isMobile={isMobile} />
       <Routes>
-        {/* {topAnime.map((anime) => (
-          <Link to={"anime/" + anime.mal_id} />
-        ))} */}
         <Route
           path="anime/:mal_id"
           element={
@@ -61,6 +59,11 @@ function App() {
               isMobile={isMobile}
             />
           }
+        />
+
+        <Route
+          path="anime/search/:searchQuery"
+          element={<SearchResults isMobile={isMobile} />}
         />
 
         <Route
@@ -76,14 +79,7 @@ function App() {
             />
           }
         ></Route>
-        <Route path="/explore">
-          <Route index element={<Explore />} />
-          <Route
-            path=":animeId"
-            element={<SingleAnime message={"HELLO FROM LINE 72 IN APP.JS"} />}
-          />
-        </Route>
-        {/* <Route path=":animeId" element={<SingleAnime />}></Route> */}
+
         <Route path="/dashboard" element={<Profile />}></Route>
       </Routes>
     </AppContainer>

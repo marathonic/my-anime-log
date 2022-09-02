@@ -5,16 +5,6 @@ import { FaUser, FaHome, FaSearch, FaCompass } from "react-icons/fa";
 
 export default function Navbar({ isMobile }) {
   return (
-    // <nav className="nav">
-    //   <ul>
-    //     <li>
-    //       <Link to="/">Home</Link>
-    //     </li>
-    //     <li>
-    //       <Link to="/">Log In</Link>
-    //     </li>
-    //   </ul>
-    // </nav>
     <NavBar isMobile>
       <UList>
         <li>
@@ -22,7 +12,7 @@ export default function Navbar({ isMobile }) {
             <span className="logo">{isMobile ? <FaCompass /> : "Explore"}</span>
           </Link>
         </li>
-        <input className="search-bar" type="search" placeholder="search..." />
+
         <li>
           <Link to="/dashboard">{isMobile ? <FaUser /> : "My Profile"}</Link>
         </li>

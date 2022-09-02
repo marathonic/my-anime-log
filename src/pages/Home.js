@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Category, Sidebar } from "../components/primedComps";
+import SearchBar from "../components/SearchBar";
 
 export default function Home({
   handleSearch,
@@ -29,6 +30,7 @@ export default function Home({
   return (
     <div>
       <h1>
+        <SearchBar />
         <span className="centered-span">
           <h3>Explore</h3>
         </span>
