@@ -3,11 +3,12 @@ import { useParams } from "react-router-dom";
 
 function SearchResults() {
   const [allResults, setAllResults] = useState([]);
+  const [pageNumber, setPageNumber] = useState(1);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const q = useParams();
   const query = q.searchQuery;
-  const API_URL = `https://api.jikan.moe/v4/anime?q=${query}&page=1`;
+  const API_URL = `https://api.jikan.moe/v4/anime?q=${query}&page=${pageNumber}`;
   //   if above doesn't work, try:
   //   const API_URL = `https://api.jikan.moe/v4/search/anime?q=${query}&sfw`;
 
@@ -33,7 +34,11 @@ function SearchResults() {
   console.log(query);
 
   const myResults = allResults.map((result) => {
-    return <li style={{ color: "white" }}>{result.title}</li>;
+    return (
+      <li style={{ color: "white" }} key={result.mal_id}>
+        {result.title}
+      </li>
+    );
   });
 
   return (
