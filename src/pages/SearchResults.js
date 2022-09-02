@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import ReactPaginate from "react-paginate";
 import {
   CardThumbnail,
@@ -17,7 +17,10 @@ function SearchResults({ isMobile }) {
   const [error, setError] = useState(null);
   const q = useParams();
   const query = q.searchQuery;
-  const API_URL = `https://api.jikan.moe/v4/anime?q=${query}`;
+  // how to fix random anime that match 1 word? Let's use a regex, we'll ask for strict matches!
+  // so we'll only be returning strict matches, like items that have 'dragon ball' in the title.
+  // that way, we won't be getting back 'Kobayashi-san Chi no Maid Dragon', for example, when we're looking for Dragon Ball, and viceversa.
+  const API_URL = `https://api.jikan.moe/v4/anime?q=${query}&order_by=scored_by&sort=desc`;
   // const API_URL = `https://api.jikan.moe/v4/anime?q=${query}&page=${currentPage}`;
   //   if above doesn't work, try:
   //   const API_URL = `https://api.jikan.moe/v4/search/anime?q=${query}&sfw`;
@@ -29,25 +32,30 @@ function SearchResults({ isMobile }) {
     .slice(offset, offset + PER_PAGE)
     .map((result) => {
       return (
+        // MAKE THESE INTO <Link /> Components, each to their own URL, just like in Home.js!
+        //         <Link to={`/anime/${anime.mal_id}`} key={anime.mal_id}>
+        // In this case, <Link to={`anime/${result.mal_id} key={result.mal_id}`}
         <li style={{ color: "white" }} key={result.mal_id}>
-          <ResultSpan>
-            {/* <CardThumbnail
+          <Link to={`/anime/${result.mal_id}`} key={result.mal_id}>
+            <ResultSpan>
+              {/* <CardThumbnail
               src={result.images.jpg.image_url}
               alt={result.title}
             /> */}
-            <ResultThumbnail
-              src={result.images.jpg.image_url}
-              alt={result.title}
-              isMobile={isMobile}
-            />
+              <ResultThumbnail
+                src={result.images.jpg.image_url}
+                alt={result.title}
+                isMobile={isMobile}
+              />
 
-            {/* <img src={result.images.jpg.image_url} alt={result.title} /> */}
-            <p className="result-title-mobile">
-              {result.title.length <= 43
-                ? result.title
-                : result.title.slice(0, 43) + "..."}
-            </p>
-          </ResultSpan>
+              {/* <img src={result.images.jpg.image_url} alt={result.title} /> */}
+              <p className="result-title-mobile">
+                {result.title.length <= 43
+                  ? result.title
+                  : result.title.slice(0, 43) + "..."}
+              </p>
+            </ResultSpan>
+          </Link>
         </li>
       );
     });
