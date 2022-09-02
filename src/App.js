@@ -1,6 +1,6 @@
 import "./style.css";
-import { Headr, AppContainer } from "./components/primedComps";
-import { Routes, Route, Link } from "react-router-dom";
+import {AppContainer } from "./components/primedComps";
+import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
 import Profile from "./pages/Profile";
@@ -27,6 +27,8 @@ function App() {
   const handleSearch = (e) => {
     e.preventDefault();
     fetchAnime(search);
+    console.log(search);
+    // fetchAnime(search);
   };
 
   const fetchAnime = async (animeName) => {
@@ -70,6 +72,7 @@ function App() {
               animeList={animeList}
               topAnime={topAnime}
               isMobile={isMobile}
+              handleSearch={handleSearch}
             />
           }
         ></Route>
