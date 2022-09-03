@@ -1,38 +1,46 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const SearchBar = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [predictions, setPredictions] = useState([]);
   const navigate = useNavigate();
+
+  // const getPredictions = async () => {
+  //   const res = await fetch(
+  //     `https://api.jikan.moe/v4/anime?q=${searchQuery}&order_by=popularity&sort=asc`
+  //   );
+  //   const resData = await res.json();
+  //   setPredictions(resData.data);
+  // };
+
   const handleQueryChange = (e) => {
     setSearchQuery(e.target.value);
+
+    // We're behind by 1.
+    // Every time we type a letter, something is firing with the previous string state.
+    // That's why typing 'Naruto' suggests random stuff, but typing 'Narutok' or 'Naruto5" suggests Naruto.
+
     // We could move this into a useEffect, probably
-    if (searchQuery && searchQuery.length >= 2) {
+    if (searchQuery && searchQuery.length > 1) {
       console.log("1st condition met");
       // only update every 2 letters, to save API calls
       if (searchQuery.length % 2 === 0) {
         console.log("2nd condition met, length === " + searchQuery.length);
-        getPredictions();
-      }
-      // do we need this here ?
-      else if (searchQuery.length === 0) {
       }
     }
   };
 
-  const getPredictions = async () => {
-    if (!searchQuery.length) {
-      console.log("no length, resetting predictions");
-      setPredictions([]);
-      return;
-    }
-    const res = await fetch(
-      `https://api.jikan.moe/v4/anime?q=${searchQuery}&order_by=scored_by&sort=desc`
+  useEffect(() => {
+    fetch(
+      `https://api.jikan.moe/v4/anime?q=${searchQuery}&order_by=popularity&sort=asc`
+    ).then((response) =>
+      response.json().then((responseData) => {
+        setPredictions(responseData.data);
+      })
     );
-    const resData = await res.json();
-    setPredictions(resData.data);
-  };
+    console.log("search query is === " + searchQuery);
+  }, [searchQuery]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
