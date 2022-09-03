@@ -2,12 +2,36 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const SearchBar = () => {
-  // MAKE SURE TO CHECK THAT THE searchQuery IS NOT EMPTY!
-  // We can use .trim() to check if it's just empty space, and also a Regex to handle non-alphanumeric chars
   const [searchQuery, setSearchQuery] = useState("");
+  const [predictions, setPredictions] = useState([]);
   const navigate = useNavigate();
   const handleQueryChange = (e) => {
     setSearchQuery(e.target.value);
+    // We could move this into a useEffect, probably
+    if (searchQuery && searchQuery.length >= 2) {
+      console.log("1st condition met");
+      // only update every 2 letters, to save API calls
+      if (searchQuery.length % 2 === 0) {
+        console.log("2nd condition met, length === " + searchQuery.length);
+        getPredictions();
+      }
+      // do we need this here ?
+      else if (searchQuery.length === 0) {
+      }
+    }
+  };
+
+  const getPredictions = async () => {
+    if (!searchQuery.length) {
+      console.log("no length, resetting predictions");
+      setPredictions([]);
+      return;
+    }
+    const res = await fetch(
+      `https://api.jikan.moe/v4/anime?q=${searchQuery}&order_by=scored_by&sort=desc`
+    );
+    const resData = await res.json();
+    setPredictions(resData.data);
   };
 
   const handleSubmit = (e) => {
@@ -25,6 +49,14 @@ const SearchBar = () => {
     navigate(`/anime/search/${searchQuery}&sfw`);
   };
 
+  // We could write our Suggestions logic here
+  const Suggestions = ({ results }) => {
+    const allPredictions = results.map((result) => {
+      return <li key={result.mal_id}>{result.title}</li>;
+    });
+    return allPredictions;
+  };
+
   return (
     <form onSubmit={handleSubmit}>
       <input
@@ -34,6 +66,7 @@ const SearchBar = () => {
         value={searchQuery}
         onChange={handleQueryChange}
       />
+      {searchQuery && <Suggestions results={predictions} />}
       <button>OK</button>
     </form>
   );
