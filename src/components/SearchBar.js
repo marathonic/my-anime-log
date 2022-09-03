@@ -6,41 +6,26 @@ const SearchBar = () => {
   const [predictions, setPredictions] = useState([]);
   const navigate = useNavigate();
 
-  // const getPredictions = async () => {
-  //   const res = await fetch(
-  //     `https://api.jikan.moe/v4/anime?q=${searchQuery}&order_by=popularity&sort=asc`
-  //   );
-  //   const resData = await res.json();
-  //   setPredictions(resData.data);
-  // };
+  const getPredictions = async () => {
+    const res = await fetch(
+      `https://api.jikan.moe/v4/anime?q=${searchQuery}&order_by=popularity&sort=asc`
+    );
+    const resData = await res.json();
+    setPredictions(resData.data);
+  };
 
   const handleQueryChange = (e) => {
     setSearchQuery(e.target.value);
 
-    // We're behind by 1.
-    // Every time we type a letter, something is firing with the previous string state.
-    // That's why typing 'Naruto' suggests random stuff, but typing 'Narutok' or 'Naruto5" suggests Naruto.
-
-    // We could move this into a useEffect, probably
     if (searchQuery && searchQuery.length > 1) {
       console.log("1st condition met");
       // only update every 2 letters, to save API calls
       if (searchQuery.length % 2 === 0) {
         console.log("2nd condition met, length === " + searchQuery.length);
+        getPredictions();
       }
     }
   };
-
-  useEffect(() => {
-    fetch(
-      `https://api.jikan.moe/v4/anime?q=${searchQuery}&order_by=popularity&sort=asc`
-    ).then((response) =>
-      response.json().then((responseData) => {
-        setPredictions(responseData.data);
-      })
-    );
-    console.log("search query is === " + searchQuery);
-  }, [searchQuery]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
