@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const SearchBar = () => {
+  // MAKE SURE TO CHECK THAT THE searchQuery IS NOT EMPTY!
+  // We can use .trim() to check if it's just empty space, and also a Regex to handle non-alphanumeric chars
   const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
   const handleQueryChange = (e) => {
@@ -10,8 +12,17 @@ const SearchBar = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // console.log(searchQuery);
-    navigate(`/anime/search/${searchQuery}`);
+    const isAlphanumeric = /^[a-z0-9]+$/i;
+    if (!isAlphanumeric.test(searchQuery)) {
+      const modQuery = searchQuery.replace(/[\W_]+/g, " ");
+      // no empty strings
+      if (modQuery.trim().length === 0) return;
+      console.log(modQuery);
+      // render sfw results only; querying 'ok' includes a nsfw result otherwise lol
+      navigate(`/anime/search/${modQuery}&sfw`);
+      return;
+    }
+    navigate(`/anime/search/${searchQuery}&sfw`);
   };
 
   return (

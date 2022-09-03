@@ -102,7 +102,10 @@ function SearchResults({ isMobile }) {
 
   return (
     <div>
-      <h3 style={{ color: "white" }}>Search results for: {query}</h3>
+      <h3 style={{ color: "white" }}>
+        Search results for:{" "}
+        {query.includes("&sfw") ? query.slice(0, -4) : query}
+      </h3>
       <ul>{currentPageData}</ul>
       <ReactPaginate
         previousLabel={"Prev"}
