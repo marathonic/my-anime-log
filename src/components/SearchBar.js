@@ -17,16 +17,14 @@ const SearchBar = () => {
     setPredictions(resData.data);
   };
 
-  const deb = useCallback(
-    debounce((text) => setSearchQuery(text), 700),
-    []
-  );
-
-  const handleText = (text) => {
-    deb(text);
-  };
+  const handleText = debounce((text) => {
+    setSearchQuery(text);
+  }, 700);
 
   useEffect(() => {
+    if (!searchQuery.length) {
+      return;
+    }
     getPredictionFromsAPI();
     //eslint-disable-next-line
   }, [searchQuery]);
@@ -73,7 +71,6 @@ const SearchBar = () => {
       {searchQuery && predictions.length > 0 && (
         <Suggestions results={predictions} />
       )}
-      <h5>{searchQuery}</h5>
       <button>OK</button>
     </form>
   );
