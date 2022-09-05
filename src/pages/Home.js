@@ -37,6 +37,10 @@ export default function Home({
       </h1>
       <Sidebar></Sidebar>
       <h3>Top anime</h3>
+      {/* look into lazy loading, it's exactly what we want here to polish up our presentation */}
+      {/* Right now, if the images haven't loaded, the section just isn't showing. */}
+      {/* We want to fix that:  */}
+      {/* while the images are loading, we want to render divs that clearly indicate it, e.g: a sliding glow across each div */}
       <Category isMobile={isMobile}>{topTen}</Category>
     </div>
   );
