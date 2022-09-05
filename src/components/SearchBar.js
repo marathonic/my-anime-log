@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { debounce } from "lodash";
 import { DebounceInput } from "react-debounce-input";
@@ -9,35 +9,27 @@ const SearchBar = () => {
   const [filteredPreds, setFilteredPreds] = useState([]);
   const navigate = useNavigate();
 
-  const getPredictions = async () => {
+  const getPredictionFromsAPI = async () => {
     const res = await fetch(
-      `https://api.jikan.moe/v4/anime?q=${searchQuery}&order_by=scored_by&page=0`
+      `https://api.jikan.moe/v4/anime?q=${searchQuery}&order_by=scored_by&sort=desc&limit=3`
     );
     const resData = await res.json();
     setPredictions(resData.data);
   };
 
-  // const handleQueryUpdate = (e) => {
-  //   setSearchQuery(e.target.value);
-  //   getPredictions();
-  // };
+  const deb = useCallback(
+    debounce((text) => setSearchQuery(text), 700),
+    []
+  );
 
-  // const doAnimeFilter = (query) => {
-  //   if (!query) return setFilteredPreds([]);
-  //   setFilteredPreds(
-  //     predictions.filter((result) =>
-  //       result.title.toLowerCase().includes(query.toLowerCase())
-  //     )
-  //   );
-  // };
-
-  // follow tutorial
-  const updateQuery = (e) => {
-    setSearchQuery(e?.target?.value);
-    getPredictions();
+  const handleText = (text) => {
+    deb(text);
   };
 
-  const debouncedOnChange = debounce(updateQuery, 600);
+  useEffect(() => {
+    getPredictionFromsAPI();
+    //eslint-disable-next-line
+  }, [searchQuery]);
 
   // We could write our Suggestions logic here
   const Suggestions = ({ results }) => {
@@ -46,7 +38,7 @@ const SearchBar = () => {
         <Link to={`/anime/${result.mal_id}`} key={result.mal_id}>
           <span>
             <img src={result.images.jpg.small_image_url} alt={result.title} />
-            <li key={result.mal_id}>{result.title}</li>;
+            <li key={result.mal_id}>{result.title}</li>
           </span>
         </Link>
       );
@@ -76,7 +68,7 @@ const SearchBar = () => {
         className="search-bar"
         type="search"
         placeholder="search..."
-        onChange={debouncedOnChange}
+        onChange={(e) => handleText(e.target.value)}
       />
       {searchQuery && predictions.length > 0 && (
         <Suggestions results={predictions} />
