@@ -13,8 +13,11 @@ export default function Home({
   allTopAnime,
   overall,
 }) {
+  let myOverall;
   if (overall) {
-    console.log(overall);
+    myOverall = overall.map((anime) => {
+      return <li style={{ color: "white" }}>{anime.title}</li>;
+    });
   }
   /* 
    const topTen = allTopAnime.map((anime) => {
@@ -49,6 +52,7 @@ export default function Home({
       {/* <Category isMobile={isMobile}>{topTen}</Category> */}
       {/* Test to check that we're not going insane: */}
       <Category isMobile={isMobile}></Category>
+      {overall && myOverall}
     </div>
   );
 }
