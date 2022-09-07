@@ -80,7 +80,7 @@ function App() {
         break;
     }
 
-    const URL = `https://api.jikan.moe/v4/top/anime${searchTerm}&limit=3`;
+    const URL = `https://api.jikan.moe/v4/top/anime${searchTerm}&limit=7`;
     const res = await fetch(URL);
     const resData = await res.json();
     return resData.data;
@@ -91,17 +91,27 @@ function App() {
   console.log(allTopAnime);
 
   const getAllMyTopAnime = async () => {
+    // we can set all at the end at once: updateAllTopAnime({movies: topMovies, airing: topAiring, popular: topPopular})
+    // but then the user would have to wait several seconds before our page loads.
+    // Let's set each one individually as soon as it's ready:
     const topMovies = await newGetTopAnime("movies");
+    updateAllTopAnime({ movies: topMovies });
     await new Promise((resolve) => setTimeout(resolve, 1200));
     const topAiring = await newGetTopAnime("airing");
+    updateAllTopAnime({ airing: topAiring });
     await new Promise((resolve) => setTimeout(resolve, 1200));
     const topPopular = await newGetTopAnime("popular");
+    updateAllTopAnime({ popular: topPopular });
+    // What if the user spam reloads the page several times in a row? we may wish to handle that
+    // We would need to check if the page has been reloaded within the last second.
+    // If so, throttle (fire another setTimeout before the first request):
+    // if(timeFromLastReload <= 1200) { await new Promise((resolve) => setTimeout(resolve,1200)) }
     // await new Promise((resolve) => setTimeout(resolve, 1200));
-    updateAllTopAnime({
-      movies: topMovies,
-      airing: topAiring,
-      popular: topPopular,
-    });
+    // updateAllTopAnime({
+    //   movies: topMovies,
+    //   airing: topAiring,
+    //   popular: topPopular,
+    // });
   };
 
   const getMovies = async () => {
