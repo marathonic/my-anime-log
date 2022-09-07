@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Category, Sidebar } from "../components/primedComps";
 import SearchBar from "../components/SearchBar";
+import { AnimeCard } from "../components/primedComps";
 
 export default function Home({
   handleSearch,
@@ -10,31 +11,27 @@ export default function Home({
   animeList,
   isMobile,
   allTopAnime,
+  overall,
 }) {
-  // const topTen = allTopAnime.map((anime) => {
-  // return (
-  // <span className="category-span" key={anime.mal_id}>
-  // //This img goes inside a <Link> <img/> </Link>!
-  // //<AnimeCard clickedAnime={anime} />
-  {
-    /* <Link to={`/anime/${anime.mal_id}`} key={anime.mal_id}> */
+  if (overall) {
+    console.log(overall);
   }
-  {
-    /* <img */
-  }
-  // src={anime.images.jpg.image_url}
-  // alt={anime.title}
-  // className="thumbnail-category"
-  // />
-  {
-    /* </Link> */
-  }
-  {
-    /* </span> */
-  }
-  // );
-  // });
-
+  /* 
+   const topTen = allTopAnime.map((anime) => {
+   return (
+   <span className="category-span" key={anime.mal_id}>
+   <AnimeCard clickedAnime={anime} />
+     <Link to={`/anime/${anime.mal_id}`} key={anime.mal_id}> 
+    <img 
+   src={anime.images.jpg.image_url}
+   alt={anime.title}
+   className="thumbnail-category"
+   />
+     </Link>
+    </span>
+   );
+   });
+  */
   return (
     <div>
       <h1>
@@ -50,6 +47,8 @@ export default function Home({
       {/* We want to fix that:  */}
       {/* while the images are loading, we want to render divs that clearly indicate it, e.g: a sliding glow across each div */}
       {/* <Category isMobile={isMobile}>{topTen}</Category> */}
+      {/* Test to check that we're not going insane: */}
+      <Category isMobile={isMobile}></Category>
     </div>
   );
 }
