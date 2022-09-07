@@ -7,25 +7,33 @@ export default function Home({
   handleSearch,
   search,
   setSearch,
-  topAnime,
   animeList,
   isMobile,
+  allTopAnime,
 }) {
-  const topTen = topAnime.map((anime) => {
-    return (
-      <span className="category-span" key={anime.mal_id}>
-        {/* This img goes inside a <Link> <img/> </Link>! */}
-        {/* <AnimeCard clickedAnime={anime} /> */}
-        <Link to={`/anime/${anime.mal_id}`} key={anime.mal_id}>
-          <img
-            src={anime.images.jpg.image_url}
-            alt={anime.title}
-            className="thumbnail-category"
-          />
-        </Link>
-      </span>
-    );
-  });
+  // const topTen = allTopAnime.map((anime) => {
+  // return (
+  // <span className="category-span" key={anime.mal_id}>
+  // //This img goes inside a <Link> <img/> </Link>!
+  // //<AnimeCard clickedAnime={anime} />
+  {
+    /* <Link to={`/anime/${anime.mal_id}`} key={anime.mal_id}> */
+  }
+  {
+    /* <img */
+  }
+  // src={anime.images.jpg.image_url}
+  // alt={anime.title}
+  // className="thumbnail-category"
+  // />
+  {
+    /* </Link> */
+  }
+  {
+    /* </span> */
+  }
+  // );
+  // });
 
   return (
     <div>
@@ -41,7 +49,7 @@ export default function Home({
       {/* Right now, if the images haven't loaded, the section just isn't showing. */}
       {/* We want to fix that:  */}
       {/* while the images are loading, we want to render divs that clearly indicate it, e.g: a sliding glow across each div */}
-      <Category isMobile={isMobile}>{topTen}</Category>
+      {/* <Category isMobile={isMobile}>{topTen}</Category> */}
     </div>
   );
 }

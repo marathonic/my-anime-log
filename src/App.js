@@ -6,11 +6,9 @@ import Navbar from "./components/Navbar";
 import Profile from "./pages/Profile";
 import { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
-import Explore from "./components/Explore";
 import SingleAnime from "./components/SingleAnime";
 import SearchResults from "./pages/SearchResults";
 import { useReducer } from "react";
-import { useCallback } from "react";
 
 function App() {
   const [animeList, setAnimeList] = useState([]);
@@ -93,15 +91,15 @@ function App() {
       // Let's set each one individually as soon as it's ready:
       const topOverall = await fetchTopTen("overall");
       updateAllTopAnime({ overall: topOverall });
-      await new Promise((resolve) => setTimeout(resolve, 1200));
+      await new Promise((resolve) => setTimeout(resolve, 2000));
 
       const topMovies = await fetchTopTen("movies");
       updateAllTopAnime({ movies: topMovies });
-      await new Promise((resolve) => setTimeout(resolve, 1200));
+      await new Promise((resolve) => setTimeout(resolve, 2000));
 
       const topAiring = await fetchTopTen("airing");
       updateAllTopAnime({ airing: topAiring });
-      await new Promise((resolve) => setTimeout(resolve, 1200));
+      await new Promise((resolve) => setTimeout(resolve, 2000));
 
       const topPopular = await fetchTopTen("popular");
       updateAllTopAnime({ popular: topPopular });
