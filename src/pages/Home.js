@@ -30,54 +30,21 @@ export default function Home({
         </span>
       );
     });
+    return (
+      <div>
+        <Category isMobile={isMobile}>{mapped}</Category>
+      </div>
+    );
     return mapped;
   };
 
   // let myOverall;
   if (overall) {
     topOverall = renderMapped(overall);
-    // myOverall = overall.map((anime) => {
-    // return (
-    // <span className="category-span" key={anime.mal_id}>
-    {
-      /* <AnimeCard clickedAnime={anime} /> */
-    }
-    {
-      /* <Link to={`/anime/${anime.mal_id}`} key={anime.mal_id}> */
-    }
-    {
-      /* <img */
-    }
-    // src={anime.images.jpg.image_url}
-    // alt={anime.title}
-    // className="thumbnail-category"
-    // />
-    {
-      /* </Link> */
-    }
-    {
-      /* </span> */
-    }
-    // );
-    // });
   }
 
-  let myMovies;
   if (movies) {
-    myMovies = movies.map((anime) => {
-      return (
-        <span className="category-span" key={anime.mal_id}>
-          <AnimeCard clickedAnime={anime} />
-          <Link to={`/anime/${anime.mal_id}`} key={anime.mal_id}>
-            <img
-              src={anime.images.jpg.image_url}
-              alt={anime.title}
-              className="thumbnail-category"
-            />
-          </Link>
-        </span>
-      );
-    });
+    topMovies = renderMapped(movies);
   }
   /* 
    const topTen = allTopAnime.map((anime) => {
@@ -100,9 +67,9 @@ export default function Home({
       {/* while the images are loading, we want to render divs that clearly indicate it, e.g: a sliding glow across each div */}
       {/* <Category isMobile={isMobile}>{topTen}</Category> */}
       {/* Test to check that we're not going insane: */}
-      <Category isMobile={isMobile}>{overall && topOverall}</Category>
-      <h3>Top Movies</h3>
-      <Category isMobile={isMobile}>{movies && myMovies}</Category>
+      {overall && topOverall}
+      <h3>Top movies</h3>
+      {movies && topMovies}
     </div>
   );
 }
