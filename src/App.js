@@ -149,6 +149,7 @@ function App() {
               animeList={animeList}
               overall={allTopAnime.overall}
               movies={allTopAnime.movies}
+              popular={allTopAnime.popular}
               isMobile={isMobile}
               handleSearch={handleSearch}
             />

@@ -13,9 +13,10 @@ export default function Home({
   allTopAnime,
   overall,
   movies,
+  popular,
 }) {
   let topOverall, topMovies, topAiring, topSpecials, topPopular;
-  const renderMapped = (category) => {
+  const renderMapped = (category, isMobile) => {
     let mapped = category.map((anime) => {
       return (
         <span className="category-span" key={anime.mal_id}>
@@ -40,12 +41,18 @@ export default function Home({
 
   // let myOverall;
   if (overall) {
-    topOverall = renderMapped(overall);
+    topOverall = renderMapped(overall, (isMobile = { isMobile }));
+    console.log("Assigning renderMapped to topOverall...");
   }
 
   if (movies) {
-    topMovies = renderMapped(movies);
+    topMovies = renderMapped(movies, (isMobile = { isMobile }));
   }
+
+  if (popular) {
+    topPopular = renderMapped(popular, (isMobile = { isMobile }));
+  }
+
   /* 
    const topTen = allTopAnime.map((anime) => {
    
@@ -60,14 +67,15 @@ export default function Home({
         </span>
       </h1>
       <Sidebar></Sidebar>
-      <h3>Top anime</h3>
       {/* look into lazy loading, it's exactly what we want here to polish up our presentation */}
       {/* Right now, if the images haven't loaded, the section just isn't showing. */}
       {/* We want to fix that:  */}
       {/* while the images are loading, we want to render divs that clearly indicate it, e.g: a sliding glow across each div */}
       {/* <Category isMobile={isMobile}>{topTen}</Category> */}
-      {/* Test to check that we're not going insane: */}
+      <h3>Top anime</h3>
       {overall && topOverall}
+      <h3>Top popular</h3>
+      {popular && topPopular}
       <h3>Top movies</h3>
       {movies && topMovies}
     </div>
