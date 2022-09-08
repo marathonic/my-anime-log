@@ -150,6 +150,7 @@ function App() {
               overall={allTopAnime.overall}
               movies={allTopAnime.movies}
               popular={allTopAnime.popular}
+              airing={allTopAnime.airing}
               isMobile={isMobile}
               handleSearch={handleSearch}
             />

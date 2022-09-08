@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useReducer, useState } from "react";
 import { Link } from "react-router-dom";
 import { Category, Sidebar } from "../components/primedComps";
 import SearchBar from "../components/SearchBar";
 import { AnimeCard } from "../components/primedComps";
+import { initial } from "lodash";
 
 export default function Home({
   handleSearch,
@@ -15,7 +16,8 @@ export default function Home({
   movies,
   popular,
 }) {
-  let topOverall, topMovies, topAiring, topSpecials, topPopular;
+  let topOverall, topMovies, topSpecials, topPopular;
+
   const renderMapped = (category, isMobile) => {
     let mapped = category.map((anime) => {
       return (
@@ -40,9 +42,10 @@ export default function Home({
   };
 
   // let myOverall;
+
   if (overall) {
+    console.log("fulfilled.overall is false");
     topOverall = renderMapped(overall, (isMobile = { isMobile }));
-    console.log("Assigning renderMapped to topOverall...");
   }
 
   if (movies) {
