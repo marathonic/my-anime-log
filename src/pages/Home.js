@@ -12,10 +12,59 @@ export default function Home({
   isMobile,
   allTopAnime,
   overall,
+  movies,
 }) {
-  let myOverall;
+  let topOverall, topMovies, topAiring, topSpecials, topPopular;
+  const renderMapped = (category) => {
+    let mapped = category.map((anime) => {
+      return (
+        <span className="category-span" key={anime.mal_id}>
+          <AnimeCard clickedAnime={anime} />
+          <Link to={`/anime/${anime.mal_id}`} key={anime.mal_id}>
+            <img
+              src={anime.images.jpg.image_url}
+              alt={anime.title}
+              className="thumbnail-category"
+            />
+          </Link>
+        </span>
+      );
+    });
+    return mapped;
+  };
+
+  // let myOverall;
   if (overall) {
-    myOverall = overall.map((anime) => {
+    topOverall = renderMapped(overall);
+    // myOverall = overall.map((anime) => {
+    // return (
+    // <span className="category-span" key={anime.mal_id}>
+    {
+      /* <AnimeCard clickedAnime={anime} /> */
+    }
+    {
+      /* <Link to={`/anime/${anime.mal_id}`} key={anime.mal_id}> */
+    }
+    {
+      /* <img */
+    }
+    // src={anime.images.jpg.image_url}
+    // alt={anime.title}
+    // className="thumbnail-category"
+    // />
+    {
+      /* </Link> */
+    }
+    {
+      /* </span> */
+    }
+    // );
+    // });
+  }
+
+  let myMovies;
+  if (movies) {
+    myMovies = movies.map((anime) => {
       return (
         <span className="category-span" key={anime.mal_id}>
           <AnimeCard clickedAnime={anime} />
@@ -51,7 +100,9 @@ export default function Home({
       {/* while the images are loading, we want to render divs that clearly indicate it, e.g: a sliding glow across each div */}
       {/* <Category isMobile={isMobile}>{topTen}</Category> */}
       {/* Test to check that we're not going insane: */}
-      <Category isMobile={isMobile}>{overall && myOverall}</Category>
+      <Category isMobile={isMobile}>{overall && topOverall}</Category>
+      <h3>Top Movies</h3>
+      <Category isMobile={isMobile}>{movies && myMovies}</Category>
     </div>
   );
 }
