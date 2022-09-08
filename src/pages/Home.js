@@ -16,23 +16,23 @@ export default function Home({
   let myOverall;
   if (overall) {
     myOverall = overall.map((anime) => {
-      return <li style={{ color: "white" }}>{anime.title}</li>;
+      return (
+        <span className="category-span" key={anime.mal_id}>
+          <AnimeCard clickedAnime={anime} />
+          <Link to={`/anime/${anime.mal_id}`} key={anime.mal_id}>
+            <img
+              src={anime.images.jpg.image_url}
+              alt={anime.title}
+              className="thumbnail-category"
+            />
+          </Link>
+        </span>
+      );
     });
   }
   /* 
    const topTen = allTopAnime.map((anime) => {
-   return (
-   <span className="category-span" key={anime.mal_id}>
-   <AnimeCard clickedAnime={anime} />
-     <Link to={`/anime/${anime.mal_id}`} key={anime.mal_id}> 
-    <img 
-   src={anime.images.jpg.image_url}
-   alt={anime.title}
-   className="thumbnail-category"
-   />
-     </Link>
-    </span>
-   );
+   
    });
   */
   return (
@@ -51,8 +51,7 @@ export default function Home({
       {/* while the images are loading, we want to render divs that clearly indicate it, e.g: a sliding glow across each div */}
       {/* <Category isMobile={isMobile}>{topTen}</Category> */}
       {/* Test to check that we're not going insane: */}
-      <Category isMobile={isMobile}></Category>
-      {overall && myOverall}
+      <Category isMobile={isMobile}>{overall && myOverall}</Category>
     </div>
   );
 }
