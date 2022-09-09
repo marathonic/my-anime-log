@@ -87,7 +87,26 @@ export default function Home({
       <h3>Top popular</h3>
       {!popular && <h3>Loading popular...</h3>}
       {!popular && <Skeleton height="100%" width={80} />}
-      <Skeleton height={100} width={80} />
+      {/* ----------SKELETON PREVIEW!!!----------- */}
+      {/* Skeleton preview */}
+      <span className="category-span">
+        {/* what does AnimeCard do here? */}
+        <AnimeCard />
+        {/* li substitutes for Link */}
+        <li>
+          {/* div substitutes for img */}
+          <div className="thumbnail-category">
+            <Skeleton
+              height={"13.10rem"}
+              width={"9.36rem"}
+              highlightColor="#1f406b"
+              baseColor="#42032C"
+            />
+          </div>
+        </li>
+      </span>
+
+      {/* ^ Skeleton preview ^ */}
       {popular && topPopular}
       <h3>Top movies</h3>
       {movies && topMovies}

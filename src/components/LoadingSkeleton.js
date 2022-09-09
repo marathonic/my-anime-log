@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import "react-loading-skeleton/dist/skeleton.css";
 
 <SkeletonTheme
-  baseColor="202020"
+  baseColor="#39A2DB"
   color="#F5F5F5"
   highlightColor="#ffffff"
 ></SkeletonTheme>;
