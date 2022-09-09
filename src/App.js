@@ -9,6 +9,7 @@ import { useMediaQuery } from "react-responsive";
 import SingleAnime from "./components/SingleAnime";
 import SearchResults from "./pages/SearchResults";
 import { useReducer } from "react";
+import "react-loading-skeleton/dist/skeleton.css";
 
 function App() {
   const [animeList, setAnimeList] = useState([]);

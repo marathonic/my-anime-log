@@ -4,6 +4,9 @@ import { Category, Sidebar } from "../components/primedComps";
 import SearchBar from "../components/SearchBar";
 import { AnimeCard } from "../components/primedComps";
 import { initial } from "lodash";
+import { MobileSkeletonTile } from "../components/LoadingSkeleton";
+import "react-loading-skeleton/dist/skeleton.css";
+import Skeleton from "react-loading-skeleton";
 
 export default function Home({
   handleSearch,
@@ -22,6 +25,7 @@ export default function Home({
     let mapped = category.map((anime) => {
       return (
         <span className="category-span" key={anime.mal_id}>
+          {/* what does AnimeCard do here? */}
           <AnimeCard clickedAnime={anime} />
           <Link to={`/anime/${anime.mal_id}`} key={anime.mal_id}>
             <img
@@ -75,9 +79,15 @@ export default function Home({
       {/* We want to fix that:  */}
       {/* while the images are loading, we want to render divs that clearly indicate it, e.g: a sliding glow across each div */}
       {/* <Category isMobile={isMobile}>{topTen}</Category> */}
+      <MobileSkeletonTile></MobileSkeletonTile>
       <h3>Top anime</h3>
+      {/* !overall && isMobile && MobileSkeletonTile */}
+      {/* !overall && !isMobile && DesktopSkeletonTile */}
       {overall && topOverall}
       <h3>Top popular</h3>
+      {!popular && <h3>Loading popular...</h3>}
+      {!popular && <Skeleton height="100%" width={80} />}
+      <Skeleton height={100} width={80} />
       {popular && topPopular}
       <h3>Top movies</h3>
       {movies && topMovies}
