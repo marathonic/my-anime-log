@@ -11,8 +11,10 @@
     --bebop-blue: #1F1D36;
     --dark-blue: #053742;
     --light-blue: #39A2DB;
+    /* cool highlight color is mysterious purple: */
     --mysterious-purple: #1f406b;
     --lightest-blue: #A2DBFA;
+    --category-blue: #3f3351;
 
     /* whites */
     --chalk-white: #E8F0F2;
@@ -190,6 +192,11 @@ hr {
 
 .top-anime {
     color: white;
+}
+
+/* skeleton */
+.loading-skeleton-div {
+    background-color: var(--category-blue);
 }
 
 /* end of desktop */

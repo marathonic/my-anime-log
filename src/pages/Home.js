@@ -88,23 +88,26 @@ export default function Home({
       {!popular && <h3>Loading popular...</h3>}
       {!popular && <Skeleton height="100%" width={80} />}
       {/* ----------SKELETON PREVIEW!!!----------- */}
+      {/* We could try and render these inside the Category itself, like in the example we saw */}
       {/* Skeleton preview */}
-      <span className="category-span">
-        {/* what does AnimeCard do here? */}
-        <AnimeCard />
-        {/* li substitutes for Link */}
-        <li>
-          {/* div substitutes for img */}
-          <div className="thumbnail-category">
-            <Skeleton
-              height={"13.10rem"}
-              width={"9.36rem"}
-              highlightColor="#1f406b"
-              baseColor="#42032C"
-            />
-          </div>
-        </li>
-      </span>
+      <div className="loading-skeleton-div">
+        <span className="category-span">
+          {/* what does AnimeCard do here? */}
+          <AnimeCard />
+          {/* li substitutes for Link */}
+          <li>
+            {/* div substitutes for img */}
+            <div className="thumbnail-category">
+              <Skeleton
+                height={"13.10rem"}
+                width={"9.36rem"}
+                highlightColor="#3f3351"
+                baseColor="#42032C"
+              />
+            </div>
+          </li>
+        </span>
+      </div>
 
       {/* ^ Skeleton preview ^ */}
       {popular && topPopular}
