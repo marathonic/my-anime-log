@@ -198,6 +198,7 @@ hr {
 .loading-skeleton-div {
     display: flex;
     background-color: var(--category-blue);
+
 }
 
 
@@ -217,6 +218,11 @@ hr {
 /* micro-adjustments for mobile */
 
 @media only screen and (max-width: 480px) {
+    .loading-skeleton-div {
+        width: 100%;
+        overflow: auto;
+    }
+
     .category-span,
     .loading-skeleton-span {
         padding: 2.6%;

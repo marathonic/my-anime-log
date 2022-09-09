@@ -3,9 +3,57 @@ import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { AnimeCard, CardThumbnail, CardDetails } from "./primedComps";
 import { BsFillBookmarkPlusFill } from "react-icons/bs";
+import Skeleton from "react-loading-skeleton";
 import YoutubeEmbed from "./YoutubeTrailer";
 import { FaQuestion, FaQuestionCircle } from "react-icons/fa";
 import Synopsis from "./Synopsis";
+
+const loadingSkeletonSingleAnime = (
+  <>
+    <AnimeCard isMobile={true}>
+      <div className="pic-container">
+        <Skeleton
+          height={"13.10rem"}
+          width={"9.36rem"}
+          highlightColor="#3f3351"
+          baseColor="#42032C"
+        />
+
+        <span className="card-title">
+          <h3>
+            <Skeleton
+              height={30}
+              width={130}
+              baseColor="#42032C"
+              highlightColor="#3f3351"
+            />
+          </h3>
+        </span>
+      </div>
+      <>
+        <CardDetails isMobile={true}>
+          <Skeleton
+            height={"6.55rem"}
+            width={"9.36rem"}
+            highlightColor="#3f3351"
+            baseColor="#42032C"
+          />
+        </CardDetails>
+      </>
+      <hr />
+    </AnimeCard>
+    <h3>
+      <Skeleton
+        height={30}
+        width={130}
+        baseColor="#42032C"
+        highlightColor="#3f3351"
+      />
+    </h3>
+  </>
+);
+
+// END LOADINGSKELETONSINGLEANIME
 
 function SingleAnime({ message, isMobile }) {
   const urlID = useParams();
@@ -27,7 +75,8 @@ function SingleAnime({ message, isMobile }) {
     );
   }, [API_URL]);
 
-  if (loading) return <h1>Loading...</h1>;
+  // if (loading) return <h1>Loading...</h1>;
+  if (loading) return loadingSkeletonSingleAnime;
   if (error) return <h2>Error</h2>;
 
   //   conditional font size for the title
