@@ -3,53 +3,63 @@ import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { AnimeCard, CardThumbnail, CardDetails } from "./primedComps";
 import { BsFillBookmarkPlusFill } from "react-icons/bs";
-import Skeleton from "react-loading-skeleton";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import YoutubeEmbed from "./YoutubeTrailer";
 import { FaQuestion, FaQuestionCircle } from "react-icons/fa";
 import Synopsis from "./Synopsis";
 
+const lowOpacity = {
+  opacity: 0.42,
+};
+
 const loadingSkeletonSingleAnime = (
   <>
+    ;
     <AnimeCard isMobile={true}>
       <div className="pic-container">
         <Skeleton
           height={"13.10rem"}
           width={"9.36rem"}
-          highlightColor="#3f3351"
-          baseColor="#42032C"
+          highlightColor="silver"
+          baseColor="darkgray"
+          style={lowOpacity}
         />
-
+        <br />
         <span className="card-title">
           <h3>
             <Skeleton
               height={30}
-              width={130}
-              baseColor="#42032C"
-              highlightColor="#3f3351"
+              width={142}
+              baseColor="darkgray"
+              highlightColor="silver"
+              style={lowOpacity}
             />
           </h3>
         </span>
+        <br />
       </div>
-      <>
-        <CardDetails isMobile={true}>
-          <Skeleton
-            height={"6.55rem"}
-            width={"9.36rem"}
-            highlightColor="#3f3351"
-            baseColor="#42032C"
-          />
-        </CardDetails>
-      </>
+      <Skeleton
+        height={"6.55rem"}
+        width={"9.36rem"}
+        highlightColor="silver"
+        baseColor="darkgray"
+        style={lowOpacity}
+      />
       <hr />
     </AnimeCard>
-    <h3>
-      <Skeleton
-        height={30}
-        width={130}
-        baseColor="#42032C"
-        highlightColor="#3f3351"
-      />
-    </h3>
+    <span className="centered-span">
+      <h3>
+        <Skeleton
+          height={30}
+          width={130}
+          baseColor="darkgray"
+          highlightColor="silver"
+          // baseColor="#42032C" cool but a little hard to see if page loads too fast
+          // highlightColor="#3f3351"
+          style={lowOpacity}
+        />
+      </h3>
+    </span>
   </>
 );
 
