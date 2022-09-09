@@ -47,18 +47,116 @@ export default function Home({
 
   // let myOverall;
 
-  if (overall) {
-    console.log("fulfilled.overall is false");
-    topOverall = renderMapped(overall, (isMobile = { isMobile }));
-  }
+  const loadingSkeletonStrip = (
+    <div className="loading-skeleton-div">
+      <span className="loading-skeleton-span">
+        <div className="loading-skeleton-thumbnails">
+          <Skeleton
+            height={"13.10rem"}
+            width={"9.36rem"}
+            highlightColor="#3f3351"
+            baseColor="#42032C"
+          />
+        </div>
+      </span>
+      <span className="loading-skeleton-span">
+        <div className="loading-skeleton-thumbnails">
+          <Skeleton
+            height={"13.10rem"}
+            width={"9.36rem"}
+            highlightColor="#3f3351"
+            baseColor="#42032C"
+          />
+        </div>
+      </span>
+      <span className="loading-skeleton-span">
+        <div className="loading-skeleton-thumbnails">
+          <Skeleton
+            height={"13.10rem"}
+            width={"9.36rem"}
+            highlightColor="#3f3351"
+            baseColor="#42032C"
+          />
+        </div>
+      </span>
+      <span className="loading-skeleton-span">
+        <div className="loading-skeleton-thumbnails">
+          <Skeleton
+            height={"13.10rem"}
+            width={"9.36rem"}
+            highlightColor="#3f3351"
+            baseColor="#42032C"
+          />
+        </div>
+      </span>
+      <span className="loading-skeleton-span">
+        <div className="loading-skeleton-thumbnails">
+          <Skeleton
+            height={"13.10rem"}
+            width={"9.36rem"}
+            highlightColor="#3f3351"
+            baseColor="#42032C"
+          />
+        </div>
+      </span>
+      <span className="loading-skeleton-span">
+        <div className="loading-skeleton-thumbnails">
+          <Skeleton
+            height={"13.10rem"}
+            width={"9.36rem"}
+            highlightColor="#3f3351"
+            baseColor="#42032C"
+          />
+        </div>
+      </span>
+      <span className="loading-skeleton-span">
+        <div className="loading-skeleton-thumbnails">
+          <Skeleton
+            height={"13.10rem"}
+            width={"9.36rem"}
+            highlightColor="#3f3351"
+            baseColor="#42032C"
+          />
+        </div>
+      </span>
+    </div>
+  );
 
-  if (movies) {
-    topMovies = renderMapped(movies, (isMobile = { isMobile }));
-  }
+  // if (overall) {
+  // topOverall = renderMapped(overall, (isMobile = { isMobile }));
+  // }
 
-  if (popular) {
-    topPopular = renderMapped(popular, (isMobile = { isMobile }));
-  }
+  overall
+    ? (topOverall = renderMapped(overall, (isMobile = { isMobile })))
+    : (topOverall = loadingSkeletonStrip);
+  // if (movies) {
+  // topMovies = renderMapped(movies, (isMobile = { isMobile }));
+  // }
+
+  movies
+    ? (topMovies = renderMapped(movies, (isMobile = { isMobile })))
+    : (topMovies = loadingSkeletonStrip);
+
+  // if (popular) {
+  // topPopular = renderMapped(popular, (isMobile = { isMobile }));
+  // }
+
+  popular
+    ? (topPopular = renderMapped(popular, (isMobile = { isMobile })))
+    : (topPopular = loadingSkeletonStrip);
+
+  // const loadingStrip = () => {
+  //   for(let i = 0; i < 7; i++){
+  //     <div className="loading-skeleton-thumbnails">
+  //     <Skeleton
+  //       height={"13.10rem"}
+  //       width={"9.36rem"}
+  //       highlightColor="#3f3351"
+  //       baseColor="#42032C"
+  //     />
+  //   </div>
+  //   }
+  // }
 
   /* 
    const topTen = allTopAnime.map((anime) => {
@@ -83,36 +181,31 @@ export default function Home({
       <h3>Top anime</h3>
       {/* !overall && isMobile && MobileSkeletonTile */}
       {/* !overall && !isMobile && DesktopSkeletonTile */}
-      {overall && topOverall}
-      <h3>Top popular</h3>
-      {!popular && <h3>Loading popular...</h3>}
-      {!popular && <Skeleton height="100%" width={80} />}
+      {topOverall}
+
       {/* ----------SKELETON PREVIEW!!!----------- */}
       {/* We could try and render these inside the Category itself, like in the example we saw */}
       {/* Skeleton preview */}
-      <div className="loading-skeleton-div">
-        <span className="category-span">
-          {/* what does AnimeCard do here? */}
-          <AnimeCard />
-          {/* li substitutes for Link */}
-          <li>
-            {/* div substitutes for img */}
-            <div className="thumbnail-category">
-              <Skeleton
-                height={"13.10rem"}
-                width={"9.36rem"}
-                highlightColor="#3f3351"
-                baseColor="#42032C"
-              />
-            </div>
-          </li>
-        </span>
-      </div>
-
+      {/* <h3>Loading Skeleton </h3> */}
+      {/* <div className="loading-skeleton-div"> */}
+      {/* <span className="loading-skeleton-span"> */}
+      {/* <div className="loading-skeleton-thumbnails"> */}
+      {/* <Skeleton */}
+      {/* 
+               height={"13.10rem"}
+               width={"9.36rem"}
+               highlightColor="#3f3351"
+               baseColor="#42032C"
+             />
+  */}
+      {/* </div> */}
+      {/* </span> */}
+      {/* </div> */}
+      <h3>Top popular</h3>
+      {topPopular}
       {/* ^ Skeleton preview ^ */}
-      {popular && topPopular}
       <h3>Top movies</h3>
-      {movies && topMovies}
+      {topMovies}
     </div>
   );
 }

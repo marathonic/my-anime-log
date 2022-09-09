@@ -196,8 +196,10 @@ hr {
 
 /* skeleton */
 .loading-skeleton-div {
+    display: flex;
     background-color: var(--category-blue);
 }
+
 
 /* end of desktop */
 
@@ -215,15 +217,37 @@ hr {
 /* micro-adjustments for mobile */
 
 @media only screen and (max-width: 480px) {
-    .category-span {
+    .category-span,
+    .loading-skeleton-span {
         padding: 2.6%;
         padding-top: 0;
     }
 
-    .thumbnail-category {
-        max-width: 9.36rem;
-        max-height: 13.10rem;
+    .thumbnail-category,
+    .loading-skeleton-thumbnails {
+        /* max-width: 9.36rem; */
+        /* max-height: 13.10rem; */
+        /* max-width: 9.36rem; */
+        /* max-height: 13.10rem; */
+        /* adjusted: */
+        width: 9.21rem;
+        height: 13.09rem;
+        /* margin: 2.3%; */
     }
+
+
+    .loading-skeleton-span {
+        padding: 2.6%;
+        display: flex;
+        width: 100%;
+    }
+/* 
+    .loading-skeleton-thumbnails {
+        display: flex;
+        flex-direction: row;
+        
+    } */
+
     .search-bar {
 
         background-color: rgba(255, 255, 255, 0.05);
