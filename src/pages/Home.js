@@ -48,78 +48,89 @@ export default function Home({
   // let myOverall;
 
   const loadingSkeletonStrip = (
-    <div className="loading-skeleton-div">
-      <span className="loading-skeleton-span">
-        <div className="loading-skeleton-thumbnails">
-          <Skeleton
-            height={"13.10rem"}
-            width={"9.36rem"}
-            highlightColor="#3f3351"
-            baseColor="#42032C"
-          />
-        </div>
-      </span>
-      <span className="loading-skeleton-span">
-        <div className="loading-skeleton-thumbnails">
-          <Skeleton
-            height={"13.10rem"}
-            width={"9.36rem"}
-            highlightColor="#3f3351"
-            baseColor="#42032C"
-          />
-        </div>
-      </span>
-      <span className="loading-skeleton-span">
-        <div className="loading-skeleton-thumbnails">
-          <Skeleton
-            height={"13.10rem"}
-            width={"9.36rem"}
-            highlightColor="#3f3351"
-            baseColor="#42032C"
-          />
-        </div>
-      </span>
-      <span className="loading-skeleton-span">
-        <div className="loading-skeleton-thumbnails">
-          <Skeleton
-            height={"13.10rem"}
-            width={"9.36rem"}
-            highlightColor="#3f3351"
-            baseColor="#42032C"
-          />
-        </div>
-      </span>
-      <span className="loading-skeleton-span">
-        <div className="loading-skeleton-thumbnails">
-          <Skeleton
-            height={"13.10rem"}
-            width={"9.36rem"}
-            highlightColor="#3f3351"
-            baseColor="#42032C"
-          />
-        </div>
-      </span>
-      <span className="loading-skeleton-span">
-        <div className="loading-skeleton-thumbnails">
-          <Skeleton
-            height={"13.10rem"}
-            width={"9.36rem"}
-            highlightColor="#3f3351"
-            baseColor="#42032C"
-          />
-        </div>
-      </span>
-      <span className="loading-skeleton-span">
-        <div className="loading-skeleton-thumbnails">
-          <Skeleton
-            height={"13.10rem"}
-            width={"9.36rem"}
-            highlightColor="#3f3351"
-            baseColor="#42032C"
-          />
-        </div>
-      </span>
-    </div>
+    <>
+      <h3>
+        <Skeleton
+          height={30}
+          width={130}
+          baseColor="#42032C"
+          highlightColor="#3f3351"
+        />
+      </h3>
+      {""}
+      <div className="loading-skeleton-div">
+        <span className="loading-skeleton-span">
+          <div className="loading-skeleton-thumbnails">
+            <Skeleton
+              height={"13.10rem"}
+              width={"9.36rem"}
+              highlightColor="#3f3351"
+              baseColor="#42032C"
+            />
+          </div>
+        </span>
+        <span className="loading-skeleton-span">
+          <div className="loading-skeleton-thumbnails">
+            <Skeleton
+              height={"13.10rem"}
+              width={"9.36rem"}
+              highlightColor="#3f3351"
+              baseColor="#42032C"
+            />
+          </div>
+        </span>
+        <span className="loading-skeleton-span">
+          <div className="loading-skeleton-thumbnails">
+            <Skeleton
+              height={"13.10rem"}
+              width={"9.36rem"}
+              highlightColor="#3f3351"
+              baseColor="#42032C"
+            />
+          </div>
+        </span>
+        <span className="loading-skeleton-span">
+          <div className="loading-skeleton-thumbnails">
+            <Skeleton
+              height={"13.10rem"}
+              width={"9.36rem"}
+              highlightColor="#3f3351"
+              baseColor="#42032C"
+            />
+          </div>
+        </span>
+        <span className="loading-skeleton-span">
+          <div className="loading-skeleton-thumbnails">
+            <Skeleton
+              height={"13.10rem"}
+              width={"9.36rem"}
+              highlightColor="#3f3351"
+              baseColor="#42032C"
+            />
+          </div>
+        </span>
+        <span className="loading-skeleton-span">
+          <div className="loading-skeleton-thumbnails">
+            <Skeleton
+              height={"13.10rem"}
+              width={"9.36rem"}
+              highlightColor="#3f3351"
+              baseColor="#42032C"
+            />
+          </div>
+        </span>
+        <span className="loading-skeleton-span">
+          <div className="loading-skeleton-thumbnails">
+            <Skeleton
+              height={"13.10rem"}
+              width={"9.36rem"}
+              highlightColor="#3f3351"
+              baseColor="#42032C"
+            />
+          </div>
+        </span>
+      </div>
+    </>
   );
 
   // if (overall) {
@@ -178,7 +189,7 @@ export default function Home({
       {/* while the images are loading, we want to render divs that clearly indicate it, e.g: a sliding glow across each div */}
       {/* <Category isMobile={isMobile}>{topTen}</Category> */}
       <MobileSkeletonTile></MobileSkeletonTile>
-      <h3>Top anime</h3>
+      {overall && <h3>Top anime</h3>}
       {/* !overall && isMobile && MobileSkeletonTile */}
       {/* !overall && !isMobile && DesktopSkeletonTile */}
       {topOverall}
@@ -201,10 +212,10 @@ export default function Home({
       {/* </div> */}
       {/* </span> */}
       {/* </div> */}
-      <h3>Top popular</h3>
+      {popular && <h3>Top popular</h3>}
       {topPopular}
       {/* ^ Skeleton preview ^ */}
-      <h3>Top movies</h3>
+      {movies && <h3>Top movies</h3>}
       {topMovies}
     </div>
   );
