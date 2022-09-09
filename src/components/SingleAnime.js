@@ -18,8 +18,8 @@ const loadingSkeletonSingleAnime = (
     <AnimeCard isMobile={true}>
       <div className="pic-container">
         <Skeleton
-          height={"13.10rem"}
-          width={"9.36rem"}
+          height={"18.22rem"}
+          width={"11.71rem"}
           highlightColor="silver"
           baseColor="darkgray"
           style={lowOpacity}
@@ -29,7 +29,7 @@ const loadingSkeletonSingleAnime = (
           <h3>
             <Skeleton
               height={30}
-              width={142}
+              width={187}
               baseColor="darkgray"
               highlightColor="silver"
               style={lowOpacity}
@@ -40,7 +40,7 @@ const loadingSkeletonSingleAnime = (
       </div>
       <Skeleton
         height={"6.55rem"}
-        width={"9.36rem"}
+        width={"11.71rem"}
         highlightColor="silver"
         baseColor="darkgray"
         style={lowOpacity}
