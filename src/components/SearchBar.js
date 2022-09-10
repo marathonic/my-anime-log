@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef, useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { debounce } from "lodash";
+import useListWhenVisible from "../utils/useListWhenVisible";
 import { DebounceInput } from "react-debounce-input";
 
 const SearchBar = () => {
@@ -27,6 +28,13 @@ const SearchBar = () => {
   };
 
   const handleInputBlur = (e) => {
+    // We could handle this from Home.js, and getElementById
+    // Our element will be the form, which is the parent element
+    // for both the input and the suggestions list.
+    // That way, we'd only hide it if the click is outside of the form element (which includes its own children).
+    // console.log(e);
+    // if (!e.currentTarget.contains(e.target)) {
+    // }
     setInputFocus(false);
   };
 
@@ -61,6 +69,16 @@ const SearchBar = () => {
     return allPredictions;
   };
 
+  const Dropdown = () => {
+    const { ref, isComponentVisible } = useListWhenVisible(true);
+
+    return (
+      <div ref={ref}>
+        {isComponentVisible && <Suggestions results={predictions} />}
+      </div>
+    );
+  };
+
   // Submission functionality
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -85,12 +103,13 @@ const SearchBar = () => {
         type="search"
         placeholder="search..."
         onChange={(e) => handleText(e.target.value)}
-        onFocus={handleInputFocus}
-        onBlur={handleInputBlur}
+        // onFocus={(e) => handleInputFocus()}
+        // onBlur={handleInputBlur}
       />
       {searchQuery && predictions.length > 0 && (
-        <ul className={inputFocus ? "suggestions-ul" : "suggestions-hidden"}>
-          <Suggestions results={predictions} />
+        <ul className="suggestions-ul">
+          <Dropdown />
+          {/* <Suggestions results={predictions} /> */}
         </ul>
       )}
       <button className="search-bar-btn">OK</button>

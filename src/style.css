@@ -211,7 +211,7 @@ hr {
 .loading-skeleton-div {
     display: flex;
     background-color: var(--category-blue);
-
+    justify-content: space-around;
 }
 
 /* suggestions */
@@ -220,7 +220,8 @@ hr {
     margin-top: 1.5%;
     position: absolute;
     width: 100%;
-    box-shadow: 10px 7px 5px black;
+    box-shadow: 10px 7px 5px #111111;
+    display: block;
 }
 
 .suggestions-hidden {
@@ -264,6 +265,7 @@ hr {
     .loading-skeleton-div {
         width: 100%;
         overflow: auto;
+        justify-content: flex-start;
     }
 
     .category-span,
