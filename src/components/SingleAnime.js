@@ -13,6 +13,7 @@ const lowOpacity = {
 };
 
 const loadingSkeletonSingleAnime = (
+  // There's a slight Flash because of the contrast. We may wish to go with the darker palette after all.
   <>
     ;
     <AnimeCard isMobile={true}>

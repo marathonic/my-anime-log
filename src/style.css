@@ -99,6 +99,12 @@ a:hover {
     display: none;
     }
 
+    /* searchbar */
+
+    .searchbar-form {
+        text-align: center;
+    }
+
 .search-bar {
 
     background-color: rgba(255, 255, 255, 0.05);
@@ -109,6 +115,13 @@ a:hover {
     font-size: 1.2rem;
     padding: 0.5%;
     letter-spacing: 1px;
+}
+
+
+.search-bar-btn {
+    height: 1.7rem;
+    width: 10%;
+    margin-block: 7%;
 }
 
 .centered-span {
@@ -199,6 +212,36 @@ hr {
     display: flex;
     background-color: var(--category-blue);
 
+}
+
+/* suggestions */
+
+.suggestions-ul {
+    margin-top: 1.5%;
+    position: absolute;
+    width: 100%;
+    box-shadow: 10px 7px 5px black;
+}
+
+.suggestions-hidden {
+    display: none;
+}
+
+.suggestion-span {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    background-color: var(--bebop-blue);
+}
+
+.suggestion-img {
+    width: 4rem;
+    height: 5.67rem;
+}
+
+.suggestion-text {
+    width: 80%;
+    font-size: 1.33rem;
 }
 
 

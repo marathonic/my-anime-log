@@ -6,6 +6,7 @@ import { DebounceInput } from "react-debounce-input";
 const SearchBar = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [predictions, setPredictions] = useState([]);
+  const [inputFocus, setInputFocus] = useState(false);
   const [filteredPreds, setFilteredPreds] = useState([]);
   const navigate = useNavigate();
 
@@ -21,6 +22,14 @@ const SearchBar = () => {
     setSearchQuery(text);
   }, 700);
 
+  const handleInputFocus = (e) => {
+    setInputFocus(true);
+  };
+
+  const handleInputBlur = (e) => {
+    setInputFocus(false);
+  };
+
   useEffect(() => {
     if (!searchQuery.length) {
       return;
@@ -33,12 +42,20 @@ const SearchBar = () => {
   const Suggestions = ({ results }) => {
     const allPredictions = results.map((result) => {
       return (
-        <Link to={`/anime/${result.mal_id}`} key={result.mal_id}>
-          <span>
-            <img src={result.images.jpg.small_image_url} alt={result.title} />
-            <li key={result.mal_id}>{result.title}</li>
-          </span>
-        </Link>
+        <li key={result.mal_id}>
+          <Link to={`/anime/${result.mal_id}`}>
+            <span className="suggestion-span">
+              <img
+                src={result.images.jpg.small_image_url}
+                alt={result.title}
+                className="suggestion-img"
+              />
+              <span key={result.mal_id} className="suggestion-text">
+                {result.title}
+              </span>
+            </span>
+          </Link>
+        </li>
       );
     });
     return allPredictions;
@@ -61,17 +78,22 @@ const SearchBar = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    // we could give it position: sticky; top:0, so we can still search when we're scrolled down.
+    <form onSubmit={handleSubmit} className="searchbar-form">
       <input
         className="search-bar"
         type="search"
         placeholder="search..."
         onChange={(e) => handleText(e.target.value)}
+        onFocus={handleInputFocus}
+        onBlur={handleInputBlur}
       />
       {searchQuery && predictions.length > 0 && (
-        <Suggestions results={predictions} />
+        <ul className={inputFocus ? "suggestions-ul" : "suggestions-hidden"}>
+          <Suggestions results={predictions} />
+        </ul>
       )}
-      <button>OK</button>
+      <button className="search-bar-btn">OK</button>
     </form>
   );
 };
