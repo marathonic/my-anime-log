@@ -19,20 +19,22 @@ const loadingSkeletonSingleAnime = (
     <AnimeCard isMobile={true}>
       <div className="pic-container">
         <Skeleton
+          duration={0.5}
           height={"18.22rem"}
           width={"11.71rem"}
-          highlightColor="silver"
-          baseColor="darkgray"
+          highlightColor="#3f3351" //previously: silver
+          baseColor="#42032C" //previously: darkgrey
           style={lowOpacity}
         />
         <br />
         <span className="card-title">
           <h3>
             <Skeleton
+              duration={0.5}
               height={30}
               width={187}
-              baseColor="darkgray"
-              highlightColor="silver"
+              baseColor="#42032C"
+              highlightColor="#3f3351"
               style={lowOpacity}
             />
           </h3>
@@ -40,10 +42,11 @@ const loadingSkeletonSingleAnime = (
         <br />
       </div>
       <Skeleton
+        duration={0.5}
         height={"6.55rem"}
         width={"11.71rem"}
-        highlightColor="silver"
-        baseColor="darkgray"
+        highlightColor="#3f3351"
+        baseColor="#42032C"
         style={lowOpacity}
       />
       <hr />
@@ -51,10 +54,11 @@ const loadingSkeletonSingleAnime = (
     <span className="centered-span">
       <h3>
         <Skeleton
+          duration={0.5}
           height={30}
           width={130}
-          baseColor="darkgray"
-          highlightColor="silver"
+          baseColor="#42032C"
+          highlightColor="#3f3351"
           // baseColor="#42032C" cool but a little hard to see if page loads too fast
           // highlightColor="#3f3351"
           style={lowOpacity}
@@ -75,6 +79,7 @@ function SingleAnime({ message, isMobile }) {
   const API_URL = `https://api.jikan.moe/v4/anime/${animeID}`;
 
   useEffect(() => {
+    setLoading(true);
     fetch(API_URL).then((response) =>
       response
         .json()

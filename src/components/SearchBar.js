@@ -69,7 +69,7 @@ const SearchBar = () => {
     return allPredictions;
   };
 
-  const Dropdown = () => {
+  const DropdownList = () => {
     const { ref, isComponentVisible } = useListWhenVisible(true);
 
     return (
@@ -108,7 +108,7 @@ const SearchBar = () => {
       />
       {searchQuery && predictions.length > 0 && (
         <ul className="suggestions-ul">
-          <Dropdown />
+          <DropdownList />
           {/* <Suggestions results={predictions} /> */}
         </ul>
       )}
