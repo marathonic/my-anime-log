@@ -14,6 +14,15 @@ export default function Navbar({ isMobile }) {
         </li>
 
         <li>
+          {/* We want to know:
+          1) user? Whether or not there is a user (not null):
+          2) isMobile? Whether the device is mobile phone or not.
+              3)If mobile, Render A) <User /> if there is a user. Or, Render B) <FiLogin /> if user is null.
+              3)If desktop, Render A) "My Profile" if there is a user. Or, Render B) "Log In" if user is null.
+          SOLUTION: We could use MediaQueries: 
+          <MediaQuery max-width(640px)>{user ? <User /> : <FiLogin />}</MediaQuery>
+          <MediaQuery min-width(desktop-width)> </MediaQuery>
+          */}
           <Link to="/dashboard">{isMobile ? <FaUser /> : "My Profile"}</Link>
         </li>
         {/* We can nest inside a component <MediaQuery> here,

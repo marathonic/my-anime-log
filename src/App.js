@@ -10,11 +10,14 @@ import SingleAnime from "./components/SingleAnime";
 import SearchResults from "./pages/SearchResults";
 import { useReducer } from "react";
 import "react-loading-skeleton/dist/skeleton.css";
+import ProtectedRoute from "./components/ProtectedRoute";
+import Login from "./pages/Login";
 
 function App() {
   const [animeList, setAnimeList] = useState([]);
   const [topAnime, setTopAnime] = useState([]);
   const [search, setSearch] = useState("");
+  const [user, setUser] = useState(null);
 
   const initialAnime = {};
   const [allTopAnime, updateAllTopAnime] = useReducer(
@@ -143,6 +146,7 @@ function App() {
 
         <Route
           path="/"
+          // this should probably be the index page, just leave this word here --> index
           element={
             <Home
               search={search}
@@ -158,7 +162,16 @@ function App() {
           }
         ></Route>
 
-        <Route path="/dashboard" element={<Profile />}></Route>
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute user={user}>
+              <Profile />
+            </ProtectedRoute>
+          }
+        ></Route>
+
+        <Route path="/login" element={<Login />}></Route>
       </Routes>
     </AppContainer>
   );

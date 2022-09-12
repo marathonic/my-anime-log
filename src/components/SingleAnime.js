@@ -9,7 +9,7 @@ import { FaQuestion, FaQuestionCircle } from "react-icons/fa";
 import Synopsis from "./Synopsis";
 
 const lowOpacity = {
-  opacity: 0.42,
+  opacity: 1,
 };
 
 const loadingSkeletonSingleAnime = (
@@ -19,7 +19,7 @@ const loadingSkeletonSingleAnime = (
     <AnimeCard isMobile={true}>
       <div className="pic-container">
         <Skeleton
-          duration={0.5}
+          duration={0.6}
           height={"18.22rem"}
           width={"11.71rem"}
           highlightColor="#3f3351" //previously: silver
@@ -30,7 +30,7 @@ const loadingSkeletonSingleAnime = (
         <span className="card-title">
           <h3>
             <Skeleton
-              duration={0.5}
+              duration={0.6}
               height={30}
               width={187}
               baseColor="#42032C"
@@ -42,7 +42,7 @@ const loadingSkeletonSingleAnime = (
         <br />
       </div>
       <Skeleton
-        duration={0.5}
+        duration={0.6}
         height={"6.55rem"}
         width={"11.71rem"}
         highlightColor="#3f3351"
@@ -54,7 +54,7 @@ const loadingSkeletonSingleAnime = (
     <span className="centered-span">
       <h3>
         <Skeleton
-          duration={0.5}
+          duration={0.6}
           height={30}
           width={130}
           baseColor="#42032C"
