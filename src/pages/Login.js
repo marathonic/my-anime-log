@@ -47,19 +47,33 @@ function Login() {
         >
           Log In
         </button>
+        <div className="forgot-pw">
+          <span className="forgot-pw-span">
+            <Link to="/reset">
+              <span
+                style={{
+                  textDecoration: "underline",
+                  letterSpacing: "1px",
+                  fontSize: "1.1rem",
+                  marginTop: "1rem",
+                }}
+              >
+                Forgot password
+              </span>
+            </Link>
+          </span>
+        </div>
         <hr />
         <span style={{ color: "white" }}>or</span>
         <button className="login-btn with-google" onClick={signInWithGoogle}>
           Log in with Google
         </button>
       </form>
-      <div>
-        <Link to="/reset">Forgot password</Link>
-      </div>
-      <div>
+
+      <div className="login-signup-div">
         <h3>
           Don't have an account?
-          <Link to="/register">Sign up</Link> (it's free).
+          <Link to="/register">Sign up</Link>
         </h3>
       </div>
     </div>

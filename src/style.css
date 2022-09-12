@@ -247,32 +247,54 @@ hr {
 
 /* login  / log in */
 
+
 .login-form {
-    height: 15rem;
+    height: 17rem;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
     background-color: rgba(255, 255, 255, 0.1);
+    margin-bottom: 10%;
 }
+
 
 label {
     color: white;
 }
 
-.login-input {
+.login-input,
+.login-btn {
     text-align: center;
+    height: 10%;
 }
 
 .login-btn {
-    width: 36%;
+    width: 50%;
 }
 
 .with-google {
-    background-color: crimson;
+    background-color: rgb(174, 22, 73);
     height: 2rem;
     color: white;
-    font-weight: bold;
+}
+
+.forgot-pw,
+.login-signup-div {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 100%;
+}
+
+.forgot-pw-span {
+    max-width: 60%;
+    text-align: center;
+}
+
+.forgot-pw-span > h3 {
+    margin-block: 6%;
 }
 
 /* end of desktop */
