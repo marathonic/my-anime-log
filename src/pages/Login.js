@@ -71,10 +71,11 @@ function Login() {
       </form>
 
       <div className="login-signup-div">
-        <h3>
-          Don't have an account?
-          <Link to="/register">Sign up</Link>
-        </h3>
+        <h3>Don't have an account?</h3>
+        <Link to="/register">
+          {" "}
+          <br /> <h3 style={{ color: "lightgreen" }}>Sign up</h3>
+        </Link>
       </div>
     </div>
   );

@@ -249,7 +249,7 @@ hr {
 
 
 .login-form {
-    height: 17rem;
+    height: 19rem;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -267,16 +267,18 @@ label {
 .login-btn {
     text-align: center;
     height: 10%;
+    border: transparent;
 }
 
 .login-btn {
-    width: 50%;
+    width: 47%;
+    background-color: var(--soft-peach);
 }
 
 .with-google {
-    background-color: rgb(174, 22, 73);
+    background-color: var(--chalk-white);
     height: 2rem;
-    color: white;
+    color: black;
 }
 
 .forgot-pw,
