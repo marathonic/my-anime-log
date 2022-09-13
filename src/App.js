@@ -171,7 +171,8 @@ function App() {
           path="/dashboard"
           element={
             <ProtectedRoute user={user}>
-              <Profile />
+              {/* <Profile /> */}
+              <Dashboard />
             </ProtectedRoute>
           }
         ></Route>

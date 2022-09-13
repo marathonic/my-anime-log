@@ -10,9 +10,14 @@ function Dashboard() {
   const navigate = useNavigate();
   const fetchUserName = async () => {
     try {
-      const q = query(collection(db, "users"), where("uid", "===", user?.uid));
+      const q = query(collection(db, "users"), where("uid", "==", user?.uid));
       const doc = await getDocs(q);
+      console.log(doc);
+      //
       const data = doc.docs[0].data();
+      //
+      console.log(data);
+      //
       setUserName(data.name);
     } catch (err) {
       console.error(err);
@@ -28,8 +33,12 @@ function Dashboard() {
     <div>
       <div>
         Logged in as
-        <div>{userName}</div>
-        <div>{user?.email}</div>
+        <div>
+          <h3>{userName}</h3>
+        </div>
+        <div>
+          <h3>{user?.email}</h3>
+        </div>
         <button onClick={logout}>Log out</button>
       </div>
     </div>
