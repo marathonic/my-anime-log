@@ -12,13 +12,18 @@ import { useReducer } from "react";
 import "react-loading-skeleton/dist/skeleton.css";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Login from "./pages/Login";
+import RegisterUser from "./components/RegisterUser";
+import PasswordReset from "./components/PasswordReset";
+import Dashboard from "./pages/Dashboard";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "./firebase";
 
 function App() {
   const [animeList, setAnimeList] = useState([]);
   const [topAnime, setTopAnime] = useState([]);
   const [search, setSearch] = useState("");
-  const [user, setUser] = useState(null);
-
+  // const [user, setUser] = useState(null);
+  const [user, loading, error] = useAuthState(auth);
   const initialAnime = {};
   const [allTopAnime, updateAllTopAnime] = useReducer(
     (allTopAnime, updates) => ({ ...allTopAnime, ...updates }),
@@ -172,6 +177,9 @@ function App() {
         ></Route>
 
         <Route path="/login" element={<Login />}></Route>
+        <Route path="/register" element={<RegisterUser />} />
+        <Route path="/reset" element={<PasswordReset />} />
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
     </AppContainer>
   );

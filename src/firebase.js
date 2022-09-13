@@ -101,6 +101,7 @@ export {
   db,
   logInWithEmailAndPassword,
   registerWithEmailAndPassword,
+  sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signInWithGoogle,
   sendPasswordReset,

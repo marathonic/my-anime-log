@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   auth,
   registerWithEmailAndPassword,
@@ -12,7 +12,7 @@ function RegisterUser() {
   const [password, setPassword] = useState("");
   const [userName, setUserName] = useState("");
   const [user, loading, error] = useAuthState(auth);
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const register = () => {
     if (!userName) alert("Please enter a name");
@@ -22,7 +22,7 @@ function RegisterUser() {
   useEffect(() => {
     if (loading) return;
     if (user) {
-      history.replace("/dashboard");
+      navigate("/dashboard", { replace: true });
     }
   }, [userName, loading]);
   return (
