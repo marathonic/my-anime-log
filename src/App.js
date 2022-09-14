@@ -25,6 +25,7 @@ function App() {
   const [search, setSearch] = useState("");
   // const [user, setUser] = useState(null);
   const [user, loading, error] = useAuthState(auth);
+  const [myUser, setMyUser] = useState([]);
   const initialAnime = {};
   const [allTopAnime, updateAllTopAnime] = useReducer(
     (allTopAnime, updates) => ({ ...allTopAnime, ...updates }),
@@ -180,13 +181,16 @@ function App() {
           element={
             <ProtectedRoute user={user}>
               {/* <Profile /> */}
-              <Dashboard />
+              <Dashboard myUser={myUser} />
             </ProtectedRoute>
           }
         ></Route>
 
         <Route path="/login" element={<Login />}></Route>
-        <Route path="/register" element={<RegisterUser />} />
+        <Route
+          path="/register"
+          element={<RegisterUser setMyUser={setMyUser} />}
+        />
         <Route path="/reset" element={<PasswordReset />} />
         {/* <Route path="/dashboard" element={<Dashboard />} /> */}
       </Routes>

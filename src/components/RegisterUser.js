@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Link, useNavigate } from "react-router-dom";
+import { query, collection, getDocs, where } from "firebase/firestore";
 import {
   auth,
+  db,
   registerWithEmailAndPassword,
   signInWithGoogle,
 } from "../firebase.js";
 
-function RegisterUser() {
+function RegisterUser({ setMyUser }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [userName, setUserName] = useState("");
@@ -23,6 +25,27 @@ function RegisterUser() {
   useEffect(() => {
     if (loading) return;
     if (user) {
+      const fetchUserName = async () => {
+        try {
+          const q = query(
+            collection(db, "users"),
+            where("uid", "==", user?.uid)
+          );
+          const doc = await getDocs(q);
+          console.log(doc);
+          //
+          const data = doc.docs[0].data();
+          //
+          console.log(data);
+          //
+          setUserName(data.name);
+          setMyUser(data.name);
+        } catch (err) {
+          console.error(err);
+          alert("error fetching user data");
+        }
+      };
+      fetchUserName();
       navigate("/dashboard", { replace: true });
       // IT'S NOT REDIRECTING US UPON REGISTRATION. FIND OUT WHY.
       // EDIT: It now redirects us.
