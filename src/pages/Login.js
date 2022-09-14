@@ -12,6 +12,11 @@ function Login() {
   const [password, setPassword] = useState("");
   const [user, loading, error] = useAuthState(auth);
   const navigate = useNavigate();
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+  };
+
   useEffect(() => {
     if (loading) {
       // loading screen...
@@ -22,7 +27,7 @@ function Login() {
   return (
     <div>
       <h3>Log in</h3>
-      <form className="login-form">
+      <form className="login-form" onSubmit={handleFormSubmit}>
         <label htmlFor="email-input">email: </label>
         <input
           name="email-input"
@@ -43,7 +48,7 @@ function Login() {
         />
         <button
           className="login-btn"
-          onClick={() => signInWithEmailAndPassword(email, password)}
+          onClick={() => signInWithEmailAndPassword(auth, email, password)}
         >
           Log In
         </button>
