@@ -281,6 +281,7 @@ label {
     color: black;
 }
 
+
 .forgot-pw,
 .login-signup-div {
     display: flex;
@@ -297,6 +298,49 @@ label {
 
 .forgot-pw-span > h3 {
     margin-block: 6%;
+}
+
+/* password reset */
+
+.pw-reset {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    height: 12rem;
+    margin-block: 10%;
+}
+
+.pw-reset-container {
+    display: flex;
+    flex-direction: column;
+    height: 3.9rem;
+    width: 60%;
+    justify-content: space-between;
+}
+
+.pw-reset-input {
+    height: 97%;
+    margin-bottom: 3%;
+    font-size: 1.1rem;
+    padding: 1%;
+}
+
+.pw-reset-btn {
+    background-color: rgb(172, 21, 21);
+    border: transparent;
+    color: white;
+    font-size: 1rem;
+    padding: 2%;
+    font-weight: bold;
+}
+
+.pw-reset-foot {
+    margin-top: 10%;
+}
+
+.cyber-yellow {
+    color: yellow;
 }
 
 /* end of desktop */

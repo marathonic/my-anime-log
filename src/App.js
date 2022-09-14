@@ -78,8 +78,6 @@ function App() {
     // await new Promise((resolve) => setTimeout(resolve, 6000));
   };
 
-  console.log(allTopAnime);
-
   const handleSearch = (e) => {
     e.preventDefault();
     fetchAnime(search);
@@ -101,6 +99,7 @@ function App() {
     // if (location.pathname !== "/") {
     // return;
     // }
+
     if (location.pathname !== "/") return;
     if (allTopAnime.length === 4) return;
     // getTopAnime();
@@ -137,7 +136,7 @@ function App() {
     };
 
     getAllMyTopAnime();
-  }, [allTopAnime.length]);
+  }, [allTopAnime.length, location.pathname]);
 
   return (
     <AppContainer>

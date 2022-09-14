@@ -40,7 +40,7 @@ function Dashboard({ myUser, setMyUser }) {
     // That way, we don't need to fetch the information from this page.
     // To do that, we could pass a function to RegisterUser from App.js
     // Then from App.js, pass that value as a prop to Dashboard.js
-    if (loading) return;
+    if (loading) return <h1>LOADING...</h1>;
     if (!user) return navigate("/");
     if (user) {
       const fetchUserName = async () => {
@@ -81,7 +81,7 @@ function Dashboard({ myUser, setMyUser }) {
         <div>
           <h3>{user?.email}</h3>
         </div>
-        <h3>Name: {user?.name}</h3>
+        {/* <h3>Name: {user?.name}</h3> */}
         <h3>Email verified: {user.emailVerified}</h3>
         <button onClick={logout}>Log out</button>
       </div>
