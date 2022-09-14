@@ -39,6 +39,7 @@ function Dashboard() {
         <div>
           <h3>{user?.email}</h3>
         </div>
+        <h3>Email verified: {user.emailVerified}</h3>
         <button onClick={logout}>Log out</button>
       </div>
     </div>

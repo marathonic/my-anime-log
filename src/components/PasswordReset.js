@@ -29,7 +29,9 @@ function PasswordReset() {
           Send password reset email
         </button>
       </div>
-      <span>Dont have an account yet? </span>
+      <span>
+        <h3>Dont have an account yet?</h3>{" "}
+      </span>
       <Link to="/register">Sign up for free!</Link>
     </div>
   );

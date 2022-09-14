@@ -17,6 +17,7 @@ import PasswordReset from "./components/PasswordReset";
 import Dashboard from "./pages/Dashboard";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "./firebase";
+import { useLocation } from "react-router-dom";
 
 function App() {
   const [animeList, setAnimeList] = useState([]);
@@ -92,7 +93,14 @@ function App() {
     setAnimeList(data.results);
   };
 
+  const location = useLocation();
+
   useEffect(() => {
+    // console.log(location.pathname);
+    // if (location.pathname !== "/") {
+    // return;
+    // }
+    if (allTopAnime.length === 4) return;
     // getTopAnime();
     const getAllMyTopAnime = async () => {
       // we can set all at the end at once: updateAllTopAnime({movies: topMovies, airing: topAiring, popular: topPopular})
@@ -127,7 +135,7 @@ function App() {
     };
 
     getAllMyTopAnime();
-  }, []);
+  }, [allTopAnime.length]);
 
   return (
     <AppContainer>
@@ -180,7 +188,7 @@ function App() {
         <Route path="/login" element={<Login />}></Route>
         <Route path="/register" element={<RegisterUser />} />
         <Route path="/reset" element={<PasswordReset />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        {/* <Route path="/dashboard" element={<Dashboard />} /> */}
       </Routes>
     </AppContainer>
   );

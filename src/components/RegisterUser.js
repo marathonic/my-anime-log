@@ -16,15 +16,18 @@ function RegisterUser() {
 
   const register = () => {
     if (!userName) alert("Please enter a name");
-    registerWithEmailAndPassword(userName, email, password);
+    // registerWithEmailAndPassword(userName, email, password);
+    registerWithEmailAndPassword(auth, email, password);
   };
 
   useEffect(() => {
     if (loading) return;
     if (user) {
       navigate("/dashboard", { replace: true });
+      // IT'S NOT REDIRECTING US UPON REGISTRATION. FIND OUT WHY.
+      // EDIT: It now redirects us.
     }
-  }, [userName, loading]);
+  }, [user, userName, loading]);
   return (
     <div className="register-user">
       <div className="register-user-container">
