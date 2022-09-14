@@ -4,9 +4,17 @@ import { useNavigate } from "react-router-dom";
 import { auth, db, logout } from "../firebase.js";
 import { query, collection, getDocs, where } from "firebase/firestore";
 
-function Dashboard({ myUser }) {
+function Dashboard({ myUser, setMyUser }) {
   const [user, loading, error] = useAuthState(auth);
   const navigate = useNavigate();
+
+  // As we can see from the user oject below:
+  // console.log(user);
+  // That one isn't out uid object that holds our "name",
+  // BUT It does hold a "uid" field, which contains a uid.
+  // We want to access the check (map?) against our "users"  object in Firestore,
+  // and get the one that matches the uid. Then once inside there, we can get the "name"
+
   // const fetchUserName = async () => {
   //   try {
   //     const q = query(collection(db, "users"), where("uid", "==", user?.uid));
@@ -34,6 +42,32 @@ function Dashboard({ myUser }) {
     // Then from App.js, pass that value as a prop to Dashboard.js
     if (loading) return;
     if (!user) return navigate("/");
+    if (user) {
+      const fetchUserName = async () => {
+        try {
+          const q = query(
+            collection(db, "users"),
+            where("uid", "==", user?.uid)
+          );
+          const doc = await getDocs(q);
+
+          //
+          const data = doc.docs[0].data();
+          //
+          console.log("-----------data below this line------------");
+          console.log(data);
+          console.log("--------------NAME BELOW THIS LINE----------");
+          console.log(data.name);
+          //
+          // setUserName(data.name);
+          setMyUser(data.name); // <--- set the user name
+        } catch (err) {
+          console.error(err);
+          alert("error fetching user data");
+        }
+      };
+      fetchUserName();
+    }
   }, [user, loading]);
   return (
     <div>
@@ -47,6 +81,7 @@ function Dashboard({ myUser }) {
         <div>
           <h3>{user?.email}</h3>
         </div>
+        <h3>Name: {user?.name}</h3>
         <h3>Email verified: {user.emailVerified}</h3>
         <button onClick={logout}>Log out</button>
       </div>

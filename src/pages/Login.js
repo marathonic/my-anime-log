@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Link, useNavigate } from "react-router-dom";
+import { query, collection, getDocs, where } from "firebase/firestore";
+
 import {
   auth,
+  db,
   signInWithEmailAndPassword,
   signInWithGoogle,
 } from "../firebase.js";
 
-function Login() {
+function Login({ setMyUser }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [user, loading, error] = useAuthState(auth);
@@ -15,6 +18,31 @@ function Login() {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
+    if (user) {
+      const fetchUserName = async () => {
+        try {
+          const q = query(
+            collection(db, "users"),
+            where("uid", "==", user?.uid)
+          );
+          const doc = await getDocs(q);
+          console.log(doc);
+          //
+          const data = doc.docs[0].data();
+          //
+          console.log(data);
+          console.log("--------------NAME BELOW THIS LINE----------");
+          console.log(data.name);
+          //
+          // setUserName(data.name);
+          setMyUser(data.name); // <--- set the user name
+        } catch (err) {
+          console.error(err);
+          alert("error fetching user data");
+        }
+      };
+      fetchUserName();
+    }
   };
 
   useEffect(() => {

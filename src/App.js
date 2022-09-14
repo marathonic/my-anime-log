@@ -101,6 +101,7 @@ function App() {
     // if (location.pathname !== "/") {
     // return;
     // }
+    if (location.pathname !== "/") return;
     if (allTopAnime.length === 4) return;
     // getTopAnime();
     const getAllMyTopAnime = async () => {
@@ -181,12 +182,12 @@ function App() {
           element={
             <ProtectedRoute user={user}>
               {/* <Profile /> */}
-              <Dashboard myUser={myUser} />
+              <Dashboard myUser={myUser} setMyUser={setMyUser} />
             </ProtectedRoute>
           }
         ></Route>
 
-        <Route path="/login" element={<Login />}></Route>
+        <Route path="/login" element={<Login setMyUser={setMyUser} />}></Route>
         <Route
           path="/register"
           element={<RegisterUser setMyUser={setMyUser} />}
