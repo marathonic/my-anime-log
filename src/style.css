@@ -363,6 +363,11 @@ label {
     color: yellow;
 }
 
+.pw-reset-btn:disabled {
+    background-color: #EBEBE4;
+    color: var(--bebop-blue);
+}
+
 /* end of desktop */
 
 @font-face {

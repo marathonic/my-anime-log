@@ -186,6 +186,7 @@ function App() {
           }
         ></Route>
 
+        {/* We could protect these routes, make them accessible only if there's no user */}
         <Route path="/login" element={<Login setMyUser={setMyUser} />}></Route>
         <Route
           path="/register"

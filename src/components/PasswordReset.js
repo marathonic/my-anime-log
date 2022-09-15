@@ -11,6 +11,7 @@ function PasswordReset() {
   const [warningMessage, setWarningMessage] = useState(null);
   // const [buttonCooldown, setButtonCooldown] = useState(false);
   const [countdown, setCountdown] = useState(60);
+  const persistentTimer = sessionStorage.getItem("timer");
   const [countdownActive, setCountdownActive] = useState(false);
   const navigate = useNavigate();
 
@@ -61,12 +62,20 @@ function PasswordReset() {
   }, [user, loading]);
 
   useEffect(() => {
+    let latestTime = sessionStorage.getItem("timer");
+    if (latestTime < 60) {
+      setCountdown(latestTime);
+      setCountdownActive(true);
+    }
+  }, []);
+
+  useEffect(() => {
     let interval = null;
     if (countdownActive && countdown > 0) {
       interval = setInterval(() => {
         setCountdown((countdown) => countdown - 1);
       }, 1000);
-    } else if (countdown <= 0) {
+    } else if (countdown === 0) {
       setCountdownActive(false);
       setCountdown(60);
       clearInterval(interval);
@@ -74,10 +83,21 @@ function PasswordReset() {
     return () => clearInterval(interval);
   }, [countdownActive, countdown]);
 
+  window.onbeforeunload = function (e) {
+    sessionStorage.setItem("timer", countdown);
+  };
+
   return (
     <div className="pw-reset">
       <h1>Reset password</h1>
       <div className="pw-reset-container">
+        {countdownActive && (
+          <span>
+            <h3 className="cyber-yellow">
+              Email sent, check your Spam folder!
+            </h3>
+          </span>
+        )}
         {warningMessage && (
           <div>
             <p className="cyber-yellow">{warningMessage}</p>
@@ -88,6 +108,7 @@ function PasswordReset() {
             type="email"
             className="pw-reset-input"
             value={email}
+            disabled={countdownActive}
             onChange={handleEmailInputChange}
             placeholder="e.g: example@email.com"
           />
@@ -97,7 +118,9 @@ function PasswordReset() {
             disabled={countdownActive}
             // onClick={() => }
           >
-            Send password reset email {countdownActive && countdown}
+            {!countdownActive && <span>Send password reset email</span>}
+            {countdownActive && <span>Try again in {countdown}</span>}
+            {/* {countdownActive && countdown} */}
           </button>
         </form>
       </div>
