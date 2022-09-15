@@ -8,7 +8,7 @@ import { sendPasswordResetEmail } from "firebase/auth";
 function PasswordReset() {
   const [email, setEmail] = useState("");
   const [user, loading, error] = useAuthState(auth);
-  const [emailNotFound, setEmailNotFound] = useState(false);
+  const [warningMessage, setWarningMessage] = useState(null);
   const navigate = useNavigate();
 
   // we're making a slightly modified version of sendPasswordReset here,
@@ -19,13 +19,29 @@ function PasswordReset() {
 
   const mySendPasswordReset = async (email) => {
     try {
+      if (!email.trim()) return;
+      // if (email.length <= 3) return;
+      let reggae =
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      if (email.length <= 5 || !reggae.test(email)) {
+        setWarningMessage("Invalid email address");
+        return;
+      }
       await sendPasswordResetEmail(auth, email);
       alert("Password reset link sent!");
     } catch (err) {
       console.error(err);
-      setEmailNotFound(true);
+      setWarningMessage("User not found");
       alert(err.message);
+      console.log(email);
     }
+  };
+
+  const handleEmailInputChange = (e) => {
+    if (warningMessage) {
+      setWarningMessage(null);
+    }
+    setEmail(e.target.value);
   };
 
   useEffect(() => {
@@ -36,16 +52,16 @@ function PasswordReset() {
     <div className="pw-reset">
       <h1>Reset password</h1>
       <div className="pw-reset-container">
-        {emailNotFound && (
+        {warningMessage && (
           <div>
-            <p className="cyber-yellow">Email not found</p>
+            <p className="cyber-yellow">{warningMessage}</p>
           </div>
         )}
         <input
-          type="text"
+          type="email"
           className="pw-reset-input"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={handleEmailInputChange}
           placeholder="e.g: example@email.com"
         />
 
