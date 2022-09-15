@@ -9,6 +9,9 @@ function PasswordReset() {
   const [email, setEmail] = useState("");
   const [user, loading, error] = useAuthState(auth);
   const [warningMessage, setWarningMessage] = useState(null);
+  // const [buttonCooldown, setButtonCooldown] = useState(false);
+  const [countdown, setCountdown] = useState(60);
+  const [countdownActive, setCountdownActive] = useState(false);
   const navigate = useNavigate();
 
   // we're making a slightly modified version of sendPasswordReset here,
@@ -16,6 +19,8 @@ function PasswordReset() {
   // --------------------------CONTINUE HERE-------------------
   // Next, upon clicking the "Send password request" button,
   // we want to disable it for the next 60 seconds.
+  // next day:
+  // NOTE: We may wish to implement a verifyE
 
   const mySendPasswordReset = async (email) => {
     try {
@@ -29,6 +34,7 @@ function PasswordReset() {
       }
       await sendPasswordResetEmail(auth, email);
       alert("Password reset link sent!");
+      setCountdownActive(true);
     } catch (err) {
       console.error(err);
       setWarningMessage("User not found");
@@ -44,10 +50,30 @@ function PasswordReset() {
     setEmail(e.target.value);
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    mySendPasswordReset(email);
+  };
+
   useEffect(() => {
     if (loading) return;
     if (user) navigate("/dashboard");
   }, [user, loading]);
+
+  useEffect(() => {
+    let interval = null;
+    if (countdownActive && countdown > 0) {
+      interval = setInterval(() => {
+        setCountdown((countdown) => countdown - 1);
+      }, 1000);
+    } else if (countdown <= 0) {
+      setCountdownActive(false);
+      setCountdown(60);
+      clearInterval(interval);
+    }
+    return () => clearInterval(interval);
+  }, [countdownActive, countdown]);
+
   return (
     <div className="pw-reset">
       <h1>Reset password</h1>
@@ -57,20 +83,23 @@ function PasswordReset() {
             <p className="cyber-yellow">{warningMessage}</p>
           </div>
         )}
-        <input
-          type="email"
-          className="pw-reset-input"
-          value={email}
-          onChange={handleEmailInputChange}
-          placeholder="e.g: example@email.com"
-        />
+        <form onSubmit={handleSubmit} className="pw-reset-form">
+          <input
+            type="email"
+            className="pw-reset-input"
+            value={email}
+            onChange={handleEmailInputChange}
+            placeholder="e.g: example@email.com"
+          />
 
-        <button
-          className="pw-reset-btn"
-          onClick={() => mySendPasswordReset(email)}
-        >
-          Send password reset email
-        </button>
+          <button
+            className="pw-reset-btn"
+            disabled={countdownActive}
+            // onClick={() => }
+          >
+            Send password reset email {countdownActive && countdown}
+          </button>
+        </form>
       </div>
 
       <span className="pw-reset-foot">

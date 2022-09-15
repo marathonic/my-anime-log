@@ -313,8 +313,28 @@ label {
 
 .pw-reset-container {
     display: flex;
+    justify-content: center;
     flex-direction: column;
+    align-items: center; 
+    /* 
     height: 3.9rem;
+    */
+    height: max-content;
+    width: 100%;
+    /* width: 60%;
+    justify-content: space-between;
+     */
+}
+/* 
+.pw-reset-container > div {
+    width: 60%;
+    display: flex;
+    justify-content: flex-start;
+} */
+
+.pw-reset-form {
+    display: flex;
+    flex-direction: column;
     width: 60%;
     justify-content: space-between;
 }
