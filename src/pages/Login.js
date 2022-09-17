@@ -14,10 +14,46 @@ function Login({ setMyUser }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [user, loading, error] = useAuthState(auth);
+  const [warningMessage, setWarningMessage] = useState(null);
   const navigate = useNavigate();
 
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
+  // const validateEmailAndPassword = () => {
+  //   if (!email.trim() || !password.trim()) return;
+  // };
+
+  const validateSignIn = async () => {
+    if (!email.trim() || !password.trim()) return;
+    let isValidEmail =
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (email.length <= 5 || !isValidEmail.test(email)) {
+      setWarningMessage("Invalid email address");
+      return;
+    }
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+    } catch (err) {
+      console.error(err);
+      switch (err.code) {
+        case "auth/wrong-password":
+          setWarningMessage("wrong password");
+          break;
+
+        case "auth/user-not-found":
+          setWarningMessage("user not found");
+          break;
+
+        default:
+          break;
+      }
+      // if (err.code === "auth/wrong-password") {
+      //   setWarningMessage("wrong password");
+      // }
+    }
+
+    handleFormSubmit();
+  };
+
+  const handleFormSubmit = () => {
     if (user) {
       const fetchUserName = async () => {
         try {
@@ -45,6 +81,20 @@ function Login({ setMyUser }) {
     }
   };
 
+  const handleEmailInputChange = (e) => {
+    if (warningMessage) {
+      setWarningMessage(null);
+    }
+    setEmail(e.target.value);
+  };
+
+  const hanldePasswordInputChange = (e) => {
+    if (warningMessage) {
+      setWarningMessage(null);
+    }
+    setPassword(e.target.value);
+  };
+
   useEffect(() => {
     if (loading) {
       // loading screen...
@@ -52,17 +102,25 @@ function Login({ setMyUser }) {
     }
     if (user) navigate("/dashboard");
   }, [user, loading]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
+
   return (
     <div>
       <h3>Log in</h3>
-      <form className="login-form" onSubmit={handleFormSubmit}>
+      <form className="login-form" onSubmit={handleSubmit}>
+        {warningMessage && (
+          <span className="cyber-yellow warning-span">{warningMessage}</span>
+        )}
         <label htmlFor="email-input">email: </label>
         <input
           name="email-input"
           type="text"
           className="login-input"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={handleEmailInputChange}
           placeholder="e.g: john@example.com"
         />
         <label htmlFor="email-password">password: </label>
@@ -71,13 +129,10 @@ function Login({ setMyUser }) {
           type="password"
           className="login-input"
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={hanldePasswordInputChange}
           placeholder="your password here"
         />
-        <button
-          className="login-btn"
-          onClick={() => signInWithEmailAndPassword(auth, email, password)}
-        >
+        <button className="login-btn" onClick={validateSignIn}>
           Log In
         </button>
         <div className="forgot-pw">

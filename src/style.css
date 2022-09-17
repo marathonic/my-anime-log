@@ -268,10 +268,11 @@ label {
     text-align: center;
     height: 10%;
     border: transparent;
+    width: 47%;
 }
 
 .login-btn {
-    width: 47%;
+    /* width: 47%; */
     background-color: var(--soft-peach);
 }
 
@@ -366,6 +367,14 @@ label {
 .pw-reset-btn:disabled {
     background-color: #EBEBE4;
     color: var(--bebop-blue);
+}
+
+.warning-span {
+    width: 100%;
+    background-color: var(--soft-peach);
+    color: black;
+    font-weight: bold;
+    text-align: center;
 }
 
 /* end of desktop */
