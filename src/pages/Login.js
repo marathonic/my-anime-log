@@ -117,7 +117,7 @@ function Login({ setMyUser }) {
         <label htmlFor="email-input">email: </label>
         <input
           name="email-input"
-          type="text"
+          type="email"
           className="login-input"
           value={email}
           onChange={handleEmailInputChange}

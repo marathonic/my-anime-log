@@ -38,6 +38,7 @@ body {
     padding: 0;
     background-color: #1F1D36;
     height: 100%;
+    color: white;
 }
 
 h1, 
@@ -276,11 +277,6 @@ label {
     background-color: var(--soft-peach);
 }
 
-.with-google {
-    background-color: var(--chalk-white);
-    height: 2rem;
-    color: black;
-}
 
 
 .forgot-pw,
@@ -377,6 +373,70 @@ label {
     text-align: center;
 }
 
+.register-user {
+    
+    width: 100%;
+    height: 30rem;
+    display: flex;
+    flex-direction: column;
+    margin-block: 10%;
+    
+}
+
+.registration-header {
+    text-align: center                  ;
+}
+
+.user-registration-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    height: 100%;
+    width: 100%;
+    background-color: var(--category-blue);
+}
+
+.register-user-input {
+    width: 50%;
+    /* margin-block: 1rem  ; */
+    height: 10%;
+}
+
+.register-user-btn {
+    background-color: var(--soft-peach);
+    background-color: var(--mint-white);
+    /* font-family: "sans-serif"; */
+    padding: 8px;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    color: black;
+    text-align: center;
+    height: 10%;
+}
+
+
+.register-user-btn.with-google {
+    background-color: #FFFFFF;
+    /* height: 2rem; */
+    color: rgb(37, 61, 61);
+}
+
+.btn-icon-span {
+    margin-right: 18px;
+
+}
+
+.user-registration-form > hr {
+    text-align: center;
+}
+
+.signup-foot {
+    width: 100%;
+    text-align: center;
+}
+
 /* end of desktop */
 
 @font-face {
@@ -385,9 +445,13 @@ label {
 
     font-family: Yellowtail-Regular;
     src: url('./assets/fonts/Yellowtail-Regular.ttf') format('truetype');
+/* 
+    font-family: Roboto-Medium;
+    src: url('./assets/fonts/Roboto-Medium.ttf') format('truetype'); */
 
     font-family: Questrial-Regular;
-    src: url('./assets/fonts/Questrial-Regular.ttf') format('truetype')
+    src: url('./assets/fonts/Questrial-Regular.ttf') format('truetype');
+
 }
 
 /* micro-adjustments for mobile */
