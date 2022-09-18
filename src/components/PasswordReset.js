@@ -63,7 +63,7 @@ function PasswordReset() {
 
   useEffect(() => {
     let latestTime = sessionStorage.getItem("timer");
-    if (latestTime < 60) {
+    if (latestTime < 60 && latestTime > 0) {
       setCountdown(latestTime);
       setCountdownActive(true);
     }

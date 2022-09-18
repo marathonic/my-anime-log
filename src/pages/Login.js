@@ -2,13 +2,13 @@ import React, { useState, useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Link, useNavigate } from "react-router-dom";
 import { query, collection, getDocs, where } from "firebase/firestore";
-
 import {
   auth,
   db,
   signInWithEmailAndPassword,
   signInWithGoogle,
 } from "../firebase.js";
+import { FcGoogle } from "react-icons/fc";
 
 function Login({ setMyUser }) {
   const [email, setEmail] = useState("");
@@ -114,6 +114,14 @@ function Login({ setMyUser }) {
         {warningMessage && (
           <span className="cyber-yellow warning-span">{warningMessage}</span>
         )}
+        <button className="login-btn with-google" onClick={signInWithGoogle}>
+          <span className="btn-icon-span">
+            <FcGoogle size={25} style={{ pointerEvents: "none" }} />
+          </span>
+          Log in with Google
+        </button>
+        <hr />
+        <span style={{ color: "white" }}>or</span>
         <label htmlFor="email-input">email: </label>
         <input
           name="email-input"
@@ -151,11 +159,6 @@ function Login({ setMyUser }) {
             </Link>
           </span>
         </div>
-        <hr />
-        <span style={{ color: "white" }}>or</span>
-        <button className="login-btn with-google" onClick={signInWithGoogle}>
-          Log in with Google
-        </button>
       </form>
 
       <div className="login-signup-div">
