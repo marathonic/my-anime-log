@@ -22,7 +22,8 @@
     height: 170px;
     height: 17rem;
     background: white;
-    color: white;
+    background-color: #EFFFFD;
+    background-color: #E8F0F2;
     z-index: 10;
     border-radius: 16px;
     box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.04);
@@ -214,4 +215,8 @@
   .ep-count {
     color: rgb(110, 232, 110);
     /* margin-left: "43%"; */
+  }
+
+  .sky-blue {
+    color: #177bb1;
   }

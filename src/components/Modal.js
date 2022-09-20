@@ -29,7 +29,7 @@ function Modal({ setIsModalOpen }) {
               {listSelector === "watching" && (
                 <div className="watching-container">
                   <span className="details-span watching">
-                    <p>Episodes: 100</p>
+                    <p className="sky-blue">Episodes: 100</p>
                   </span>
                   <span className="details-span watching">
                     <p>Watched: </p>
@@ -45,7 +45,11 @@ function Modal({ setIsModalOpen }) {
 
                   <span className="details-span watching">
                     <p>My score: </p>
-                    <input type="number" className="score-input"></input>
+                    <input
+                      type="number"
+                      className="score-input"
+                      max={10}
+                    ></input>
                   </span>
                 </div>
               )}
