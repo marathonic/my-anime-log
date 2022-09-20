@@ -17,9 +17,10 @@ export default function Home({
   allTopAnime,
   overall,
   movies,
+  airing,
   popular,
 }) {
-  let topOverall, topMovies, topSpecials, topPopular;
+  let topOverall, topMovies, topSpecials, topPopular, topAiring;
 
   const renderMapped = (category, isMobile) => {
     let mapped = category.map((anime) => {
@@ -156,6 +157,10 @@ export default function Home({
     ? (topPopular = renderMapped(popular, (isMobile = { isMobile })))
     : (topPopular = loadingSkeletonStrip);
 
+  airing
+    ? (topAiring = renderMapped(airing, (isMobile = { isMobile })))
+    : (topAiring = loadingSkeletonStrip);
+
   // const loadingStrip = () => {
   //   for(let i = 0; i < 7; i++){
   //     <div className="loading-skeleton-thumbnails">
@@ -190,31 +195,11 @@ export default function Home({
       {/* <Category isMobile={isMobile}>{topTen}</Category> */}
       <MobileSkeletonTile></MobileSkeletonTile>
       {overall && <h3>Top anime</h3>}
-      {/* !overall && isMobile && MobileSkeletonTile */}
-      {/* !overall && !isMobile && DesktopSkeletonTile */}
       {topOverall}
-
-      {/* ----------SKELETON PREVIEW!!!----------- */}
-      {/* We could try and render these inside the Category itself, like in the example we saw */}
-      {/* Skeleton preview */}
-      {/* <h3>Loading Skeleton </h3> */}
-      {/* <div className="loading-skeleton-div"> */}
-      {/* <span className="loading-skeleton-span"> */}
-      {/* <div className="loading-skeleton-thumbnails"> */}
-      {/* <Skeleton */}
-      {/* 
-               height={"13.10rem"}
-               width={"9.36rem"}
-               highlightColor="#3f3351"
-               baseColor="#42032C"
-             />
-  */}
-      {/* </div> */}
-      {/* </span> */}
-      {/* </div> */}
       {popular && <h3>Top popular</h3>}
       {topPopular}
-      {/* ^ Skeleton preview ^ */}
+      {airing && <h3>Airing this week</h3>}
+      {topAiring}
       {movies && <h3>Top movies</h3>}
       {topMovies}
     </div>

@@ -17,6 +17,7 @@ import {
   where,
   addDoc,
 } from "firebase/firestore";
+import { getStorage } from "firebase/storage";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -96,6 +97,8 @@ const logout = () => {
   signOut(auth);
 };
 
+const storage = getStorage(app);
+
 export {
   auth,
   db,
@@ -106,4 +109,5 @@ export {
   signInWithGoogle,
   sendPasswordReset,
   logout,
+  storage,
 };

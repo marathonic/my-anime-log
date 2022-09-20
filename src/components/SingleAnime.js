@@ -7,6 +7,7 @@ import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import YoutubeEmbed from "./YoutubeTrailer";
 import { FaQuestion, FaQuestionCircle } from "react-icons/fa";
 import Synopsis from "./Synopsis";
+import Modal from "./Modal";
 
 const lowOpacity = {
   opacity: 1,
@@ -70,7 +71,7 @@ const loadingSkeletonSingleAnime = (
 
 // END LOADINGSKELETONSINGLEANIME
 
-function SingleAnime({ message, isMobile }) {
+function SingleAnime({ message, isMobile, setIsModalOpen, isModalOpen }) {
   const urlID = useParams();
   const animeID = urlID.mal_id;
   const [loading, setLoading] = useState(true);
@@ -158,10 +159,11 @@ function SingleAnime({ message, isMobile }) {
 
         {/* Commenting The following lines while beginning styling for desktop: */}
         {isMobile && (
-          <button className="add-list-btn">
+          <button className="add-list-btn" onClick={() => setIsModalOpen(true)}>
             <BsFillBookmarkPlusFill size={22} /> add
           </button>
         )}
+        {isModalOpen && <Modal setIsModalOpen={setIsModalOpen} />}
         {/* <span>{myAnimeData.synopsis}</span> */}
         {/* Anime trailer */}
         {/* <h5>{myAnimeData.trailer.youtube_id}</h5> */}

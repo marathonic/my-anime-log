@@ -228,3 +228,17 @@ export const ResultSpan = styled.span`
 export const ResultThumbnail = styled.img`
   width: ${(props) => (props.isMobile ? "30%" : "10%")};
 `;
+
+export const Selector = styled.select`
+  width: 70%;
+  height: 1.8rem;
+  // text-align-last: right;
+  padding-left: 5%;
+  // direction: rtl;
+  font-size: 1.1rem;
+`;
+
+export const OptionSelector = styled.option`
+  font-size: 1rem;
+  text-align: center;
+`;

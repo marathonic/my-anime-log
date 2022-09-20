@@ -31,6 +31,7 @@ function App() {
     (allTopAnime, updates) => ({ ...allTopAnime, ...updates }),
     initialAnime
   );
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const isMobile = useMediaQuery({ query: "(max-width:428px)" });
 
   // updates: updateAllTopAnime({ category: response.data })
@@ -107,20 +108,31 @@ function App() {
       // we can set all at the end at once: updateAllTopAnime({movies: topMovies, airing: topAiring, popular: topPopular})
       // but then the user would have to wait several seconds before our content displays.
       // Let's set each one individually as soon as it's ready:
-      const topOverall = await fetchTopTen("overall");
-      updateAllTopAnime({ overall: topOverall });
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      if (!allTopAnime.overall) {
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        const topOverall = await fetchTopTen("overall");
+        updateAllTopAnime({ overall: topOverall });
+      }
 
-      const topMovies = await fetchTopTen("movies");
-      updateAllTopAnime({ movies: topMovies });
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      if (!allTopAnime.movies) {
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+        const topMovies = await fetchTopTen("movies");
+        updateAllTopAnime({ movies: topMovies });
+      }
 
-      const topAiring = await fetchTopTen("airing");
-      updateAllTopAnime({ airing: topAiring });
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      if (!allTopAnime.airing) {
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+        const topAiring = await fetchTopTen("airing");
+        updateAllTopAnime({ airing: topAiring });
+      }
 
-      const topPopular = await fetchTopTen("popular");
-      updateAllTopAnime({ popular: topPopular });
+      if (!allTopAnime.popular) {
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+        const topPopular = await fetchTopTen("popular");
+        updateAllTopAnime({ popular: topPopular });
+      }
+
+      // We're still missing --specials--, --upcoming--, --OVAs--...
 
       // What if the user spam reloads the page several times in a row? we may wish to handle that
       // We would need to check if the page has been reloaded within the last second.
@@ -136,6 +148,7 @@ function App() {
     };
 
     getAllMyTopAnime();
+    /*eslint-disable-next-line*/
   }, [allTopAnime.length, location.pathname]);
 
   return (
@@ -149,6 +162,8 @@ function App() {
               topAnime={topAnime}
               message={"HELLO FROM LINE 55 IN APP.JS"}
               isMobile={isMobile}
+              isModalOpen={isModalOpen}
+              setIsModalOpen={setIsModalOpen}
             />
           }
         />
