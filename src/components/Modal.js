@@ -3,10 +3,20 @@ import "../styles/modal-style.css";
 import { OptionSelector, Selector } from "./primedComps";
 import { AiFillPlusCircle } from "react-icons/ai";
 
-function Modal({ setIsModalOpen }) {
+function Modal({ setIsModalOpen, episodesAired, animeID }) {
   const [listSelector, setListSelector] = useState("watching");
+  const [watchedEpisodes, setWatchedEpisodes] = useState(0);
+
   const handleSelection = (e) => {
     setListSelector(e.target.value);
+  };
+
+  const handleWatchedInputChange = (e) => {
+    setWatchedEpisodes(e.target.value);
+  };
+
+  const handleIncreaseWatchedBtn = () => {
+    setWatchedEpisodes((watchedEpisodes) => watchedEpisodes + 1);
   };
 
   return (
@@ -29,17 +39,29 @@ function Modal({ setIsModalOpen }) {
               {listSelector === "watching" && (
                 <div className="watching-container">
                   <span className="details-span watching">
-                    <p className="sky-blue">Episodes: 100</p>
+                    <p className="sky-blue">Episodes: {episodesAired}</p>
                   </span>
                   <span className="details-span watching">
                     <p>Watched: </p>
                     {/* <div className="eps-input-div"> */}
                     {/* might want to experiment with a green + circle just off the top right corner of the input */}
-                    <input type="number" min={1} max={2000}></input>
+                    <input
+                      type="number"
+                      min={1}
+                      max={2000}
+                      value={watchedEpisodes}
+                      onChange={handleWatchedInputChange}
+                    ></input>
 
-                    <span className="ep-count">
-                      <AiFillPlusCircle size={27} />
-                    </span>
+                    <button
+                      className="ep-count"
+                      onClick={handleIncreaseWatchedBtn}
+                    >
+                      <AiFillPlusCircle
+                        size={27}
+                        style={{ pointerEvents: "none" }}
+                      />
+                    </button>
                     {/* </div> */}
                   </span>
 

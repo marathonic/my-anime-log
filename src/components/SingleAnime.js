@@ -171,7 +171,13 @@ function SingleAnime({ message, isMobile, setIsModalOpen, isModalOpen }) {
             <BsFillBookmarkPlusFill size={22} /> add
           </button>
         )}
-        {isModalOpen && <Modal setIsModalOpen={setIsModalOpen} />}
+        {isModalOpen && (
+          <Modal
+            setIsModalOpen={setIsModalOpen}
+            episodesAired={myAnimeData.episodes}
+            animeID={animeID}
+          />
+        )}
         {/* <span>{myAnimeData.synopsis}</span> */}
         {/* Anime trailer */}
         {/* <h5>{myAnimeData.trailer.youtube_id}</h5> */}

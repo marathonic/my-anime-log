@@ -222,6 +222,8 @@
   }
 
   .ep-count {
+    background-color: transparent;
+    border: transparent;
     color: rgb(110, 232, 110);
     /* margin-left: "43%"; */
   }
