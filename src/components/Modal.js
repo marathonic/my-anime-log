@@ -17,10 +17,13 @@ function Modal({ setIsModalOpen }) {
             <div className="modalHeader">
               {/* <h1>Modal</h1> */}
               <h5 className="heading">Add to my log</h5>
+              <button
+                className="closeBtn"
+                onClick={() => setIsModalOpen(false)}
+              >
+                Cancel
+              </button>
             </div>
-            <button className="closeBtn" onClick={() => setIsModalOpen(false)}>
-              Cancel
-            </button>
             {/* delete? */}
             <div className="modalContent">
               {listSelector === "watching" && (

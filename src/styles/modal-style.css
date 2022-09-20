@@ -7,17 +7,24 @@
     left: 50%;
     transform: translate(-50%, -50%);
     position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   
   .centered {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    /* position: fixed; */
+    /* top: 50%; */
+    /* left: 50%; */
+    /* transform: translate(-50%, -50%); */
+    width: 100%;
+    display: flex;
+    justify-content: center;
   }
   
   .modal {
     width: 250px;
+    width: 70%;
     height: 170px;
     height: 15rem;
     background: white;
@@ -108,14 +115,15 @@
     font-size: 18px;
     color: #2c3e50;
     background: white;
+    background: palegoldenrod;
     transition: all 0.25s ease;
     box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.06);
     position: absolute;
     right: 0;
     top: 0;
-    align-self: flex-end;
-    margin-top: -7px;
-    margin-right: -7px;
+    /* align-self: flex-end; */
+    /* margin-top: -7px; */
+    /* margin-right: -7px; */
   }
   
   .closeBtn:hover {

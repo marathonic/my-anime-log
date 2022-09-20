@@ -79,6 +79,10 @@ function SingleAnime({ message, isMobile, setIsModalOpen, isModalOpen }) {
   const [myAnimeData, setMyAnimeData] = useState({});
   const API_URL = `https://api.jikan.moe/v4/anime/${animeID}`;
 
+  const toggleVisible = {
+    visibility: isModalOpen ? "hidden" : "visible",
+  };
+
   useEffect(() => {
     setLoading(true);
     fetch(API_URL).then((response) =>
@@ -159,7 +163,11 @@ function SingleAnime({ message, isMobile, setIsModalOpen, isModalOpen }) {
 
         {/* Commenting The following lines while beginning styling for desktop: */}
         {isMobile && (
-          <button className="add-list-btn" onClick={() => setIsModalOpen(true)}>
+          <button
+            className="add-list-btn"
+            onClick={() => setIsModalOpen(true)}
+            style={toggleVisible}
+          >
             <BsFillBookmarkPlusFill size={22} /> add
           </button>
         )}
