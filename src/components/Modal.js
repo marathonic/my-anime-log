@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../styles/modal-style.css";
 import { OptionSelector, Selector } from "./primedComps";
-// import {} from "react-icons/";
+import { AiFillPlusCircle } from "react-icons/ai";
 
 function Modal({ setIsModalOpen }) {
   const [listSelector, setListSelector] = useState("watching");
@@ -21,7 +21,7 @@ function Modal({ setIsModalOpen }) {
                 className="closeBtn"
                 onClick={() => setIsModalOpen(false)}
               >
-                Cancel
+                X
               </button>
             </div>
             {/* delete? */}
@@ -29,15 +29,23 @@ function Modal({ setIsModalOpen }) {
               {listSelector === "watching" && (
                 <div className="watching-container">
                   <span className="details-span watching">
-                    <p>Watched: </p>
-                    <div className="eps-input-div">
-                      {/* might want to experiment with a green + circle just off the top right corner of the input */}
-                      <input type="number" min={1} max={2000}></input>
-                      <span className="ep-count">/100</span>
-                    </div>
+                    <p>Episodes: 100</p>
                   </span>
-                  <span className="details-span">
-                    <p>Score: </p>
+                  <span className="details-span watching">
+                    <p>Watched: </p>
+                    {/* <div className="eps-input-div"> */}
+                    {/* might want to experiment with a green + circle just off the top right corner of the input */}
+                    <input type="number" min={1} max={2000}></input>
+
+                    <span className="ep-count">
+                      <AiFillPlusCircle size={27} />
+                    </span>
+                    {/* </div> */}
+                  </span>
+
+                  <span className="details-span watching">
+                    <p>My score: </p>
+                    <input type="number" className="score-input"></input>
                   </span>
                 </div>
               )}
