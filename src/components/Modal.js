@@ -28,6 +28,7 @@ function Modal({ setIsModalOpen }) {
                   <span className="details-span watching">
                     <p>Watched: </p>
                     <div className="eps-input-div">
+                      {/* might want to experiment with a green + circle just off the top right corner of the input */}
                       <input type="number" min={1} max={2000}></input>
                       <span className="ep-count">/100</span>
                     </div>
