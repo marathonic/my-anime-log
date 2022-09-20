@@ -72,6 +72,12 @@ function Modal({ setIsModalOpen }) {
               >
                 Cancel
               </button>
+              <button
+                className="confirmBtn"
+                onClick={() => setIsModalOpen(false)}
+              >
+                Confirm
+              </button>
             </div>
           </div>
         </div>

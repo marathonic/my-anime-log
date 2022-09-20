@@ -21,9 +21,9 @@
     width: 19rem;
     height: 170px;
     height: 17rem;
-    background: white;
-    background-color: #EFFFFD;
-    background-color: #E8F0F2;
+    /* background-color: #EFFFFD; */
+    /* background-color: #E8F0F2; */
+    background-color: white;
     z-index: 10;
     border-radius: 16px;
     box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.04);
@@ -31,7 +31,7 @@
   
   .modalHeader {
     height: 50px;
-    background: white;
+    background: #E8F0F2;
     overflow: hidden;
     border-top-left-radius: 16px;
     border-top-right-radius: 16px;
@@ -172,20 +172,29 @@
     background: #ff3e4e;
   }
   
-  .cancelBtn {
+  .cancelBtn,
+  .confirmBtn {
     margin-top: 10px;
     cursor: pointer;
     font-weight: 500;
     padding: 11px 28px;
     border-radius: 12px;
     font-size: 0.8rem;
+    font-size: 0.9rem;
     border: none;
     color: #2c3e50;
     background: #fcfcfc;
     transition: all 0.25s ease;
 
-    /* own styling */
+    /* my own styling */
     background-color: lightgray;
+    width: 6.4rem;
+    /* font-weight: bold; */
+  }
+
+  .confirmBtn {
+    background-color: skyblue;
+
   }
   
   .cancelBtn:hover {
