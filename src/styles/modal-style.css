@@ -228,6 +228,12 @@
     /* margin-left: "43%"; */
   }
 
+  .ep-count:active {
+    color: rgb(100, 159, 122);
+    color: rgb(94, 202, 94);
+
+  }
+
   .sky-blue {
     color: #177bb1;
   }

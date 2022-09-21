@@ -12,11 +12,30 @@ function Modal({ setIsModalOpen, episodesAired, animeID }) {
   };
 
   const handleWatchedInputChange = (e) => {
-    setWatchedEpisodes(e.target.value);
+    const { value } = e.target;
+    if (!value || value <= 0) {
+      setWatchedEpisodes(0);
+      return;
+    }
+    if (value === episodesAired) return;
+    if (value > episodesAired) return;
+    // if (!Number(value)) return;
+    // if (value.toString().substr(0) === "0") {
+    // console.log("FIRST DIGIT IS ZERO");
+    // const noTrailingZero = value.slice(0);
+    // setWatchedEpisodes(+noTrailingZero);
+    // return;
+    // setWatchedEpisodes(parseInt(noTrailingZero, 10));
+    // }
+    if (value.toString().length > episodesAired.toString().length + 1) return;
+    setWatchedEpisodes(parseInt(value, 10));
   };
 
   const handleIncreaseWatchedBtn = () => {
-    setWatchedEpisodes((watchedEpisodes) => watchedEpisodes + 1);
+    if (watchedEpisodes === episodesAired) return;
+    if (watchedEpisodes > episodesAired) return;
+
+    setWatchedEpisodes(Number(watchedEpisodes) + 1);
   };
 
   return (
