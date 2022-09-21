@@ -237,3 +237,8 @@
   .sky-blue {
     color: #177bb1;
   }
+
+  .score-option {
+    width: 3.31rem;
+    margin-left: 3%;
+  }
