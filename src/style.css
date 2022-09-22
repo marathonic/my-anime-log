@@ -437,6 +437,11 @@ label {
     color: rgb(37, 61, 61);
 }
 
+.login-btn:disabled {
+    background-color: #EBEBE4;
+    color: #c9c9c8;
+}
+
 .btn-icon-span {
     margin-right: 18px;
 

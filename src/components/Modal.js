@@ -1,17 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/modal-style.css";
 import { OptionSelector, Selector } from "./primedComps";
 import { AiFillPlusCircle, AiFillTrophy } from "react-icons/ai";
+import { auth, db, logout } from "../firebase.js";
+import { query, collection, getDocs, where } from "firebase/firestore";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 function Modal({ setIsModalOpen, episodesAired, animeID }) {
   const [listSelector, setListSelector] = useState("watching");
   const [episodesWatched, setEpisodesWatched] = useState(0);
   const [myScore, setMyScore] = useState("");
-
+  const [user, loading, error] = useAuthState(auth);
   // We want to search the Firestore user for the animeID
   // structure:
   // users --> randomStringDocument --> name, email, uid !== userID ? (castleracer: bolPu0WO...) -->
   // We want the randomStringDocument, because the uid itself only holds the uid string, it doesn't hold our anime objects there.
+  // WE'RE GETTING KIRITO FROM name: Kirito. That's on the same level as our anime would be.
   // The anime objects sit side by side with name, email, uid, etc.
 
   const handleSelection = (e) => {
@@ -105,6 +109,38 @@ function Modal({ setIsModalOpen, episodesAired, animeID }) {
     // console.log(typeof value);
     setMyScore(parseFloat(value, 10));
   };
+
+  useEffect(() => {
+    if (loading) return;
+    if (user) {
+      const fetchUserData = async () => {
+        try {
+          const q = query(
+            collection(db, "users"),
+            where("uid", "==", user?.uid)
+          );
+          const doc = await getDocs(q);
+
+          //
+          const data = doc.docs[0].data();
+          //
+          console.log("-----------data below this line------------");
+          console.log(data);
+          console.log("--------------NAME BELOW THIS LINE----------");
+          console.log(data.name);
+          console.log("---------ANIMEID WE'RE VIEWING:");
+          console.log(animeID);
+          //
+          // setUserName(data.name);
+          // setMyUser(data.name); // <--- set the user name
+        } catch (err) {
+          console.error(err);
+          alert("error fetching user data");
+        }
+      };
+      fetchUserData();
+    }
+  }, [user, loading, animeID]);
 
   return (
     <>

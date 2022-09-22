@@ -18,6 +18,7 @@ import Dashboard from "./pages/Dashboard";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "./firebase";
 import { useLocation } from "react-router-dom";
+import RestrictedRoute from "./components/RestrictedRoute";
 
 function App() {
   const [animeList, setAnimeList] = useState([]);
@@ -202,7 +203,14 @@ function App() {
         ></Route>
 
         {/* We could protect these routes, make them accessible only if there's no user */}
-        <Route path="/login" element={<Login setMyUser={setMyUser} />}></Route>
+        <Route
+          path="/login"
+          element={
+            // <RestrictedRoute user={user}>
+            <Login setMyUser={setMyUser} />
+            // </RestrictedRoute>
+          }
+        ></Route>
         <Route
           path="/register"
           element={<RegisterUser setMyUser={setMyUser} />}

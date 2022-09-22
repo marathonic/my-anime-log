@@ -15,6 +15,7 @@ function Login({ setMyUser }) {
   const [password, setPassword] = useState("");
   const [user, loading, error] = useAuthState(auth);
   const [warningMessage, setWarningMessage] = useState(null);
+  const [isBtnOnTimeout, setIsBtnOnTimeout] = useState(true);
   const navigate = useNavigate();
 
   // const validateEmailAndPassword = () => {
@@ -103,6 +104,15 @@ function Login({ setMyUser }) {
     if (user) navigate("/dashboard");
   }, [user, loading]);
 
+  useEffect(() => {
+    setIsBtnOnTimeout(true);
+    const initBtn = async () => {
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      setIsBtnOnTimeout(false);
+    };
+    initBtn();
+  }, []);
+
   const handleSubmit = (e) => {
     e.preventDefault();
   };
@@ -114,7 +124,11 @@ function Login({ setMyUser }) {
         {warningMessage && (
           <span className="cyber-yellow warning-span">{warningMessage}</span>
         )}
-        <button className="login-btn with-google" onClick={signInWithGoogle}>
+        <button
+          className="login-btn with-google"
+          onClick={signInWithGoogle}
+          disabled={isBtnOnTimeout}
+        >
           <span className="btn-icon-span">
             <FcGoogle size={25} style={{ pointerEvents: "none" }} />
           </span>
