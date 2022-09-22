@@ -20,14 +20,6 @@ function Modal({ setIsModalOpen, episodesAired, animeID }) {
     }
     if (value === episodesAired) return;
     if (value > episodesAired) return;
-    // if (!Number(value)) return;
-    // if (value.toString().substr(0) === "0") {
-    // console.log("FIRST DIGIT IS ZERO");
-    // const noTrailingZero = value.slice(0);
-    // setEpisodesWatched(+noTrailingZero);
-    // return;
-    // setEpisodesWatched(parseInt(noTrailingZero, 10));
-    // }
     if (value.toString().length > episodesAired.toString().length + 1) return;
     setEpisodesWatched(parseInt(value, 10));
   };
@@ -39,31 +31,34 @@ function Modal({ setIsModalOpen, episodesAired, animeID }) {
     setEpisodesWatched(Number(episodesWatched) + 1);
   };
 
-  // make a function to handle remove all zeroes under 10:
-  // on a line above runnig this, handle number > 10;
-  const removeRedundantZeroes = (numStr) => {
-    // -------CONTINUE HERE--------------
-    // We already solved the whole decimal < 1 thing with if(val < 1) ...
-    // Let's instead just remove the 0s to the left here.
-    // We want to match the first number that isn't 0,
-    // And slice it so the string starts at that number instead, removing all 0s before it.
-    // Then, setMyScore() to be that new number.
-    //-----READ ABOVE, discard code below:
-    // let num = parseFloat(numStr, 10);
-    // if (num === 10) return 10;
-    // Number is not 10, is there a period?
-    // if (!num.match(/\./)) return num;
-    // We've reached here, so there is a period, find its index:
-    // let isPeriod = num.match(/\./);
-    // let index = num.indexOf(isPeriod);
-    // let leftOfPeriod = index - 1;
-    // let startLeftOfPeriod = index.slice(leftOfPeriod);
-    // setMyScore(startLeftOfPeriod);
-    // return;
+  const preventMinus = (e) => {
+    if (e.key === "-") {
+      e.preventDefault();
+      return;
+    }
+    console.log(myScore);
+    if (Number(myScore) === 10) {
+      if (e.key === ".") {
+        e.preventDefault();
+        return;
+      }
+    }
+  };
+
+  const preventPasteNegative = (e) => {
+    e.preventDefault();
+    return;
   };
 
   const handleScoreInputChange = (e) => {
+    // --------------BUG!!!
+    //User can input - subtraction sign right after a number.
+    // After which, user can link a lot of numbers, like so:
+    // 1-1.0167.957-301, etc...
+    // This is very alarming, solve ASAP.
+
     const { value } = e.target;
+    if (Number(value) === "-") return;
     if (!value) {
       setMyScore(value);
       return;
@@ -75,22 +70,22 @@ function Modal({ setIsModalOpen, episodesAired, animeID }) {
     // idea: if value.length >= 3 and there's no decimal point...
     // other idea: if there is at least one leading zero and there is a decimal point, remove all leading zeroes (slice(n position that isnt zero))
 
+    if (value === "1") {
+      console.log("check for 10");
+      console.log(e.key);
+      if (e.key === ".") return;
+    }
+
     if (value.length >= 3 && Number(value - 10 === 0)) {
       console.log("Should be 10");
-      setMyScore(value.slice(1));
+      setMyScore(value.slice(0, 2));
       return;
     }
 
-    // testing further reduction of leading 0s
-    // if (value.length === 3 && Number(value < 10)) {
-    // const notZero = /^[1-9]$/;
-    // const indexOfDecimal = value.indexOf(".");
-    // const noDecimalPoint = /[1-9]+\./;
-    // setMyScore(value.replace(noDecimalPoint));
-    // return;
-    // }
-
-    if (value.toString().length > 4) return;
+    if (value.toString().length > 3) {
+      setMyScore(value.slice(0, 3));
+      return;
+    }
     if (value > 10) return;
     // score is a float number, for greater user experience.
     // console.log(typeof value);
@@ -147,11 +142,11 @@ function Modal({ setIsModalOpen, episodesAired, animeID }) {
                   <span className="details-span watching">
                     <p>My score: </p>
                     <input
-                      type="text"
+                      type="number"
                       className="score-input"
-                      max={10}
-                      maxLength={3}
                       value={myScore}
+                      onKeyDown={preventMinus}
+                      onPaste={preventPasteNegative}
                       onChange={handleScoreInputChange}
                       placeholder="1 to 10"
                     ></input>
