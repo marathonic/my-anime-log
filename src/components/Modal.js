@@ -8,6 +8,12 @@ function Modal({ setIsModalOpen, episodesAired, animeID }) {
   const [episodesWatched, setEpisodesWatched] = useState(0);
   const [myScore, setMyScore] = useState("");
 
+  // We want to search the Firestore user for the animeID
+  // structure:
+  // users --> randomStringDocument --> name, email, uid !== userID ? (castleracer: bolPu0WO...) -->
+  // We want the randomStringDocument, because the uid itself only holds the uid string, it doesn't hold our anime objects there.
+  // The anime objects sit side by side with name, email, uid, etc.
+
   const handleSelection = (e) => {
     setListSelector(e.target.value);
   };
