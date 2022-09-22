@@ -12,10 +12,18 @@ function Modal({ setIsModalOpen, episodesAired, animeID }) {
     setListSelector(e.target.value);
   };
 
+  const preventDecimalWatched = (e) => {
+    if (e.key === ".") {
+      e.preventDefault();
+      return;
+    }
+  };
+
   const handleWatchedInputChange = (e) => {
     const { value } = e.target;
     if (!value || value <= 0) {
       setEpisodesWatched(0);
+      //OR: setEpisodesWatched(value); <--- experiment with this
       return;
     }
     if (value === episodesAired) return;
@@ -124,6 +132,7 @@ function Modal({ setIsModalOpen, episodesAired, animeID }) {
                       max={2000}
                       value={episodesWatched}
                       onChange={handleWatchedInputChange}
+                      onKeyDown={preventDecimalWatched}
                     ></input>
                     {episodesWatched < episodesAired && (
                       <button
