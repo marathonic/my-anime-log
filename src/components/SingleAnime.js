@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useState } from "react";
+import { auth, db, logout } from "../firebase.js";
 import { AnimeCard, CardThumbnail, CardDetails } from "./primedComps";
 import { BsFillBookmarkPlusFill } from "react-icons/bs";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
@@ -8,6 +9,8 @@ import YoutubeEmbed from "./YoutubeTrailer";
 import { FaQuestion, FaQuestionCircle } from "react-icons/fa";
 import Synopsis from "./Synopsis";
 import Modal from "./Modal";
+import { useAuthState } from "react-firebase-hooks/auth";
+import ModalNoUser from "./ModalNoUser.js";
 
 const lowOpacity = {
   opacity: 1,
@@ -77,6 +80,7 @@ function SingleAnime({ message, isMobile, setIsModalOpen, isModalOpen }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
   const [myAnimeData, setMyAnimeData] = useState({});
+  const [user] = useAuthState(auth);
   const API_URL = `https://api.jikan.moe/v4/anime/${animeID}`;
 
   const toggleVisible = {
@@ -171,7 +175,11 @@ function SingleAnime({ message, isMobile, setIsModalOpen, isModalOpen }) {
             <BsFillBookmarkPlusFill size={22} /> add
           </button>
         )}
-        {isModalOpen && (
+        {isModalOpen && !user && (
+          <ModalNoUser setIsModalOpen={setIsModalOpen} />
+        )}
+
+        {isModalOpen && user && (
           <Modal
             setIsModalOpen={setIsModalOpen}
             episodesAired={myAnimeData.episodes}

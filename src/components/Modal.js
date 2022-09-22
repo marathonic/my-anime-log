@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../styles/modal-style.css";
 import { OptionSelector, Selector } from "./primedComps";
-import { AiFillPlusCircle } from "react-icons/ai";
+import { AiFillPlusCircle, AiFillTrophy } from "react-icons/ai";
 
 function Modal({ setIsModalOpen, episodesAired, animeID }) {
   const [listSelector, setListSelector] = useState("watching");
@@ -116,6 +116,16 @@ function Modal({ setIsModalOpen, episodesAired, animeID }) {
               </button>
             </div>
             {/* delete? */}
+            {/* WE COULD TURN THIS INTO A FUNCTION:
+            We can put the function in our utils folder
+            In that document, we will make 3 other functions:
+            registerWatching, registerCompleted, registerPlanToWatch.
+            The function we will be exporting is our main function: 
+            That main function takes 3 parameters: (selector, epsAired, epsWatched);
+            // Inside the function, perform a switch statement.
+            // switch(selector), case x: registerWatching() break; case y: registerCompleted etc...
+            To call it here, pass (listSelector, episodesAired, episodesWatched).
+            In case of x  */}
             <div className="modalContent">
               {listSelector === "watching" && (
                 <div className="watching-container">
@@ -162,6 +172,11 @@ function Modal({ setIsModalOpen, episodesAired, animeID }) {
                   </span>
                 </div>
               )}
+              {listSelector === "completed" && (
+                <AiFillTrophy size={100} color="gold" />
+              )}
+              {/* END ------------------^^^^^^^^^^^  */}
+              {/* ------------------^^^^^^^^^^^  */}
               <Selector value={listSelector} onChange={handleSelection}>
                 <OptionSelector value="plan-to-watch">
                   Plan to watch

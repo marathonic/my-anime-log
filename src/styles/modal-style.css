@@ -203,7 +203,8 @@
     background: whitesmoke;
   }
 
-  .primaryBtn {
+  .primaryBtn,
+  .no-user-btn {
     margin: 20px 10px;
     cursor: pointer;
     font-weight: 500;
@@ -241,4 +242,23 @@
   .score-option {
     width: 3.31rem;
     margin-left: 3%;
+  }
+
+  /* modal no user */
+
+  .no-user-txt {
+    font-size: 1.2rem;
+  }
+
+  .no-user-h3 {
+    font-size: 1.2rem;
+    color: #185adb;
+  }
+
+  .no-user-btn {
+    background-color: palevioletred;
+  }
+
+  .no-user-btn-txt {
+    color: white;
   }
