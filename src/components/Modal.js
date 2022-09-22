@@ -112,6 +112,14 @@ function Modal({ setIsModalOpen, episodesAired, animeID }) {
 
   useEffect(() => {
     if (loading) return;
+    // Let's try to avoid unnecessary requests to firebase.
+    // if data has been fetched and nothing has changed, don't fetch again.
+    // for this, we will want to run a check when we click Confirm:
+    // We will save the info from the first fetch to state
+    // inside onClick for Confirm btn, check if the input value matches state.
+    // As long as the input values (completed: false, watched: n, rating: n, planToWatch: true)
+    // As long as those input values don't change, it'll never refetch new data from firebase, regardless of how many times we click the button.
+    // However, if the data is indeed different, we want to setShouldFetchNewData(true);
     if (user) {
       const fetchUserData = async () => {
         try {
