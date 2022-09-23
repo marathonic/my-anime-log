@@ -82,6 +82,7 @@ function SingleAnime({ message, isMobile, setIsModalOpen, isModalOpen }) {
   const [myAnimeData, setMyAnimeData] = useState({});
   const [user] = useAuthState(auth);
   const API_URL = `https://api.jikan.moe/v4/anime/${animeID}`;
+  const [isFetchLocked, setIsFetchLocked] = useState(false);
 
   const toggleVisible = {
     visibility: isModalOpen ? "hidden" : "visible",
@@ -184,6 +185,8 @@ function SingleAnime({ message, isMobile, setIsModalOpen, isModalOpen }) {
             setIsModalOpen={setIsModalOpen}
             episodesAired={myAnimeData.episodes}
             animeID={animeID}
+            isFetchLocked={isFetchLocked}
+            setIsFetchLocked={setIsFetchLocked}
           />
         )}
         {/* <span>{myAnimeData.synopsis}</span> */}

@@ -6,11 +6,18 @@ import { auth, db, logout } from "../firebase.js";
 import { query, collection, getDocs, where } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
 
-function Modal({ setIsModalOpen, episodesAired, animeID }) {
+function Modal({
+  setIsModalOpen,
+  episodesAired,
+  animeID,
+  setIsFetchLocked,
+  isFetchLocked,
+}) {
   const [listSelector, setListSelector] = useState("watching");
   const [episodesWatched, setEpisodesWatched] = useState(0);
   const [myScore, setMyScore] = useState("");
   const [user, loading, error] = useAuthState(auth);
+  const [animeLog, setAnimeLog] = useState({});
   // We want to search the Firestore user for the animeID
   // structure:
   // users --> randomStringDocument --> name, email, uid !== userID ? (castleracer: bolPu0WO...) -->
@@ -109,46 +116,60 @@ function Modal({ setIsModalOpen, episodesAired, animeID }) {
     // console.log(typeof value);
     setMyScore(parseFloat(value, 10));
   };
+  // Let's try to avoid unnecessary requests to firebase.
+  // if data has been fetched and nothing has changed, don't fetch again.
+  // for this, we will want to run a check when we click Confirm:
+  // We will save the info from the first fetch to state
+  // inside onClick for Confirm btn, check if the input value matches state.
+  // As long as the input values (completed: false, watched: n, rating: n, planToWatch: true)
+  // As long as those input values don't change, it'll never refetch new data from firebase, regardless of how many times we click the button.
+  // However, if the data is indeed different, we want to setShouldFetchNewData(true);
+  // useEffect(() => {
+  // if (loading) return;
+
+  //    if (user) {
+  //      const fetchUserData = async () => {
+  //        try {
+  //          const q = query(
+  //            collection(db, "users"),
+  //            where("uid", "==", user?.uid)
+  //          );
+  //          const doc = await getDocs(q);
+  //
+  //          //
+  //          const data = doc.docs[0].data();
+  //          //
+  //          console.log("user data below this line---");
+  //          console.log(data);
+  //          console.log("--ANIMEID WE'RE VIEWING:");
+  //          console.log(animeID);
+  //        } catch (err) {
+  //          console.error(err);
+  //          alert("error fetching user data");
+  //        }
+  //      };
+  //      fetchUserData();
+  //    }
+  //  }, [user, loading, animeID]);
 
   useEffect(() => {
-    if (loading) return;
-    // Let's try to avoid unnecessary requests to firebase.
-    // if data has been fetched and nothing has changed, don't fetch again.
-    // for this, we will want to run a check when we click Confirm:
-    // We will save the info from the first fetch to state
-    // inside onClick for Confirm btn, check if the input value matches state.
-    // As long as the input values (completed: false, watched: n, rating: n, planToWatch: true)
-    // As long as those input values don't change, it'll never refetch new data from firebase, regardless of how many times we click the button.
-    // However, if the data is indeed different, we want to setShouldFetchNewData(true);
-    if (user) {
-      const fetchUserData = async () => {
-        try {
-          const q = query(
-            collection(db, "users"),
-            where("uid", "==", user?.uid)
-          );
-          const doc = await getDocs(q);
-
-          //
-          const data = doc.docs[0].data();
-          //
-          console.log("-----------data below this line------------");
-          console.log(data);
-          console.log("--------------NAME BELOW THIS LINE----------");
-          console.log(data.name);
-          console.log("---------ANIMEID WE'RE VIEWING:");
-          console.log(animeID);
-          //
-          // setUserName(data.name);
-          // setMyUser(data.name); // <--- set the user name
-        } catch (err) {
-          console.error(err);
-          alert("error fetching user data");
-        }
-      };
-      fetchUserData();
-    }
-  }, [user, loading, animeID]);
+    if (isFetchLocked) return;
+    const getAnimeLogFromDatabase = async () => {
+      try {
+        const q = query(collection(db, "users"), where("uid", "==", user?.uid));
+        const doc = await getDocs(q);
+        const data = doc.docs[0].data();
+        setAnimeLog(data);
+        console.log(data);
+        setIsFetchLocked(true);
+      } catch (err) {
+        console.error(err);
+        alert("err");
+      }
+    };
+    getAnimeLogFromDatabase();
+    /*eslint-disable-next-line */
+  }, []);
 
   return (
     <>
