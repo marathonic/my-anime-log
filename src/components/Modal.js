@@ -3,7 +3,7 @@ import "../styles/modal-style.css";
 import { OptionSelector, Selector } from "./primedComps";
 import { AiFillPlusCircle, AiFillTrophy } from "react-icons/ai";
 import { auth, db, logout } from "../firebase.js";
-import { query, collection, getDocs, where } from "firebase/firestore";
+import { query, collection, getDocs, where, doc } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 function Modal({
@@ -157,10 +157,19 @@ function Modal({
     const getAnimeLogFromDatabase = async () => {
       try {
         const q = query(collection(db, "users"), where("uid", "==", user?.uid));
-        const doc = await getDocs(q);
-        const data = doc.docs[0].data();
-        setAnimeLog(data);
+        const docu = await getDocs(q);
+        const data = docu.docs[0].data();
         console.log(data);
+        console.log(data.altStructureAnimeLog);
+
+        // So 9969 is actually a document.
+        // We alternate <collection, document> to get a document with doc()
+        // /Parent path: users/GX6mrv50HSfK0b0LFtRc/animeLog
+        // Parent path: /users/GX6mrv50HSfK0b0LFtRc/animeLog/mSjjRrcCKEUkk7Ppvc1m
+        // .collection("animeLog")
+        // /users/GX6mrv50HSfK0b0LFtRc/animeLog/structureVersion3-Watching
+
+        setAnimeLog(data);
         setIsFetchLocked(true);
       } catch (err) {
         console.error(err);
