@@ -3,7 +3,14 @@ import "../styles/modal-style.css";
 import { OptionSelector, Selector } from "./primedComps";
 import { AiFillPlusCircle, AiFillTrophy } from "react-icons/ai";
 import { auth, db, logout } from "../firebase.js";
-import { query, collection, getDocs, where, doc } from "firebase/firestore";
+import {
+  query,
+  collection,
+  getDocs,
+  where,
+  doc,
+  setDoc,
+} from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 function Modal({
@@ -161,6 +168,15 @@ function Modal({
         const data = docu.docs[0].data();
         console.log(data);
         console.log(data.altStructureAnimeLog);
+
+        // Ok this creates a new "user" with id of our current user's uid, which isn't what we're trying to do here.
+        /*
+        setDoc(doc(db, 'users', user.uid, "altStructureAnimeLog", "watching"), {
+          [animeID]: {
+            'name': 'myFirstAnimeSaved',
+          }
+        })
+        */
 
         // So 9969 is actually a document.
         // We alternate <collection, document> to get a document with doc()

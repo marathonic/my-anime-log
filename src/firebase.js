@@ -71,6 +71,10 @@ const registerWithEmailAndPassword = async (name, email, password) => {
   try {
     const res = await createUserWithEmailAndPassword(auth, email, password);
     const user = res.user;
+    //
+    //
+    // OK THIS IS WHERE WE'RE SETTING THE ROUTE FOR NEW USERS:
+    //
     await addDoc(collection(db, "users"), {
       uid: user.uid,
       name,
