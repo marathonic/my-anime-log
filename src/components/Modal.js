@@ -10,6 +10,7 @@ import {
   where,
   doc,
   setDoc,
+  getDoc,
 } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
 
@@ -163,20 +164,72 @@ function Modal({
     if (isFetchLocked) return;
     const getAnimeLogFromDatabase = async () => {
       try {
-        const q = query(collection(db, "users"), where("uid", "==", user?.uid));
-        const docu = await getDocs(q);
-        const data = docu.docs[0].data();
-        console.log(data);
-        console.log(data.altStructureAnimeLog);
+        //        const q = query(collection(db, "users"), where("uid", "==", user?.uid));
+        //        const docu = await getDocs(q);
+        //        const data = docu.docs[0].data();
+        //        console.log(data);
+        //        console.log(data.altStructureAnimeLog);
+
+        //DOES THE animeID EXIST IN THE COLLECTION userAnimeLogs?
+        /* CHECK IF AN animeId EXISTS IN THE USER'S ANIME LOG  */
+        // const animeIdRef = doc(db, "usersAnimeLogs", user.uid, "all", animeID);
+        const animeIdRef = doc(db, "userData", user.uid, "animeLog", animeID);
+        const animeSnap = await getDoc(animeIdRef);
+
+        if (animeSnap.exists()) {
+          console.log("Document data:", animeSnap.data());
+        } else {
+          console.log("No such anime in the user's log");
+        }
+
+        //^^^^^^^^ If the above works, now we just need to
+        // have our Confirm button actually log the anime,
+        // for which, we'll use setDoc.
+        //
+        //
+        // ignore below for now, focus on the above ^^^
+
+        // Perhaps we were on the right track signing up users again.
+        // If upon registration we assign each user a doc like so:
+        // users --> user.uid --> userData: {...}, animeLog: {...},
+        // we could do the above, like
+        // doc(db, "userData", user.uid, "animeLog", animeID);
+        // Let's try that.
+
+        // when retrieving all anime by status (completed, etc.):
+
+        // const animeLogRef = collection(db, "usersAnimeLogs", user.uid, "all");
+
+        //
+
+        /* GET MULTIPLE DOCUMENTS FROM A COLLECTION */
+        // example: get all completed anime:
+        /*
+        const q = query(
+          collection(db, "usersAnimeLogs", user.uid, "all"),
+          where("status", "==", "completed")
+        );
+        const querySnapshot = await getDocs(q);
+        querySnapshot.forEach((anime) => {
+          console.log(anime.animeId);
+        }); 
+        */
 
         // Ok this creates a new "user" with id of our current user's uid, which isn't what we're trying to do here.
-        /*
-        setDoc(doc(db, 'users', user.uid, "altStructureAnimeLog", "watching"), {
-          [animeID]: {
-            'name': 'myFirstAnimeSaved',
-          }
-        })
-        */
+        // EDIT: ^^^That is now exactly what we're doing lol, let's experiment.
+
+        // let singleAnimeID = await getDoc(db, "userAnimeLogs", user.uid,  )
+        // const userAnimeLogsRef = collection(db, "userAnimeLogs");
+        // const q = query(userAnimeLogsRef, where("animeId", "==", animeID ))
+
+        // --------USE LATER:
+        // Ok, this is good for when we want to CONFIRM, to log our anime:
+        // but, in this function we're not doing that, we're just checking if it's in our log already.
+        //setDoc(doc(db, 'userAnimeLogs', user.uid, "animeLog", "watching"), {
+        //  [animeID]: {
+        //    'name': 'myFirstAnimeSaved',
+        //  }
+        //})
 
         // So 9969 is actually a document.
         // We alternate <collection, document> to get a document with doc()
@@ -185,7 +238,7 @@ function Modal({
         // .collection("animeLog")
         // /users/GX6mrv50HSfK0b0LFtRc/animeLog/structureVersion3-Watching
 
-        setAnimeLog(data);
+        // setAnimeLog(data);
         setIsFetchLocked(true);
       } catch (err) {
         console.error(err);

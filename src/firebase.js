@@ -42,10 +42,28 @@ const signInWithGoogle = async () => {
   try {
     const res = await signInWithPopup(auth, googleProvider);
     const user = res.user;
-    const q = query(collection(db, "users"), where("uid", "==", user.uid));
+    const q = query(collection(db, "userData"), where("uid", "==", user.uid));
     const docs = await getDocs(q);
     if (docs.docs.length === 0) {
-      await addDoc(collection(db, "users"), {
+      //
+      //
+      // OK THIS IS WHERE WE'RE SETTING THE ROUTE FOR NEW USERS (google):
+      // (this works because our google signIn and google signUp buttons do the same thing)
+      // OK not working.
+      // We may wish to keep all users' animeLogs in a separate collection
+      // at the same level as users.
+      // so it'll look like:
+      // users     --> randomString --> userData (individual, contains uid);
+      // animeLogs --> UIDs (User IDs) --> animeLog (watching:{}, completed: {}, etc...)
+      // ------------------------------
+      // -----this will make a userData:{...} doc,
+      // -----that doc sits alongside, so, AT THE SAME LEVEL, as animeLog: {...}
+      // ---------ATTENTION:
+      // if it works, let's go with "users", instead of "userData",
+      // and let's go with "userData" instead of "userInfo".
+      // We're not doing that right now bc we want to know if it'll work first.
+      // later, it'll be collection(db,"users", user.uid, "userData")
+      await addDoc(collection(db, "userData", user.uid, "userInfo"), {
         uid: user.uid,
         name: user.displayName,
         authProvider: "google",
@@ -73,7 +91,7 @@ const registerWithEmailAndPassword = async (name, email, password) => {
     const user = res.user;
     //
     //
-    // OK THIS IS WHERE WE'RE SETTING THE ROUTE FOR NEW USERS:
+    // OK THIS IS WHERE WE'RE SETTING THE ROUTE FOR NEW USERS (email&pw):
     //
     await addDoc(collection(db, "users"), {
       uid: user.uid,
