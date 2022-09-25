@@ -63,12 +63,21 @@ const signInWithGoogle = async () => {
       // and let's go with "userData" instead of "userInfo".
       // We're not doing that right now bc we want to know if it'll work first.
       // later, it'll be collection(db,"users", user.uid, "userData")
-      await addDoc(collection(db, "userData", user.uid, "userInfo"), {
+      //await addDoc(collection(db, "userData", user.uid, "userInfo"), {
+      //  uid: user.uid,
+      //  name: user.displayName,
+      //  authProvider: "google",
+      //  email: user.email,
+      //});
+
+      // OR, WE CAN JUST CREATE IT AT THE ROOT WITH A RANDOM ID, AND GET THAT ID.
+      const { id } = await addDoc(collection(db, "userData"), {
         uid: user.uid,
         name: user.displayName,
         authProvider: "google",
         email: user.email,
       });
+      console.log("the document ID is", id);
     }
   } catch (err) {
     console.error(err);
