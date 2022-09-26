@@ -68,6 +68,8 @@ const signInWithGoogle = async () => {
       //  name: user.displayName,
       //  authProvider: "google",
       //  email: user.email,
+      // NOTE: The above (following the yt video) did work, but we were getting a "this document does not exist" message in Firestore.
+      // So then we tried what we had proposed below:
       //});
 
       // OR, WE CAN JUST CREATE IT AT THE ROOT WITH A RANDOM ID, AND GET THAT ID.
@@ -78,6 +80,13 @@ const signInWithGoogle = async () => {
         email: user.email,
       });
       console.log("the document ID is", id);
+      // Now how do we use that?
+      // Well, when we sign up a user, we can store the id in the obj
+      // like: parentID{email:..., name:..., uid:..., parent: parentID}
+      // and then, when we query to find the doc where("uid", "==", user.uid),
+      // maybe we can also query to find where("parent", "==", user.parentID);
+      // Let's watch the youtube video again tomorrow (today, hah)
+      // and figure out how to place a new "animeLog" subcollection to sit AT THE SAME LEVEL as our document that holds the user's data.
     }
   } catch (err) {
     console.error(err);

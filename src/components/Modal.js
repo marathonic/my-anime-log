@@ -22,8 +22,12 @@ function Modal({
   isFetchLocked,
 }) {
   const [listSelector, setListSelector] = useState("watching");
-  const [episodesWatched, setEpisodesWatched] = useState(0);
-  const [myScore, setMyScore] = useState("");
+  const [episodesWatched, setEpisodesWatched] = useState(0); // <-- useState(loggedEps || 0);
+  const [myScore, setMyScore] = useState(""); // <-- useState(loggedScore) || "";
+  // ^^ for both of the above: Set to user's log data for that anime. If null, set to 0 or "";
+  // To set the user's log data, use state.
+  // const [loggedEpisodes, setLoggedEpisodes] = useState(0).
+  // Then, inside a function: setLoggedEpisodes()
   const [user, loading, error] = useAuthState(auth);
   const [animeLog, setAnimeLog] = useState({});
   // We want to search the Firestore user for the animeID
@@ -181,6 +185,10 @@ function Modal({
         } else {
           console.log("No such anime in the user's log");
         }
+
+        // HMmm, we could replace this with get(), that way we can set it in one go,
+        // we can setLoggedEpisodes() or setLoggedScore(), and, if it's null, it'll just assign our default.
+        // Perhaps we could useEffect(() => {},[loggedScore, loggedEpisodes]) although we've had issues working like that in the past...
 
         //^^^^^^^^ If the above works, now we just need to
         // have our Confirm button actually log the anime,
