@@ -177,7 +177,13 @@ function Modal({
         //DOES THE animeID EXIST IN THE COLLECTION userAnimeLogs?
         /* CHECK IF AN animeId EXISTS IN THE USER'S ANIME LOG  */
         // const animeIdRef = doc(db, "usersAnimeLogs", user.uid, "all", animeID);
-        const animeIdRef = doc(db, "userData", user.uid, "animeLog", animeID);
+        const animeIdRef = doc(
+          db,
+          "theNewUsers",
+          user.uid,
+          "animeLog",
+          animeID
+        );
         const animeSnap = await getDoc(animeIdRef);
 
         if (animeSnap.exists()) {
@@ -193,6 +199,30 @@ function Modal({
         //^^^^^^^^ If the above works, now we just need to
         // have our Confirm button actually log the anime,
         // for which, we'll use setDoc.
+
+        setDoc(doc(db, "theNewUsers", user.uid, "animeLog", "watching"), {
+          [animeID]: {
+            name: "myFirstAnimeSaved",
+          },
+        });
+
+        // We may wish to have conditional setDoc for each category, like:
+        /* eslint-disable-next-line*/
+        if (confirmedCategory === "completed") {
+          setDoc(doc(db, "theNewUsers", user.uid, "animeLog", "completed"));
+        }
+        //potential solution:
+        setDoc(doc(db, "theNewUsers", user.uid, "animeLog", animeID));
+        // ^Ŵe can just make a document for that anime, right there!
+        // ----------CONTINUE ON THE LINE ABOVE!!!!!!!!^^^^^^^^
+        //----------------------------------------------------
+        // ----------------------------------------------------
+
+        // !!!Ooooooh I see a potential issue there. ^^^^^^^^^^^^^^^ <-- EDIT: READ SOLUTION ABOVE
+        // We'll need an extra read to remove the document from any other category it may be in.
+        // So if we have an anime as PlanToWatch, and then we add it to Watching,
+        // then it would be in both categories: PlanToWatch AND Watching.
+
         //
         //
         // ignore below for now, focus on the above ^^^
