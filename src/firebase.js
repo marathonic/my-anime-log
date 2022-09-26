@@ -16,6 +16,8 @@ import {
   collection,
   where,
   addDoc,
+  setDoc,
+  doc,
 } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
@@ -42,7 +44,10 @@ const signInWithGoogle = async () => {
   try {
     const res = await signInWithPopup(auth, googleProvider);
     const user = res.user;
-    const q = query(collection(db, "userData"), where("uid", "==", user.uid));
+    const q = query(
+      collection(db, "theNewUsers"),
+      where("uid", "==", user.uid)
+    );
     const docs = await getDocs(q);
     if (docs.docs.length === 0) {
       //
@@ -73,13 +78,19 @@ const signInWithGoogle = async () => {
       //});
 
       // OR, WE CAN JUST CREATE IT AT THE ROOT WITH A RANDOM ID, AND GET THAT ID.
-      const { id } = await addDoc(collection(db, "userData"), {
+      //const { id } = await addDoc(collection(db, "users"), {
+      //  uid: user.uid,
+      //  name: user.displayName,
+      //  authProvider: "google",
+      //  email: user.email,
+      //});
+      //console.log("the document ID is", id);
+      await setDoc(doc(db, "theNewUsers", user.uid), {
         uid: user.uid,
         name: user.displayName,
         authProvider: "google",
         email: user.email,
       });
-      console.log("the document ID is", id);
       // Now how do we use that?
       // Well, when we sign up a user, we can store the id in the obj
       // like: parentID{email:..., name:..., uid:..., parent: parentID}
