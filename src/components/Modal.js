@@ -128,6 +128,39 @@ function Modal({
     // console.log(typeof value);
     setMyScore(parseFloat(value, 10));
   };
+
+  const handleLogAnime = () => {
+    // Let's just create a constructor function instead!
+    // constructor function:
+    function AnimeLogEntry() {
+      if (listSelector === "completed") {
+        return {
+          [animeID]: {
+            status: listSelector,
+            watched: episodesAired,
+            score: "myScore(get this from its respective input" || "",
+          },
+        };
+      } else {
+        return {
+          [animeID]: {
+            status: listSelector,
+            watched: episodesWatched || 0,
+            score: myScore || "",
+          },
+        };
+      }
+    }
+
+    // our possible solution, using our constructor function:
+    let myAnime = AnimeLogEntry();
+    console.log(myAnime);
+    setDoc(doc(db, "theNewUsers", user.uid, "animeLog", animeID), myAnime);
+
+    // close the modal
+    setIsModalOpen(false);
+  };
+
   // Let's try to avoid unnecessary requests to firebase.
   // if data has been fetched and nothing has changed, don't fetch again.
   // for this, we will want to run a check when we click Confirm:
@@ -200,21 +233,41 @@ function Modal({
         // have our Confirm button actually log the anime,
         // for which, we'll use setDoc.
 
-        setDoc(doc(db, "theNewUsers", user.uid, "animeLog", "watching"), {
-          [animeID]: {
-            name: "myFirstAnimeSaved",
-          },
-        });
+        //setDoc(doc(db, "theNewUsers", user.uid, "animeLog", "watching"), {
+        //  [animeID]: {
+        //    name: "myFirstAnimeSaved",
+        //  },
+        //});
 
         // We may wish to have conditional setDoc for each category, like:
         /* eslint-disable-next-line*/
-        if (confirmedCategory === "completed") {
-          setDoc(doc(db, "theNewUsers", user.uid, "animeLog", "completed"));
+        if (listSelector === "completed") {
+          setDoc(
+            doc(db, "theNewUsers", user.uid, "animeLog", {
+              [animeID]: {
+                status: listSelector,
+                watched: episodesAired,
+                score: myScore || "",
+              },
+            })
+          );
         }
         //potential solution:
-        setDoc(doc(db, "theNewUsers", user.uid, "animeLog", animeID));
+        setDoc(doc(db, "theNewUsers", user.uid, "animeLog", animeID), {
+          [animeID]: {
+            status: "myStatus(get the value of the current dropdown option",
+            watched: "watched (get this from its respective input)" || 0,
+            score: "myScore (get this from its respective input)" || "",
+          },
+        });
+
+        // name: ,
+        // ...(episodesWatched ? { watched: episodesWatched})
         // ^Ŵe can just make a document for that anime, right there!
         // ----------CONTINUE ON THE LINE ABOVE!!!!!!!!^^^^^^^^
+        // make a factory:
+        // onClickConfirm:
+
         //----------------------------------------------------
         // ----------------------------------------------------
 
@@ -383,10 +436,7 @@ function Modal({
               >
                 Cancel
               </button>
-              <button
-                className="confirmBtn"
-                onClick={() => setIsModalOpen(false)}
-              >
+              <button className="confirmBtn" onClick={handleLogAnime}>
                 Confirm
               </button>
             </div>
