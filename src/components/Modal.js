@@ -20,6 +20,7 @@ function Modal({
   animeID,
   setIsFetchLocked,
   isFetchLocked,
+  animeTitle,
 }) {
   const [listSelector, setListSelector] = useState("watching");
   const [episodesWatched, setEpisodesWatched] = useState(0); // <-- useState(loggedEps || 0);
@@ -129,21 +130,31 @@ function Modal({
     setMyScore(parseFloat(value, 10));
   };
 
-  const handleLogAnime = () => {
+  const handleFormSubmit = (e) => {
+    console.log("running handleFormSubmit");
+  };
+
+  const handleConfirmClick = (e) => {
+    e.preventDefault();
+    console.log("running handleConfirmClick");
     // Let's just create a constructor function instead!
+
+    // We'd like to avoid calling Firestore if the data hasn't changed (if the inputs are === animeLog).
     // constructor function:
     function AnimeLogEntry() {
       if (listSelector === "completed") {
         return {
           [animeID]: {
+            name: animeTitle,
             status: listSelector,
             watched: episodesAired,
-            score: "myScore(get this from its respective input" || "",
+            score: myScore || "",
           },
         };
       } else {
         return {
           [animeID]: {
+            name: animeTitle,
             status: listSelector,
             watched: episodesWatched || 0,
             score: myScore || "",
@@ -241,25 +252,25 @@ function Modal({
 
         // We may wish to have conditional setDoc for each category, like:
         /* eslint-disable-next-line*/
-        if (listSelector === "completed") {
-          setDoc(
-            doc(db, "theNewUsers", user.uid, "animeLog", {
-              [animeID]: {
-                status: listSelector,
-                watched: episodesAired,
-                score: myScore || "",
-              },
-            })
-          );
-        }
-        //potential solution:
-        setDoc(doc(db, "theNewUsers", user.uid, "animeLog", animeID), {
-          [animeID]: {
-            status: "myStatus(get the value of the current dropdown option",
-            watched: "watched (get this from its respective input)" || 0,
-            score: "myScore (get this from its respective input)" || "",
-          },
-        });
+        //if (listSelector === "completed") {
+        //  setDoc(
+        //    doc(db, "theNewUsers", user.uid, "animeLog", {
+        //      [animeID]: {
+        //        status: listSelector,
+        //        watched: episodesAired,
+        //        score: myScore || "",
+        //      },
+        //    })
+        //  );
+        //}
+        ////potential solution:
+        //setDoc(doc(db, "theNewUsers", user.uid, "animeLog", animeID), {
+        //  [animeID]: {
+        //    status: "myStatus(get the value of the current dropdown option",
+        //    watched: "watched (get this from its respective input)" || 0,
+        //    score: "myScore (get this from its respective input)" || "",
+        //  },
+        //});
 
         // name: ,
         // ...(episodesWatched ? { watched: episodesWatched})
@@ -345,18 +356,20 @@ function Modal({
       <div className="darkBG">
         <div className="centered">
           <div className="modal">
-            <div className="modalHeader">
-              {/* <h1>Modal</h1> */}
-              <h5 className="heading">Add to my log</h5>
-              <button
-                className="closeBtn"
-                onClick={() => setIsModalOpen(false)}
-              >
-                X
-              </button>
-            </div>
-            {/* delete? */}
-            {/* WE COULD TURN THIS INTO A FUNCTION:
+            <form onSubmit={handleFormSubmit}>
+              <div className="modalHeader">
+                {/* <h1>Modal</h1> */}
+                <h5 className="heading">Add to my log</h5>
+                <button
+                  type="button"
+                  className="closeBtn"
+                  onClick={() => setIsModalOpen(false)}
+                >
+                  X
+                </button>
+              </div>
+              {/* delete? */}
+              {/* WE COULD TURN THIS INTO A FUNCTION:
             We can put the function in our utils folder
             In that document, we will make 3 other functions:
             registerWatching, registerCompleted, registerPlanToWatch.
@@ -366,80 +379,86 @@ function Modal({
             // switch(selector), case x: registerWatching() break; case y: registerCompleted etc...
             To call it here, pass (listSelector, episodesAired, episodesWatched).
             In case of x  */}
-            <div className="modalContent">
-              {listSelector === "watching" && (
-                <div className="watching-container">
-                  <span className="details-span watching">
-                    <p className="sky-blue">Episodes: {episodesAired}</p>
-                  </span>
-                  <span className="details-span watching">
-                    <p>Watched: </p>
-                    {/* <div className="eps-input-div"> */}
-                    {/* might want to experiment with a green + circle just off the top right corner of the input */}
-                    <input
-                      type="number"
-                      min={1}
-                      max={2000}
-                      value={episodesWatched}
-                      onChange={handleWatchedInputChange}
-                      onKeyDown={preventDecimalWatched}
-                    ></input>
-                    {episodesWatched < episodesAired && (
-                      <button
-                        className="ep-count"
-                        onClick={handleIncreaseWatchedBtn}
-                      >
-                        <AiFillPlusCircle
-                          size={27}
-                          style={{ pointerEvents: "none" }}
-                        />
-                      </button>
-                    )}
-                    {/* </div> */}
-                  </span>
+              <div className="modalContent">
+                {listSelector === "watching" && (
+                  <div className="watching-container">
+                    <span className="details-span watching">
+                      <p className="sky-blue">Episodes: {episodesAired}</p>
+                    </span>
 
-                  <span className="details-span watching">
-                    <p>My score: </p>
-                    <input
-                      type="number"
-                      className="score-input"
-                      value={myScore}
-                      onKeyDown={preventMinus}
-                      onPaste={preventPasteNegative}
-                      onChange={handleScoreInputChange}
-                      placeholder="1 to 10"
-                    ></input>
-                  </span>
-                </div>
-              )}
-              {listSelector === "completed" && (
-                <AiFillTrophy size={100} color="gold" />
-              )}
-              {/* END ------------------^^^^^^^^^^^  */}
-              {/* ------------------^^^^^^^^^^^  */}
-              <Selector value={listSelector} onChange={handleSelection}>
-                <OptionSelector value="plan-to-watch">
-                  Plan to watch
-                </OptionSelector>
-                <OptionSelector value="watching">Watching</OptionSelector>
-                <OptionSelector value="completed">Completed</OptionSelector>
-                {/* <option ></option> */}
-                {/* <option ></option> */}
-                {/* <option ></option> */}
-              </Selector>
-            </div>
-            {/* Save should also close the modal when clicked */}
-            <div className="actionsContainer">
-              <button
-                className="cancelBtn"
-                onClick={() => setIsModalOpen(false)}
-              >
-                Cancel
-              </button>
-              <button className="confirmBtn" onClick={handleLogAnime}>
-                Confirm
-              </button>
-            </div>
+                    <span className="details-span watching">
+                      <label htmlFor="epsWatchedInput">Watched: </label>
+                      {/* <div className="eps-input-div"> */}
+                      {/* might want to experiment with a green + circle just off the top right corner of the input */}
+                      <input
+                        type="number"
+                        min={1}
+                        max={2000}
+                        value={episodesWatched}
+                        onChange={handleWatchedInputChange}
+                        onKeyDown={preventDecimalWatched}
+                        id="epsWatchedInput"
+                      ></input>
+                      {episodesWatched < episodesAired && (
+                        <button
+                          type="button"
+                          className="ep-count"
+                          onClick={handleIncreaseWatchedBtn}
+                        >
+                          <AiFillPlusCircle
+                            size={27}
+                            style={{ pointerEvents: "none" }}
+                          />
+                        </button>
+                      )}
+                      {/* </div> */}
+                    </span>
+
+                    <span className="details-span watching">
+                      <label htmlFor="scoreInput">My score: </label>
+                      <input
+                        type="number"
+                        className="score-input"
+                        value={myScore}
+                        onKeyDown={preventMinus}
+                        onPaste={preventPasteNegative}
+                        onChange={handleScoreInputChange}
+                        placeholder="1 to 10"
+                        id="scoreInput"
+                      ></input>
+                    </span>
+                  </div>
+                )}
+                {listSelector === "completed" && (
+                  <AiFillTrophy size={100} color="gold" />
+                )}
+                {/* END ------------------^^^^^^^^^^^  */}
+                {/* ------------------^^^^^^^^^^^  */}
+                <Selector value={listSelector} onChange={handleSelection}>
+                  <OptionSelector value="plan-to-watch">
+                    Plan to watch
+                  </OptionSelector>
+                  <OptionSelector value="watching">Watching</OptionSelector>
+                  <OptionSelector value="completed">Completed</OptionSelector>
+                  {/* <option ></option> */}
+                  {/* <option ></option> */}
+                  {/* <option ></option> */}
+                </Selector>
+              </div>
+              {/* Save should also close the modal when clicked */}
+              <div className="actionsContainer">
+                <button
+                  type="button"
+                  className="cancelBtn"
+                  onClick={() => setIsModalOpen(false)}
+                >
+                  Cancel
+                </button>
+                <button className="confirmBtn" onClick={handleConfirmClick}>
+                  Confirm
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       </div>

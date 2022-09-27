@@ -187,6 +187,7 @@ function SingleAnime({ message, isMobile, setIsModalOpen, isModalOpen }) {
             animeID={animeID}
             isFetchLocked={isFetchLocked}
             setIsFetchLocked={setIsFetchLocked}
+            animeTitle={myAnimeData.title}
           />
         )}
         {/* <span>{myAnimeData.synopsis}</span> */}
