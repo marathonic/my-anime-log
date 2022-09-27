@@ -130,12 +130,14 @@ function Modal({
     setMyScore(parseFloat(value, 10));
   };
 
-  const handleFormSubmit = (e) => {
-    console.log("running handleFormSubmit");
-  };
-
   const handleConfirmClick = (e) => {
     e.preventDefault();
+
+    // -----------------------
+    // ----------CONTINUE HERE!!!
+    // NEXT STEP: Populate the inputs with the Firestore data in the useEffect.
+    // ^^^^^^^^
+
     console.log("running handleConfirmClick");
     // Let's just create a constructor function instead!
 
@@ -356,7 +358,7 @@ function Modal({
       <div className="darkBG">
         <div className="centered">
           <div className="modal">
-            <form onSubmit={handleFormSubmit}>
+            <form>
               <div className="modalHeader">
                 {/* <h1>Modal</h1> */}
                 <h5 className="heading">Add to my log</h5>
