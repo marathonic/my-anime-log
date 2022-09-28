@@ -14,6 +14,7 @@ import {
 } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
 import Skeleton from "react-loading-skeleton";
+import _ from "lodash";
 
 function Modal({
   setIsModalOpen,
@@ -38,7 +39,7 @@ function Modal({
   // Then, inside a function: setLoggedEpisodes()
   const [user, loading, error] = useAuthState(auth);
   const [animeLog, setAnimeLog] = useState({});
-  const [isLoadingLog, setIsLoadingLog] = useState(true); //<-- SET TO FALSE TO TURN OFF
+  const [isLoadingLog, setIsLoadingLog] = useState(false); //<-- SET TO FALSE TO TURN OFF
   // We want to search the Firestore user for the animeID
   // structure:
   // users --> randomStringDocument --> name, email, uid !== userID ? (castleracer: bolPu0WO...) -->
@@ -175,8 +176,17 @@ function Modal({
 
     // our possible solution, using our constructor function:
     let myAnime = AnimeLogEntry();
-    console.log(myAnime);
-    setDoc(doc(db, "theNewUsers", user.uid, "animeLog", animeID), myAnime);
+    console.log(myAnime[`${animeID}`]);
+    console.log(animeDataFromLog);
+    // if data hasn't changed, return:
+    // if (myAnime[`${animeID}`].score === animeDataFromLog.score) {
+    //
+    // }
+    //  Check with lodash _.isEqual here:
+    if (_.isEqual(myAnime[`${animeID}`], animeDataFromLog)) {
+      console.log("data has not changed, returning...");
+    }
+    // setDoc(doc(db, "theNewUsers", user.uid, "animeLog", animeID), myAnime);
 
     // close the modal
     setIsModalOpen(false);
@@ -285,8 +295,8 @@ function Modal({
 
   useEffect(() => {
     if (isFetchLocked) return;
-    setIsLoadingLog(true);
     const getAnimeLogFromDatabase = async () => {
+      setIsLoadingLog(true);
       try {
         //        const q = query(collection(db, "users"), where("uid", "==", user?.uid));
         //        const docu = await getDocs(q);
@@ -323,119 +333,14 @@ function Modal({
           console.log("No such anime in the user's log");
         }
 
-        // HMmm, we could replace this with get(), that way we can set it in one go,
-        // we can setLoggedEpisodes() or setLoggedScore(), and, if it's null, it'll just assign our default.
-        // Perhaps we could useEffect(() => {},[loggedScore, loggedEpisodes]) although we've had issues working like that in the past...
-
-        //^^^^^^^^ If the above works, now we just need to
-        // have our Confirm button actually log the anime,
-        // for which, we'll use setDoc.
-
-        //setDoc(doc(db, "theNewUsers", user.uid, "animeLog", "watching"), {
-        //  [animeID]: {
-        //    name: "myFirstAnimeSaved",
-        //  },
-        //});
-
-        // We may wish to have conditional setDoc for each category, like:
-        /* eslint-disable-next-line*/
-        //if (listSelector === "completed") {
-        //  setDoc(
-        //    doc(db, "theNewUsers", user.uid, "animeLog", {
-        //      [animeID]: {
-        //        status: listSelector,
-        //        watched: episodesAired,
-        //        score: myScore || "",
-        //      },
-        //    })
-        //  );
-        //}
-        ////potential solution:
-        //setDoc(doc(db, "theNewUsers", user.uid, "animeLog", animeID), {
-        //  [animeID]: {
-        //    status: "myStatus(get the value of the current dropdown option",
-        //    watched: "watched (get this from its respective input)" || 0,
-        //    score: "myScore (get this from its respective input)" || "",
-        //  },
-        //});
-
-        // name: ,
-        // ...(episodesWatched ? { watched: episodesWatched})
-        // ^Ŵe can just make a document for that anime, right there!
-        // ----------CONTINUE ON THE LINE ABOVE!!!!!!!!^^^^^^^^
-        // make a factory:
-        // onClickConfirm:
-
-        //----------------------------------------------------
-        // ----------------------------------------------------
-
-        // !!!Ooooooh I see a potential issue there. ^^^^^^^^^^^^^^^ <-- EDIT: READ SOLUTION ABOVE
-        // We'll need an extra read to remove the document from any other category it may be in.
-        // So if we have an anime as PlanToWatch, and then we add it to Watching,
-        // then it would be in both categories: PlanToWatch AND Watching.
-
-        //
-        //
-        // ignore below for now, focus on the above ^^^
-
-        // Perhaps we were on the right track signing up users again.
-        // If upon registration we assign each user a doc like so:
-        // users --> user.uid --> userData: {...}, animeLog: {...},
-        // we could do the above, like
-        // doc(db, "userData", user.uid, "animeLog", animeID);
-        // Let's try that.
-
-        // when retrieving all anime by status (completed, etc.):
-
-        // const animeLogRef = collection(db, "usersAnimeLogs", user.uid, "all");
-
-        //
-
-        /* GET MULTIPLE DOCUMENTS FROM A COLLECTION */
-        // example: get all completed anime:
-        /*
-        const q = query(
-          collection(db, "usersAnimeLogs", user.uid, "all"),
-          where("status", "==", "completed")
-        );
-        const querySnapshot = await getDocs(q);
-        querySnapshot.forEach((anime) => {
-          console.log(anime.animeId);
-        }); 
-        */
-
-        // Ok this creates a new "user" with id of our current user's uid, which isn't what we're trying to do here.
-        // EDIT: ^^^That is now exactly what we're doing lol, let's experiment.
-
-        // let singleAnimeID = await getDoc(db, "userAnimeLogs", user.uid,  )
-        // const userAnimeLogsRef = collection(db, "userAnimeLogs");
-        // const q = query(userAnimeLogsRef, where("animeId", "==", animeID ))
-
-        // --------USE LATER:
-        // Ok, this is good for when we want to CONFIRM, to log our anime:
-        // but, in this function we're not doing that, we're just checking if it's in our log already.
-        //setDoc(doc(db, 'userAnimeLogs', user.uid, "animeLog", "watching"), {
-        //  [animeID]: {
-        //    'name': 'myFirstAnimeSaved',
-        //  }
-        //})
-
-        // So 9969 is actually a document.
-        // We alternate <collection, document> to get a document with doc()
-        // /Parent path: users/GX6mrv50HSfK0b0LFtRc/animeLog
-        // Parent path: /users/GX6mrv50HSfK0b0LFtRc/animeLog/mSjjRrcCKEUkk7Ppvc1m
-        // .collection("animeLog")
-        // /users/GX6mrv50HSfK0b0LFtRc/animeLog/structureVersion3-Watching
-
-        // setAnimeLog(data);
         setIsFetchLocked(true);
       } catch (err) {
         console.error(err);
         alert("err");
       }
+      setIsLoadingLog(false);
     };
     getAnimeLogFromDatabase();
-    setIsLoadingLog(false);
     /*eslint-disable-next-line */
   }, []);
 
@@ -458,25 +363,6 @@ function Modal({
                   X
                 </button>
               </div>
-              {/* delete? */}
-              {/* WE COULD TURN THIS INTO A FUNCTION:
-            We can put the function in our utils folder
-            In that document, we will make 3 other functions:
-            registerWatching, registerCompleted, registerPlanToWatch.
-            The function we will be exporting is our main function: 
-            That main function takes 3 parameters: (selector, epsAired, epsWatched);
-            // Inside the function, perform a switch statement.
-            // switch(selector), case x: registerWatching() break; case y: registerCompleted etc...
-            To call it here, pass (listSelector, episodesAired, episodesWatched).
-            In case of x  */}
-
-              {/* let's try a conditional skeleton that wraps everything in modalContent, inclusive:
-              <div className="modalContent">
-              ...copy everything as close as possible, but replace inputs with skeletons
-              </div (modalContent)>
-
-              then, if isLoadingLog ? <modalContentSkeleton /> : <div className="modalContent">... the entire modal</div> 
-              */}
 
               <div className="modalContent">
                 {listSelector === "watching" && (
@@ -498,7 +384,6 @@ function Modal({
                         onKeyDown={preventDecimalWatched}
                         id="epsWatchedInput"
                       ></input>
-                      }
                       {episodesWatched < episodesAired && (
                         <button
                           type="button"
