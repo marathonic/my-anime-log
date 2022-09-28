@@ -13,6 +13,7 @@ import {
   getDoc,
 } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
+import Skeleton from "react-loading-skeleton";
 
 function Modal({
   setIsModalOpen,
@@ -21,18 +22,23 @@ function Modal({
   setIsFetchLocked,
   isFetchLocked,
   animeTitle,
+  animeDataFromLog,
+  setAnimeDataFromLog,
 }) {
-  const [listSelector, setListSelector] = useState("watching");
-  const [episodesWatched, setEpisodesWatched] = useState(0); // <-- useState(loggedEps || 0);
-  const [myScore, setMyScore] = useState(""); // <-- useState(loggedScore) || "";
+  const [listSelector, setListSelector] = useState(
+    animeDataFromLog.status || "watching"
+  );
+  const [episodesWatched, setEpisodesWatched] = useState(
+    animeDataFromLog.watched || 0
+  ); // <-- useState(loggedEps || 0);
+  const [myScore, setMyScore] = useState(animeDataFromLog.score || ""); // <-- useState(loggedScore) || "";
   // ^^ for both of the above: Set to user's log data for that anime. If null, set to 0 or "";
   // To set the user's log data, use state.
   // const [loggedEpisodes, setLoggedEpisodes] = useState(0).
   // Then, inside a function: setLoggedEpisodes()
   const [user, loading, error] = useAuthState(auth);
   const [animeLog, setAnimeLog] = useState({});
-  const [animeDataFromLog, setAnimeDataFromLog] = useState({});
-  const [isLoadingLog, setIsLoadingLog] = useState(true);
+  const [isLoadingLog, setIsLoadingLog] = useState(true); //<-- SET TO FALSE TO TURN OFF
   // We want to search the Firestore user for the animeID
   // structure:
   // users --> randomStringDocument --> name, email, uid !== userID ? (castleracer: bolPu0WO...) -->
@@ -176,6 +182,71 @@ function Modal({
     setIsModalOpen(false);
   };
 
+  const loadingLogSkeleton = (
+    <>
+      <div className="darkBG">
+        <div className="centered">
+          <div className="modal">
+            <form>
+              <div className="modalHeader">
+                {/* <h1>Modal</h1> */}
+                <button type="button" className="closeBtn" disabled={true}>
+                  -
+                </button>
+              </div>
+
+              <div className="modalContent">
+                <div className="watching-container loading">
+                  <span className="details-span watching"></span>
+
+                  <span className="details-span watching">
+                    <Skeleton
+                      width={"9rem"}
+                      height={"72%"}
+                      duration={0.5}
+                      highlightColor="silver"
+                      baseColor="darkgray"
+                    ></Skeleton>
+                  </span>
+                  <span className="details-span watching">
+                    <Skeleton
+                      width={"9rem"}
+                      height={"72%"}
+                      duration={0.5}
+                      highlightColor="silver"
+                      baseColor="darkgray"
+                    ></Skeleton>
+                  </span>
+                </div>
+                <div className="loading-list-selector">
+                  <Skeleton
+                    width={"72%"}
+                    height={"1.6rem"}
+                    duration={0.5}
+                    highlightColor="silver"
+                    baseColor="darkgray"
+                  ></Skeleton>
+                </div>
+              </div>
+              {/* Save should also close the modal when clicked */}
+              <div className="actionsContainer">
+                <Skeleton className="cancel-btn" width={"30%"} height={"20%"}>
+                  baseColor="silver"
+                </Skeleton>
+                <Skeleton
+                  className="confirmBtn"
+                  width={"30%"}
+                  height={"20%"}
+                  baseColor="silver"
+                ></Skeleton>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+
   // Let's try to avoid unnecessary requests to firebase.
   // if data has been fetched and nothing has changed, don't fetch again.
   // for this, we will want to run a check when we click Confirm:
@@ -240,6 +311,8 @@ function Modal({
           const snapResponse = animeSnap.data();
           const animeLogObj = snapResponse[`${animeID}`];
           setAnimeDataFromLog(animeLogObj);
+          // test if the following are needed, since on first render they'll be sent to SingleAnime:
+          // and if not found, useState OR (  ||  ) clause sets them.
           setListSelector(animeLogObj.status);
           setEpisodesWatched(animeLogObj.watched);
           setMyScore(animeLogObj.score);
@@ -366,6 +439,8 @@ function Modal({
     /*eslint-disable-next-line */
   }, []);
 
+  if (isLoadingLog) return loadingLogSkeleton;
+
   return (
     <>
       <div className="darkBG">
@@ -394,6 +469,15 @@ function Modal({
             // switch(selector), case x: registerWatching() break; case y: registerCompleted etc...
             To call it here, pass (listSelector, episodesAired, episodesWatched).
             In case of x  */}
+
+              {/* let's try a conditional skeleton that wraps everything in modalContent, inclusive:
+              <div className="modalContent">
+              ...copy everything as close as possible, but replace inputs with skeletons
+              </div (modalContent)>
+
+              then, if isLoadingLog ? <modalContentSkeleton /> : <div className="modalContent">... the entire modal</div> 
+              */}
+
               <div className="modalContent">
                 {listSelector === "watching" && (
                   <div className="watching-container">
@@ -413,8 +497,8 @@ function Modal({
                         onChange={handleWatchedInputChange}
                         onKeyDown={preventDecimalWatched}
                         id="epsWatchedInput"
-                        disabled={isLoadingLog}
                       ></input>
+                      }
                       {episodesWatched < episodesAired && (
                         <button
                           type="button"
@@ -441,7 +525,6 @@ function Modal({
                         onChange={handleScoreInputChange}
                         placeholder="1 to 10"
                         id="scoreInput"
-                        disabled={isLoadingLog}
                       ></input>
                     </span>
                   </div>

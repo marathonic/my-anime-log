@@ -19,7 +19,7 @@ const lowOpacity = {
 const loadingSkeletonSingleAnime = (
   // There's a slight Flash because of the contrast. We may wish to go with the darker palette after all.
   <>
-    ;
+    {/* ; <--- this ";" was here, commenting it out to see if that's the thing that we were seeing be active during loading which we though was a ":" */}
     <AnimeCard isMobile={true}>
       <div className="pic-container">
         <Skeleton
@@ -83,6 +83,7 @@ function SingleAnime({ message, isMobile, setIsModalOpen, isModalOpen }) {
   const [user] = useAuthState(auth);
   const API_URL = `https://api.jikan.moe/v4/anime/${animeID}`;
   const [isFetchLocked, setIsFetchLocked] = useState(false);
+  const [animeDataFromLog, setAnimeDataFromLog] = useState({});
 
   const toggleVisible = {
     visibility: isModalOpen ? "hidden" : "visible",
@@ -188,6 +189,8 @@ function SingleAnime({ message, isMobile, setIsModalOpen, isModalOpen }) {
             isFetchLocked={isFetchLocked}
             setIsFetchLocked={setIsFetchLocked}
             animeTitle={myAnimeData.title}
+            animeDataFromLog={animeDataFromLog}
+            setAnimeDataFromLog={setAnimeDataFromLog}
           />
         )}
         {/* <span>{myAnimeData.synopsis}</span> */}

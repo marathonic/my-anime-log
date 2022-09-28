@@ -68,6 +68,14 @@
     margin-left: 18%;
   }
 
+  .watching-container.loading {
+    margin-left: 26%;    
+  }
+
+  .loading-list-selector {
+    margin-left: 5%;
+  }
+
   .details-span {
     width: 80%;
     display: flex;
