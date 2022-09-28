@@ -413,6 +413,7 @@ function Modal({
                         onChange={handleWatchedInputChange}
                         onKeyDown={preventDecimalWatched}
                         id="epsWatchedInput"
+                        disabled={isLoadingLog}
                       ></input>
                       {episodesWatched < episodesAired && (
                         <button
@@ -440,6 +441,7 @@ function Modal({
                         onChange={handleScoreInputChange}
                         placeholder="1 to 10"
                         id="scoreInput"
+                        disabled={isLoadingLog}
                       ></input>
                     </span>
                   </div>
