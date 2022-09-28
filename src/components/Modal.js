@@ -176,19 +176,13 @@ function Modal({
 
     // our possible solution, using our constructor function:
     let myAnime = AnimeLogEntry();
-    console.log(myAnime[`${animeID}`]);
-    console.log(animeDataFromLog);
-    // if data hasn't changed, return:
-    // if (myAnime[`${animeID}`].score === animeDataFromLog.score) {
-    //
-    // }
-    //  Check with lodash _.isEqual here:
     if (_.isEqual(myAnime[`${animeID}`], animeDataFromLog)) {
       console.log("data has not changed, returning...");
+      setIsModalOpen(false);
+      return;
     }
-    // setDoc(doc(db, "theNewUsers", user.uid, "animeLog", animeID), myAnime);
-
-    // close the modal
+    // data has changed, so log the new data:
+    setDoc(doc(db, "theNewUsers", user.uid, "animeLog", animeID), myAnime);
     setIsModalOpen(false);
   };
 
@@ -383,6 +377,7 @@ function Modal({
                         onChange={handleWatchedInputChange}
                         onKeyDown={preventDecimalWatched}
                         id="epsWatchedInput"
+                        required
                       ></input>
                       {episodesWatched < episodesAired && (
                         <button
@@ -410,6 +405,7 @@ function Modal({
                         onChange={handleScoreInputChange}
                         placeholder="1 to 10"
                         id="scoreInput"
+                        required
                       ></input>
                     </span>
                   </div>
