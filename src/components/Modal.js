@@ -31,6 +31,8 @@ function Modal({
   // Then, inside a function: setLoggedEpisodes()
   const [user, loading, error] = useAuthState(auth);
   const [animeLog, setAnimeLog] = useState({});
+  const [animeDataFromLog, setAnimeDataFromLog] = useState({});
+  const [isLoadingLog, setIsLoadingLog] = useState(true);
   // We want to search the Firestore user for the animeID
   // structure:
   // users --> randomStringDocument --> name, email, uid !== userID ? (castleracer: bolPu0WO...) -->
@@ -212,6 +214,7 @@ function Modal({
 
   useEffect(() => {
     if (isFetchLocked) return;
+    setIsLoadingLog(true);
     const getAnimeLogFromDatabase = async () => {
       try {
         //        const q = query(collection(db, "users"), where("uid", "==", user?.uid));
@@ -233,7 +236,16 @@ function Modal({
         const animeSnap = await getDoc(animeIdRef);
 
         if (animeSnap.exists()) {
-          console.log("Document data:", animeSnap.data());
+          // console.log("Document data:", animeSnap.data());
+          const snapResponse = animeSnap.data();
+          const animeLogObj = snapResponse[`${animeID}`];
+          setAnimeDataFromLog(animeLogObj);
+          setListSelector(animeLogObj.status);
+          setEpisodesWatched(animeLogObj.watched);
+          setMyScore(animeLogObj.score);
+          // const animeDataInLog = animeSnap.data();
+
+          console.log(animeLogObj);
         } else {
           console.log("No such anime in the user's log");
         }
@@ -350,6 +362,7 @@ function Modal({
       }
     };
     getAnimeLogFromDatabase();
+    setIsLoadingLog(false);
     /*eslint-disable-next-line */
   }, []);
 
