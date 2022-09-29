@@ -408,7 +408,23 @@ function Modal({
                   </div>
                 )}
                 {listSelector === "completed" && (
-                  <AiFillTrophy size={100} color="gold" />
+                  <span className="details-span completed">
+                    <AiFillTrophy size={70} color="gold" />
+                    <span className="completed-score-span">
+                      <label htmlFor="completedScoreInput">My score: </label>
+                      <input
+                        type="number"
+                        className="score-input"
+                        value={myScore}
+                        onKeyDown={preventMinus}
+                        onPaste={preventPasteNegative}
+                        onChange={handleScoreInputChange}
+                        placeholder="1 to 10"
+                        id="completedScoreInput"
+                        required
+                      ></input>
+                    </span>
+                  </span>
                 )}
                 {/* END ------------------^^^^^^^^^^^  */}
                 {/* ------------------^^^^^^^^^^^  */}
