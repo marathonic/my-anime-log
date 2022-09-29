@@ -1,13 +1,13 @@
 import PropTypes from "prop-types";
 import { TrailerContainer, VideoFrame } from "./primedComps";
 
-const YoutubeEmbed = ({ embedId, isMobile }) => (
+const YoutubeEmbed = ({ embedId, isMobile, isModalOpen }) => (
   <>
-    <span className="centered-span">
+    <span className={isModalOpen ? "darken-span" : "centered-span"}>
       <h1>Trailer</h1>
     </span>
 
-    <TrailerContainer isMobile={isMobile}>
+    <TrailerContainer isMobile={isMobile} isModalOpen={isModalOpen}>
       <VideoFrame
         src={embedId}
         allow="encrypted-media;"

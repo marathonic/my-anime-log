@@ -203,9 +203,13 @@ function SingleAnime({ message, isMobile, setIsModalOpen, isModalOpen }) {
         <YoutubeEmbed
           embedId={myAnimeData.trailer.embed_url}
           isMobile={isMobile}
+          isModalOpen={isModalOpen}
         />
       )}
-      <Synopsis animeSynopsis={myAnimeData.synopsis} />
+      <Synopsis
+        animeSynopsis={myAnimeData.synopsis}
+        isModalOpen={isModalOpen}
+      />
     </>
   );
 }

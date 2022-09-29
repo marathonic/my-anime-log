@@ -40,6 +40,7 @@ function Modal({
   const [user, loading, error] = useAuthState(auth);
   const [animeLog, setAnimeLog] = useState({});
   const [isLoadingLog, setIsLoadingLog] = useState(false); //<-- SET TO FALSE TO TURN OFF
+  const [animeExistsInLog, setAnimeExistsInLog] = useState(false);
   // We want to search the Firestore user for the animeID
   // structure:
   // users --> randomStringDocument --> name, email, uid !== userID ? (castleracer: bolPu0WO...) -->
@@ -183,6 +184,7 @@ function Modal({
     }
     // data has changed, so log the new data:
     setDoc(doc(db, "theNewUsers", user.uid, "animeLog", animeID), myAnime);
+    setIsFetchLocked(false);
     setIsModalOpen(false);
   };
 
@@ -292,15 +294,6 @@ function Modal({
     const getAnimeLogFromDatabase = async () => {
       setIsLoadingLog(true);
       try {
-        //        const q = query(collection(db, "users"), where("uid", "==", user?.uid));
-        //        const docu = await getDocs(q);
-        //        const data = docu.docs[0].data();
-        //        console.log(data);
-        //        console.log(data.altStructureAnimeLog);
-
-        //DOES THE animeID EXIST IN THE COLLECTION userAnimeLogs?
-        /* CHECK IF AN animeId EXISTS IN THE USER'S ANIME LOG  */
-        // const animeIdRef = doc(db, "usersAnimeLogs", user.uid, "all", animeID);
         const animeIdRef = doc(
           db,
           "theNewUsers",
@@ -320,11 +313,13 @@ function Modal({
           setListSelector(animeLogObj.status);
           setEpisodesWatched(animeLogObj.watched);
           setMyScore(animeLogObj.score);
+          setAnimeExistsInLog(true);
           // const animeDataInLog = animeSnap.data();
 
           console.log(animeLogObj);
         } else {
           console.log("No such anime in the user's log");
+          setAnimeExistsInLog(false);
         }
 
         setIsFetchLocked(true);
@@ -348,7 +343,9 @@ function Modal({
             <form>
               <div className="modalHeader">
                 {/* <h1>Modal</h1> */}
-                <h5 className="heading">Add to my log</h5>
+                <h5 className="heading">
+                  {animeExistsInLog ? "Update" : "Add to my log"}
+                </h5>
                 <button
                   type="button"
                   className="closeBtn"

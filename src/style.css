@@ -129,13 +129,19 @@ a:hover {
     margin-block: 7%;
 }
 
-.centered-span {
+.centered-span,
+.darken-span {
     /* min-width: 100%;
     text-align: center; */
     padding: 2%;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.darken-span {
+    visibility:hidden;
+    /* opacity: 90%; */
 }
 
 .add-list-btn {
@@ -552,6 +558,10 @@ label {
         flex-direction: column;
         justify-content: center;
         align-items: center;
+    }
+
+    .synopsis-hidden {
+        display: none;
     }
 
     .synopsis-div {

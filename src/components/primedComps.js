@@ -163,6 +163,12 @@ export const TrailerContainer = styled.div`
       display: flex;
       justify-content: center;
       height: auto;
+    `};
+
+  ${(props) =>
+    props.isModalOpen &&
+    css`
+      display: none;
     `}
 `;
 
