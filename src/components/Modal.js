@@ -59,7 +59,17 @@ function Modal({
     }
   };
 
+  const handleRedInputBorder = (inputId, addOrRemove) => {
+    if (addOrRemove === "add") {
+      document.querySelector(`#${inputId}`).classList.add("attention-input");
+    } else if (addOrRemove === "remove") {
+      document.querySelector(`#${inputId}`).classList.remove("attention-input");
+    }
+  };
+
   const handleWatchedInputChange = (e) => {
+    handleRedInputBorder("epsWatchedInput", "remove");
+
     const { value } = e.target;
     if (!value || value <= 0) {
       setEpisodesWatched(0);
@@ -75,7 +85,7 @@ function Modal({
   const handleIncreaseWatchedBtn = () => {
     if (episodesWatched === episodesAired) return;
     if (episodesWatched > episodesAired) return;
-
+    handleRedInputBorder("epsWatchedInput", "remove");
     setEpisodesWatched(Number(episodesWatched) + 1);
   };
 
@@ -138,11 +148,19 @@ function Modal({
     // score is a float number, for greater user experience.
     // console.log(typeof value);
     setMyScore(parseFloat(value, 10));
+    handleRedInputBorder("completedScoreInput", "remove");
   };
 
   const handleConfirmClick = (e) => {
     e.preventDefault();
-
+    if (listSelector === "completed" && !myScore) {
+      handleRedInputBorder("completedScoreInput", "add");
+      return;
+    }
+    if (listSelector === "watching" && !episodesWatched) {
+      handleRedInputBorder("epsWatchedInput", "add");
+      return;
+    }
     // -----------------------
     // ----------CONTINUE HERE!!!
     // NEXT STEP: Populate the inputs with the Firestore data in the useEffect.
@@ -409,7 +427,7 @@ function Modal({
                 )}
                 {listSelector === "completed" && (
                   <span className="details-span completed">
-                    <AiFillTrophy size={70} color="gold" />
+                    <AiFillTrophy size={76} color="gold" />
                     <span className="completed-score-span">
                       <label htmlFor="completedScoreInput">My score: </label>
                       <input
