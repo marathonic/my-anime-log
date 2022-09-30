@@ -25,6 +25,8 @@ function Modal({
   animeTitle,
   animeDataFromLog,
   setAnimeDataFromLog,
+  animeExistsInLog,
+  setAnimeExistsInLog,
 }) {
   const [listSelector, setListSelector] = useState(
     animeDataFromLog.status || "watching"
@@ -40,7 +42,7 @@ function Modal({
   const [user, loading, error] = useAuthState(auth);
   const [animeLog, setAnimeLog] = useState({});
   const [isLoadingLog, setIsLoadingLog] = useState(false); //<-- SET TO FALSE TO TURN OFF
-  const [animeExistsInLog, setAnimeExistsInLog] = useState(false);
+
   // We want to search the Firestore user for the animeID
   // structure:
   // users --> randomStringDocument --> name, email, uid !== userID ? (castleracer: bolPu0WO...) -->
@@ -228,8 +230,8 @@ function Modal({
                       width={"9rem"}
                       height={"72%"}
                       duration={0.5}
-                      highlightColor="silver"
-                      baseColor="darkgray"
+                      highlightColor="#E8F0F2"
+                      baseColor="#cdcccc"
                     ></Skeleton>
                   </span>
                   <span className="details-span watching">
@@ -237,8 +239,8 @@ function Modal({
                       width={"9rem"}
                       height={"72%"}
                       duration={0.5}
-                      highlightColor="silver"
-                      baseColor="darkgray"
+                      highlightColor="#E8F0F2"
+                      baseColor="#cdcccc"
                     ></Skeleton>
                   </span>
                 </div>
@@ -247,8 +249,8 @@ function Modal({
                     width={"72%"}
                     height={"1.6rem"}
                     duration={0.5}
-                    highlightColor="silver"
-                    baseColor="darkgray"
+                    highlightColor="#E8F0F2"
+                    baseColor="#cdcccc"
                   ></Skeleton>
                 </div>
               </div>

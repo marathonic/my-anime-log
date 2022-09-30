@@ -109,6 +109,14 @@ function App() {
       // we can set all at the end at once: updateAllTopAnime({movies: topMovies, airing: topAiring, popular: topPopular})
       // but then the user would have to wait several seconds before our content displays.
       // Let's set each one individually as soon as it's ready:
+
+      // ---------------
+      // -----------------CONTINUE HERE:
+      // Found an edge case:
+      // If user asks for a search (whether autocomplete or full)
+      // within 1 second of a category fetching, we get 428:
+      // too many requests. Let's find a way around it!
+
       if (!allTopAnime.overall) {
         await new Promise((resolve) => setTimeout(resolve, 1000));
         const topOverall = await fetchTopTen("overall");
