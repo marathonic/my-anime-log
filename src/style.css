@@ -230,13 +230,15 @@ hr {
 .suggestions-ul {
     margin-top: 1.5%;
     position: absolute;
+    left: 0;
     width: 100%;
     box-shadow: 10px 7px 5px #111111;
     display: block;
 }
 
 .suggestions-hidden {
-    display: none;
+    /* display: none; */
+    visibility: hidden;
 }
 
 .suggestion-span {
@@ -482,6 +484,19 @@ label {
 /* micro-adjustments for mobile */
 
 @media only screen and (max-width: 480px) {
+    .landing-searchbar-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 20%;
+    }
+
+    .landing-down-chevron {
+        bottom: 0;
+        position: absolute;
+        padding: 5rem;
+    }
+
     .loading-skeleton-div {
         width: 100%;
         overflow: auto;

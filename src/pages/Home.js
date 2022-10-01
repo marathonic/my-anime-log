@@ -7,6 +7,7 @@ import { initial } from "lodash";
 import { MobileSkeletonTile } from "../components/LoadingSkeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import Skeleton from "react-loading-skeleton";
+import { FiChevronDown, FiChevronUp } from "react-icons/fi";
 
 export default function Home({
   handleSearch,
@@ -21,6 +22,7 @@ export default function Home({
   popular,
 }) {
   let topOverall, topMovies, topSpecials, topPopular, topAiring;
+  const [currentView, setCurrentView] = useState("search");
 
   const renderMapped = (category, isMobile) => {
     let mapped = category.map((anime) => {
@@ -181,27 +183,50 @@ export default function Home({
   */
   return (
     <div>
-      <h1>
-        <SearchBar />
-        <span className="centered-span">
-          <h3>Explore</h3>
-        </span>
-      </h1>
-      <Sidebar></Sidebar>
-      {/* look into lazy loading, it's exactly what we want here to polish up our presentation */}
-      {/* Right now, if the images haven't loaded, the section just isn't showing. */}
-      {/* We want to fix that:  */}
-      {/* while the images are loading, we want to render divs that clearly indicate it, e.g: a sliding glow across each div */}
-      {/* <Category isMobile={isMobile}>{topTen}</Category> */}
-      <MobileSkeletonTile></MobileSkeletonTile>
-      {overall && <h3>Top anime</h3>}
-      {topOverall}
-      {popular && <h3>Top popular</h3>}
-      {topPopular}
-      {airing && <h3>Airing this week</h3>}
-      {topAiring}
-      {movies && <h3>Top movies</h3>}
-      {topMovies}
+      {currentView === "search" && (
+        <div className="landing-searchbar-container">
+          <h1>myAnimeLog</h1>
+          <SearchBar />
+
+          <span className="landing-down-chevron">
+            <button onClick={() => setCurrentView("explore")}>
+              <FiChevronDown style={{ pointerEvents: "none" }} />
+            </button>
+          </span>
+        </div>
+      )}
+
+      {/* Chevron down: EXPLORE <-- the page ends here, a chevron will
+      conditionally render an Explore section.
+
+      In the Explore section, a Chevron up will conditionally
+      render the SearchBar
+    */}
+      {currentView === "explore" && (
+        <div>
+          <button onClick={() => setCurrentView("search")}>
+            <FiChevronUp style={{ pointerEvents: "none" }} />
+          </button>
+          <span className="centered-span">
+            <h3>Explore</h3>
+          </span>
+          <Sidebar></Sidebar>
+          {/* look into lazy loading, it's exactly what we want here to polish up our presentation */}
+          {/* Right now, if the images haven't loaded, the section just isn't showing. */}
+          {/* We want to fix that:  */}
+          {/* while the images are loading, we want to render divs that clearly indicate it, e.g: a sliding glow across each div */}
+          {/* <Category isMobile={isMobile}>{topTen}</Category> */}
+          <MobileSkeletonTile></MobileSkeletonTile>
+          {overall && <h3>Top anime</h3>}
+          {topOverall}
+          {popular && <h3>Top popular</h3>}
+          {topPopular}
+          {airing && <h3>Airing this week</h3>}
+          {topAiring}
+          {movies && <h3>Top movies</h3>}
+          {topMovies}
+        </div>
+      )}
     </div>
   );
 }
