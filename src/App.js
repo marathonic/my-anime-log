@@ -33,7 +33,9 @@ function App() {
     initialAnime
   );
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentView, setCurrentView] = useState("search");
   const isMobile = useMediaQuery({ query: "(max-width:428px)" });
+  const [isFetchInProgress, setIsFetchInProgress] = useState(false);
 
   // updates: updateAllTopAnime({ category: response.data })
 
@@ -103,6 +105,7 @@ function App() {
     // }
 
     if (location.pathname !== "/") return;
+    if (currentView !== "explore") return;
     if (allTopAnime.length === 4) return;
     // getTopAnime();
     const getAllMyTopAnime = async () => {
@@ -118,24 +121,31 @@ function App() {
       // too many requests. Let's find a way around it!
 
       if (!allTopAnime.overall) {
+        if (currentView !== "explore") return;
+        // setIsFetchInP
         await new Promise((resolve) => setTimeout(resolve, 1000));
         const topOverall = await fetchTopTen("overall");
         updateAllTopAnime({ overall: topOverall });
       }
 
       if (!allTopAnime.movies) {
+        if (currentView !== "explore") return;
         await new Promise((resolve) => setTimeout(resolve, 2000));
         const topMovies = await fetchTopTen("movies");
         updateAllTopAnime({ movies: topMovies });
       }
 
       if (!allTopAnime.airing) {
+        if (currentView !== "explore") return;
+
         await new Promise((resolve) => setTimeout(resolve, 2000));
         const topAiring = await fetchTopTen("airing");
         updateAllTopAnime({ airing: topAiring });
       }
 
       if (!allTopAnime.popular) {
+        if (currentView !== "explore") return;
+
         await new Promise((resolve) => setTimeout(resolve, 2000));
         const topPopular = await fetchTopTen("popular");
         updateAllTopAnime({ popular: topPopular });
@@ -158,7 +168,7 @@ function App() {
 
     getAllMyTopAnime();
     /*eslint-disable-next-line*/
-  }, [allTopAnime.length, location.pathname]);
+  }, [allTopAnime.length, location.pathname, currentView]);
 
   return (
     <AppContainer>
@@ -196,6 +206,8 @@ function App() {
               airing={allTopAnime.airing}
               isMobile={isMobile}
               handleSearch={handleSearch}
+              currentView={currentView}
+              setCurrentView={setCurrentView}
             />
           }
         ></Route>

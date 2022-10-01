@@ -20,9 +20,10 @@ export default function Home({
   movies,
   airing,
   popular,
+  currentView,
+  setCurrentView,
 }) {
   let topOverall, topMovies, topSpecials, topPopular, topAiring;
-  const [currentView, setCurrentView] = useState("search");
 
   const renderMapped = (category, isMobile) => {
     let mapped = category.map((anime) => {
