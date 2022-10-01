@@ -22,6 +22,7 @@ export default function Home({
   popular,
   currentView,
   setCurrentView,
+  isFetchInProgress,
 }) {
   let topOverall, topMovies, topSpecials, topPopular, topAiring;
 
@@ -182,12 +183,13 @@ export default function Home({
    
    });
   */
+  console.log(currentView);
   return (
     <div>
       {currentView === "search" && (
         <div className="landing-searchbar-container">
           <h1>myAnimeLog</h1>
-          <SearchBar />
+          <SearchBar isFetchInProgress={isFetchInProgress} />
 
           <span className="landing-down-chevron">
             <button onClick={() => setCurrentView("explore")}>

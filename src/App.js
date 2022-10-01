@@ -120,35 +120,40 @@ function App() {
       // within 1 second of a category fetching, we get 428:
       // too many requests. Let's find a way around it!
 
-      if (!allTopAnime.overall) {
+      if (!allTopAnime.overall && currentView === "explore") {
         if (currentView !== "explore") return;
-        // setIsFetchInP
+        setIsFetchInProgress(true);
         await new Promise((resolve) => setTimeout(resolve, 1000));
         const topOverall = await fetchTopTen("overall");
         updateAllTopAnime({ overall: topOverall });
+        setIsFetchInProgress(false);
       }
 
       if (!allTopAnime.movies) {
         if (currentView !== "explore") return;
+        setIsFetchInProgress(true);
         await new Promise((resolve) => setTimeout(resolve, 2000));
         const topMovies = await fetchTopTen("movies");
         updateAllTopAnime({ movies: topMovies });
+        setIsFetchInProgress(false);
       }
 
       if (!allTopAnime.airing) {
         if (currentView !== "explore") return;
-
+        setIsFetchInProgress(true);
         await new Promise((resolve) => setTimeout(resolve, 2000));
         const topAiring = await fetchTopTen("airing");
         updateAllTopAnime({ airing: topAiring });
+        setIsFetchInProgress(false);
       }
 
       if (!allTopAnime.popular) {
         if (currentView !== "explore") return;
-
+        setIsFetchInProgress(true);
         await new Promise((resolve) => setTimeout(resolve, 2000));
         const topPopular = await fetchTopTen("popular");
         updateAllTopAnime({ popular: topPopular });
+        setIsFetchInProgress(false);
       }
 
       // We're still missing --specials--, --upcoming--, --OVAs--...
@@ -208,6 +213,7 @@ function App() {
               handleSearch={handleSearch}
               currentView={currentView}
               setCurrentView={setCurrentView}
+              isFetchInProgress={isFetchInProgress}
             />
           }
         ></Route>

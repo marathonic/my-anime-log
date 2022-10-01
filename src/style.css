@@ -125,8 +125,15 @@ a:hover {
 
 .search-bar-btn {
     height: 1.7rem;
-    width: 10%;
+    width: 20%;
     margin-block: 7%;
+    background-color: var(--soft-peach);
+    color:#1F1D36;
+}
+
+.search-bar-btn:disabled {
+    opacity: 70;
+    background-color: palevioletred;
 }
 
 .centered-span,

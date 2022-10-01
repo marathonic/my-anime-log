@@ -4,7 +4,7 @@ import { debounce } from "lodash";
 import useListWhenVisible from "../utils/useListWhenVisible";
 import { DebounceInput } from "react-debounce-input";
 
-const SearchBar = () => {
+const SearchBar = ({ isFetchInProgress }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [predictions, setPredictions] = useState([]);
   const [inputFocus, setInputFocus] = useState(false);
@@ -95,6 +95,8 @@ const SearchBar = () => {
     navigate(`/anime/search/${searchQuery}&sfw`);
   };
 
+  console.log(isFetchInProgress);
+
   return (
     // we could give it position: sticky; top:0, so we can still search when we're scrolled down.
     <form onSubmit={handleSubmit} className="searchbar-form">
@@ -112,7 +114,9 @@ const SearchBar = () => {
           {/* <Suggestions results={predictions} /> */}
         </ul>
       )}
-      <button className="search-bar-btn">OK</button>
+      <button className="search-bar-btn" disabled={isFetchInProgress}>
+        GO
+      </button>
     </form>
   );
 };
