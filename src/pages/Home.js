@@ -23,8 +23,11 @@ export default function Home({
   currentView,
   setCurrentView,
   isFetchInProgress,
+  setIsFetchInProgress,
 }) {
   let topOverall, topMovies, topSpecials, topPopular, topAiring;
+  // to make it easier to FIND anime we don't know about, make it instead be:
+  // topAiring, topUpcoming...
 
   const renderMapped = (category, isMobile) => {
     let mapped = category.map((anime) => {
@@ -189,7 +192,10 @@ export default function Home({
       {currentView === "search" && (
         <div className="landing-searchbar-container">
           <h1>myAnimeLog</h1>
-          <SearchBar isFetchInProgress={isFetchInProgress} />
+          <SearchBar
+            isFetchInProgress={isFetchInProgress}
+            setIsFetchInProgress={setIsFetchInProgress}
+          />
 
           <span className="landing-down-chevron">
             <button onClick={() => setCurrentView("explore")}>

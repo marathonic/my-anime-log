@@ -4,24 +4,36 @@ import { debounce } from "lodash";
 import useListWhenVisible from "../utils/useListWhenVisible";
 import { DebounceInput } from "react-debounce-input";
 
-const SearchBar = ({ isFetchInProgress }) => {
+const SearchBar = ({ isFetchInProgress, setIsFetchInProgress }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [predictions, setPredictions] = useState([]);
   const [inputFocus, setInputFocus] = useState(false);
   const [filteredPreds, setFilteredPreds] = useState([]);
   const navigate = useNavigate();
 
-  const getPredictionFromsAPI = async () => {
+  const wait = (ms) => {
+    return new Promise((r) => setTimeout(r, ms));
+  };
+
+  const getPredictionsFromAPI = async () => {
+    setIsFetchInProgress(true);
     const res = await fetch(
       `https://api.jikan.moe/v4/anime?q=${searchQuery}&order_by=scored_by&sort=desc&limit=3`
     );
     const resData = await res.json();
     setPredictions(resData.data);
+    setIsFetchInProgress(false);
   };
 
   const handleText = debounce((text) => {
+    // setIsFetchInProgress(true);
+    console.log("run: handleText");
     setSearchQuery(text);
-  }, 700);
+  }, 1000);
+
+  const handleDebouncedPredictions = debounce(() => {
+    getPredictionsFromAPI();
+  }, 1100);
 
   const handleInputFocus = (e) => {
     setInputFocus(true);
@@ -42,7 +54,16 @@ const SearchBar = ({ isFetchInProgress }) => {
     if (!searchQuery.length) {
       return;
     }
-    getPredictionFromsAPI();
+    handleDebouncedPredictions();
+    // if (isFetchInProgress) {
+    // console.log("debouncing...");
+    // handleDebouncedPredictions();
+    // return;
+    // } else {
+    // getPredictionsFromAPI();
+    // return;
+    // }
+    // getPredictionsFromAPI();
     //eslint-disable-next-line
   }, [searchQuery]);
 

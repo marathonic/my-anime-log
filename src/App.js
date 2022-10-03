@@ -214,6 +214,7 @@ function App() {
               currentView={currentView}
               setCurrentView={setCurrentView}
               isFetchInProgress={isFetchInProgress}
+              setIsFetchInProgress={setIsFetchInProgress}
             />
           }
         ></Route>
