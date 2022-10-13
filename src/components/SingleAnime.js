@@ -175,7 +175,7 @@ function SingleAnime({ message, isMobile, setIsModalOpen, isModalOpen }) {
             onClick={() => setIsModalOpen(true)}
             style={toggleVisible}
           >
-            <BsFillBookmarkPlusFill size={22} /> add
+            <BsFillBookmarkPlusFill size={22} /> log
           </button>
         )}
         {isModalOpen && !user && (

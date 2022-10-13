@@ -150,7 +150,15 @@ function Modal({
     // score is a float number, for greater user experience.
     // console.log(typeof value);
     setMyScore(parseFloat(value, 10));
-    handleRedInputBorder("completedScoreInput", "remove");
+
+    if (
+      listSelector === "completed" &&
+      document
+        .querySelector("#completedScoreInput")
+        .classList.contains("attention-input")
+    ) {
+      handleRedInputBorder("completedScoreInput", "remove");
+    }
   };
 
   const handleConfirmClick = (e) => {

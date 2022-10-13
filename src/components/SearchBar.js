@@ -124,8 +124,9 @@ const SearchBar = ({ isFetchInProgress, setIsFetchInProgress }) => {
       <input
         className="search-bar"
         type="search"
-        placeholder="search..."
+        placeholder={isFetchInProgress ? "please wait..." : "search..."}
         onChange={(e) => handleText(e.target.value)}
+        disabled={isFetchInProgress}
         // onFocus={(e) => handleInputFocus()}
         // onBlur={handleInputBlur}
       />
