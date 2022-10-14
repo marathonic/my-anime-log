@@ -198,7 +198,10 @@ export default function Home({
           />
 
           <span className="landing-down-chevron">
-            <button onClick={() => setCurrentView("explore")}>
+            <button
+              onClick={() => setCurrentView("explore")}
+              disabled={isFetchInProgress}
+            >
               <FiChevronDown style={{ pointerEvents: "none" }} />
             </button>
           </span>

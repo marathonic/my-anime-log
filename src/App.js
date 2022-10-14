@@ -129,12 +129,12 @@ function App() {
         setIsFetchInProgress(false);
       }
 
-      if (!allTopAnime.movies) {
-        if (currentView !== "explore") {
-          const controller = new AbortController();
-          console.log("aborting fetch...");
-          return () => controller.abort();
-        }
+      if (!allTopAnime.movies && currentView === "explore") {
+        //if (currentView !== "explore") {
+        //  const controller = new AbortController();
+        //  console.log("aborting fetch...");
+        //  return () => controller.abort();
+        //}
         setIsFetchInProgress(true);
         await new Promise((resolve) => setTimeout(resolve, 2000));
         const topMovies = await fetchTopTen("movies");
@@ -142,7 +142,7 @@ function App() {
         setIsFetchInProgress(false);
       }
 
-      if (!allTopAnime.airing) {
+      if (!allTopAnime.airing && currentView === "explore") {
         if (currentView !== "explore") {
           const controller = new AbortController();
           console.log("aborting fetch...");
@@ -156,7 +156,7 @@ function App() {
         setIsFetchInProgress(false);
       }
 
-      if (!allTopAnime.popular) {
+      if (!allTopAnime.popular && currentView === "explore") {
         if (currentView !== "explore") return;
         setIsFetchInProgress(true);
         await new Promise((resolve) => setTimeout(resolve, 2000));

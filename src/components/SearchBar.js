@@ -116,7 +116,7 @@ const SearchBar = ({ isFetchInProgress, setIsFetchInProgress }) => {
     navigate(`/anime/search/${searchQuery}&sfw`);
   };
 
-  console.log(isFetchInProgress);
+  // console.log(isFetchInProgress);
 
   return (
     // we could give it position: sticky; top:0, so we can still search when we're scrolled down.
