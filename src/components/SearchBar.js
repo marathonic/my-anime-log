@@ -22,6 +22,9 @@ const SearchBar = ({ isFetchInProgress, setIsFetchInProgress }) => {
     );
     const resData = await res.json();
     setPredictions(resData.data);
+    // We could wait 1000ms here, so that the input isn't made available instantly after an API call, which could throw err 428.
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+    // We could wait 1000ms here, so that the input isn't made available instantly after an API call, which could throw err 428.
     setIsFetchInProgress(false);
   };
 

@@ -197,14 +197,18 @@ export default function Home({
             setIsFetchInProgress={setIsFetchInProgress}
           />
 
-          <span className="landing-down-chevron">
-            <button
-              onClick={() => setCurrentView("explore")}
-              disabled={isFetchInProgress}
-            >
-              <FiChevronDown style={{ pointerEvents: "none" }} />
-            </button>
-          </span>
+          <div className="centered-div">
+            <span className="landing-down-chevron">
+              <button
+                onClick={() => setCurrentView("explore")}
+                disabled={isFetchInProgress}
+                className="synopsis-chevron"
+              >
+                <FiChevronDown style={{ pointerEvents: "none" }} />
+              </button>
+            </span>
+            <span className="offset-span landing-down-text">explore</span>
+          </div>
         </div>
       )}
 
@@ -216,11 +220,17 @@ export default function Home({
     */}
       {currentView === "explore" && (
         <div>
-          <button onClick={() => setCurrentView("search")}>
-            <FiChevronUp style={{ pointerEvents: "none" }} />
-          </button>
+          <div
+            className="centered-div"
+            onClick={() => setCurrentView("search")}
+          >
+            <button className="synopsis-chevron">
+              <FiChevronUp style={{ pointerEvents: "none" }} />
+            </button>
+            <span className="offset-span">search</span>
+          </div>
           <span className="centered-span">
-            <h3>Explore</h3>
+            <h1>Explore</h1>
           </span>
           <Sidebar></Sidebar>
           {/* look into lazy loading, it's exactly what we want here to polish up our presentation */}
@@ -229,13 +239,13 @@ export default function Home({
           {/* while the images are loading, we want to render divs that clearly indicate it, e.g: a sliding glow across each div */}
           {/* <Category isMobile={isMobile}>{topTen}</Category> */}
           <MobileSkeletonTile></MobileSkeletonTile>
-          {overall && <h3>Top anime</h3>}
+          {overall && <h3 className="categ-head">Top anime</h3>}
           {topOverall}
-          {popular && <h3>Top popular</h3>}
+          {popular && <h3 className="categ-head">Top popular</h3>}
           {topPopular}
-          {airing && <h3>Airing this week</h3>}
+          {airing && <h3 className="categ-head">Airing this week</h3>}
           {topAiring}
-          {movies && <h3>Top movies</h3>}
+          {movies && <h3 className="categ-head">Top movies</h3>}
           {topMovies}
         </div>
       )}

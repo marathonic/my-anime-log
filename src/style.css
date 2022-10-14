@@ -504,6 +504,13 @@ label {
         padding: 5rem;
     }
 
+    .landing-down-text {
+        bottom: 0;
+        position: absolute;
+        padding: 8.4rem;
+        pointer-events: none;
+    }
+
     .loading-skeleton-div {
         width: 100%;
         overflow: auto;
@@ -649,6 +656,23 @@ label {
 
     .result-title-mobile {
         margin-left: 3%;
+    }
+
+    .centered-div {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .offset-span{
+        position: absolute;
+        margin-bottom: -5%;
+    }
+
+    .categ-head {
+        margin-top: 1.6rem;
     }
     
   }
