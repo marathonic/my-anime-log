@@ -16,14 +16,35 @@ const SearchBar = ({ isFetchInProgress, setIsFetchInProgress }) => {
   };
 
   const getPredictionsFromAPI = async () => {
+    // CONTINUE HERE: We want to know if the query is valid or not. Find the regex for it! If it's not valid, return instantly.
+    const normalString = /^[a-zA-Z0-9 ]+$/i;
+    let filteredStr = null;
+
+    if (!normalString.test(searchQuery)) {
+      filteredStr = searchQuery.replace(/[\W_]+/g, " ");
+    }
+    //if (!normalString.test(searchQuery)) {
+    //  const filteredString = searchQuery.replace(/[\W_]+/g, " ");
+    //  setIsFetchInProgress(true);
+    //  const res = await fetch(
+    //    `https://api.jikan.moe/v4/anime?q=${filteredString}&order_by=scored_by&sort=desc&limit=3`
+    //  );
+    //  const resData = await res.json();
+    //  setPredictions(resData.data);
+    //  await new Promise((resolve) => setTimeout(resolve, 1200));
+    //  setIsFetchInProgress(false);
+    //  return;
+    //}
     setIsFetchInProgress(true);
     const res = await fetch(
-      `https://api.jikan.moe/v4/anime?q=${searchQuery}&order_by=scored_by&sort=desc&limit=3`
+      `https://api.jikan.moe/v4/anime?q=${
+        filteredStr || searchQuery
+      }&order_by=scored_by&sort=desc&limit=3`
     );
     const resData = await res.json();
     setPredictions(resData.data);
     // We could wait 1000ms here, so that the input isn't made available instantly after an API call, which could throw err 428.
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    await new Promise((resolve) => setTimeout(resolve, 1200));
     // We could wait 1000ms here, so that the input isn't made available instantly after an API call, which could throw err 428.
     setIsFetchInProgress(false);
   };

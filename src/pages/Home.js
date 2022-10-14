@@ -20,12 +20,13 @@ export default function Home({
   movies,
   airing,
   popular,
+  upcoming,
   currentView,
   setCurrentView,
   isFetchInProgress,
   setIsFetchInProgress,
 }) {
-  let topOverall, topMovies, topSpecials, topPopular, topAiring;
+  let topOverall, topMovies, topSpecials, topPopular, topAiring, topUpcoming;
   // to make it easier to FIND anime we don't know about, make it instead be:
   // topAiring, topUpcoming...
 
@@ -145,6 +146,14 @@ export default function Home({
   // topOverall = renderMapped(overall, (isMobile = { isMobile }));
   // }
 
+  airing
+    ? (topAiring = renderMapped(airing, (isMobile = { isMobile })))
+    : (topAiring = loadingSkeletonStrip);
+
+  upcoming
+    ? (topUpcoming = renderMapped(upcoming, (isMobile = { isMobile })))
+    : (topUpcoming = loadingSkeletonStrip);
+
   overall
     ? (topOverall = renderMapped(overall, (isMobile = { isMobile })))
     : (topOverall = loadingSkeletonStrip);
@@ -163,10 +172,6 @@ export default function Home({
   popular
     ? (topPopular = renderMapped(popular, (isMobile = { isMobile })))
     : (topPopular = loadingSkeletonStrip);
-
-  airing
-    ? (topAiring = renderMapped(airing, (isMobile = { isMobile })))
-    : (topAiring = loadingSkeletonStrip);
 
   // const loadingStrip = () => {
   //   for(let i = 0; i < 7; i++){
@@ -239,12 +244,15 @@ export default function Home({
           {/* while the images are loading, we want to render divs that clearly indicate it, e.g: a sliding glow across each div */}
           {/* <Category isMobile={isMobile}>{topTen}</Category> */}
           <MobileSkeletonTile></MobileSkeletonTile>
-          {overall && <h3 className="categ-head">Top anime</h3>}
-          {topOverall}
-          {popular && <h3 className="categ-head">Top popular</h3>}
-          {topPopular}
           {airing && <h3 className="categ-head">Airing this week</h3>}
           {topAiring}
+          {upcoming && <h3 className="categ-head">Top Upcoming</h3>}
+          {topUpcoming}
+          {overall && <h3 className="categ-head">Top anime</h3>}
+          {topOverall}
+          {popular && <h3 className="categ-head">Most popular</h3>}
+          {topPopular}
+
           {movies && <h3 className="categ-head">Top movies</h3>}
           {topMovies}
         </div>

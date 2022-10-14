@@ -120,6 +120,32 @@ function App() {
       // within 1 second of a category fetching, we get 428:
       // too many requests. Let's find a way around it!
 
+      // airing
+      if (!allTopAnime.airing && currentView === "explore") {
+        if (currentView !== "explore") {
+          const controller = new AbortController();
+          console.log("aborting fetch...");
+          return () => controller.abort();
+        }
+        if (currentView !== "explore") return;
+        setIsFetchInProgress(true);
+        await new Promise((resolve) => setTimeout(resolve, 1100));
+        const topAiring = await fetchTopTen("airing");
+        updateAllTopAnime({ airing: topAiring });
+        setIsFetchInProgress(false);
+      }
+
+      // upcoming
+
+      if (!allTopAnime.upcoming && currentView === "explore") {
+        setIsFetchInProgress(true);
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+        const topUpcoming = await fetchTopTen("upcoming");
+        updateAllTopAnime({ upcoming: topUpcoming });
+        setIsFetchInProgress(false);
+      }
+
+      // overall
       if (!allTopAnime.overall && currentView === "explore") {
         if (currentView !== "explore") return;
         setIsFetchInProgress(true);
@@ -129,6 +155,7 @@ function App() {
         setIsFetchInProgress(false);
       }
 
+      // movies
       if (!allTopAnime.movies && currentView === "explore") {
         //if (currentView !== "explore") {
         //  const controller = new AbortController();
@@ -142,20 +169,7 @@ function App() {
         setIsFetchInProgress(false);
       }
 
-      if (!allTopAnime.airing && currentView === "explore") {
-        if (currentView !== "explore") {
-          const controller = new AbortController();
-          console.log("aborting fetch...");
-          return () => controller.abort();
-        }
-        if (currentView !== "explore") return;
-        setIsFetchInProgress(true);
-        await new Promise((resolve) => setTimeout(resolve, 2000));
-        const topAiring = await fetchTopTen("airing");
-        updateAllTopAnime({ airing: topAiring });
-        setIsFetchInProgress(false);
-      }
-
+      // popular
       if (!allTopAnime.popular && currentView === "explore") {
         if (currentView !== "explore") return;
         setIsFetchInProgress(true);
@@ -218,6 +232,7 @@ function App() {
               movies={allTopAnime.movies}
               popular={allTopAnime.popular}
               airing={allTopAnime.airing}
+              upcoming={allTopAnime.upcoming}
               isMobile={isMobile}
               handleSearch={handleSearch}
               currentView={currentView}
