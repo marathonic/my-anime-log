@@ -22,6 +22,7 @@ const SearchBar = ({ isFetchInProgress, setIsFetchInProgress }) => {
 
     if (!normalString.test(searchQuery)) {
       filteredStr = searchQuery.replace(/[\W_]+/g, " ");
+      if (!normalString.test(filteredStr) || !filteredStr.trim()) return;
     }
     //if (!normalString.test(searchQuery)) {
     //  const filteredString = searchQuery.replace(/[\W_]+/g, " ");

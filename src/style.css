@@ -471,6 +471,18 @@ label {
     text-align: center;
 }
 
+.user-details-foot {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 12%;
+
+}
+
 /* end of desktop */
 
 @font-face {

@@ -3,6 +3,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
 import { auth, db, logout } from "../firebase.js";
 import { query, collection, getDocs, where } from "firebase/firestore";
+import UsersAnimeLog from "../components/UsersAnimeLog.js";
 
 function Dashboard({ myUser, setMyUser }) {
   const [user, loading, error] = useAuthState(auth);
@@ -71,18 +72,21 @@ function Dashboard({ myUser, setMyUser }) {
   }, [user, loading]);
   return (
     <div>
-      <div>
-        <h1>My Profile</h1>
+      <UsersAnimeLog />
+      <div className="user-details-foot">
+        <hr />
+
+        {/* <h1>My Profile</h1> */}
         <div>
           {/* <h3>{userName}</h3> */}
-          <h3>My User: </h3>
-          <h3> {myUser} </h3>
+          {/* <h3>My User: </h3> */}
+          <h3>signed in as {myUser} </h3>
         </div>
         <div>
           <h3>{user?.email}</h3>
         </div>
         {/* <h3>Name: {user?.name}</h3> */}
-        <h3>Email verified: {user.emailVerified}</h3>
+        {/* <h3>Email verified: {user.emailVerified}</h3> */}
         <button onClick={logout}>Log out</button>
       </div>
     </div>
