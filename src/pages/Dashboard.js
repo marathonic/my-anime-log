@@ -4,11 +4,21 @@ import { useNavigate } from "react-router-dom";
 import { auth, db, logout } from "../firebase.js";
 import { query, collection, getDocs, where } from "firebase/firestore";
 import UsersAnimeLog from "../components/UsersAnimeLog.js";
+import { OptionSelector, Selector } from "../components/primedComps";
 
 function Dashboard({ myUser, setMyUser }) {
   const [user, loading, error] = useAuthState(auth);
-  const navigate = useNavigate();
+  const [listSelector, setListSelector] = useState('');
+  const [loggedCompleted, setLoggedCompleted] = useState(null);
+  
+  const handleSelection = (e) => {
+    setListSelector(e.target.value);
+    if(e.target.value === 'completed') {
+      setLoggedCompleted(['completed 1', 'completed 2', 'completed 3', 'etc...'])
+    }
+  };
 
+  const navigate = useNavigate();
   // As we can see from the user oject below:
   // console.log(user);
   // That one isn't out uid object that holds our "name",
@@ -68,16 +78,37 @@ function Dashboard({ myUser, setMyUser }) {
         }
       };
       fetchUserName();
+      // 
     }
   }, [user, loading]);
   return (
     <div>
-      <UsersAnimeLog />
+      {/* <UsersAnimeLog /> */}
+      <div>
+        {/*  */}
+      <h1 style={{ color: "white", fontSize: "3rem" }}>my Log</h1>
+      <hr />
+      <Selector defaultValue={listSelector} onChange={handleSelection}>
+                  <OptionSelector value={listSelector}>category</OptionSelector>
+                  <OptionSelector value="completed">Completed</OptionSelector>
+                  <OptionSelector value="watching">Watching</OptionSelector>
+                  <OptionSelector value="plan-to-watch">
+                    Plan to watch
+                  </OptionSelector>
+                </Selector>
+                {loggedCompleted && listSelector === "completed" &&
+                <p>{loggedCompleted}</p>
+                }
+    </div>
+
+      {/*  */}
       <div className="user-details-foot">
         <hr />
 
         {/* <h1>My Profile</h1> */}
+        
         <div>
+        
           {/* <h3>{userName}</h3> */}
           {/* <h3>My User: </h3> */}
           <h3>signed in as {myUser} </h3>

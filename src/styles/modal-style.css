@@ -54,7 +54,8 @@
   }
 
   label {
-    color: black;
+    /* color: black; */
+    color: white;
   }
 
   .watching-container {
@@ -92,6 +93,9 @@
     align-items: center;
   }
   
+  .details-span.watching label {
+    color: black;
+  }
   .details-span.completed {
     flex-direction: column;
     justify-content: space-around;
