@@ -10,12 +10,34 @@ function Dashboard({ myUser, setMyUser }) {
   const [user, loading, error] = useAuthState(auth);
   const [listSelector, setListSelector] = useState('');
   const [loggedCompleted, setLoggedCompleted] = useState(null);
-  
+  const [previouslyChecked, setPreviouslyChecked] = useState({
+    watching: false,
+    completed: false,
+    planToWatch: false,
+  })
+
   const handleSelection = (e) => {
     setListSelector(e.target.value);
-    if(e.target.value === 'completed') {
-      setLoggedCompleted(['completed 1', 'completed 2', 'completed 3', 'etc...'])
+    // if(e.target.value === 'category') {
+    //   setLoggedCompleted(null);
+    // }
+    if(e.target.value !== 'completed') {
+      setLoggedCompleted(null);
     }
+    if(e.target.value === 'completed') {
+      // if(previouslyChecked.current-selection === false) return <--- if we already have the data, avoid further calls for this render.
+      // we want to find a way to let Dashboard know that the log has been updated, so we know to allow a refresh.
+      // we're here, this means we proceed with getting the data.
+      // on this line, we'll get the docs where() firestore status is the current selection, e.g: 'completed'. 
+      // we could do something like a modified: updateAllTopAnime({ airing: topAiring }) from Home.js;
+      // that would look like: setPreviouslyChecked(previouslyChecked... current-selection: data), hmmmm...?
+      setLoggedCompleted(['completed show 1', 'completed show 2', 'completed show 3', 'etc...'])
+    }
+
+    // we could do:
+    //  
+    // check if current category contains anime entries. If so, save them as entries in an object.
+    // 
   };
 
   const navigate = useNavigate();
@@ -81,6 +103,12 @@ function Dashboard({ myUser, setMyUser }) {
       // 
     }
   }, [user, loading]);
+
+  const testFuncOutput = (outputText) => {
+    if(listSelector === '') return;
+    return `${outputText}` ; 
+  } 
+
   return (
     <div>
       {/* <UsersAnimeLog /> */}
@@ -96,8 +124,16 @@ function Dashboard({ myUser, setMyUser }) {
                     Plan to watch
                   </OptionSelector>
                 </Selector>
+          {/*
+          
                 {loggedCompleted && listSelector === "completed" &&
                 <p>{loggedCompleted}</p>
+                }
+  */}  
+                {loggedCompleted && 
+            <h2>
+                {testFuncOutput(loggedCompleted)}
+                  </h2>
                 }
     </div>
 
