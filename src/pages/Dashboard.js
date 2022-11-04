@@ -6,10 +6,9 @@ import { query, collection, getDocs, where } from "firebase/firestore";
 import UsersAnimeLog from "../components/UsersAnimeLog.js";
 import { OptionSelector, Selector } from "../components/primedComps";
 
-function Dashboard({ myUser, setMyUser, fetchedUserLogs, updateFetchedUserLogs }) {
+function Dashboard({ myUser, setMyUser, fetchedUserLogs, updateFetchedUserLogs, loggedCompleted, setLoggedCompleted, userListSelector, setUserListSelector }) {
   const [user, loading, error] = useAuthState(auth);
-  const [loggedCompleted, setLoggedCompleted] = useState(null);
-  const [listSelector, setListSelector] = useState('');
+  
   
   
   const [previouslyChecked, setPreviouslyChecked] = useState({
@@ -25,7 +24,7 @@ function Dashboard({ myUser, setMyUser, fetchedUserLogs, updateFetchedUserLogs }
  
  
   const testFuncOutput = (outputText) => {
-    if(listSelector === '') return;
+    if(userListSelector === '') return;
     return `${outputText}` ; 
   } 
   // As we can see from the user oject below:
@@ -95,7 +94,7 @@ function Dashboard({ myUser, setMyUser, fetchedUserLogs, updateFetchedUserLogs }
 
   return (
     <div>
-      <UsersAnimeLog loggedCompleted={loggedCompleted} setLoggedCompleted={setLoggedCompleted} listSelector={listSelector} setListSelector={setListSelector} updateFetchedUserLogs={updateFetchedUserLogs}  />
+      <UsersAnimeLog loggedCompleted={loggedCompleted} setLoggedCompleted={setLoggedCompleted} userListSelector={userListSelector} setUserListSelector={setUserListSelector} updateFetchedUserLogs={updateFetchedUserLogs}  />
       {/* {loggedCompleted && loggedCompleted} */}
 
       {/* 
@@ -113,7 +112,7 @@ function Dashboard({ myUser, setMyUser, fetchedUserLogs, updateFetchedUserLogs }
 
           {/*
           
-                {loggedCompleted && listSelector === "completed" &&
+                {loggedCompleted && userListSelector === "completed" &&
                 <p>{loggedCompleted}</p>
                 }
   */}  

@@ -41,6 +41,9 @@ function App() {
     (fetchedUserLogs, updates) => ({...fetchedUserLogs, ...updates}),
     initialUserLogs
   );
+  const [loggedCompleted, setLoggedCompleted] = useState(null);
+  const [userListSelector, setUserListSelector] = useState('');
+
   // updates: updateAllTopAnime({ category: response.data })
 
   const fetchTopTen = async (category) => {
@@ -252,7 +255,7 @@ function App() {
           element={
             <ProtectedRoute user={user}>
               {/* <Profile /> */}
-              <Dashboard myUser={myUser} setMyUser={setMyUser} fetchedUserLogs={fetchedUserLogs} updateFetchedUserLogs={updateFetchedUserLogs} />
+              <Dashboard myUser={myUser} setMyUser={setMyUser} fetchedUserLogs={fetchedUserLogs} updateFetchedUserLogs={updateFetchedUserLogs} loggedCompleted={loggedCompleted} setLoggedCompleted={setLoggedCompleted} userListSelector={userListSelector} setUserListSelector={setUserListSelector} />
             </ProtectedRoute>
           }
         ></Route>
