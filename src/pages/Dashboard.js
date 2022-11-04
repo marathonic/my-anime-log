@@ -111,30 +111,23 @@ function Dashboard({ myUser, setMyUser }) {
 
   return (
     <div>
-      {/* <UsersAnimeLog /> */}
+      <UsersAnimeLog handleSelection={handleSelection} listSelector={listSelector} setListSelector={setListSelector} loggedCompleted={loggedCompleted} testFuncOutput={testFuncOutput}  />
       <div>
         {/*  */}
-      <h1 style={{ color: "white", fontSize: "3rem" }}>my Log</h1>
-      <hr />
-      <Selector defaultValue={listSelector} onChange={handleSelection}>
-                  <OptionSelector value={listSelector}>category</OptionSelector>
-                  <OptionSelector value="completed">Completed</OptionSelector>
-                  <OptionSelector value="watching">Watching</OptionSelector>
-                  <OptionSelector value="plan-to-watch">
-                    Plan to watch
-                  </OptionSelector>
-                </Selector>
+      {/* <h1 style={{ color: "white", fontSize: "3rem" }}>my Log</h1> */}
+      {/* <hr /> */}
+
           {/*
           
                 {loggedCompleted && listSelector === "completed" &&
                 <p>{loggedCompleted}</p>
                 }
   */}  
+  {/*
+  
                 {loggedCompleted && 
-            <h2>
-                {testFuncOutput(loggedCompleted)}
-                  </h2>
-                }
+            <h2>{testFuncOutput(loggedCompleted)}</h2>}
+*/}
     </div>
 
       {/*  */}
