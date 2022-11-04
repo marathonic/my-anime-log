@@ -42,7 +42,7 @@ function App() {
     initialUserLogs
   );
   const [loggedCompleted, setLoggedCompleted] = useState(null);
-  const [userListSelector, setUserListSelector] = useState('');
+  const [userListSelector, setUserListSelector] = useState('choose category');
 
   // updates: updateAllTopAnime({ category: response.data })
 

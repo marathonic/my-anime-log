@@ -22,15 +22,18 @@ function UsersAnimeLog({userListSelector, loggedCompleted, setUserListSelector, 
   // };
 
 
+  // updates: updateFetchedUserLogs({ category: response.data })
+
 
   const handleSelection = (e) => {
     setUserListSelector(e.target.value);
     // if(e.target.value === 'category') {
     //   setLoggedCompleted(null);
     // }
-    if(e.target.value !== 'completed') {
-      setLoggedCompleted(null);
-    }
+    
+    //if(e.target.value !== 'completed') {
+    //  setLoggedCompleted(null);
+    //}
     if(e.target.value === 'completed') {
       // if(previouslyChecked.current-selection === false) return <--- if we already have the data, avoid further calls for this render.
       // we want to find a way to let Dashboard know that the log has been updated, so we know to allow a refresh.
@@ -56,11 +59,11 @@ function UsersAnimeLog({userListSelector, loggedCompleted, setUserListSelector, 
       <hr />
       <Selector defaultValue={userListSelector} onChange={handleSelection}>
         {/* on the next line, try changing the value to value="" */}
-                  <OptionSelector hidden value={userListSelector}>category</OptionSelector>
-                  <OptionSelector value="completed">Completed</OptionSelector>
-                  <OptionSelector value="watching">Watching</OptionSelector>
-                  <OptionSelector value="plan-to-watch">
-                    Plan to watch
+                  <OptionSelector hidden value={userListSelector}>{userListSelector}</OptionSelector>
+                  <OptionSelector value="completed">completed</OptionSelector>
+                  <OptionSelector value="watching">watching</OptionSelector>
+                  <OptionSelector value="plan to watch">
+                    plan to watch
                   </OptionSelector>
                 </Selector>
                 
