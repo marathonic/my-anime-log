@@ -6,7 +6,7 @@ import { useState } from "react";
 //  Maybe it re-sets the selection to the default because it's reloading this component,
 //    let's try putting this in Dashboard instead and see if persists after navigating to Home.
 
-function UsersAnimeLog({listSelector, loggedCompleted, setListSelector, setLoggedCompleted, setFetchedUserLogs}) {
+function UsersAnimeLog({listSelector, loggedCompleted, setListSelector, setLoggedCompleted, updateFetchedUserLogs}) {
 
   // To render our anime:
   // -----WE could use a modified renderMapped (found in Home.js) to render our anime. 
@@ -39,7 +39,7 @@ function UsersAnimeLog({listSelector, loggedCompleted, setListSelector, setLogge
       // we could do something like a modified: updateAllTopAnime({ airing: topAiring }) from Home.js;
       // that would look like: setPreviouslyChecked(previouslyChecked... current-selection: data), hmmmm...?
       setLoggedCompleted(['completed show 1', 'completed show 2', 'completed show 3', 'etc...'])
-      setFetchedUserLogs({completed: ['completed show 1', 'completed show 2', 'completed show 3', 'etc...']})
+      updateFetchedUserLogs({completed: ['completed show 1', 'completed show 2', 'completed show 3', 'etc...']})
     }
 
     // we could do:

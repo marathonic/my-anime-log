@@ -6,7 +6,7 @@ import { query, collection, getDocs, where } from "firebase/firestore";
 import UsersAnimeLog from "../components/UsersAnimeLog.js";
 import { OptionSelector, Selector } from "../components/primedComps";
 
-function Dashboard({ myUser, setMyUser, fetchedUserLogs, setFetchedUserLogs }) {
+function Dashboard({ myUser, setMyUser, fetchedUserLogs, updateFetchedUserLogs }) {
   const [user, loading, error] = useAuthState(auth);
   const [loggedCompleted, setLoggedCompleted] = useState(null);
   const [listSelector, setListSelector] = useState('');
@@ -66,7 +66,7 @@ function Dashboard({ myUser, setMyUser, fetchedUserLogs, setFetchedUserLogs }) {
       const fetchUserName = async () => {
         try {
           const q = query(
-            collection(db, "users"),
+            collection(db, "theNewUsers"),
             where("uid", "==", user?.uid)
           );
           const doc = await getDocs(q);
@@ -95,7 +95,7 @@ function Dashboard({ myUser, setMyUser, fetchedUserLogs, setFetchedUserLogs }) {
 
   return (
     <div>
-      <UsersAnimeLog loggedCompleted={loggedCompleted} setLoggedCompleted={setLoggedCompleted} listSelector={listSelector} setListSelector={setListSelector} setFetchedUserLogs={setFetchedUserLogs}  />
+      <UsersAnimeLog loggedCompleted={loggedCompleted} setLoggedCompleted={setLoggedCompleted} listSelector={listSelector} setListSelector={setListSelector} updateFetchedUserLogs={updateFetchedUserLogs}  />
       {/* {loggedCompleted && loggedCompleted} */}
 
       {/* 
