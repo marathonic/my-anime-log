@@ -6,7 +6,16 @@ import { useState } from "react";
 //  Maybe it re-sets the selection to the default because it's reloading this component,
 //    let's try putting this in Dashboard instead and see if persists after navigating to Home.
 
-function UsersAnimeLog({listSelector, loggedCompleted, setListSelector, setLoggedCompleted, setStoredLogs}) {
+function UsersAnimeLog({listSelector, loggedCompleted, setListSelector, setLoggedCompleted, setFetchedUserLogs}) {
+
+  // To render our anime:
+  // -----WE could use a modified renderMapped (found in Home.js) to render our anime. 
+  // However, we'll probably want to use a <div> instead of a <span>, and change the className to "log-category", or something.
+  // We want to have a maximum width of 100% so we don't overflow the screen. We want to wrap around.
+  // So since 2 anime take up 100% of the space, our anime will keep wrapping around the width in pairs.
+  // We also want to implement pagination.
+
+
   // const [listSelector, setListSelector] = useState('');
   // const handleSelection = (e) => {
     // setListSelector(e.target.value);
@@ -30,7 +39,7 @@ function UsersAnimeLog({listSelector, loggedCompleted, setListSelector, setLogge
       // we could do something like a modified: updateAllTopAnime({ airing: topAiring }) from Home.js;
       // that would look like: setPreviouslyChecked(previouslyChecked... current-selection: data), hmmmm...?
       setLoggedCompleted(['completed show 1', 'completed show 2', 'completed show 3', 'etc...'])
-      setStoredLogs({completed: ['completed show 1', 'completed show 2', 'completed show 3', 'etc...']})
+      setFetchedUserLogs({completed: ['completed show 1', 'completed show 2', 'completed show 3', 'etc...']})
     }
 
     // we could do:
@@ -46,6 +55,7 @@ function UsersAnimeLog({listSelector, loggedCompleted, setListSelector, setLogge
       <h1 style={{ color: "white", fontSize: "3rem" }}>my Log</h1>
       <hr />
       <Selector defaultValue={listSelector} onChange={handleSelection}>
+        {/* on the next line, try changing the value to value="" */}
                   <OptionSelector hidden value={listSelector}>category</OptionSelector>
                   <OptionSelector value="completed">Completed</OptionSelector>
                   <OptionSelector value="watching">Watching</OptionSelector>

@@ -6,7 +6,7 @@ import { query, collection, getDocs, where } from "firebase/firestore";
 import UsersAnimeLog from "../components/UsersAnimeLog.js";
 import { OptionSelector, Selector } from "../components/primedComps";
 
-function Dashboard({ myUser, setMyUser, storedLogs, setStoredLogs }) {
+function Dashboard({ myUser, setMyUser, fetchedUserLogs, setFetchedUserLogs }) {
   const [user, loading, error] = useAuthState(auth);
   const [loggedCompleted, setLoggedCompleted] = useState(null);
   const [listSelector, setListSelector] = useState('');
@@ -91,11 +91,11 @@ function Dashboard({ myUser, setMyUser, storedLogs, setStoredLogs }) {
     }
   }, [user, loading]);
 
-  console.log(storedLogs)
+  console.log(fetchedUserLogs)
 
   return (
     <div>
-      <UsersAnimeLog loggedCompleted={loggedCompleted} setLoggedCompleted={setLoggedCompleted} listSelector={listSelector} setListSelector={setListSelector} setStoredLogs={setStoredLogs}  />
+      <UsersAnimeLog loggedCompleted={loggedCompleted} setLoggedCompleted={setLoggedCompleted} listSelector={listSelector} setListSelector={setListSelector} setFetchedUserLogs={setFetchedUserLogs}  />
       {/* {loggedCompleted && loggedCompleted} */}
 
       {/* 
