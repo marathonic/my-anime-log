@@ -36,7 +36,7 @@ function App() {
   const [currentView, setCurrentView] = useState("search");
   const isMobile = useMediaQuery({ query: "(max-width:428px)" });
   const [isFetchInProgress, setIsFetchInProgress] = useState(false);
-
+  const [storedLogs, setStoredLogs] = useState({});
   // updates: updateAllTopAnime({ category: response.data })
 
   const fetchTopTen = async (category) => {
@@ -248,7 +248,7 @@ function App() {
           element={
             <ProtectedRoute user={user}>
               {/* <Profile /> */}
-              <Dashboard myUser={myUser} setMyUser={setMyUser} />
+              <Dashboard myUser={myUser} setMyUser={setMyUser} storedLogs={storedLogs} setStoredLogs={setStoredLogs} />
             </ProtectedRoute>
           }
         ></Route>
