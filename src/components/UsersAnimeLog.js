@@ -2,11 +2,12 @@ import React from "react";
 import "../style.css";
 import { OptionSelector, Selector } from "../components/primedComps";
 import { useState } from "react";
-
+import { AnimeCard, Category } from "../components/primedComps";
+import { Link } from "react-router-dom";
 //  Maybe it re-sets the selection to the default because it's reloading this component,
 //    let's try putting this in Dashboard instead and see if persists after navigating to Home.
 
-function UsersAnimeLog({userListSelector, loggedCompleted, setUserListSelector, setLoggedCompleted, updateFetchedUserLogs}) {
+function UsersAnimeLog({userListSelector, loggedCompleted, setUserListSelector, setLoggedCompleted, updateFetchedUserLogs, fetchedUserLogs}) {
 
   // To render our anime:
   // -----WE could use a modified renderMapped (found in Home.js) to render our anime. 
@@ -15,6 +16,29 @@ function UsersAnimeLog({userListSelector, loggedCompleted, setUserListSelector, 
   // So since 2 anime take up 100% of the space, our anime will keep wrapping around the width in pairs.
   // We also want to implement pagination.
 
+  const renderLogCategory = (category, isMobile) => {
+    let mapped = category.map((anime) => {
+      return (
+        <span className="category-span" key={anime.mal_id}>
+          {/* what does AnimeCard do here? */}
+          <AnimeCard clickedAnime={anime} />
+          <Link to={`/anime/${anime.mal_id}`} key={anime.mal_id}>
+            <img
+              src={anime.images.jpg.image_url}
+              alt={anime.title}
+              className="thumbnail-category"
+            />
+          </Link>
+        </span>
+      );
+    });
+    return (
+      <div>
+        <Category isMobile={isMobile}>{mapped}</Category>
+      </div>
+    );
+    return mapped;
+  };
 
   // const [userListSelector, setUserListSelector] = useState('');
   // const handleSelection = (e) => {
@@ -53,6 +77,11 @@ function UsersAnimeLog({userListSelector, loggedCompleted, setUserListSelector, 
 
   // ---------let's try keeping the state here and see if that fixes the re-renders.--------------- 
 
+  const testFuncOutput = (outputText) => {
+    if(userListSelector === '') return;
+    return `${outputText}` ; 
+  }
+
   return (
     <div>
       <h1 style={{ color: "white", fontSize: "3rem" }}>my Log</h1>
@@ -74,6 +103,13 @@ function UsersAnimeLog({userListSelector, loggedCompleted, setUserListSelector, 
                   </h2>
                 }
             */}
+
+            {fetchedUserLogs.completed && 
+            <h2>
+              {testFuncOutput(fetchedUserLogs.completed)}
+            </h2>
+            }
+
     </div>
   );
 }

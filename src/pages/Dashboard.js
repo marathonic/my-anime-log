@@ -94,7 +94,7 @@ function Dashboard({ myUser, setMyUser, fetchedUserLogs, updateFetchedUserLogs, 
 
   return (
     <div>
-      <UsersAnimeLog loggedCompleted={loggedCompleted} setLoggedCompleted={setLoggedCompleted} userListSelector={userListSelector} setUserListSelector={setUserListSelector} updateFetchedUserLogs={updateFetchedUserLogs}  />
+      <UsersAnimeLog loggedCompleted={loggedCompleted} setLoggedCompleted={setLoggedCompleted} userListSelector={userListSelector} setUserListSelector={setUserListSelector} updateFetchedUserLogs={updateFetchedUserLogs} fetchedUserLogs={fetchedUserLogs}  />
       {/* {loggedCompleted && loggedCompleted} */}
 
       {/* 

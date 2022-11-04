@@ -36,7 +36,11 @@ function App() {
   const [currentView, setCurrentView] = useState("search");
   const isMobile = useMediaQuery({ query: "(max-width:428px)" });
   const [isFetchInProgress, setIsFetchInProgress] = useState(false);
-  const initialUserLogs = {};
+  const initialUserLogs = {
+    completed: null,
+    watching: null,
+    planToWatch: null,
+  };
   const [fetchedUserLogs, updateFetchedUserLogs] = useReducer(
     (fetchedUserLogs, updates) => ({...fetchedUserLogs, ...updates}),
     initialUserLogs
@@ -255,7 +259,11 @@ function App() {
           element={
             <ProtectedRoute user={user}>
               {/* <Profile /> */}
-              <Dashboard myUser={myUser} setMyUser={setMyUser} fetchedUserLogs={fetchedUserLogs} updateFetchedUserLogs={updateFetchedUserLogs} loggedCompleted={loggedCompleted} setLoggedCompleted={setLoggedCompleted} userListSelector={userListSelector} setUserListSelector={setUserListSelector} />
+              <Dashboard myUser={myUser} setMyUser={setMyUser} fetchedUserLogs={fetchedUserLogs} updateFetchedUserLogs={updateFetchedUserLogs} loggedCompleted={loggedCompleted} setLoggedCompleted={setLoggedCompleted} userListSelector={userListSelector} setUserListSelector={setUserListSelector}
+              fetchedUserCompleted={fetchedUserLogs.completed}
+              fetchedUserWatching={fetchedUserLogs.watching}
+              fetchedUserPlanToWatch={fetchedUserLogs.planToWatch}
+              />
             </ProtectedRoute>
           }
         ></Route>
