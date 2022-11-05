@@ -27,6 +27,7 @@ function Modal({
   setAnimeDataFromLog,
   animeExistsInLog,
   setAnimeExistsInLog,
+  updateHasCategoryBeenUpdated,
 }) {
   const [listSelector, setListSelector] = useState(
     animeDataFromLog.status || "watching"
@@ -212,6 +213,7 @@ function Modal({
     }
     // data has changed, so log the new data:
     setDoc(doc(db, "theNewUsers", user.uid, "animeLog", animeID), myAnime);
+    updateHasCategoryBeenUpdated({[`${listSelector}`]: true})
     setIsFetchLocked(false);
     setIsModalOpen(false);
   };

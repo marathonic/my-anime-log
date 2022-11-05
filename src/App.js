@@ -47,6 +47,15 @@ function App() {
   );
   const [loggedCompleted, setLoggedCompleted] = useState(null);
   const [userListSelector, setUserListSelector] = useState('choose category');
+  const initialUserCategories = {
+    completed: false,
+    watching: false,
+    planToWatch: false,
+  }
+  const [hasCategoryBeenUpdated, updateHasCategoryBeenUpdated] = useReducer(
+    (hasCategoryBeenUpdated, updates) => ({...hasCategoryBeenUpdated, ...updates}),
+    initialUserCategories
+  )
 
   // updates: updateAllTopAnime({ category: response.data })
 
@@ -222,6 +231,7 @@ function App() {
               isMobile={isMobile}
               isModalOpen={isModalOpen}
               setIsModalOpen={setIsModalOpen}
+              updateHasCategoryBeenUpdated={updateHasCategoryBeenUpdated}
             />
           }
         />
@@ -263,6 +273,8 @@ function App() {
               fetchedUserCompleted={fetchedUserLogs.completed}
               fetchedUserWatching={fetchedUserLogs.watching}
               fetchedUserPlanToWatch={fetchedUserLogs.planToWatch}
+              hasCategoryBeenUpdated={hasCategoryBeenUpdated}
+              updateHasCategoryBeenUpdated={updateHasCategoryBeenUpdated}
               />
             </ProtectedRoute>
           }

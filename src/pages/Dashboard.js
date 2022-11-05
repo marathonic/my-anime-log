@@ -6,7 +6,7 @@ import { query, collection, getDocs, where } from "firebase/firestore";
 import UsersAnimeLog from "../components/UsersAnimeLog.js";
 import { OptionSelector, Selector } from "../components/primedComps";
 
-function Dashboard({ myUser, setMyUser, fetchedUserLogs, updateFetchedUserLogs, loggedCompleted, setLoggedCompleted, userListSelector, setUserListSelector }) {
+function Dashboard({ myUser, setMyUser, fetchedUserLogs, updateFetchedUserLogs, loggedCompleted, setLoggedCompleted, userListSelector, setUserListSelector, hasCategoryBeenUpdated, updateHasCategoryBeenUpdated }) {
   const [user, loading, error] = useAuthState(auth);
   
   
@@ -94,7 +94,7 @@ function Dashboard({ myUser, setMyUser, fetchedUserLogs, updateFetchedUserLogs, 
 
   return (
     <div>
-      <UsersAnimeLog loggedCompleted={loggedCompleted} setLoggedCompleted={setLoggedCompleted} userListSelector={userListSelector} setUserListSelector={setUserListSelector} updateFetchedUserLogs={updateFetchedUserLogs} fetchedUserLogs={fetchedUserLogs}  />
+      <UsersAnimeLog loggedCompleted={loggedCompleted} setLoggedCompleted={setLoggedCompleted} userListSelector={userListSelector} setUserListSelector={setUserListSelector} updateFetchedUserLogs={updateFetchedUserLogs} fetchedUserLogs={fetchedUserLogs} hasCategoryBeenUpdated={hasCategoryBeenUpdated} updateHasCategoryBeenUpdated={updateHasCategoryBeenUpdated}  />
       {/* {loggedCompleted && loggedCompleted} */}
 
       {/* 
