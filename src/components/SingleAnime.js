@@ -74,7 +74,7 @@ const loadingSkeletonSingleAnime = (
 
 // END LOADINGSKELETONSINGLEANIME
 
-function SingleAnime({ message, isMobile, setIsModalOpen, isModalOpen, updateHasCategoryBeenUpdated }) {
+function SingleAnime({ message, isMobile, setIsModalOpen, isModalOpen, updateShouldCategoryUpdate }) {
   const urlID = useParams();
   const animeID = urlID.mal_id;
   const [loading, setLoading] = useState(true);
@@ -194,7 +194,7 @@ function SingleAnime({ message, isMobile, setIsModalOpen, isModalOpen, updateHas
             setAnimeDataFromLog={setAnimeDataFromLog}
             animeExistsInLog={animeExistsInLog}
             setAnimeExistsInLog={setAnimeExistsInLog}
-            updateHasCategoryBeenUpdated={updateHasCategoryBeenUpdated}
+            updateShouldCategoryUpdate={updateShouldCategoryUpdate}
           />
         )}
         {/* <span>{myAnimeData.synopsis}</span> */}

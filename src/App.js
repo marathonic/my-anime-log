@@ -47,10 +47,11 @@ function App() {
   );
   const [loggedCompleted, setLoggedCompleted] = useState(null);
   const [userListSelector, setUserListSelector] = useState('choose category');
+  // indicates whether the log for the category should be updated.
   const initialUserCategories = {
-    completed: false,
-    watching: false,
-    planToWatch: false,
+    completed: true,
+    watching: true,
+    planToWatch: true,
   }
   const [shouldCategoryUpdate, updateShouldCategoryUpdate] = useReducer(
     (shouldCategoryUpdate, updates) => ({...shouldCategoryUpdate, ...updates}),

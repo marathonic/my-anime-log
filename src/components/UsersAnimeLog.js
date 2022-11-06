@@ -1,5 +1,7 @@
 import React from "react";
 import "../style.css";
+import { auth, db, logout } from "../firebase.js";
+import { query, collection, getDocs, where } from "firebase/firestore";
 import { OptionSelector, Selector } from "../components/primedComps";
 import { useState } from "react";
 import { AnimeCard, Category } from "../components/primedComps";
@@ -10,7 +12,7 @@ import { Link } from "react-router-dom";
 //  Maybe it re-sets the selection to the default because it's reloading this component,
 //    let's try putting this in Dashboard instead and see if persists after navigating to Home.
 
-function UsersAnimeLog({userListSelector, loggedCompleted, setUserListSelector, setLoggedCompleted, updateFetchedUserLogs, fetchedUserLogs, shouldCategoryUpdate}) {
+function UsersAnimeLog({userListSelector, loggedCompleted, setUserListSelector, setLoggedCompleted, updateFetchedUserLogs, fetchedUserLogs, shouldCategoryUpdate, user}) {
 
   // To render our anime:
   // -----WE could use a modified renderMapped (found in Home.js) to render our anime. 
@@ -45,6 +47,18 @@ function UsersAnimeLog({userListSelector, loggedCompleted, setUserListSelector, 
 
   // updates: updateFetchedUserLogs({ category: response.data })
 
+  const getUsersCategoryLog = async() => {
+    const q = query(collection(db,"theNewUsers", user.uid, "animeLog"),
+    where("status", "==", userListSelector))
+    //    orderBy('name'), limit(3) <-- add before last ")" above.
+
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((anime) => {
+      console.log(anime.id, "=>", anime.data());
+    })
+
+  }
+
 
   const handleSelection = (e) => {
     setUserListSelector(e.target.value);
@@ -59,16 +73,21 @@ function UsersAnimeLog({userListSelector, loggedCompleted, setUserListSelector, 
     // PLACEHOLDER. Make sure to change the line below. We want to --return-- based on a stateful parameter that tells us whether the log has been updated since we last loaded it.
     // To accomplish the above, we'll want to always let this function run the first time, when fetchedUserLogs values are null.
     // Once a value is no longer null, the next line will check our stateful variable.
-    if(fetchedUserLogs[`${e.target.value}`] !== null && shouldCategoryUpdate[`${e.target.value}`] === false) return; //<-- always runs on first visit.
-    // if() return;
-
+    // if(fetchedUserLogs[`${e.target.value}`] !== null && shouldCategoryUpdate[`${e.target.value}`] === false) return; //<-- always runs on first visit.
+    // alternatively, if category in log hasn't been checked before, OR if ... hmmm, I think shouldC-U- should be true at first.
+    // if(fetchedUserLogs[`${e.target.value}`] === null || shouldCategoryUpdate[`${e.target.value}`] === true) 
+    if(shouldCategoryUpdate[`${e.target.value}`] === false) return; // <-- true by default, set true each time category is updated in Modal.
+    // get data from firestore
+    getUsersCategoryLog();
+    // after getting data from firestore:
+    updateFetchedUserLogs({[`${e.target.value}`] : false})
     // if(shouldCategoryUpdate[`${fetchedUserLogs[userListSelector]}`] === false) return; <-- this will be false by default. 
     // if(shouldCategoryUpdate[`${fetchedUserLogs[userListSelector]}`] === true) {...} <-- that category has been updated. Refresh log. 
     // The updateHasCategoryBeenUpdated will be passed from Appjs to Modal. Inside Modal, it will be updated to true after any changes in its respective category. This will be done when clicking the Confirm button, after checking that the information has indeed changed.
     // Then here in UsersAnimeLogjs, we'll check that value right here. If it's positive, we'll perform our desired actions, and then, at the end, we'll change update the category to false, updateHasCategoryBeenUpdated(`${userListSelector}` : false) <-- or something like that.
 
 
-    if(e.target.value === 'completed') {
+    // if(e.target.value === 'completed') {
       // if(previouslyChecked.current-selection === false) return <--- if we already have the data, avoid further calls for this render.
       // we want to find a way to let Dashboard know that the log has been updated, so we know to allow a refresh.
       // we're here, this means we proceed with getting the data.
@@ -76,8 +95,10 @@ function UsersAnimeLog({userListSelector, loggedCompleted, setUserListSelector, 
       // we could do something like a modified: updateAllTopAnime({ airing: topAiring }) from Home.js;
       // that would look like: setPreviouslyChecked(previouslyChecked... current-selection: data), hmmmm...?
       // setLoggedCompleted(['completed show 1', 'completed show 2', 'completed show 3', 'etc...'])
-      updateFetchedUserLogs({completed: ['completed show 1', 'completed show 2', 'completed show 3', 'etc...']})
-    }
+
+      // next line was the only one that was not commented out before commenting out this scope
+      // updateFetchedUserLogs({completed: ['completed show 1', 'completed show 2', 'completed show 3', 'etc...']})
+    // }
 
     // we could do:
     //  
