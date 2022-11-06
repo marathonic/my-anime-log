@@ -52,8 +52,8 @@ function App() {
     watching: false,
     planToWatch: false,
   }
-  const [hasCategoryBeenUpdated, updateHasCategoryBeenUpdated] = useReducer(
-    (hasCategoryBeenUpdated, updates) => ({...hasCategoryBeenUpdated, ...updates}),
+  const [shouldCategoryUpdate, updateShouldCategoryUpdate] = useReducer(
+    (shouldCategoryUpdate, updates) => ({...shouldCategoryUpdate, ...updates}),
     initialUserCategories
   )
 
@@ -231,7 +231,7 @@ function App() {
               isMobile={isMobile}
               isModalOpen={isModalOpen}
               setIsModalOpen={setIsModalOpen}
-              updateHasCategoryBeenUpdated={updateHasCategoryBeenUpdated}
+              updateShouldCategoryUpdate={updateShouldCategoryUpdate}
             />
           }
         />
@@ -273,8 +273,8 @@ function App() {
               fetchedUserCompleted={fetchedUserLogs.completed}
               fetchedUserWatching={fetchedUserLogs.watching}
               fetchedUserPlanToWatch={fetchedUserLogs.planToWatch}
-              hasCategoryBeenUpdated={hasCategoryBeenUpdated}
-              updateHasCategoryBeenUpdated={updateHasCategoryBeenUpdated}
+              shouldCategoryUpdate={shouldCategoryUpdate}
+              updateShouldCategoryUpdate={updateShouldCategoryUpdate}
               />
             </ProtectedRoute>
           }

@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 //  Maybe it re-sets the selection to the default because it's reloading this component,
 //    let's try putting this in Dashboard instead and see if persists after navigating to Home.
 
-function UsersAnimeLog({userListSelector, loggedCompleted, setUserListSelector, setLoggedCompleted, updateFetchedUserLogs, fetchedUserLogs, hasCategoryBeenUpdated}) {
+function UsersAnimeLog({userListSelector, loggedCompleted, setUserListSelector, setLoggedCompleted, updateFetchedUserLogs, fetchedUserLogs, shouldCategoryUpdate}) {
 
   // To render our anime:
   // -----WE could use a modified renderMapped (found in Home.js) to render our anime. 
@@ -59,9 +59,11 @@ function UsersAnimeLog({userListSelector, loggedCompleted, setUserListSelector, 
     // PLACEHOLDER. Make sure to change the line below. We want to --return-- based on a stateful parameter that tells us whether the log has been updated since we last loaded it.
     // To accomplish the above, we'll want to always let this function run the first time, when fetchedUserLogs values are null.
     // Once a value is no longer null, the next line will check our stateful variable.
-    if(fetchedUserLogs[`${e.target.value}`] !== null) return;
-    // if(hasCategoryBeenUpdated[`${fetchedUserLogs[userListSelector]}`] === false) return; <-- this will be false by default. 
-    // if(hasCategoryBeenUpdated[`${fetchedUserLogs[userListSelector]}`] === true) {...} <-- that category has been updated. Refresh log. 
+    if(fetchedUserLogs[`${e.target.value}`] !== null && shouldCategoryUpdate[`${e.target.value}`] === false) return; //<-- always runs on first visit.
+    // if() return;
+
+    // if(shouldCategoryUpdate[`${fetchedUserLogs[userListSelector]}`] === false) return; <-- this will be false by default. 
+    // if(shouldCategoryUpdate[`${fetchedUserLogs[userListSelector]}`] === true) {...} <-- that category has been updated. Refresh log. 
     // The updateHasCategoryBeenUpdated will be passed from Appjs to Modal. Inside Modal, it will be updated to true after any changes in its respective category. This will be done when clicking the Confirm button, after checking that the information has indeed changed.
     // Then here in UsersAnimeLogjs, we'll check that value right here. If it's positive, we'll perform our desired actions, and then, at the end, we'll change update the category to false, updateHasCategoryBeenUpdated(`${userListSelector}` : false) <-- or something like that.
 
