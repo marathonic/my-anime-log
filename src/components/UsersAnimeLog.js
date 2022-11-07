@@ -1,7 +1,13 @@
 import React from "react";
 import "../style.css";
 import { auth, db, logout } from "../firebase.js";
-import { query, collection, getDocs, where } from "firebase/firestore";
+import {
+  query,
+  collection,
+  getDocs,
+  where,
+  onSnapshot,
+} from "firebase/firestore";
 import { OptionSelector, Selector } from "../components/primedComps";
 import { useState, useEffect } from "react";
 import { AnimeCard, Category } from "../components/primedComps";
@@ -31,32 +37,6 @@ function UsersAnimeLog({
   // So since 2 anime take up 100% of the space, our anime will keep wrapping around the width in pairs.
   // We also want to implement pagination.
 
-  const renderLogCategory = (category, isMobile) => {
-    let mapped = category.map((anime) => {
-      return (
-        <span className="category-span" key={anime.mal_id}>
-          {/* what does AnimeCard do here? */}
-          <AnimeCard clickedAnime={anime} />
-          <Link to={`/anime/${anime.mal_id}`} key={anime.mal_id}>
-            <img
-              src={anime.images.jpg.image_url}
-              alt={anime.title}
-              className="thumbnail-category"
-            />
-          </Link>
-        </span>
-      );
-    });
-    return (
-      <div>
-        <Category isMobile={isMobile}>{mapped}</Category>
-      </div>
-    );
-    return mapped;
-  };
-
-  // updates: updateFetchedUserLogs({ category: response.data })
-
   const getUsersCategoryLog = async (categ) => {
     // const q = query(collection(db,"theNewUsers", user.uid, "animeLog"),
     // where("status", "==", `${userListSelector}`))
@@ -73,8 +53,10 @@ function UsersAnimeLog({
     //
     //--------------This works, BUT IT GETS THE WHOLE COLLECTION, UNFILTERED.---------------------------
     const querySnapshot = await getDocs(
-      query(collection(db, "theNewUsers", user.uid, "animeLog")),
-      where("status", "==", "completed")
+      query(
+        collection(db, "theNewUsers", user?.uid, "animeLog"),
+        where("status", "==", "completed")
+      )
     );
     let arr = [];
     querySnapshot.forEach((doc) => {
@@ -82,6 +64,7 @@ function UsersAnimeLog({
       arr.push({ ...doc.data() });
     });
     updateFetchedUserLogs({ [`${categ}`]: arr });
+    return;
     // ------------------------------------------------------------------------------------------------
 
     // const animeLogRef = collection(db, "theNewUsers", user.uid, "animeLog");
@@ -120,6 +103,48 @@ function UsersAnimeLog({
     // updateFetchedUserLogs({[`${e.target.value}`] : categLogObj})
   };
 
+  //  const newGetUsersCategoryLogTest = async () => {
+  //    const categRef = query(
+  //      collection(db, "theNewUsers", user.uid, "animeLog"),
+  //      where("status", "==", "completed")
+  //    );
+  //    onSnapshot(categRef, (snapshot) => {
+  //      // Maps the documents and sets them to the `msgs` state.
+  //      updateFetchedUserLogs({
+  //        completed: snapshot.docs.map((doc) => ({
+  //          id: doc.id,
+  //          data: doc.data(),
+  //        })),
+  //      });
+  //    });
+  //  };
+
+  const renderLogCategory = (category, isMobile) => {
+    let mapped = category.map((anime) => {
+      return (
+        <span className="category-span" key={anime.mal_id}>
+          {/* what does AnimeCard do here? */}
+          <AnimeCard clickedAnime={anime} />
+          <Link to={`/anime/${anime.mal_id}`} key={anime.mal_id}>
+            <img
+              src={anime.images.jpg.image_url}
+              alt={anime.title}
+              className="thumbnail-category"
+            />
+          </Link>
+        </span>
+      );
+    });
+    return (
+      <div>
+        <Category isMobile={isMobile}>{mapped}</Category>
+      </div>
+    );
+    return mapped;
+  };
+
+  // updates: updateFetchedUserLogs({ category: response.data })
+
   const handleSelection = (e) => {
     setUserListSelector(e.target.value);
     // if(e.target.value === 'category') {
@@ -143,6 +168,8 @@ function UsersAnimeLog({
 
     // should we try using getUsersCategoryLog() here instead of the useEffect?
     // getUsersCategoryLog();
+    // newGetUsersCategoryLogTest(userListSelector);
+
     // after getting data from firestore:
     // updateFetchedUserLogs({[`${e.target.value}`] : false})
     // updateFetchedUserLogs({[`${e.target.value}`] : getUsersCategoryLog()})
@@ -188,6 +215,10 @@ function UsersAnimeLog({
   // updateFetchedUserLogs({
   // [`${userListSelector}`]: placeholderCategoryState,
   // });
+  // }, [userListSelector]);
+
+  // useEffect(() => {
+  // newGetUsersCategoryLogTest();
   // }, [userListSelector]);
 
   return (

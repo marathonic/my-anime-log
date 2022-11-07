@@ -6,27 +6,33 @@ import { query, collection, getDocs, where } from "firebase/firestore";
 import UsersAnimeLog from "../components/UsersAnimeLog.js";
 import { OptionSelector, Selector } from "../components/primedComps";
 
-function Dashboard({ myUser, setMyUser, fetchedUserLogs, updateFetchedUserLogs, loggedCompleted, setLoggedCompleted, userListSelector, setUserListSelector, shouldCategoryUpdate, updateShouldCategoryUpdate }) {
+function Dashboard({
+  myUser,
+  setMyUser,
+  fetchedUserLogs,
+  updateFetchedUserLogs,
+  loggedCompleted,
+  setLoggedCompleted,
+  userListSelector,
+  setUserListSelector,
+  shouldCategoryUpdate,
+  updateShouldCategoryUpdate,
+}) {
   const [user, loading, error] = useAuthState(auth);
-  
-  
-  
+
   const [previouslyChecked, setPreviouslyChecked] = useState({
     watching: false,
     completed: false,
     planToWatch: false,
-  })
-
-
-
+  });
 
   const navigate = useNavigate();
- 
- 
+
   const testFuncOutput = (outputText) => {
-    if(userListSelector === '') return;
-    return `${outputText}` ; 
-  } 
+    if (userListSelector === "") return;
+    return `${outputText}`;
+  };
+
   // As we can see from the user oject below:
   // console.log(user);
   // That one isn't out uid object that holds our "name",
@@ -86,7 +92,7 @@ function Dashboard({ myUser, setMyUser, fetchedUserLogs, updateFetchedUserLogs, 
         }
       };
       fetchUserName();
-      // 
+      //
     }
   }, [user, loading]);
 
@@ -94,7 +100,17 @@ function Dashboard({ myUser, setMyUser, fetchedUserLogs, updateFetchedUserLogs, 
 
   return (
     <div>
-      <UsersAnimeLog loggedCompleted={loggedCompleted} setLoggedCompleted={setLoggedCompleted} userListSelector={userListSelector} setUserListSelector={setUserListSelector} updateFetchedUserLogs={updateFetchedUserLogs} fetchedUserLogs={fetchedUserLogs} shouldCategoryUpdate={shouldCategoryUpdate} updateShouldCategoryUpdate={updateShouldCategoryUpdate} user={user}  />
+      <UsersAnimeLog
+        loggedCompleted={loggedCompleted}
+        setLoggedCompleted={setLoggedCompleted}
+        userListSelector={userListSelector}
+        setUserListSelector={setUserListSelector}
+        updateFetchedUserLogs={updateFetchedUserLogs}
+        fetchedUserLogs={fetchedUserLogs}
+        shouldCategoryUpdate={shouldCategoryUpdate}
+        updateShouldCategoryUpdate={updateShouldCategoryUpdate}
+        user={user}
+      />
       {/* {loggedCompleted && loggedCompleted} */}
 
       {/* 
@@ -107,30 +123,29 @@ function Dashboard({ myUser, setMyUser, fetchedUserLogs, updateFetchedUserLogs, 
 
       <div>
         {/*  */}
-      {/* <h1 style={{ color: "white", fontSize: "3rem" }}>my Log</h1> */}
-      {/* <hr /> */}
+        {/* <h1 style={{ color: "white", fontSize: "3rem" }}>my Log</h1> */}
+        {/* <hr /> */}
 
-          {/*
+        {/*
           
                 {loggedCompleted && userListSelector === "completed" &&
                 <p>{loggedCompleted}</p>
                 }
-  */}  
-  {/*
+  */}
+        {/*
   
                 {loggedCompleted && 
             <h2>{testFuncOutput(loggedCompleted)}</h2>}
 */}
-    </div>
+      </div>
 
       {/*  */}
       <div className="user-details-foot">
         <hr />
 
         {/* <h1>My Profile</h1> */}
-        
+
         <div>
-        
           {/* <h3>{userName}</h3> */}
           {/* <h3>My User: </h3> */}
           <h3>signed in as {myUser} </h3>
