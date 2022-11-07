@@ -90,7 +90,7 @@ function Dashboard({ myUser, setMyUser, fetchedUserLogs, updateFetchedUserLogs, 
     }
   }, [user, loading]);
 
-  console.log(fetchedUserLogs)
+  // console.log(fetchedUserLogs)
 
   return (
     <div>

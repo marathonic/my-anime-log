@@ -3,7 +3,7 @@ import "../style.css";
 import { auth, db, logout } from "../firebase.js";
 import { query, collection, getDocs, where } from "firebase/firestore";
 import { OptionSelector, Selector } from "../components/primedComps";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AnimeCard, Category } from "../components/primedComps";
 import { Link } from "react-router-dom";
 
@@ -12,10 +12,20 @@ import { Link } from "react-router-dom";
 //  Maybe it re-sets the selection to the default because it's reloading this component,
 //    let's try putting this in Dashboard instead and see if persists after navigating to Home.
 
-function UsersAnimeLog({userListSelector, loggedCompleted, setUserListSelector, setLoggedCompleted, updateFetchedUserLogs, fetchedUserLogs, shouldCategoryUpdate, user}) {
-
+function UsersAnimeLog({
+  userListSelector,
+  loggedCompleted,
+  setUserListSelector,
+  setLoggedCompleted,
+  updateFetchedUserLogs,
+  fetchedUserLogs,
+  shouldCategoryUpdate,
+  user,
+  updateShouldCategoryUpdate,
+}) {
+  const [placeholderCategoryState, setPlaceholderCategoryState] = useState({});
   // To render our anime:
-  // -----WE could use a modified renderMapped (found in Home.js) to render our anime. 
+  // -----WE could use a modified renderMapped (found in Home.js) to render our anime.
   // However, we'll probably want to use a <div> instead of a <span>, and change the className to "log-category", or something.
   // We want to have a maximum width of 100% so we don't overflow the screen. We want to wrap around.
   // So since 2 anime take up 100% of the space, our anime will keep wrapping around the width in pairs.
@@ -47,25 +57,75 @@ function UsersAnimeLog({userListSelector, loggedCompleted, setUserListSelector, 
 
   // updates: updateFetchedUserLogs({ category: response.data })
 
-  const getUsersCategoryLog = async() => {
-    const q = query(collection(db,"theNewUsers", user.uid, "animeLog"),
-    where("status", "==", userListSelector))
+  const getUsersCategoryLog = async (categ) => {
+    // const q = query(collection(db,"theNewUsers", user.uid, "animeLog"),
+    // where("status", "==", `${userListSelector}`))
+    // const q = query(collection(db,"theNewUsers", user.uid, "animeLog"),
+    // where("status", "==", `${userListSelector}`))
     //    orderBy('name'), limit(3) <-- add before last ")" above.
+    // const categSnap = await getDocs(q);
+    // const allCategSnapData = categSnap.docs.map((d) => ({
+    // id: d.id,
+    // ...d.data()
+    // }))
+    //
+    // updateFetchedUserLogs({[`${userListSelector}`] : allCategSnapData})
+    //
+    //--------------This works, BUT IT GETS THE WHOLE COLLECTION, UNFILTERED.---------------------------
+    const querySnapshot = await getDocs(
+      query(collection(db, "theNewUsers", user.uid, "animeLog")),
+      where("status", "==", "completed")
+    );
+    let arr = [];
+    querySnapshot.forEach((doc) => {
+      console.log(doc.id, "=>", doc.data());
+      arr.push({ ...doc.data() });
+    });
+    updateFetchedUserLogs({ [`${categ}`]: arr });
+    // ------------------------------------------------------------------------------------------------
 
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((anime) => {
-      console.log(anime.id, "=>", anime.data());
-    })
+    // const animeLogRef = collection(db, "theNewUsers", user.uid, "animeLog");
+    // const q = query(animeLogRef, where("status", "==", "completed"));
+    // const querySnapshot = await getDocs(q);
+    // querySnapshot.forEach((doc) => {
+    // console.log(doc.id, "==>", doc.data());
+    // });
+    // const q = query(
+    // collection(db, "theNewUsers", user.uid, "animeLog"),
+    // where("status", "==", "completed")
+    // );
+    // const querySnapshot = await getDocs(q);
+    // querySnapshot.docs.forEach((doc) => {
+    // console.log(doc.data());
+    // });
+    // const myDocs = querySnapshot.docs.map((doc) => doc.data());
+    // console.log(myDocs);
 
-  }
-
+    // querySnapshot.forEach((doc) => {
+    // console.log(doc.id, " => ", doc.data());
+    // });
+    // setPlaceholderCategoryState(querySnapshot);
+    // console.log("testing aaaaaa");
+    //categSnap.forEach((anime) => {
+    //  console.log(anime.id, "=>", anime.data());
+    //  // console.log(anime.data());
+    //})
+    // console.log("categSnap:")
+    // console.log(categSnap.data())
+    // trying out loaned ideas from Modaljs
+    // const categResponse = categSnap.data();
+    // const categLogObj = categResponse[`${userListSelector}`]
+    // console.log(categLogObj);
+    // return categLogObj;
+    // updateFetchedUserLogs({[`${e.target.value}`] : categLogObj})
+  };
 
   const handleSelection = (e) => {
     setUserListSelector(e.target.value);
     // if(e.target.value === 'category') {
     //   setLoggedCompleted(null);
     // }
-    
+
     //if(e.target.value !== 'completed') {
     //  setLoggedCompleted(null);
     //}
@@ -75,43 +135,60 @@ function UsersAnimeLog({userListSelector, loggedCompleted, setUserListSelector, 
     // Once a value is no longer null, the next line will check our stateful variable.
     // if(fetchedUserLogs[`${e.target.value}`] !== null && shouldCategoryUpdate[`${e.target.value}`] === false) return; //<-- always runs on first visit.
     // alternatively, if category in log hasn't been checked before, OR if ... hmmm, I think shouldC-U- should be true at first.
-    // if(fetchedUserLogs[`${e.target.value}`] === null || shouldCategoryUpdate[`${e.target.value}`] === true) 
-    if(shouldCategoryUpdate[`${e.target.value}`] === false) return; // <-- true by default, set true each time category is updated in Modal.
+    // if(fetchedUserLogs[`${e.target.value}`] === null || shouldCategoryUpdate[`${e.target.value}`] === true)
+    if (shouldCategoryUpdate[`${e.target.value}`] === false) return; // <-- true by default, set true each time category is updated in Modal.
     // get data from firestore
-    getUsersCategoryLog();
+    getUsersCategoryLog(e.target.value);
+    // updateFetchedUserLogs({[`${e.target.value}`] : getUsersCategoryLog()})
+
+    // should we try using getUsersCategoryLog() here instead of the useEffect?
+    // getUsersCategoryLog();
     // after getting data from firestore:
-    updateFetchedUserLogs({[`${e.target.value}`] : false})
-    // if(shouldCategoryUpdate[`${fetchedUserLogs[userListSelector]}`] === false) return; <-- this will be false by default. 
-    // if(shouldCategoryUpdate[`${fetchedUserLogs[userListSelector]}`] === true) {...} <-- that category has been updated. Refresh log. 
+    // updateFetchedUserLogs({[`${e.target.value}`] : false})
+    // updateFetchedUserLogs({[`${e.target.value}`] : getUsersCategoryLog()})
+    updateShouldCategoryUpdate({ [`${e.target.value}`]: false });
+    // if(shouldCategoryUpdate[`${fetchedUserLogs[userListSelector]}`] === false) return; <-- this will be false by default.
+    // if(shouldCategoryUpdate[`${fetchedUserLogs[userListSelector]}`] === true) {...} <-- that category has been updated. Refresh log.
     // The updateHasCategoryBeenUpdated will be passed from Appjs to Modal. Inside Modal, it will be updated to true after any changes in its respective category. This will be done when clicking the Confirm button, after checking that the information has indeed changed.
     // Then here in UsersAnimeLogjs, we'll check that value right here. If it's positive, we'll perform our desired actions, and then, at the end, we'll change update the category to false, updateHasCategoryBeenUpdated(`${userListSelector}` : false) <-- or something like that.
 
-
     // if(e.target.value === 'completed') {
-      // if(previouslyChecked.current-selection === false) return <--- if we already have the data, avoid further calls for this render.
-      // we want to find a way to let Dashboard know that the log has been updated, so we know to allow a refresh.
-      // we're here, this means we proceed with getting the data.
-      // on this line, we'll get the docs where() firestore status is the current selection, e.g: 'completed'. 
-      // we could do something like a modified: updateAllTopAnime({ airing: topAiring }) from Home.js;
-      // that would look like: setPreviouslyChecked(previouslyChecked... current-selection: data), hmmmm...?
-      // setLoggedCompleted(['completed show 1', 'completed show 2', 'completed show 3', 'etc...'])
+    // if(previouslyChecked.current-selection === false) return <--- if we already have the data, avoid further calls for this render.
+    // we want to find a way to let Dashboard know that the log has been updated, so we know to allow a refresh.
+    // we're here, this means we proceed with getting the data.
+    // on this line, we'll get the docs where() firestore status is the current selection, e.g: 'completed'.
+    // we could do something like a modified: updateAllTopAnime({ airing: topAiring }) from Home.js;
+    // that would look like: setPreviouslyChecked(previouslyChecked... current-selection: data), hmmmm...?
+    // setLoggedCompleted(['completed show 1', 'completed show 2', 'completed show 3', 'etc...'])
 
-      // next line was the only one that was not commented out before commenting out this scope
-      // updateFetchedUserLogs({completed: ['completed show 1', 'completed show 2', 'completed show 3', 'etc...']})
+    // next line was the only one that was not commented out before commenting out this scope
+    // updateFetchedUserLogs({completed: ['completed show 1', 'completed show 2', 'completed show 3', 'etc...']})
     // }
 
     // we could do:
-    //  
+    //
     // check if current category contains anime entries. If so, save them as entries in an object.
-    // 
+    //
   };
 
-  // ---------let's try keeping the state here and see if that fixes the re-renders.--------------- 
+  // ---------let's try keeping the state here and see if that fixes the re-renders.---------------
 
   const testFuncOutput = (outputText) => {
-    if(userListSelector === '') return;
-    return `${outputText}` ; 
-  }
+    if (userListSelector === "") return;
+    return `${outputText}`;
+  };
+
+  console.log(fetchedUserLogs);
+
+  // useEffect(() => {
+  // getUsersCategoryLog();
+  // }, [userListSelector]);
+
+  // useEffect(() => {
+  // updateFetchedUserLogs({
+  // [`${userListSelector}`]: placeholderCategoryState,
+  // });
+  // }, [userListSelector]);
 
   return (
     <div>
@@ -119,15 +196,15 @@ function UsersAnimeLog({userListSelector, loggedCompleted, setUserListSelector, 
       <hr />
       <Selector defaultValue={userListSelector} onChange={handleSelection}>
         {/* on the next line, try changing the value to value="" */}
-                  <OptionSelector hidden value={userListSelector}>{userListSelector}</OptionSelector>
-                  <OptionSelector value="completed">completed</OptionSelector>
-                  <OptionSelector value="watching">watching</OptionSelector>
-                  <OptionSelector value="plan to watch">
-                    plan to watch
-                  </OptionSelector>
-                </Selector>
-                
-                {/* 
+        <OptionSelector hidden value={userListSelector}>
+          {userListSelector}
+        </OptionSelector>
+        <OptionSelector value="completed">completed</OptionSelector>
+        <OptionSelector value="watching">watching</OptionSelector>
+        <OptionSelector value="plan to watch">plan to watch</OptionSelector>
+      </Selector>
+
+      {/* 
                 {loggedCompleted && 
             <h2>
                 {testFuncOutput(loggedCompleted)}
@@ -135,7 +212,7 @@ function UsersAnimeLog({userListSelector, loggedCompleted, setUserListSelector, 
                 }
             */}
 
-{/* 
+      {/* 
             {fetchedUserLogs.completed && userListSelector === "completed" && 
             <h2>
               {testFuncOutput(fetchedUserLogs.completed)}
@@ -143,13 +220,14 @@ function UsersAnimeLog({userListSelector, loggedCompleted, setUserListSelector, 
             }
             */}
 
-{/* Display the user log for the selected category: */}
+      {/* Display the user log for the selected category: */}
+      {/* 
             {fetchedUserLogs[`${userListSelector}`] &&
               <h2>
                 {fetchedUserLogs[`${userListSelector}`]}
               </h2>
             }
-
+              */}
     </div>
   );
 }
