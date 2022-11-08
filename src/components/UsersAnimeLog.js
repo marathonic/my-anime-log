@@ -7,6 +7,8 @@ import {
   getDocs,
   where,
   onSnapshot,
+  doc,
+  getDoc,
 } from "firebase/firestore";
 import { OptionSelector, Selector } from "../components/primedComps";
 import { useState, useEffect } from "react";
@@ -51,11 +53,36 @@ function UsersAnimeLog({
     //
     // updateFetchedUserLogs({[`${userListSelector}`] : allCategSnapData})
     //
+
     //--------------This works, BUT IT GETS THE WHOLE COLLECTION, UNFILTERED.---------------------------
+    // const docRef = doc(
+    // db,
+    // "theNewUsers",
+    // user?.uid,
+    // "animeLog",
+    // "testcompleted"
+    // );
+    // const docSnap = await getDoc(docRef);
+    // let arrai = [];
+    // if (docSnap.exists()) {
+    // console.log("Document data:", docSnap.data());
+    // arrai.push({ ...docSnap.data() });
+    // } else {
+    // console.log("no such category");
+    // }
+    // updateFetchedUserLogs({ [`${categ}`]: arrai });
+
+    // change 'testplantowatchcollection' to 'categories'
     const querySnapshot = await getDocs(
       query(
-        collection(db, "theNewUsers", user?.uid, "animeLog"),
-        where("status", "==", "completed")
+        collection(
+          db,
+          "theNewUsers",
+          user?.uid,
+          "animeLog",
+          "testplantowatchcollection",
+          "watching"
+        )
       )
     );
     let arr = [];
