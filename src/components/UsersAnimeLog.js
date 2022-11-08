@@ -80,8 +80,8 @@ function UsersAnimeLog({
           "theNewUsers",
           user?.uid,
           "animeLog",
-          "testplantowatchcollection",
-          "watching"
+          "categories",
+          categ
         )
       )
     );
