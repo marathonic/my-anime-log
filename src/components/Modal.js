@@ -185,21 +185,17 @@ function Modal({
     function AnimeLogEntry() {
       if (listSelector === "completed") {
         return {
-          [animeID]: {
-            name: animeTitle,
-            status: listSelector,
-            watched: episodesAired,
-            score: myScore || "",
-          },
+          name: animeTitle,
+          status: listSelector,
+          watched: episodesAired,
+          score: myScore || "",
         };
       } else {
         return {
-          [animeID]: {
-            name: animeTitle,
-            status: listSelector,
-            watched: episodesWatched || 0,
-            score: myScore || "",
-          },
+          name: animeTitle,
+          status: listSelector,
+          watched: episodesWatched || 0,
+          score: myScore || "",
         };
       }
     }
@@ -213,7 +209,7 @@ function Modal({
     }
     // data has changed, so log the new data:
     setDoc(doc(db, "theNewUsers", user.uid, "animeLog", animeID), myAnime);
-    updateShouldCategoryUpdate({[`${listSelector}`]: true})
+    updateShouldCategoryUpdate({ [`${listSelector}`]: true });
     setIsFetchLocked(false);
     setIsModalOpen(false);
   };
@@ -459,7 +455,7 @@ function Modal({
                 {/* END ------------------^^^^^^^^^^^  */}
                 {/* ------------------^^^^^^^^^^^  */}
                 <Selector value={listSelector} onChange={handleSelection}>
-                  <OptionSelector value="plan-to-watch">
+                  <OptionSelector value="plan to watch">
                     Plan to watch
                   </OptionSelector>
                   <OptionSelector value="watching">Watching</OptionSelector>

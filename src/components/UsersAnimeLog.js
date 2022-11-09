@@ -75,7 +75,7 @@ function UsersAnimeLog({
     // change 'testplantowatchcollection' to 'categories'
     const q = query(
       collection(db, "theNewUsers", user?.uid, "animeLog"),
-      where("status", "==", "completed")
+      where("status", "==", categ)
     );
     const querySnapshot = await getDocs(q);
     let arr = [];
@@ -183,6 +183,7 @@ function UsersAnimeLog({
     // if(fetchedUserLogs[`${e.target.value}`] === null || shouldCategoryUpdate[`${e.target.value}`] === true)
     if (shouldCategoryUpdate[`${e.target.value}`] === false) return; // <-- true by default, set true each time category is updated in Modal.
     // get data from firestore
+    console.log("current selection", " ===> ", e.target.value);
     getUsersCategoryLog(e.target.value);
     // updateFetchedUserLogs({[`${e.target.value}`] : getUsersCategoryLog()})
 
