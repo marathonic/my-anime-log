@@ -73,18 +73,11 @@ function UsersAnimeLog({
     // updateFetchedUserLogs({ [`${categ}`]: arrai });
 
     // change 'testplantowatchcollection' to 'categories'
-    const querySnapshot = await getDocs(
-      query(
-        collection(
-          db,
-          "theNewUsers",
-          user?.uid,
-          "animeLog",
-          "categories",
-          categ
-        )
-      )
+    const q = query(
+      collection(db, "theNewUsers", user?.uid, "animeLog"),
+      where("status", "==", "completed")
     );
+    const querySnapshot = await getDocs(q);
     let arr = [];
     querySnapshot.forEach((doc) => {
       console.log(doc.id, "=>", doc.data());
