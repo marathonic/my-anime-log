@@ -17,6 +17,7 @@ function Dashboard({
   setUserListSelector,
   shouldCategoryUpdate,
   updateShouldCategoryUpdate,
+  thumbnailURL,
 }) {
   const [user, loading, error] = useAuthState(auth);
 
@@ -110,6 +111,7 @@ function Dashboard({
         shouldCategoryUpdate={shouldCategoryUpdate}
         updateShouldCategoryUpdate={updateShouldCategoryUpdate}
         user={user}
+        animeThumbnailURL={thumbnailURL}
       />
       {/* {loggedCompleted && loggedCompleted} */}
 

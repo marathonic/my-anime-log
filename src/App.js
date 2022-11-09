@@ -51,7 +51,7 @@ function App() {
   const initialUserCategories = {
     completed: true,
     watching: true,
-    planToWatch: true,
+    "plan to watch": true,
   };
   const [shouldCategoryUpdate, updateShouldCategoryUpdate] = useReducer(
     (shouldCategoryUpdate, updates) => ({
@@ -60,6 +60,7 @@ function App() {
     }),
     initialUserCategories
   );
+  const [thumbnailURL, setThumbnailURL] = useState("");
 
   // updates: updateAllTopAnime({ category: response.data })
 
@@ -236,6 +237,7 @@ function App() {
               isModalOpen={isModalOpen}
               setIsModalOpen={setIsModalOpen}
               updateShouldCategoryUpdate={updateShouldCategoryUpdate}
+              setThumbnailURL={setThumbnailURL}
             />
           }
         />
@@ -287,6 +289,7 @@ function App() {
                 fetchedUserPlanToWatch={fetchedUserLogs.planToWatch}
                 shouldCategoryUpdate={shouldCategoryUpdate}
                 updateShouldCategoryUpdate={updateShouldCategoryUpdate}
+                thumbnailURL={thumbnailURL}
               />
             </ProtectedRoute>
           }

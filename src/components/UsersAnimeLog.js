@@ -30,6 +30,7 @@ function UsersAnimeLog({
   shouldCategoryUpdate,
   user,
   updateShouldCategoryUpdate,
+  animeThumbnailURL,
 }) {
   const [placeholderCategoryState, setPlaceholderCategoryState] = useState({});
   // To render our anime:
@@ -181,7 +182,13 @@ function UsersAnimeLog({
     // if(fetchedUserLogs[`${e.target.value}`] !== null && shouldCategoryUpdate[`${e.target.value}`] === false) return; //<-- always runs on first visit.
     // alternatively, if category in log hasn't been checked before, OR if ... hmmm, I think shouldC-U- should be true at first.
     // if(fetchedUserLogs[`${e.target.value}`] === null || shouldCategoryUpdate[`${e.target.value}`] === true)
-    if (shouldCategoryUpdate[`${e.target.value}`] === false) return; // <-- true by default, set true each time category is updated in Modal.
+    if (shouldCategoryUpdate[`${e.target.value}`] === false) {
+      console.log(
+        "shouldCategoryUpdate is false, returning before fething data..."
+      );
+      console.log(shouldCategoryUpdate);
+      return;
+    } // <-- true by default, set true each time category is updated in Modal.
     // get data from firestore
     console.log("current selection", " ===> ", e.target.value);
     getUsersCategoryLog(e.target.value);

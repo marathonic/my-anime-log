@@ -28,6 +28,8 @@ function Modal({
   animeExistsInLog,
   setAnimeExistsInLog,
   updateShouldCategoryUpdate,
+  animeThumbnailURL,
+  setThumbnailURL,
 }) {
   const [listSelector, setListSelector] = useState(
     animeDataFromLog.status || "watching"
@@ -189,6 +191,8 @@ function Modal({
           status: listSelector,
           watched: episodesAired,
           score: myScore || "",
+          mal_id: animeID,
+          thumbnailURL: animeThumbnailURL,
         };
       } else {
         return {
@@ -196,6 +200,8 @@ function Modal({
           status: listSelector,
           watched: episodesWatched || 0,
           score: myScore || "",
+          mal_id: animeID,
+          thumbnailURL: animeThumbnailURL,
         };
       }
     }
@@ -209,6 +215,7 @@ function Modal({
     }
     // data has changed, so log the new data:
     setDoc(doc(db, "theNewUsers", user.uid, "animeLog", animeID), myAnime);
+    setThumbnailURL(animeThumbnailURL);
     updateShouldCategoryUpdate({ [`${listSelector}`]: true });
     setIsFetchLocked(false);
     setIsModalOpen(false);

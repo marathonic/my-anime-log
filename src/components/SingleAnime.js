@@ -74,7 +74,14 @@ const loadingSkeletonSingleAnime = (
 
 // END LOADINGSKELETONSINGLEANIME
 
-function SingleAnime({ message, isMobile, setIsModalOpen, isModalOpen, updateShouldCategoryUpdate }) {
+function SingleAnime({
+  message,
+  isMobile,
+  setIsModalOpen,
+  isModalOpen,
+  updateShouldCategoryUpdate,
+  setThumbnailURL,
+}) {
   const urlID = useParams();
   const animeID = urlID.mal_id;
   const [loading, setLoading] = useState(true);
@@ -195,6 +202,8 @@ function SingleAnime({ message, isMobile, setIsModalOpen, isModalOpen, updateSho
             animeExistsInLog={animeExistsInLog}
             setAnimeExistsInLog={setAnimeExistsInLog}
             updateShouldCategoryUpdate={updateShouldCategoryUpdate}
+            animeThumbnailURL={myAnimeData.images.webp.image_url}
+            setThumbnailURL={setThumbnailURL}
           />
         )}
         {/* <span>{myAnimeData.synopsis}</span> */}
