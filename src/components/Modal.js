@@ -330,19 +330,19 @@ function Modal({
         const animeSnap = await getDoc(animeIdRef);
 
         if (animeSnap.exists()) {
-          // console.log("Document data:", animeSnap.data());
+          console.log("Document data:", animeSnap.data());
           const snapResponse = animeSnap.data();
-          const animeLogObj = snapResponse[`${animeID}`];
-          setAnimeDataFromLog(animeLogObj);
+          // const snapResponse = snapResponse[`${animeID}`];
+          setAnimeDataFromLog(snapResponse);
           // test if the following are needed, since on first render they'll be sent to SingleAnime:
           // and if not found, useState OR (  ||  ) clause sets them.
-          setListSelector(animeLogObj.status);
-          setEpisodesWatched(animeLogObj.watched);
-          setMyScore(animeLogObj.score);
+          setListSelector(snapResponse.status);
+          setEpisodesWatched(snapResponse.watched);
+          setMyScore(snapResponse.score);
           setAnimeExistsInLog(true);
           // const animeDataInLog = animeSnap.data();
 
-          console.log(animeLogObj);
+          console.log(snapResponse);
         } else {
           console.log("No such anime in the user's log");
           setAnimeExistsInLog(false);
