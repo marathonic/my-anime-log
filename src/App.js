@@ -39,24 +39,27 @@ function App() {
   const initialUserLogs = {
     completed: null,
     watching: null,
-    planToWatch: null,
+    "plan to watch": null,
   };
   const [fetchedUserLogs, updateFetchedUserLogs] = useReducer(
-    (fetchedUserLogs, updates) => ({...fetchedUserLogs, ...updates}),
+    (fetchedUserLogs, updates) => ({ ...fetchedUserLogs, ...updates }),
     initialUserLogs
   );
   const [loggedCompleted, setLoggedCompleted] = useState(null);
-  const [userListSelector, setUserListSelector] = useState('choose category');
+  const [userListSelector, setUserListSelector] = useState("choose category");
   // indicates whether the log for the category should be updated.
   const initialUserCategories = {
     completed: true,
     watching: true,
     planToWatch: true,
-  }
+  };
   const [shouldCategoryUpdate, updateShouldCategoryUpdate] = useReducer(
-    (shouldCategoryUpdate, updates) => ({...shouldCategoryUpdate, ...updates}),
+    (shouldCategoryUpdate, updates) => ({
+      ...shouldCategoryUpdate,
+      ...updates,
+    }),
     initialUserCategories
-  )
+  );
 
   // updates: updateAllTopAnime({ category: response.data })
 
@@ -270,12 +273,20 @@ function App() {
           element={
             <ProtectedRoute user={user}>
               {/* <Profile /> */}
-              <Dashboard myUser={myUser} setMyUser={setMyUser} fetchedUserLogs={fetchedUserLogs} updateFetchedUserLogs={updateFetchedUserLogs} loggedCompleted={loggedCompleted} setLoggedCompleted={setLoggedCompleted} userListSelector={userListSelector} setUserListSelector={setUserListSelector}
-              fetchedUserCompleted={fetchedUserLogs.completed}
-              fetchedUserWatching={fetchedUserLogs.watching}
-              fetchedUserPlanToWatch={fetchedUserLogs.planToWatch}
-              shouldCategoryUpdate={shouldCategoryUpdate}
-              updateShouldCategoryUpdate={updateShouldCategoryUpdate}
+              <Dashboard
+                myUser={myUser}
+                setMyUser={setMyUser}
+                fetchedUserLogs={fetchedUserLogs}
+                updateFetchedUserLogs={updateFetchedUserLogs}
+                loggedCompleted={loggedCompleted}
+                setLoggedCompleted={setLoggedCompleted}
+                userListSelector={userListSelector}
+                setUserListSelector={setUserListSelector}
+                fetchedUserCompleted={fetchedUserLogs.completed}
+                fetchedUserWatching={fetchedUserLogs.watching}
+                fetchedUserPlanToWatch={fetchedUserLogs.planToWatch}
+                shouldCategoryUpdate={shouldCategoryUpdate}
+                updateShouldCategoryUpdate={updateShouldCategoryUpdate}
               />
             </ProtectedRoute>
           }
