@@ -252,6 +252,7 @@ function UsersAnimeLog({
 
   useEffect(() => {
     if (!fetchedUserLogs[`${userListSelector}`]) return;
+    console.log("TESTING------------------------------------------");
     const categoryToMap = fetchedUserLogs[`${userListSelector}`];
     // setCurrentCategoryLog(category);
     const renderLogCategory = (isMobile) => {
@@ -279,6 +280,13 @@ function UsersAnimeLog({
     };
     setCurrentCategoryLog(renderLogCategory());
   }, [fetchedUserLogs, userListSelector]);
+
+  // Handle the case where we leave a category selected, then update the log for that category, and come back to the dashboard.
+  useEffect(() => {
+    if (shouldCategoryUpdate[`${userListSelector}`]) {
+      getUsersCategoryLog(userListSelector);
+    }
+  }, []);
 
   // const renderCurrentCateg = () => {
   // if (fetchedUserLogs[`${userListSelector}`]) {
