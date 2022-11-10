@@ -289,7 +289,7 @@ function UsersAnimeLog({
   // };
 
   return (
-    <div>
+    <div className="centered-div">
       <h1 style={{ color: "white", fontSize: "3rem" }}>my Log</h1>
       <hr />
       <Selector defaultValue={userListSelector} onChange={handleSelection}>
