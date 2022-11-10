@@ -18,6 +18,7 @@ function Dashboard({
   shouldCategoryUpdate,
   updateShouldCategoryUpdate,
   thumbnailURL,
+  isMobile,
 }) {
   const [user, loading, error] = useAuthState(auth);
 
@@ -112,6 +113,7 @@ function Dashboard({
         updateShouldCategoryUpdate={updateShouldCategoryUpdate}
         user={user}
         animeThumbnailURL={thumbnailURL}
+        isMobile={isMobile}
       />
       {/* {loggedCompleted && loggedCompleted} */}
 

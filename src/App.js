@@ -290,6 +290,7 @@ function App() {
                 shouldCategoryUpdate={shouldCategoryUpdate}
                 updateShouldCategoryUpdate={updateShouldCategoryUpdate}
                 thumbnailURL={thumbnailURL}
+                isMobile={isMobile}
               />
             </ProtectedRoute>
           }

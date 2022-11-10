@@ -33,6 +33,7 @@ function UsersAnimeLog({
   animeThumbnailURL,
 }) {
   const [placeholderCategoryState, setPlaceholderCategoryState] = useState({});
+  const [currentCategoryLog, setCurrentCategoryLog] = useState([]);
   // To render our anime:
   // -----WE could use a modified renderMapped (found in Home.js) to render our anime.
   // However, we'll probably want to use a <div> instead of a <span>, and change the className to "log-category", or something.
@@ -148,7 +149,7 @@ function UsersAnimeLog({
           <AnimeCard clickedAnime={anime} />
           <Link to={`/anime/${anime.mal_id}`} key={anime.mal_id}>
             <img
-              src={anime.images.jpg.image_url}
+              src={anime.thumbnailURL}
               alt={anime.title}
               className="thumbnail-category"
             />
@@ -249,6 +250,44 @@ function UsersAnimeLog({
   // newGetUsersCategoryLogTest();
   // }, [userListSelector]);
 
+  useEffect(() => {
+    if (!fetchedUserLogs[`${userListSelector}`]) return;
+    const categoryToMap = fetchedUserLogs[`${userListSelector}`];
+    // setCurrentCategoryLog(category);
+    const renderLogCategory = (isMobile) => {
+      let mapped = categoryToMap.map((anime) => {
+        return (
+          <span className="category-span" key={anime.mal_id}>
+            {/* what does AnimeCard do here? */}
+            <AnimeCard clickedAnime={anime} />
+            <Link to={`/anime/${anime.mal_id}`} key={anime.mal_id}>
+              <img
+                src={anime.thumbnailURL}
+                alt={anime.title}
+                className="thumbnail-category"
+              />
+            </Link>
+          </span>
+        );
+      });
+      return (
+        <div>
+          <Category isMobile={isMobile}>{mapped}</Category>
+        </div>
+      );
+      return mapped;
+    };
+    setCurrentCategoryLog(renderLogCategory());
+  }, [fetchedUserLogs, userListSelector]);
+
+  // const renderCurrentCateg = () => {
+  // if (fetchedUserLogs[`${userListSelector}`]) {
+  // const category = fetchedUserLogs[`${userListSelector}`];
+  //
+  // console.log(category);
+  // }
+  // };
+
   return (
     <div>
       <h1 style={{ color: "white", fontSize: "3rem" }}>my Log</h1>
@@ -262,6 +301,8 @@ function UsersAnimeLog({
         <OptionSelector value="watching">watching</OptionSelector>
         <OptionSelector value="plan to watch">plan to watch</OptionSelector>
       </Selector>
+
+      {currentCategoryLog && currentCategoryLog}
 
       {/* 
                 {loggedCompleted && 
