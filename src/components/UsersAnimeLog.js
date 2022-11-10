@@ -12,7 +12,7 @@ import {
 } from "firebase/firestore";
 import { OptionSelector, Selector } from "../components/primedComps";
 import { useState, useEffect } from "react";
-import { AnimeCard, Category } from "../components/primedComps";
+import { AnimeCard, Category, LogCategory } from "../components/primedComps";
 import { Link } from "react-router-dom";
 
 // backtick `
@@ -159,7 +159,7 @@ function UsersAnimeLog({
     });
     return (
       <div>
-        <Category isMobile={isMobile}>{mapped}</Category>
+        <LogCategory isMobile={isMobile}>{mapped}</LogCategory>
       </div>
     );
     return mapped;
@@ -257,7 +257,7 @@ function UsersAnimeLog({
     const renderLogCategory = (isMobile) => {
       let mapped = categoryToMap.map((anime) => {
         return (
-          <span className="category-span" key={anime.mal_id}>
+          <div className="test-margin" key={anime.mal_id}>
             {/* what does AnimeCard do here? */}
             <AnimeCard clickedAnime={anime} />
             <Link to={`/anime/${anime.mal_id}`} key={anime.mal_id}>
@@ -267,12 +267,12 @@ function UsersAnimeLog({
                 className="thumbnail-category"
               />
             </Link>
-          </span>
+          </div>
         );
       });
       return (
-        <div>
-          <Category isMobile={isMobile}>{mapped}</Category>
+        <div className="category-div">
+          <LogCategory isMobile={isMobile}>{mapped}</LogCategory>
         </div>
       );
       return mapped;
