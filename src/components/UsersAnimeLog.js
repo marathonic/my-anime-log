@@ -9,6 +9,8 @@ import {
   onSnapshot,
   doc,
   getDoc,
+  orderBy,
+  limit,
 } from "firebase/firestore";
 import { OptionSelector, Selector } from "../components/primedComps";
 import { useState, useEffect } from "react";
@@ -42,42 +44,11 @@ function UsersAnimeLog({
   // We also want to implement pagination.
 
   const getUsersCategoryLog = async (categ) => {
-    // const q = query(collection(db,"theNewUsers", user.uid, "animeLog"),
-    // where("status", "==", `${userListSelector}`))
-    // const q = query(collection(db,"theNewUsers", user.uid, "animeLog"),
-    // where("status", "==", `${userListSelector}`))
-    //    orderBy('name'), limit(3) <-- add before last ")" above.
-    // const categSnap = await getDocs(q);
-    // const allCategSnapData = categSnap.docs.map((d) => ({
-    // id: d.id,
-    // ...d.data()
-    // }))
-    //
-    // updateFetchedUserLogs({[`${userListSelector}`] : allCategSnapData})
-    //
-
-    //--------------This works, BUT IT GETS THE WHOLE COLLECTION, UNFILTERED.---------------------------
-    // const docRef = doc(
-    // db,
-    // "theNewUsers",
-    // user?.uid,
-    // "animeLog",
-    // "testcompleted"
-    // );
-    // const docSnap = await getDoc(docRef);
-    // let arrai = [];
-    // if (docSnap.exists()) {
-    // console.log("Document data:", docSnap.data());
-    // arrai.push({ ...docSnap.data() });
-    // } else {
-    // console.log("no such category");
-    // }
-    // updateFetchedUserLogs({ [`${categ}`]: arrai });
-
-    // change 'testplantowatchcollection' to 'categories'
     const q = query(
       collection(db, "theNewUsers", user?.uid, "animeLog"),
-      where("status", "==", categ)
+      where("status", "==", categ),
+      orderBy("name"),
+      limit(10)
     );
     const querySnapshot = await getDocs(q);
     let arr = [];
