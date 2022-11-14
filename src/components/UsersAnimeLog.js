@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useReducer } from "react";
 import "../style.css";
 import { auth, db, logout } from "../firebase.js";
 import {
@@ -38,6 +38,15 @@ function UsersAnimeLog({
   const [placeholderCategoryState, setPlaceholderCategoryState] = useState({});
   const [currentCategoryLog, setCurrentCategoryLog] = useState([]);
   const [lastEntryFetched, setLastEntryFetched] = useState(null);
+  const initialEntries = {
+    completed: null,
+    watching: null,
+    "plan to watch": null,
+  };
+  const [latestEntryFetched, updateLatestEntryFetched] = useReducer(
+    (latestEntryFetched, updates) => ({ ...latestEntryFetched, ...updates }),
+    initialEntries
+  );
   // To render our anime:
   // -----WE could use a modified renderMapped (found in Home.js) to render our anime.
   // However, we'll probably want to use a <div> instead of a <span>, and change the className to "log-category", or something.
@@ -50,7 +59,7 @@ function UsersAnimeLog({
       collection(db, "theNewUsers", user?.uid, "animeLog"),
       where("status", "==", categ),
       orderBy("name"),
-      startAfter(lastEntryFetched || 0),
+      startAfter(latestEntryFetched[`${categ}`] || 0),
       limit(5)
     );
     const querySnapshot = await getDocs(q);
@@ -62,8 +71,12 @@ function UsersAnimeLog({
     // ---------------EDIT: BREAKS WHEN SWITCHING CATEGORIES------------------------------------------/////////.
     const mergedArrays = [...fetchedUserLogs[`${categ}`], ...arr];
     updateFetchedUserLogs({ [`${categ}`]: mergedArrays });
-    setLastEntryFetched(querySnapshot.docs[querySnapshot.docs.length - 1]);
-    console.log("lastEntryFetched, or startAfter", " ==> ", lastEntryFetched);
+    // setLastEntryFetched(querySnapshot.docs[querySnapshot.docs.length - 1]);
+    updateLatestEntryFetched({
+      [`${categ}`]: querySnapshot.docs[querySnapshot.docs.length - 1],
+    });
+
+    // console.log("lastEntryFetched, or startAfter", " ==> ", lastEntryFetched);
     return;
     // ------------------------------------------------------------------------------------------------
 
@@ -181,7 +194,7 @@ function UsersAnimeLog({
     // updateFetchedUserLogs({[`${e.target.value}`] : false})
     // updateFetchedUserLogs({[`${e.target.value}`] : getUsersCategoryLog()})
     // ------------------TEST----------------------------------------
-    // updateShouldCategoryUpdate({ [`${e.target.value}`]: false });
+    updateShouldCategoryUpdate({ [`${e.target.value}`]: false });
     // ------------------TEST----------------------------------------
 
     // if(shouldCategoryUpdate[`${fetchedUserLogs[userListSelector]}`] === false) return; <-- this will be false by default.
