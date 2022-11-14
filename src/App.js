@@ -36,10 +36,11 @@ function App() {
   const [currentView, setCurrentView] = useState("search");
   const isMobile = useMediaQuery({ query: "(max-width:428px)" });
   const [isFetchInProgress, setIsFetchInProgress] = useState(false);
+  // --------------ATTENTION: Changed initialUserLogs = { completed: null, watching: null, "plan to watch": null}, to be:
   const initialUserLogs = {
-    completed: null,
-    watching: null,
-    "plan to watch": null,
+    completed: [],
+    watching: [],
+    "plan to watch": [],
   };
   const [fetchedUserLogs, updateFetchedUserLogs] = useReducer(
     (fetchedUserLogs, updates) => ({ ...fetchedUserLogs, ...updates }),

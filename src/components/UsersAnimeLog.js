@@ -59,7 +59,8 @@ function UsersAnimeLog({
       console.log(doc.id, "=>", doc.data());
       arr.push({ ...doc.data() });
     });
-    updateFetchedUserLogs({ [`${categ}`]: arr });
+    const mergedArrays = [...fetchedUserLogs[`${categ}`], ...arr];
+    updateFetchedUserLogs({ [`${categ}`]: mergedArrays });
     setLastEntryFetched(querySnapshot.docs[querySnapshot.docs.length - 1]);
     console.log("lastEntryFetched, or startAfter", " ==> ", lastEntryFetched);
     return;
