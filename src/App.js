@@ -37,6 +37,7 @@ function App() {
   const isMobile = useMediaQuery({ query: "(max-width:428px)" });
   const [isFetchInProgress, setIsFetchInProgress] = useState(false);
   // --------------ATTENTION: Changed initialUserLogs = { completed: null, watching: null, "plan to watch": null}, to be:
+  // ----------EDIT: OUR NEW FUNCTIONALITY BREAKS WHEN SWITCHING CATEGORIES. LOOK FOR THE CULPRIT.-----------------------
   const initialUserLogs = {
     completed: [],
     watching: [],

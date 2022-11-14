@@ -59,6 +59,7 @@ function UsersAnimeLog({
       console.log(doc.id, "=>", doc.data());
       arr.push({ ...doc.data() });
     });
+    // ---------------EDIT: BREAKS WHEN SWITCHING CATEGORIES------------------------------------------/////////.
     const mergedArrays = [...fetchedUserLogs[`${categ}`], ...arr];
     updateFetchedUserLogs({ [`${categ}`]: mergedArrays });
     setLastEntryFetched(querySnapshot.docs[querySnapshot.docs.length - 1]);
