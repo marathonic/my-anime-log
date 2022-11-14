@@ -62,6 +62,15 @@ function App() {
     }),
     initialUserCategories
   );
+  const initialEntries = {
+    completed: null,
+    watching: null,
+    "plan to watch": null,
+  };
+  const [latestEntryFetched, updateLatestEntryFetched] = useReducer(
+    (latestEntryFetched, updates) => ({ ...latestEntryFetched, ...updates }),
+    initialEntries
+  );
   const [thumbnailURL, setThumbnailURL] = useState("");
 
   // updates: updateAllTopAnime({ category: response.data })
@@ -293,6 +302,8 @@ function App() {
                 updateShouldCategoryUpdate={updateShouldCategoryUpdate}
                 thumbnailURL={thumbnailURL}
                 isMobile={isMobile}
+                latestEntryFetched={latestEntryFetched}
+                updateLatestEntryFetched={updateLatestEntryFetched}
               />
             </ProtectedRoute>
           }

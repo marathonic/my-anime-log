@@ -34,19 +34,13 @@ function UsersAnimeLog({
   user,
   updateShouldCategoryUpdate,
   animeThumbnailURL,
+  latestEntryFetched,
+  updateLatestEntryFetched,
 }) {
   const [placeholderCategoryState, setPlaceholderCategoryState] = useState({});
   const [currentCategoryLog, setCurrentCategoryLog] = useState([]);
   const [lastEntryFetched, setLastEntryFetched] = useState(null);
-  const initialEntries = {
-    completed: null,
-    watching: null,
-    "plan to watch": null,
-  };
-  const [latestEntryFetched, updateLatestEntryFetched] = useReducer(
-    (latestEntryFetched, updates) => ({ ...latestEntryFetched, ...updates }),
-    initialEntries
-  );
+
   // To render our anime:
   // -----WE could use a modified renderMapped (found in Home.js) to render our anime.
   // However, we'll probably want to use a <div> instead of a <span>, and change the className to "log-category", or something.

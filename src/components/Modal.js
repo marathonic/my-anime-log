@@ -208,8 +208,13 @@ function Modal({
 
     // our possible solution, using our constructor function:
     let myAnime = AnimeLogEntry();
-    if (_.isEqual(myAnime[`${animeID}`], animeDataFromLog)) {
+    console.log("myAnime", "==>", myAnime);
+    console.log("animeDataFromLog", "==>", animeDataFromLog);
+
+    // I suspect the line below might have been rendered obsolete when we changed our Firestore structure
+    if (_.isEqual(myAnime, animeDataFromLog)) {
       console.log("data has not changed, returning...");
+      // updateShouldCategoryUpdate({ [`${listSelector}`]: false });
       setIsModalOpen(false);
       return;
     }
