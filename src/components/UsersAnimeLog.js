@@ -11,6 +11,7 @@ import {
   getDoc,
   orderBy,
   limit,
+  startAfter,
 } from "firebase/firestore";
 import { OptionSelector, Selector } from "../components/primedComps";
 import { useState, useEffect } from "react";
@@ -36,6 +37,7 @@ function UsersAnimeLog({
 }) {
   const [placeholderCategoryState, setPlaceholderCategoryState] = useState({});
   const [currentCategoryLog, setCurrentCategoryLog] = useState([]);
+  const [lastEntryFetched, setLastEntryFetched] = useState(null);
   // To render our anime:
   // -----WE could use a modified renderMapped (found in Home.js) to render our anime.
   // However, we'll probably want to use a <div> instead of a <span>, and change the className to "log-category", or something.
@@ -48,7 +50,8 @@ function UsersAnimeLog({
       collection(db, "theNewUsers", user?.uid, "animeLog"),
       where("status", "==", categ),
       orderBy("name"),
-      limit(10)
+      startAfter(lastEntryFetched || 0),
+      limit(5)
     );
     const querySnapshot = await getDocs(q);
     let arr = [];
@@ -57,6 +60,8 @@ function UsersAnimeLog({
       arr.push({ ...doc.data() });
     });
     updateFetchedUserLogs({ [`${categ}`]: arr });
+    setLastEntryFetched(querySnapshot.docs[querySnapshot.docs.length - 1]);
+    console.log("lastEntryFetched, or startAfter", " ==> ", lastEntryFetched);
     return;
     // ------------------------------------------------------------------------------------------------
 
@@ -156,7 +161,7 @@ function UsersAnimeLog({
     // if(fetchedUserLogs[`${e.target.value}`] === null || shouldCategoryUpdate[`${e.target.value}`] === true)
     if (shouldCategoryUpdate[`${e.target.value}`] === false) {
       console.log(
-        "shouldCategoryUpdate is false, returning before fething data..."
+        "shouldCategoryUpdate is false, returning before fetching data..."
       );
       console.log(shouldCategoryUpdate);
       return;
@@ -173,7 +178,10 @@ function UsersAnimeLog({
     // after getting data from firestore:
     // updateFetchedUserLogs({[`${e.target.value}`] : false})
     // updateFetchedUserLogs({[`${e.target.value}`] : getUsersCategoryLog()})
-    updateShouldCategoryUpdate({ [`${e.target.value}`]: false });
+    // ------------------TEST----------------------------------------
+    // updateShouldCategoryUpdate({ [`${e.target.value}`]: false });
+    // ------------------TEST----------------------------------------
+
     // if(shouldCategoryUpdate[`${fetchedUserLogs[userListSelector]}`] === false) return; <-- this will be false by default.
     // if(shouldCategoryUpdate[`${fetchedUserLogs[userListSelector]}`] === true) {...} <-- that category has been updated. Refresh log.
     // The updateHasCategoryBeenUpdated will be passed from Appjs to Modal. Inside Modal, it will be updated to true after any changes in its respective category. This will be done when clicking the Confirm button, after checking that the information has indeed changed.
@@ -282,6 +290,10 @@ function UsersAnimeLog({
       </Selector>
 
       {currentCategoryLog && currentCategoryLog}
+
+      <button onClick={() => getUsersCategoryLog(userListSelector)}>
+        load more
+      </button>
 
       {/* 
                 {loggedCompleted && 
