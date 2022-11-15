@@ -21,6 +21,8 @@ function Dashboard({
   isMobile,
   latestEntryFetched,
   updateLatestEntryFetched,
+  currentCategoryLog,
+  setCurrentCategoryLog,
 }) {
   const [user, loading, error] = useAuthState(auth);
 
@@ -60,6 +62,9 @@ function Dashboard({
   //     alert("error fetching user data");
   //   }
   // };
+
+  console.log(latestEntryFetched);
+
   useEffect(() => {
     // In order to stop the re-fetching every time we navigate here,
     // I think I know how to stop that:
@@ -118,6 +123,8 @@ function Dashboard({
         isMobile={isMobile}
         latestEntryFetched={latestEntryFetched}
         updateLatestEntryFetched={updateLatestEntryFetched}
+        currentCategoryLog={currentCategoryLog}
+        setCurrentCategoryLog={setCurrentCategoryLog}
       />
       {/* {loggedCompleted && loggedCompleted} */}
 

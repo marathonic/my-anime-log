@@ -72,6 +72,7 @@ function App() {
     initialEntries
   );
   const [thumbnailURL, setThumbnailURL] = useState("");
+  const [currentCategoryLog, setCurrentCategoryLog] = useState([]);
 
   // updates: updateAllTopAnime({ category: response.data })
 
@@ -304,6 +305,8 @@ function App() {
                 isMobile={isMobile}
                 latestEntryFetched={latestEntryFetched}
                 updateLatestEntryFetched={updateLatestEntryFetched}
+                currentCategoryLog={currentCategoryLog}
+                setCurrentCategoryLog={setCurrentCategoryLog}
               />
             </ProtectedRoute>
           }

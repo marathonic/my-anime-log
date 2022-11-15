@@ -36,10 +36,20 @@ function UsersAnimeLog({
   animeThumbnailURL,
   latestEntryFetched,
   updateLatestEntryFetched,
+  currentCategoryLog,
+  setCurrentCategoryLog,
 }) {
   const [placeholderCategoryState, setPlaceholderCategoryState] = useState({});
-  const [currentCategoryLog, setCurrentCategoryLog] = useState([]);
   const [lastEntryFetched, setLastEntryFetched] = useState(null);
+  const initialFetchLengths = {
+    completed: false,
+    watching: false,
+    "plan to watch": false,
+  };
+  const [isLastFetchEmpty, updateIsLastFetchEmpty] = useReducer(
+    (isLastFetchEmpty, updates) => ({ ...isLastFetchEmpty, ...updates }),
+    initialFetchLengths
+  );
 
   // To render our anime:
   // -----WE could use a modified renderMapped (found in Home.js) to render our anime.
@@ -58,10 +68,16 @@ function UsersAnimeLog({
     );
     const querySnapshot = await getDocs(q);
     let arr = [];
-    querySnapshot.forEach((doc) => {
-      console.log(doc.id, "=>", doc.data());
-      arr.push({ ...doc.data() });
-    });
+    if (querySnapshot.empty !== true) {
+      querySnapshot.forEach((doc) => {
+        console.log(doc.id, "fetching from firestore =>", doc.data());
+        arr.push({ ...doc.data() });
+      });
+    }
+    if (arr.length < 1) {
+      updateIsLastFetchEmpty({ [`${categ}`]: true });
+      return;
+    }
     // ---------------EDIT: BREAKS WHEN SWITCHING CATEGORIES------------------------------------------/////////.
     const mergedArrays = [...fetchedUserLogs[`${categ}`], ...arr];
     updateFetchedUserLogs({ [`${categ}`]: mergedArrays });
@@ -303,7 +319,14 @@ function UsersAnimeLog({
 
       {currentCategoryLog && currentCategoryLog}
 
-      {fetchedUserLogs[`${userListSelector}`]?.length % 5 === 0 ? (
+      {/* BUG: This doesn't work when we have logged exactly 5 (or however much is our limit) entries, it renders the button.
+      But I thought that in theory, it wouldn't render again after pressing it once, because it should update, but ohhh, yeah, we might need one more state for that.  */}
+      {/* BUG: Under the following rules, the category log updates with new entries as soon as its userListSelector is selected,
+      instead of waiting for a button press to fetch the next entries. This is most likely happening due to a useEffect.
+      THAT MEANS that there may be a conflict with our useEffect that's causing it to conflict with our 'load more' button click  */}
+      {shouldCategoryUpdate[`${userListSelector}`] ||
+      (fetchedUserLogs[`${userListSelector}`]?.length % 5 === 0 &&
+        !isLastFetchEmpty[`${userListSelector}`]) ? (
         <button onClick={() => getUsersCategoryLog(userListSelector)}>
           load more
         </button>
