@@ -284,6 +284,9 @@ function UsersAnimeLog({
   // }
   // };
 
+  let message =
+    fetchedUserLogs[`${userListSelector}`]?.length > 0 ? "end of log" : "";
+
   return (
     <div className="centered-div">
       <h1 style={{ color: "white", fontSize: "3rem" }}>my Log</h1>
@@ -300,9 +303,13 @@ function UsersAnimeLog({
 
       {currentCategoryLog && currentCategoryLog}
 
-      <button onClick={() => getUsersCategoryLog(userListSelector)}>
-        load more
-      </button>
+      {fetchedUserLogs[`${userListSelector}`]?.length % 5 === 0 ? (
+        <button onClick={() => getUsersCategoryLog(userListSelector)}>
+          load more
+        </button>
+      ) : (
+        <h3>{message}</h3>
+      )}
 
       {/* 
                 {loggedCompleted && 
