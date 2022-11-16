@@ -82,6 +82,7 @@ function SingleAnime({
   updateShouldCategoryUpdate,
   setThumbnailURL,
   fetchedUserLogs,
+  latestEntryFetched,
 }) {
   const urlID = useParams();
   const animeID = urlID.mal_id;
@@ -206,6 +207,7 @@ function SingleAnime({
             animeThumbnailURL={myAnimeData.images.webp.image_url}
             setThumbnailURL={setThumbnailURL}
             fetchedUserLogs={fetchedUserLogs}
+            latestEntryFetched={latestEntryFetched}
           />
         )}
         {/* <span>{myAnimeData.synopsis}</span> */}

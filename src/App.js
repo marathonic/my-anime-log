@@ -251,6 +251,7 @@ function App() {
               updateShouldCategoryUpdate={updateShouldCategoryUpdate}
               setThumbnailURL={setThumbnailURL}
               fetchedUserLogs={fetchedUserLogs}
+              latestEntryFetched={latestEntryFetched}
             />
           }
         />

@@ -231,14 +231,21 @@ function Modal({
     } else {
       // the category has been rendered before, so let's
       // check whether the new entry comes before our last rendered entry in alphabetical order
+      const newEntryName = myAnime.name;
       const currentLog = fetchedUserLogs[`${listSelector}`];
       const lastRendered = currentLog[currentLog.length - 1];
-      console.log("last rendered", "==>", lastRendered);
-      const isNewEntryBeforeLastRendered = animeTitle.localeCompare(
-        lastRendered.name
-      );
-      if (isNewEntryBeforeLastRendered) {
+      const lastRenderedName = currentLog[currentLog.length - 1].name;
+
+      console.log("last rendered name", "==>", lastRenderedName);
+      console.log("new entry name", "==>", newEntryName);
+
+      const isNewEntryBeforeLastRendered =
+        lastRenderedName.localeCompare(newEntryName);
+
+      if (isNewEntryBeforeLastRendered === 1) {
+        console.log(isNewEntryBeforeLastRendered);
         console.log("---the new entry comes before the last rendered--- ");
+        // we want to re-fetch
       }
     }
 
