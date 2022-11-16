@@ -250,6 +250,7 @@ function App() {
               setIsModalOpen={setIsModalOpen}
               updateShouldCategoryUpdate={updateShouldCategoryUpdate}
               setThumbnailURL={setThumbnailURL}
+              fetchedUserLogs={fetchedUserLogs}
             />
           }
         />

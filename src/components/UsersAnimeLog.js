@@ -289,8 +289,9 @@ function UsersAnimeLog({
   useEffect(() => {
     if (shouldCategoryUpdate[`${userListSelector}`]) {
       getUsersCategoryLog(userListSelector);
+      updateShouldCategoryUpdate({ [`${userListSelector}`]: true });
     }
-  }, []);
+  }, []); // <--- try with empty dependencies array []
 
   // const renderCurrentCateg = () => {
   // if (fetchedUserLogs[`${userListSelector}`]) {

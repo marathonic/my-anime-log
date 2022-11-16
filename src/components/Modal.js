@@ -30,6 +30,7 @@ function Modal({
   updateShouldCategoryUpdate,
   animeThumbnailURL,
   setThumbnailURL,
+  fetchedUserLogs,
 }) {
   const [listSelector, setListSelector] = useState(
     animeDataFromLog.status || "watching"
@@ -218,12 +219,26 @@ function Modal({
       setIsModalOpen(false);
       return;
     }
+
+    // --------NEW FUNCTIONALITY: Check for alphabetical order:
+    if (fetchedUserLogs[`${listSelector}`].length < 1) {
+      //run our current code, it works well if the category log hasnt been selected yet.
+      setDoc(doc(db, "theNewUsers", user.uid, "animeLog", animeID), myAnime);
+      setThumbnailURL(animeThumbnailURL);
+      updateShouldCategoryUpdate({ [`${listSelector}`]: true });
+      setIsFetchLocked(false);
+      setIsModalOpen(false);
+    } else {
+      // check whether the new entry comes before our last rendered entry in alphabetical order
+    }
+
     // data has changed, so log the new data:
-    setDoc(doc(db, "theNewUsers", user.uid, "animeLog", animeID), myAnime);
-    setThumbnailURL(animeThumbnailURL);
-    updateShouldCategoryUpdate({ [`${listSelector}`]: true });
-    setIsFetchLocked(false);
-    setIsModalOpen(false);
+    // NOTE: Commenting out while testing:
+    // setDoc(doc(db, "theNewUsers", user.uid, "animeLog", animeID), myAnime);
+    // setThumbnailURL(animeThumbnailURL);
+    // updateShouldCategoryUpdate({ [`${listSelector}`]: true });
+    // setIsFetchLocked(false);
+    // setIsModalOpen(false);
   };
 
   const loadingLogSkeleton = (

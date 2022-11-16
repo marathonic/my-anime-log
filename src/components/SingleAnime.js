@@ -81,6 +81,7 @@ function SingleAnime({
   isModalOpen,
   updateShouldCategoryUpdate,
   setThumbnailURL,
+  fetchedUserLogs,
 }) {
   const urlID = useParams();
   const animeID = urlID.mal_id;
@@ -204,6 +205,7 @@ function SingleAnime({
             updateShouldCategoryUpdate={updateShouldCategoryUpdate}
             animeThumbnailURL={myAnimeData.images.webp.image_url}
             setThumbnailURL={setThumbnailURL}
+            fetchedUserLogs={fetchedUserLogs}
           />
         )}
         {/* <span>{myAnimeData.synopsis}</span> */}
