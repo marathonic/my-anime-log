@@ -229,7 +229,17 @@ function Modal({
       setIsFetchLocked(false);
       setIsModalOpen(false);
     } else {
+      // the category has been rendered before, so let's
       // check whether the new entry comes before our last rendered entry in alphabetical order
+      const currentLog = fetchedUserLogs[`${listSelector}`];
+      const lastRendered = currentLog[currentLog.length - 1];
+      console.log("last rendered", "==>", lastRendered);
+      const isNewEntryBeforeLastRendered = animeTitle.localeCompare(
+        lastRendered.name
+      );
+      if (isNewEntryBeforeLastRendered) {
+        console.log("---the new entry comes before the last rendered--- ");
+      }
     }
 
     // data has changed, so log the new data:
