@@ -245,7 +245,22 @@ function Modal({
       if (isNewEntryBeforeLastRendered === 1) {
         console.log(isNewEntryBeforeLastRendered);
         console.log("---the new entry comes before the last rendered--- ");
-        // we want to re-fetch
+        //ENTRY COMES BEFORE LAST RENDERED ENTRY ALPHABETICALLY
+        //Find out where exactly:
+        let currentlyRenderedInCateg = [...fetchedUserLogs[`${listSelector}`]];
+        for (let i = 0; i < currentlyRenderedInCateg.length; i++) {
+          let currentRender = currentlyRenderedInCateg[i];
+          let newEntryComesBeforeCurrentEntry = newEntryName.localeCompare(
+            currentRender.name
+          );
+          if (newEntryComesBeforeCurrentEntry === -1) {
+            console.log(newEntryName, "comes before", currentRender.name);
+            console.log("cutoff point will be", "==>", currentRender.name);
+            let trimmedCategTest = [...currentLog.slice(0, i), myAnime];
+            console.log("our category would become", "==>", trimmedCategTest);
+            return;
+          }
+        }
       }
     }
 
