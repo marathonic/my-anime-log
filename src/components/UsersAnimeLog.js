@@ -91,6 +91,8 @@ function UsersAnimeLog({
     if (arr.length < 1) {
       updateIsLastFetchEmpty({ [`${categ}`]: true });
       return;
+    } else if (arr.length >= 1) {
+      updateIsLastFetchEmpty({ [`${categ}`]: false }); //<-- this still doesn't fix our 'load more' button not rendering
     }
     // ---------------EDIT: BREAKS WHEN SWITCHING CATEGORIES------------------------------------------/////////.
     const mergedArrays = [...fetchedUserLogs[`${categ}`], ...arr];

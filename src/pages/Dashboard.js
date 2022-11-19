@@ -24,6 +24,7 @@ function Dashboard({
   currentCategoryLog,
   setCurrentCategoryLog,
   isAlphabReorderRequired,
+  setIsAlphabReorderRequired,
 }) {
   const [user, loading, error] = useAuthState(auth);
 
@@ -127,6 +128,7 @@ function Dashboard({
         currentCategoryLog={currentCategoryLog}
         setCurrentCategoryLog={setCurrentCategoryLog}
         isAlphabReorderRequired={isAlphabReorderRequired}
+        setIsAlphabReorderRequired={setIsAlphabReorderRequired}
       />
       {/* {loggedCompleted && loggedCompleted} */}
 

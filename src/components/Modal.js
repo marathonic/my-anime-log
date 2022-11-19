@@ -252,8 +252,9 @@ function Modal({
         lastRenderedName.localeCompare(newEntryName);
 
       if (isNewEntryBeforeLastRendered === 1) {
-        setIsAlphabReorderRequired({ [`${listSelector}`]: true });
-
+        setIsAlphabReorderRequired({ [`${listSelector}`]: true }); //<-- it worked well just now, and we got TypeError: setIsAlphabReorderRequired is not a function, because we hadn't imported it from Dashboard.js yet. But, the button did not display. Instead, we got the message 'end of log'
+        // adding the line above works the same, but we still aren't getting the 'load more' button.
+        // WAIT, that functionality is over in UsersAnimeLog, the render of the load more button.
         console.log(isNewEntryBeforeLastRendered);
         console.log("---the new entry comes before the last rendered--- ");
         //ENTRY COMES BEFORE LAST RENDERED ENTRY ALPHABETICALLY
