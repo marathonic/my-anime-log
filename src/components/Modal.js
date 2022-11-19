@@ -31,6 +31,10 @@ function Modal({
   animeThumbnailURL,
   setThumbnailURL,
   fetchedUserLogs,
+  updateLatestEntryFetched,
+  isAlphabReorderRequired,
+  setIsAlphabReorderRequired,
+  updateFetchedUserLogs,
 }) {
   const [listSelector, setListSelector] = useState(
     animeDataFromLog.status || "watching"
@@ -221,13 +225,18 @@ function Modal({
     }
 
     // --------NEW FUNCTIONALITY: Check for alphabetical order:
-    if (fetchedUserLogs[`${listSelector}`].length < 1) {
-      //run our current code, it works well if the category log hasnt been selected yet.
+    function addNewEntryToLog() {
       setDoc(doc(db, "theNewUsers", user.uid, "animeLog", animeID), myAnime);
       setThumbnailURL(animeThumbnailURL);
       updateShouldCategoryUpdate({ [`${listSelector}`]: true });
       setIsFetchLocked(false);
       setIsModalOpen(false);
+      console.log("adding new entry to log...");
+    }
+
+    if (fetchedUserLogs[`${listSelector}`].length < 1) {
+      //run our current code, it works well if the category log hasnt been selected yet.
+      addNewEntryToLog();
     } else {
       // the category has been rendered before, so let's
       // check whether the new entry comes before our last rendered entry in alphabetical order
@@ -243,6 +252,8 @@ function Modal({
         lastRenderedName.localeCompare(newEntryName);
 
       if (isNewEntryBeforeLastRendered === 1) {
+        setIsAlphabReorderRequired({ [`${listSelector}`]: true });
+
         console.log(isNewEntryBeforeLastRendered);
         console.log("---the new entry comes before the last rendered--- ");
         //ENTRY COMES BEFORE LAST RENDERED ENTRY ALPHABETICALLY
@@ -258,9 +269,33 @@ function Modal({
             console.log("cutoff point will be", "==>", currentRender.name);
             let trimmedCategTest = [...currentLog.slice(0, i), myAnime];
             console.log("our category would become", "==>", trimmedCategTest);
+            updateFetchedUserLogs({ [`${listSelector}`]: trimmedCategTest });
+            // we might want to wait() between these two functions.
+            addNewEntryToLog();
+
+            //let's try fetching and setting to a the doc snapshot:
+            // NOTE: WE MIGHT NOT NEED TO DO THIS, LET'S TRY JUST SETTING IT LOCALLY.
+            //const wait = async () => {
+            //  await new Promise((resolve) => setTimeout(resolve, 1000));
+            //};
+            //wait();
+
+            updateLatestEntryFetched({ [`${listSelector}`]: myAnime });
+
             return;
           }
         }
+        const getModifiedCategoryLog = async () => {
+          const docRef = doc(db, "theNewUsers", user?.uid, "animeLog", animeID);
+          const docSnap = await getDoc(docRef);
+
+          if (docSnap.exists()) {
+            updateLatestEntryFetched({
+              [`${listSelector}`]: docSnap,
+            });
+          }
+        };
+        getModifiedCategoryLog();
       }
     }
 

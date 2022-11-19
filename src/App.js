@@ -73,6 +73,18 @@ function App() {
   );
   const [thumbnailURL, setThumbnailURL] = useState("");
   const [currentCategoryLog, setCurrentCategoryLog] = useState([]);
+  const initialAlphabStatus = {
+    completed: false,
+    watching: false,
+    "plan to watch": false,
+  };
+  const [isAlphabReorderRequired, setIsAlphabReorderRequired] = useReducer(
+    (isAlphabReorderRequired, updates) => ({
+      ...isAlphabReorderRequired,
+      ...updates,
+    }),
+    initialAlphabStatus
+  );
 
   // updates: updateAllTopAnime({ category: response.data })
 
@@ -252,6 +264,10 @@ function App() {
               setThumbnailURL={setThumbnailURL}
               fetchedUserLogs={fetchedUserLogs}
               latestEntryFetched={latestEntryFetched}
+              updateLatestEntryFetched={updateLatestEntryFetched}
+              isAlphabReorderRequired={isAlphabReorderRequired}
+              setIsAlphabReorderRequired={setIsAlphabReorderRequired}
+              updateFetchedUserLogs={updateFetchedUserLogs}
             />
           }
         />
@@ -309,6 +325,8 @@ function App() {
                 updateLatestEntryFetched={updateLatestEntryFetched}
                 currentCategoryLog={currentCategoryLog}
                 setCurrentCategoryLog={setCurrentCategoryLog}
+                isAlphabReorderRequired={isAlphabReorderRequired}
+                setIsAlphabReorderRequired={setIsAlphabReorderRequired}
               />
             </ProtectedRoute>
           }

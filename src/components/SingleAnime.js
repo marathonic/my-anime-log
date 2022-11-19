@@ -83,6 +83,10 @@ function SingleAnime({
   setThumbnailURL,
   fetchedUserLogs,
   latestEntryFetched,
+  updateLatestEntryFetched,
+  isAlphabReorderRequired,
+  setIsAlphabReorderRequired,
+  updateFetchedUserLogs,
 }) {
   const urlID = useParams();
   const animeID = urlID.mal_id;
@@ -208,6 +212,9 @@ function SingleAnime({
             setThumbnailURL={setThumbnailURL}
             fetchedUserLogs={fetchedUserLogs}
             latestEntryFetched={latestEntryFetched}
+            updateLatestEntryFetched={updateLatestEntryFetched}
+            setIsAlphabReorderRequired={setIsAlphabReorderRequired}
+            updateFetchedUserLogs={updateFetchedUserLogs}
           />
         )}
         {/* <span>{myAnimeData.synopsis}</span> */}

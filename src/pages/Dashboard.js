@@ -23,6 +23,7 @@ function Dashboard({
   updateLatestEntryFetched,
   currentCategoryLog,
   setCurrentCategoryLog,
+  isAlphabReorderRequired,
 }) {
   const [user, loading, error] = useAuthState(auth);
 
@@ -125,6 +126,7 @@ function Dashboard({
         updateLatestEntryFetched={updateLatestEntryFetched}
         currentCategoryLog={currentCategoryLog}
         setCurrentCategoryLog={setCurrentCategoryLog}
+        isAlphabReorderRequired={isAlphabReorderRequired}
       />
       {/* {loggedCompleted && loggedCompleted} */}
 
