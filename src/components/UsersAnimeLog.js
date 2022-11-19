@@ -61,39 +61,25 @@ function UsersAnimeLog({
   // So since 2 anime take up 100% of the space, our anime will keep wrapping around the width in pairs.
   // We also want to implement pagination.
 
-  const getModifiedCategoryLog = async (categ) => {
-    const q = query(
-      collection(db, "theNewUsers", user?.uid, "animeLog"),
-      where("status", "==", categ),
-      orderBy("name"),
-      startAt(latestEntryFetched[`${categ}`]),
-      limit(5)
-    );
-    const querySnapshot = await getDocs(q);
-    let arr = [];
-    if (querySnapshot.empty !== true) {
-      querySnapshot.forEach((doc) => {
-        console.log(doc.id, "fetching from firestore =>", doc.data());
-        arr.push({ ...doc.data() });
-      });
-    }
-    const mergedArrays = [...fetchedUserLogs[`${categ}`], ...arr];
-    updateFetchedUserLogs({ [`${categ}`]: mergedArrays });
-    updateLatestEntryFetched({
-      [`${categ}`]: querySnapshot.docs[querySnapshot.docs.length - 1],
-    });
-
-    return;
-  };
-
   const getUsersCategoryLog = async (categ) => {
-    const q = query(
+    let q;
+    q = query(
       collection(db, "theNewUsers", user?.uid, "animeLog"),
       where("status", "==", categ),
       orderBy("name"),
       startAfter(latestEntryFetched[`${categ}`] || 0),
       limit(5)
     );
+    if (isAlphabReorderRequired[`${categ}`] === true) {
+      q = query(
+        collection(db, "theNewUsers", user?.uid, "animeLog"),
+        where("status", "==", categ),
+        orderBy("name"),
+        startAt(latestEntryFetched[`${categ}`]),
+        limit(5)
+      );
+      setIsAlphabReorderRequired({ [`${categ}`]: false });
+    }
     const querySnapshot = await getDocs(q);
     let arr = [];
     if (querySnapshot.empty !== true) {
@@ -284,7 +270,6 @@ function UsersAnimeLog({
 
   useEffect(() => {
     if (!fetchedUserLogs[`${userListSelector}`]) return;
-    if (isAlphabReorderRequired[`${userListSelector}`]) return; // <---------does this have to do with why we're getting repeats in the categoryLog? Doesn't seem like it at first glance.
     console.log("TESTING------------------------------------------");
     const categoryToMap = fetchedUserLogs[`${userListSelector}`];
     // setCurrentCategoryLog(category);
@@ -317,14 +302,6 @@ function UsersAnimeLog({
   // Handle the case where we leave a category selected, then update the log for that category, and come back to the dashboard.
   useEffect(() => {
     if (shouldCategoryUpdate[`${userListSelector}`]) {
-      if (isAlphabReorderRequired[`${userListSelector}`]) {
-        getModifiedCategoryLog(userListSelector);
-        updateShouldCategoryUpdate({ [`${userListSelector}`]: true });
-        setIsAlphabReorderRequired({ [`${userListSelector}`]: true });
-        // WE'RE MISSING THE PART WHERE WE RENDER EVERYTHING. In our other useEffect, we have a setCurrentCategoryLog(renderLogCategory()) that shouldn't run if this exception is running, so we need to do that here.
-        return;
-      }
-
       getUsersCategoryLog(userListSelector);
       updateShouldCategoryUpdate({ [`${userListSelector}`]: true });
     }
