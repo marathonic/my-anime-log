@@ -477,8 +477,14 @@ label {
 .load-more-btn {
   padding: 2%;
   font-size: 1.2rem;
+  /* font-weight: 600; */
   background-color: #e9a6a6;
   color: #19172b;
+
+  background-color: transparent;
+  color: white;
+  border-color: white;
+
   border-radius: 6px;
   margin-top: 2%;
 }

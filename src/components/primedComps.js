@@ -265,7 +265,9 @@ export const Selector = styled.select`
   font-size: 1.1rem;
   margin-bottom: 3%;
   // background-color: #e9a6a6;
-  background-color: papayawhip;
+  background-color: whitesmoke;
+  // background-color: palegoldenrod;
+
   color: #19172b;
   // color: none <-- works the same
   font-size: 1.3rem;
@@ -274,7 +276,6 @@ export const Selector = styled.select`
 
 export const OptionSelector = styled.option`
   font-size: 1rem;
-  display: flex;
   width: 100%;
   // justify-content: center;
   text-align: center;
