@@ -41,6 +41,7 @@ function UsersAnimeLog({
   setCurrentCategoryLog,
   isAlphabReorderRequired,
   setIsAlphabReorderRequired,
+  isMobile,
 }) {
   const [placeholderCategoryState, setPlaceholderCategoryState] = useState({});
   const [lastEntryFetched, setLastEntryFetched] = useState(null);
@@ -298,7 +299,7 @@ function UsersAnimeLog({
       );
       return mapped;
     };
-    setCurrentCategoryLog(renderLogCategory());
+    setCurrentCategoryLog(renderLogCategory((isMobile = { isMobile })));
   }, [fetchedUserLogs, userListSelector]);
 
   // Handle the case where we leave a category selected, then update the log for that category, and come back to the dashboard.
@@ -344,7 +345,10 @@ function UsersAnimeLog({
       {shouldCategoryUpdate[`${userListSelector}`] ||
       (fetchedUserLogs[`${userListSelector}`]?.length % 5 === 0 &&
         !isLastFetchEmpty[`${userListSelector}`]) ? (
-        <button onClick={() => getUsersCategoryLog(userListSelector)}>
+        <button
+          onClick={() => getUsersCategoryLog(userListSelector)}
+          className="load-more-btn"
+        >
           load more
         </button>
       ) : (

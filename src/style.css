@@ -5,7 +5,7 @@
 }
 
 :root {
-  /* color */
+  /* color, colour*/
 
   /* blues */
   --bebop-blue: #1f1d36;
@@ -474,6 +474,15 @@ label {
   margin-bottom: 12%;
 }
 
+.load-more-btn {
+  padding: 2%;
+  font-size: 1.2rem;
+  background-color: #e9a6a6;
+  color: #19172b;
+  border-radius: 6px;
+  margin-top: 2%;
+}
+
 /* end of desktop */
 
 @font-face {
@@ -678,5 +687,9 @@ label {
     flex-direction: column;
     justify-items: start;
     flex-wrap: wrap;
+    overflow-wrap: normal;
+    max-height: 50%;
+    margin-top: 0;
+    padding-top: 0;
   }
 }

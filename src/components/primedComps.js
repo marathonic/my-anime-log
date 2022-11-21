@@ -101,8 +101,10 @@ export const LogCategory = styled.div`
   ${(props) =>
     props.isMobile &&
     css`
+      background-color: #19173e;
       width: 100%;
-      overflow: auto;
+      max-height: 38rem;
+      overflow: scroll;
     `};
 `;
 
@@ -261,9 +263,19 @@ export const Selector = styled.select`
   padding-left: 5%;
   // direction: rtl;
   font-size: 1.1rem;
+  margin-bottom: 3%;
+  // background-color: #e9a6a6;
+  background-color: papayawhip;
+  color: #19172b;
+  // color: none <-- works the same
+  font-size: 1.3rem;
+  font-weight: bold;
 `;
 
 export const OptionSelector = styled.option`
   font-size: 1rem;
+  display: flex;
+  width: 100%;
+  // justify-content: center;
   text-align: center;
 `;
