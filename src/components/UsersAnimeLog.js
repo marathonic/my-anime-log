@@ -310,6 +310,13 @@ function UsersAnimeLog({
     }
   }, []); // <--- try with empty dependencies array []
 
+  useEffect(() => {
+    if (shouldCategoryUpdate[`${userListSelector}`]) {
+      getUsersCategoryLog(userListSelector);
+      updateShouldCategoryUpdate({ [`${userListSelector}`]: true });
+    }
+  }, [lastEntryFetched]);
+
   // const renderCurrentCateg = () => {
   // if (fetchedUserLogs[`${userListSelector}`]) {
   // const category = fetchedUserLogs[`${userListSelector}`];
@@ -325,7 +332,11 @@ function UsersAnimeLog({
     <div className="centered-div">
       <h1 style={{ color: "white", fontSize: "3rem" }}>my Log</h1>
       <hr />
-      <Selector defaultValue={userListSelector} onChange={handleSelection}>
+      <Selector
+        defaultValue={userListSelector}
+        onChange={handleSelection}
+        isBold={true}
+      >
         {/* on the next line, try changing the value to value="" */}
         <OptionSelector hidden value={userListSelector}>
           {userListSelector}

@@ -263,15 +263,17 @@ export const Selector = styled.select`
   padding-left: 5%;
   // direction: rtl;
   font-size: 1.1rem;
-  margin-bottom: 3%;
+
   // background-color: #e9a6a6;
   background-color: whitesmoke;
   // background-color: palegoldenrod;
 
+  // conditional: Selector is used in the Modal and the UsersAnimeLog. We want the following styles only when in UsersAnimeLog:
+  font-size: ${(props) => (props.isBold ? "1.3rem" : "1rem")};
   color: #19172b;
   // color: none <-- works the same
-  font-size: 1.3rem;
-  font-weight: bold;
+  font-weight: ${(props) => (props.isBold ? "bold" : 100)};
+  margin-bottom: ${(props) => (props.isBold ? "3%" : 0)};
 `;
 
 export const OptionSelector = styled.option`
