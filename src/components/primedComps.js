@@ -268,6 +268,7 @@ export const Selector = styled.select`
   padding-left: 5%;
   // direction: rtl;
   font-size: 1.1rem;
+  text-align: center;
 
   // background-color: #e9a6a6;
   background-color: whitesmoke;
