@@ -106,7 +106,8 @@ export const LogCategory = styled.div`
     props.isMobile &&
     css`
       background-color: #19173e;
-      width: 100%;
+      min-width: max-content;
+      max-width: max-content;
       max-height: 38rem;
       overflow: scroll;
     `};
