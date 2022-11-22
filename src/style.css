@@ -552,6 +552,10 @@ label {
     /* margin: 2.3%; */
   }
 
+  .thumbnail-category {
+    padding: 3%;
+  }
+
   .loading-skeleton-span {
     padding: 2.6%;
     display: flex;
@@ -687,13 +691,13 @@ label {
   }
 
   .category-div {
-    width: 100%;
+    /* width: 100%; */
     /* max-width: 100%; */
     display: flex;
     flex-direction: column;
-    justify-items: start;
-    flex-wrap: wrap;
-    overflow-wrap: normal;
+    /* justify-items: center; */
+    /* flex-wrap: wrap; */
+    /* overflow-wrap: normal; */
     max-height: 50%;
     margin-top: 0;
     padding-top: 0;

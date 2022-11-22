@@ -88,16 +88,20 @@ export const Category = styled.div`
 `;
 
 export const LogCategory = styled.div`
-  display: flex;
+  // justify-content: center;
+  // padding-left: 5%;
+  justify-items: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   width: 100%;
   height: 20%;
   max-height: 30%;
-  align-items: center;
-  justify-content: space-between;
   background-color: #19172b;
   overflow: hidden;
-  flex-wrap: wrap;
-  padding: 5%;
+  // gap: 10%;
+  // padding: 5%;
   ${(props) =>
     props.isMobile &&
     css`
