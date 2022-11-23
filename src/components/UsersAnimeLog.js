@@ -84,6 +84,8 @@ function UsersAnimeLog({
     }
     setIsLoading(true);
     const querySnapshot = await getDocs(q);
+    setIsLoading(false);
+
     let arr = [];
     if (querySnapshot.empty !== true) {
       querySnapshot.forEach((doc) => {
@@ -104,7 +106,6 @@ function UsersAnimeLog({
     updateLatestEntryFetched({
       [`${categ}`]: querySnapshot.docs[querySnapshot.docs.length - 1],
     });
-    setIsLoading(false);
 
     // console.log("lastEntryFetched, or startAfter", " ==> ", lastEntryFetched);
     return;

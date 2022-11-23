@@ -241,6 +241,10 @@ hr {
   display: flex;
   background-color: var(--category-blue);
   justify-content: space-around;
+  padding: 3%;
+  padding-top: 3%;
+  padding-left: 0.5%;
+  padding-bottom: 1%;
 }
 
 /* suggestions */
