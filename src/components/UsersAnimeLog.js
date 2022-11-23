@@ -54,6 +54,7 @@ function UsersAnimeLog({
     (isLastFetchEmpty, updates) => ({ ...isLastFetchEmpty, ...updates }),
     initialFetchLengths
   );
+  const [isLoading, setIsLoading] = useState(false);
 
   // To render our anime:
   // -----WE could use a modified renderMapped (found in Home.js) to render our anime.
@@ -81,6 +82,7 @@ function UsersAnimeLog({
       );
       setIsAlphabReorderRequired({ [`${categ}`]: false });
     }
+    setIsLoading(true);
     const querySnapshot = await getDocs(q);
     let arr = [];
     if (querySnapshot.empty !== true) {
@@ -102,6 +104,7 @@ function UsersAnimeLog({
     updateLatestEntryFetched({
       [`${categ}`]: querySnapshot.docs[querySnapshot.docs.length - 1],
     });
+    setIsLoading(false);
 
     // console.log("lastEntryFetched, or startAfter", " ==> ", lastEntryFetched);
     return;
@@ -345,7 +348,7 @@ function UsersAnimeLog({
         <OptionSelector value="watching">watching</OptionSelector>
         <OptionSelector value="plan to watch">plan to watch</OptionSelector>
       </Selector>
-
+      {isLoading && <h2>loading...</h2>}
       {currentCategoryLog && currentCategoryLog}
 
       {/* BUG: This doesn't work when we have logged exactly 5 (or however much is our limit) entries, it renders the button.
@@ -353,8 +356,9 @@ function UsersAnimeLog({
       {/* BUG: Under the following rules, the category log updates with new entries as soon as its userListSelector is selected,
       instead of waiting for a button press to fetch the next entries. This is most likely happening due to a useEffect.
       THAT MEANS that there may be a conflict with our useEffect that's causing it to conflict with our 'load more' button click  */}
-      {shouldCategoryUpdate[`${userListSelector}`] ||
+      {(shouldCategoryUpdate[`${userListSelector}`] && isLoading === false) ||
       (fetchedUserLogs[`${userListSelector}`]?.length % 5 === 0 &&
+        isLoading === false &&
         !isLastFetchEmpty[`${userListSelector}`]) ? (
         <button
           onClick={() => getUsersCategoryLog(userListSelector)}

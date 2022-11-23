@@ -77,6 +77,7 @@ export const Category = styled.div`
   align-items: center;
   justify-content: start;
   background-color: #3f3351;
+  // background-color: rgba(255, 255, 255, 0.1);
   overflow: hidden;
 
   ${(props) =>
