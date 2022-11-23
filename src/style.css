@@ -104,6 +104,13 @@ a:hover {
   /* height is 140% of width */
 }
 
+.thumbnail-category-main {
+  min-width: 10.29rem;
+  min-height: 14.41rem;
+  max-width: 10.29rem;
+  max-height: 14.41rem;
+}
+
 .scoll-pane::-webkit-scrollbar {
   display: none;
 }
@@ -540,7 +547,7 @@ label {
     padding-top: 0;
   }
 
-  .thumbnail-category,
+  .test-margin .thumbnail-category,
   .loading-skeleton-thumbnails {
     /* max-width: 9.36rem; */
     /* max-height: 13.10rem; */
@@ -555,6 +562,11 @@ label {
   .thumbnail-category {
     /* padding: 3%; */
   }
+
+  /* .test-margin.thumbnail-category { */
+  /* width: 225px; */
+  /* height: 317px; */
+  /* } */
 
   .loading-skeleton-span {
     padding: 2.6%;

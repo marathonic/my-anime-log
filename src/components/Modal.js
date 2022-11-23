@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../styles/modal-style.css";
 import { OptionSelector, Selector } from "./primedComps";
 import { AiFillPlusCircle, AiFillTrophy } from "react-icons/ai";
+import { FcPlanner } from "react-icons/fc";
 import { auth, db, logout } from "../firebase.js";
 import {
   query,
@@ -531,6 +532,26 @@ function Modal({
                 {listSelector === "completed" && (
                   <span className="details-span completed">
                     <AiFillTrophy size={76} color="gold" />
+                    <span className="completed-score-span">
+                      <label htmlFor="completedScoreInput">My score: </label>
+                      <input
+                        type="number"
+                        className="score-input"
+                        value={myScore}
+                        onKeyDown={preventMinus}
+                        onPaste={preventPasteNegative}
+                        onChange={handleScoreInputChange}
+                        placeholder="1 to 10"
+                        id="completedScoreInput"
+                        required
+                      ></input>
+                    </span>
+                  </span>
+                )}
+                {listSelector === "plan to watch" && (
+                  <span className="details-span plan-to-watch">
+                    {/* planner */}
+                    <FcPlanner size={76} />
                     <span className="completed-score-span">
                       <label htmlFor="completedScoreInput">My score: </label>
                       <input

@@ -40,7 +40,7 @@ export default function Home({
             <img
               src={anime.images.jpg.image_url}
               alt={anime.title}
-              className="thumbnail-category"
+              className="thumbnail-category-main"
             />
           </Link>
         </span>
