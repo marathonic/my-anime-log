@@ -147,6 +147,7 @@ export const CardThumbnail = styled.img`
     props.isMobile &&
     css`
       max-width: 50%;
+      padding: 2.6%;
     `}
 `;
 

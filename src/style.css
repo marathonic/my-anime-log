@@ -105,10 +105,14 @@ a:hover {
 }
 
 .thumbnail-category-main {
-  min-width: 10.29rem;
-  min-height: 14.41rem;
-  max-width: 10.29rem;
-  max-height: 14.41rem;
+  /* min-width: 10.29rem; */
+  /* min-height: 14.41rem; */
+  /* max-width: 10.29rem; */
+  /* max-height: 14.41rem; */
+  min-width: 9.31rem;
+  min-height: 13.06rem;
+  max-width: 9.31rem;
+  max-height: 13.06rem;
 }
 
 .scoll-pane::-webkit-scrollbar {
@@ -569,7 +573,6 @@ label {
   /* } */
 
   .loading-skeleton-span {
-    padding: 2.6%;
     display: flex;
     width: 100%;
   }
