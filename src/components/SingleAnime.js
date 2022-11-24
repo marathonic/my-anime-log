@@ -87,6 +87,8 @@ function SingleAnime({
   isAlphabReorderRequired,
   setIsAlphabReorderRequired,
   updateFetchedUserLogs,
+  categLeftoverLength,
+  updateCategLeftoverLength,
 }) {
   const urlID = useParams();
   const animeID = urlID.mal_id;
@@ -215,6 +217,8 @@ function SingleAnime({
             updateLatestEntryFetched={updateLatestEntryFetched}
             setIsAlphabReorderRequired={setIsAlphabReorderRequired}
             updateFetchedUserLogs={updateFetchedUserLogs}
+            categLeftoverLength={categLeftoverLength}
+            updateCategLeftoverLength={updateCategLeftoverLength}
           />
         )}
         {/* <span>{myAnimeData.synopsis}</span> */}

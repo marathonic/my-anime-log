@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useReducer } from "react";
 import "../styles/modal-style.css";
 import { OptionSelector, Selector } from "./primedComps";
 import { AiFillPlusCircle, AiFillTrophy } from "react-icons/ai";
@@ -36,6 +36,8 @@ function Modal({
   isAlphabReorderRequired,
   setIsAlphabReorderRequired,
   updateFetchedUserLogs,
+  updateCategLeftoverLength,
+  categLeftoverLength,
 }) {
   const [listSelector, setListSelector] = useState(
     animeDataFromLog.status || "watching"
@@ -270,6 +272,13 @@ function Modal({
             console.log(newEntryName, "comes before", currentRender.name);
             console.log("cutoff point will be", "==>", currentRender.name);
             let trimmedCategTest = [...currentLog.slice(0, i), myAnime];
+            // isCategTrimmed is categ trimmed . If yes, record the length.
+            // alt: record the length of the category here. Then, compare to the fetchedUserLog's category in UsersAnimeLog. If the length of that one over there has less length than this one, that means we're rendering the trimmed log, so we still have more to render. After making a query and getting the remaining data in the log, we will set the state variable to false.
+            // There must be leftover length, because we're trimming before the last entry before this newest entry.
+            updateCategLeftoverLength({
+              [`${listSelector}`]:
+                currentlyRenderedInCateg.length - trimmedCategTest.length,
+            });
             console.log("our category would become", "==>", trimmedCategTest);
             updateFetchedUserLogs({ [`${listSelector}`]: trimmedCategTest });
             // we might want to wait() between these two functions.

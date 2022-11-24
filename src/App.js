@@ -85,6 +85,15 @@ function App() {
     }),
     initialAlphabStatus
   );
+  const initialLeftoverLengths = {
+    completed: 0,
+    watching: 0,
+    "plan to watch": 0,
+  };
+  const [categLeftoverLength, updateCategLeftoverLength] = useReducer(
+    (categLeftoverLength, updates) => ({ ...categLeftoverLength, ...updates }),
+    initialLeftoverLengths
+  );
 
   // updates: updateAllTopAnime({ category: response.data })
 
@@ -268,6 +277,8 @@ function App() {
               isAlphabReorderRequired={isAlphabReorderRequired}
               setIsAlphabReorderRequired={setIsAlphabReorderRequired}
               updateFetchedUserLogs={updateFetchedUserLogs}
+              categLeftoverLength={categLeftoverLength}
+              updateCategLeftoverLength={updateCategLeftoverLength}
             />
           }
         />
@@ -327,6 +338,8 @@ function App() {
                 setCurrentCategoryLog={setCurrentCategoryLog}
                 isAlphabReorderRequired={isAlphabReorderRequired}
                 setIsAlphabReorderRequired={setIsAlphabReorderRequired}
+                categLeftoverLength={categLeftoverLength}
+                updateCategLeftoverLength={updateCategLeftoverLength}
               />
             </ProtectedRoute>
           }

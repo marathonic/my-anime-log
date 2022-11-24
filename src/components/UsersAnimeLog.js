@@ -42,6 +42,8 @@ function UsersAnimeLog({
   isAlphabReorderRequired,
   setIsAlphabReorderRequired,
   isMobile,
+  categLeftoverLength,
+  updateCategLeftoverLength,
 }) {
   const [placeholderCategoryState, setPlaceholderCategoryState] = useState({});
   const [lastEntryFetched, setLastEntryFetched] = useState(null);
@@ -278,6 +280,14 @@ function UsersAnimeLog({
   useEffect(() => {
     if (!fetchedUserLogs[`${userListSelector}`]) return;
     console.log("TESTING------------------------------------------");
+    // --------------"TESTING" above logs to console when visiting log again after adding a new entry, so this whole thing runs!
+    // ---BUT WAIT!!! WE DON'T WANT TO DO ANYTHING HERE, WE WANT IT TO HAPPEN WHEN WE CLICK THE "load more" BUTTON!
+    if (categLeftoverLength > fetchedUserLogs[`${userListSelector}`].length) {
+      console.log(
+        "THERE IS STILL LEFTOVER LENGTH, MAKE A FIRESTORE QUERY TO GET THE REST? "
+      );
+    }
+    // ---------------End of test on line above -------------------EDIT: DO THIS FOR THE BUTTON, NOT THE useEffect
     const categoryToMap = fetchedUserLogs[`${userListSelector}`];
     // setCurrentCategoryLog(category);
     const renderLogCategory = (isMobile) => {
