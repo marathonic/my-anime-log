@@ -66,7 +66,19 @@ function UsersAnimeLog({
   // We also want to implement pagination.
 
   const getUsersCategoryLog = async (categ) => {
+    console.log("categLeftoverLength ==> ", categLeftoverLength[`${categ}`]);
+    console.log("shouldCategoryUpdate ==> ", shouldCategoryUpdate[`${categ}`]);
+
+    // this condition doesn't work because shouldCategoryUpdate is listening for MODAL changes.
+    // if (
+    //   categLeftoverLength[`${categ}`] === 0 &&
+    //   shouldCategoryUpdate[`${categ}`] === false
+    // ) {
+    //   return;
+    // }
     // CONTINUE HERE: In case categLeftoverLength... <----------------------------------CONTINUE HERE
+    // ---
+    // What we want to do is look at how many have been fetched and how many are in the array.
     console.log("<--------querying firestore------>...");
 
     if (categLeftoverLength[`${categ}`] > 0) {
@@ -98,6 +110,8 @@ function UsersAnimeLog({
       updateCategLeftoverLength({
         [`${categ}`]: categLeftoverLength[`${categ}`] - 5,
       });
+      console.log("--------------------------------");
+      console.log(categLeftoverLength[`${categ}`] - 5);
       return;
     }
 
@@ -137,6 +151,7 @@ function UsersAnimeLog({
     if (arr.length < 1) {
       updateIsLastFetchEmpty({ [`${categ}`]: true });
       console.log("_______Last fetch empty");
+
       return;
     } else if (arr.length >= 1) {
       updateIsLastFetchEmpty({ [`${categ}`]: false }); //<-- this still doesn't fix our 'load more' button not rendering
