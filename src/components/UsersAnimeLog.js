@@ -69,10 +69,7 @@ function UsersAnimeLog({
     // CONTINUE HERE: In case categLeftoverLength... <----------------------------------CONTINUE HERE
     console.log("<--------querying firestore------>...");
 
-    if (
-      categLeftoverLength[`${userListSelector}`] > 0 &&
-      isAlphabReorderRequired[`${categ}`] === false
-    ) {
+    if (categLeftoverLength[`${categ}`] > 0) {
       console.log(
         "Special condition activated line 76.........................."
       );
@@ -97,6 +94,9 @@ function UsersAnimeLog({
       // setLastEntryFetched(querySnapshot.docs[querySnapshot.docs.length - 1]);
       updateLatestEntryFetched({
         [`${categ}`]: querySnapshot.docs[querySnapshot.docs.length - 1],
+      });
+      updateCategLeftoverLength({
+        [`${categ}`]: categLeftoverLength[`${categ}`] - 5,
       });
       return;
     }
