@@ -66,6 +66,27 @@ function UsersAnimeLog({
   // We also want to implement pagination.
 
   const getUsersCategoryLog = async (categ) => {
+    // CONTINUE HERE: In case categLeftoverLength... <----------------------------------CONTINUE HERE
+    console.log("<--------querying firestore------>...");
+    console.log(
+      "leftover length",
+      "==>",
+      categLeftoverLength[`${userListSelector}`]
+    );
+    console.log(
+      "anime in category",
+      "==>",
+      fetchedUserLogs[`${userListSelector}`].length
+    );
+    if (
+      categLeftoverLength[`${userListSelector}`] > 0 &&
+      fetchedUserLogs[`${userListSelector}`].length >= 1
+    ) {
+      console.log(
+        "THERE IS STILL LEFTOVER LENGTH, MAKE A FIRESTORE QUERY TO GET THE REST? "
+      );
+    }
+    //
     let q;
     q = query(
       collection(db, "theNewUsers", user?.uid, "animeLog"),
@@ -75,6 +96,7 @@ function UsersAnimeLog({
       limit(5)
     );
     if (isAlphabReorderRequired[`${categ}`] === true) {
+      console.log("<<<<<<<<<<<alphab reorder required>>>>>>>>>>>>>>");
       q = query(
         collection(db, "theNewUsers", user?.uid, "animeLog"),
         where("status", "==", categ),
@@ -97,6 +119,7 @@ function UsersAnimeLog({
     }
     if (arr.length < 1) {
       updateIsLastFetchEmpty({ [`${categ}`]: true });
+      console.log("_______Last fetch empty");
       return;
     } else if (arr.length >= 1) {
       updateIsLastFetchEmpty({ [`${categ}`]: false }); //<-- this still doesn't fix our 'load more' button not rendering
@@ -282,7 +305,10 @@ function UsersAnimeLog({
     console.log("TESTING------------------------------------------");
     // --------------"TESTING" above logs to console when visiting log again after adding a new entry, so this whole thing runs!
     // ---BUT WAIT!!! WE DON'T WANT TO DO ANYTHING HERE, WE WANT IT TO HAPPEN WHEN WE CLICK THE "load more" BUTTON!
-    if (categLeftoverLength > fetchedUserLogs[`${userListSelector}`].length) {
+    if (
+      categLeftoverLength[`${userListSelector}`] >
+      fetchedUserLogs[`${userListSelector}`].length
+    ) {
       console.log(
         "THERE IS STILL LEFTOVER LENGTH, MAKE A FIRESTORE QUERY TO GET THE REST? "
       );
