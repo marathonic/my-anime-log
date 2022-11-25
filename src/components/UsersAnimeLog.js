@@ -68,24 +68,39 @@ function UsersAnimeLog({
   const getUsersCategoryLog = async (categ) => {
     // CONTINUE HERE: In case categLeftoverLength... <----------------------------------CONTINUE HERE
     console.log("<--------querying firestore------>...");
-    console.log(
-      "leftover length",
-      "==>",
-      categLeftoverLength[`${userListSelector}`]
-    );
-    console.log(
-      "anime in category",
-      "==>",
-      fetchedUserLogs[`${userListSelector}`].length
-    );
+
     if (
       categLeftoverLength[`${userListSelector}`] > 0 &&
-      fetchedUserLogs[`${userListSelector}`].length >= 1
+      isAlphabReorderRequired[`${categ}`] === false
     ) {
       console.log(
-        "THERE IS STILL LEFTOVER LENGTH, MAKE A FIRESTORE QUERY TO GET THE REST? "
+        "Special condition activated line 76.........................."
       );
+      let q;
+      q = query(
+        collection(db, "theNewUsers", user?.uid, "animeLog"),
+        where("status", "==", categ),
+        orderBy("name"),
+        startAfter(latestEntryFetched[`${categ}`]),
+        limit(5)
+      );
+      const querySnapshot = await getDocs(q);
+      let arr = [];
+      if (querySnapshot.empty !== true) {
+        querySnapshot.forEach((doc) => {
+          console.log(doc.id, "fetching from firestore =>", doc.data());
+          arr.push({ ...doc.data() });
+        });
+      }
+      const mergedArrays = [...fetchedUserLogs[`${categ}`], ...arr];
+      updateFetchedUserLogs({ [`${categ}`]: mergedArrays });
+      // setLastEntryFetched(querySnapshot.docs[querySnapshot.docs.length - 1]);
+      updateLatestEntryFetched({
+        [`${categ}`]: querySnapshot.docs[querySnapshot.docs.length - 1],
+      });
+      return;
     }
+
     //
     let q;
     q = query(
@@ -95,6 +110,7 @@ function UsersAnimeLog({
       startAfter(latestEntryFetched[`${categ}`] || 0),
       limit(5)
     );
+    // this condition runs automatically on useEffect:
     if (isAlphabReorderRequired[`${categ}`] === true) {
       console.log("<<<<<<<<<<<alphab reorder required>>>>>>>>>>>>>>");
       q = query(
@@ -105,6 +121,7 @@ function UsersAnimeLog({
         limit(5)
       );
       setIsAlphabReorderRequired({ [`${categ}`]: false });
+      // return;
     }
     setIsLoading(true);
     const querySnapshot = await getDocs(q);
@@ -239,7 +256,9 @@ function UsersAnimeLog({
     } // <-- true by default, set true each time category is updated in Modal.
     // get data from firestore
     console.log("current selection", " ===> ", e.target.value);
-    getUsersCategoryLog(e.target.value);
+    if (categLeftoverLength[`${e.target.value}`] === 0) {
+      getUsersCategoryLog(e.target.value);
+    }
     // updateFetchedUserLogs({[`${e.target.value}`] : getUsersCategoryLog()})
 
     // should we try using getUsersCategoryLog() here instead of the useEffect?
@@ -344,14 +363,20 @@ function UsersAnimeLog({
 
   // Handle the case where we leave a category selected, then update the log for that category, and come back to the dashboard.
   useEffect(() => {
-    if (shouldCategoryUpdate[`${userListSelector}`]) {
+    if (
+      shouldCategoryUpdate[`${userListSelector}`] &&
+      categLeftoverLength[`${userListSelector}`] === 0
+    ) {
       getUsersCategoryLog(userListSelector);
       updateShouldCategoryUpdate({ [`${userListSelector}`]: true });
     }
   }, []); // <--- try with empty dependencies array []
 
   useEffect(() => {
-    if (shouldCategoryUpdate[`${userListSelector}`]) {
+    if (
+      shouldCategoryUpdate[`${userListSelector}`] &&
+      categLeftoverLength[`${userListSelector}`] === 0
+    ) {
       getUsersCategoryLog(userListSelector);
       updateShouldCategoryUpdate({ [`${userListSelector}`]: true });
     }

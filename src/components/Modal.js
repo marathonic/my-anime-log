@@ -286,13 +286,30 @@ function Modal({
 
             //let's try fetching and setting to a the doc snapshot:
             // NOTE: WE MIGHT NOT NEED TO DO THIS, LET'S TRY JUST SETTING IT LOCALLY.
-            //const wait = async () => {
-            //  await new Promise((resolve) => setTimeout(resolve, 1000));
-            //};
-            //wait();
-
+            console.log("waiting 1 sec...");
+            const wait = async () => {
+              await new Promise((resolve) => setTimeout(resolve, 1000));
+            };
+            wait();
+            console.log("wait completed");
             updateLatestEntryFetched({ [`${listSelector}`]: myAnime });
+            const getTestModifiedCategoryLog = async () => {
+              const docRef = doc(
+                db,
+                "theNewUsers",
+                user?.uid,
+                "animeLog",
+                animeID
+              );
+              const docSnap = await getDoc(docRef);
 
+              if (docSnap.exists()) {
+                updateLatestEntryFetched({
+                  [`${listSelector}`]: docSnap,
+                });
+              }
+            };
+            getTestModifiedCategoryLog();
             return;
           }
         }
