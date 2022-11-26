@@ -79,7 +79,6 @@ function UsersAnimeLog({
     // CONTINUE HERE: In case categLeftoverLength... <----------------------------------CONTINUE HERE
     // ---
     // What we want to do is look at how many have been fetched and how many are in the array.
-    console.log("<--------querying firestore------>...");
 
     if (categLeftoverLength[`${categ}`] > 0) {
       console.log(
@@ -93,13 +92,23 @@ function UsersAnimeLog({
         startAfter(latestEntryFetched[`${categ}`]),
         limit(5)
       );
+
+      setIsLoading(true);
+      console.log("<--------querying firestore------>...");
       const querySnapshot = await getDocs(q);
+      setIsLoading(false);
       let arr = [];
+      if (querySnapshot.empty === true) {
+        isLastFetchEmpty({ [`${categ}`]: true });
+        updateShouldCategoryUpdate({ [`${categ}`]: false });
+        return;
+      }
       if (querySnapshot.empty !== true) {
         querySnapshot.forEach((doc) => {
           console.log(doc.id, "fetching from firestore =>", doc.data());
           arr.push({ ...doc.data() });
         });
+        setIsAlphabReorderRequired({ [`${categ}`]: false });
       }
       const mergedArrays = [...fetchedUserLogs[`${categ}`], ...arr];
       updateFetchedUserLogs({ [`${categ}`]: mergedArrays });
@@ -108,10 +117,11 @@ function UsersAnimeLog({
         [`${categ}`]: querySnapshot.docs[querySnapshot.docs.length - 1],
       });
       updateCategLeftoverLength({
-        [`${categ}`]: categLeftoverLength[`${categ}`] - 5,
+        [`${categ}`]: 0,
       });
+      updateShouldCategoryUpdate({ [`${categ}`]: false });
       console.log("--------------------------------");
-      console.log(categLeftoverLength[`${categ}`] - 5);
+      // console.log(categLeftoverLength[`${categ}`] - 5);
       return;
     }
 
@@ -138,6 +148,8 @@ function UsersAnimeLog({
       // return;
     }
     setIsLoading(true);
+    console.log("<--------querying firestore------>...");
+
     const querySnapshot = await getDocs(q);
     setIsLoading(false);
 
@@ -434,9 +446,9 @@ function UsersAnimeLog({
       instead of waiting for a button press to fetch the next entries. This is most likely happening due to a useEffect.
       THAT MEANS that there may be a conflict with our useEffect that's causing it to conflict with our 'load more' button click  */}
       {(shouldCategoryUpdate[`${userListSelector}`] && isLoading === false) ||
-      (fetchedUserLogs[`${userListSelector}`]?.length % 5 === 0 &&
-        isLoading === false &&
-        !isLastFetchEmpty[`${userListSelector}`]) ? (
+      // °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°FOUND IT!!!  WHEN WE'VE JUST SPLIT THE LOG FOR ALPHABET REORDER, WE HAVE 12 ENTRIES AT THAT MOMENT!!!°°°°°°
+      // AND THEN ON THE NEXT FETCH WE HAVE 17 ENTRIES IN THE LOG.
+      (isLoading === false && !isLastFetchEmpty[`${userListSelector}`]) ? (
         <button
           onClick={() => getUsersCategoryLog(userListSelector)}
           className="load-more-btn"

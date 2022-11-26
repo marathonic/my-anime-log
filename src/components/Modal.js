@@ -254,6 +254,7 @@ function Modal({
       const isNewEntryBeforeLastRendered =
         lastRenderedName.localeCompare(newEntryName);
 
+      // Category has been rendered before, handle case where the new entry comes alphabetically before the last rendered entry:
       if (isNewEntryBeforeLastRendered === 1) {
         setIsAlphabReorderRequired({ [`${listSelector}`]: true }); //<-- it worked well just now, and we got TypeError: setIsAlphabReorderRequired is not a function, because we hadn't imported it from Dashboard.js yet. But, the button did not display. Instead, we got the message 'end of log'
         // adding the line above works the same, but we still aren't getting the 'load more' button.
@@ -313,6 +314,9 @@ function Modal({
             return;
           }
         }
+        // the loop returns if it matches, so if we're here, the loop didn't find any alphabetical priors to the last entry.
+        // handle case where the new entry does not come before the last rendered
+
         const getModifiedCategoryLog = async () => {
           const docRef = doc(db, "theNewUsers", user?.uid, "animeLog", animeID);
           const docSnap = await getDoc(docRef);
@@ -325,6 +329,11 @@ function Modal({
         };
         getModifiedCategoryLog();
       }
+      setDoc(doc(db, "theNewUsers", user.uid, "animeLog", animeID), myAnime);
+      setThumbnailURL(animeThumbnailURL);
+      updateShouldCategoryUpdate({ [`${listSelector}`]: true });
+      setIsFetchLocked(false);
+      setIsModalOpen(false);
     }
 
     // data has changed, so log the new data:
