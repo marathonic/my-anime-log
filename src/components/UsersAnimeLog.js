@@ -147,8 +147,19 @@ function UsersAnimeLog({
       setIsAlphabReorderRequired({ [`${categ}`]: false });
       // return;
     }
-    setIsLoading(true);
+    console.log(
+      "should category update",
+      "==>",
+      shouldCategoryUpdate[`${categ}`]
+    );
+    console.log("is last fetch empty", "==>", isLastFetchEmpty[`${categ}`]);
+    if (shouldCategoryUpdate[`${categ}`] && isLastFetchEmpty[`${categ}`]) {
+      console.log("<<<<<<<RETURNING BEFORE FETCH>>>>>>>");
+      return;
+    }
+
     console.log("<--------querying firestore------>...");
+    setIsLoading(true);
 
     const querySnapshot = await getDocs(q);
     setIsLoading(false);
@@ -418,7 +429,9 @@ function UsersAnimeLog({
   // };
 
   let message =
-    fetchedUserLogs[`${userListSelector}`]?.length > 0 ? "end of log" : "";
+    fetchedUserLogs[`${userListSelector}`]?.length > 0
+      ? fetchedUserLogs[`${userListSelector}`].length + " entries"
+      : "";
 
   return (
     <div className="centered-div">
