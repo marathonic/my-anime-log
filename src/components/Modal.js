@@ -586,21 +586,7 @@ function Modal({
                 {listSelector === "plan to watch" && (
                   <span className="details-span plan-to-watch">
                     {/* planner */}
-                    <FcPlanner size={76} />
-                    <span className="completed-score-span">
-                      <label htmlFor="completedScoreInput">My score: </label>
-                      <input
-                        type="number"
-                        className="score-input"
-                        value={myScore}
-                        onKeyDown={preventMinus}
-                        onPaste={preventPasteNegative}
-                        onChange={handleScoreInputChange}
-                        placeholder="1 to 10"
-                        id="completedScoreInput"
-                        required
-                      ></input>
-                    </span>
+                    <FcPlanner size={125} />
                   </span>
                 )}
                 {/* END ------------------^^^^^^^^^^^  */}

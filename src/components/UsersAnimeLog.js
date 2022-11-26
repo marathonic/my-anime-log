@@ -99,7 +99,7 @@ function UsersAnimeLog({
       setIsLoading(false);
       let arr = [];
       if (querySnapshot.empty === true) {
-        isLastFetchEmpty({ [`${categ}`]: true });
+        updateIsLastFetchEmpty({ [`${categ}`]: true });
         updateShouldCategoryUpdate({ [`${categ}`]: false });
         return;
       }
