@@ -110,7 +110,7 @@ export const LogCategory = styled.div`
       min-width: max-content;
       max-width: max-content;
       max-height: 38rem;
-      overflow: scroll;
+      overflow: auto;
     `};
 `;
 

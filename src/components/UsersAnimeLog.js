@@ -15,7 +15,7 @@ import {
   startAt,
 } from "firebase/firestore";
 import { OptionSelector, Selector } from "../components/primedComps";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { AnimeCard, Category, LogCategory } from "../components/primedComps";
 import { Link } from "react-router-dom";
 
@@ -57,7 +57,7 @@ function UsersAnimeLog({
     initialFetchLengths
   );
   const [isLoading, setIsLoading] = useState(false);
-
+  const scrollBottomRef = useRef(null);
   // To render our anime:
   // -----WE could use a modified renderMapped (found in Home.js) to render our anime.
   // However, we'll probably want to use a <div> instead of a <span>, and change the className to "log-category", or something.
@@ -174,15 +174,11 @@ function UsersAnimeLog({
     if (arr.length < 1) {
       updateIsLastFetchEmpty({ [`${categ}`]: true });
       console.log("_______Last fetch empty");
-      let lastCategDiv = Array.from(
-        document.querySelectorAll(".thumbnail-category")
-      ).pop();
+      // let lastCategDiv = Array.from(
+      //   document.querySelectorAll(".thumbnail-category")
+      // ).pop();
 
-      lastCategDiv?.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-        inline: "nearest",
-      });
+      // lastCategDiv?.scrollIntoView(false);
       return;
     } else if (arr.length >= 1) {
       updateIsLastFetchEmpty({ [`${categ}`]: false }); //<-- this still doesn't fix our 'load more' button not rendering
@@ -194,14 +190,10 @@ function UsersAnimeLog({
     updateLatestEntryFetched({
       [`${categ}`]: querySnapshot.docs[querySnapshot.docs.length - 1],
     });
-    let lastCategDiv = Array.from(
-      document.querySelectorAll(".thumbnail-category")
-    ).pop();
-    lastCategDiv?.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-      inline: "nearest",
-    });
+    // let lastCategDiv = Array.from(
+    //   document.querySelectorAll(".thumbnail-category")
+    // ).pop();
+    // lastCategDiv?.scrollIntoView(false);
     // console.log("lastEntryFetched, or startAfter", " ==> ", lastEntryFetched);
     return;
     // ------------------------------------------------------------------------------------------------
@@ -391,7 +383,7 @@ function UsersAnimeLog({
     const renderLogCategory = (isMobile) => {
       let mapped = categoryToMap.map((anime) => {
         return (
-          <div className="test-margin" key={anime.mal_id}>
+          <div className="test-margin" key={anime.mal_id} ref={scrollBottomRef}>
             {/* what does AnimeCard do here? */}
             <AnimeCard clickedAnime={anime} />
             <Link to={`/anime/${anime.mal_id}`} key={anime.mal_id}>
@@ -406,7 +398,7 @@ function UsersAnimeLog({
       });
       return (
         <div className="category-div">
-          <LogCategory isMobile={isMobile} id="log-categ-id">
+          <LogCategory isMobile={isMobile} className="scrollbar" id="style-1">
             {mapped}
           </LogCategory>
         </div>
@@ -414,6 +406,11 @@ function UsersAnimeLog({
       return mapped;
     };
     setCurrentCategoryLog(renderLogCategory((isMobile = { isMobile })));
+    scrollBottomRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+      inline: "nearest",
+    });
   }, [fetchedUserLogs, userListSelector]);
 
   // Handle the case where we leave a category selected, then update the log for that category, and come back to the dashboard.
