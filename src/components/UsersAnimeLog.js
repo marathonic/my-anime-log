@@ -155,6 +155,7 @@ function UsersAnimeLog({
     console.log("is last fetch empty", "==>", isLastFetchEmpty[`${categ}`]);
     if (shouldCategoryUpdate[`${categ}`] && isLastFetchEmpty[`${categ}`]) {
       console.log("<<<<<<<RETURNING BEFORE FETCH>>>>>>>");
+      updateShouldCategoryUpdate({ [`${categ}`]: false });
       return;
     }
 
@@ -179,6 +180,7 @@ function UsersAnimeLog({
       // ).pop();
 
       // lastCategDiv?.scrollIntoView(false);
+      updateShouldCategoryUpdate({ [`${categ}`]: false });
       return;
     } else if (arr.length >= 1) {
       updateIsLastFetchEmpty({ [`${categ}`]: false }); //<-- this still doesn't fix our 'load more' button not rendering
@@ -479,6 +481,7 @@ function UsersAnimeLog({
       // AND THEN ON THE NEXT FETCH WE HAVE 17 ENTRIES IN THE LOG.
       (isLoading === false &&
         !isLastFetchEmpty[`${userListSelector}`] &&
+        shouldCategoryUpdate[`${userListSelector}`] === true &&
         fetchedUserLogs[`${userListSelector}`]?.length > 0) ? (
         <button
           onClick={() => getUsersCategoryLog(userListSelector)}
