@@ -174,7 +174,15 @@ function UsersAnimeLog({
     if (arr.length < 1) {
       updateIsLastFetchEmpty({ [`${categ}`]: true });
       console.log("_______Last fetch empty");
+      let lastCategDiv = Array.from(
+        document.querySelectorAll(".thumbnail-category")
+      ).pop();
 
+      lastCategDiv?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+        inline: "nearest",
+      });
       return;
     } else if (arr.length >= 1) {
       updateIsLastFetchEmpty({ [`${categ}`]: false }); //<-- this still doesn't fix our 'load more' button not rendering
@@ -186,7 +194,14 @@ function UsersAnimeLog({
     updateLatestEntryFetched({
       [`${categ}`]: querySnapshot.docs[querySnapshot.docs.length - 1],
     });
-
+    let lastCategDiv = Array.from(
+      document.querySelectorAll(".thumbnail-category")
+    ).pop();
+    lastCategDiv?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+      inline: "nearest",
+    });
     // console.log("lastEntryFetched, or startAfter", " ==> ", lastEntryFetched);
     return;
     // ------------------------------------------------------------------------------------------------
@@ -391,7 +406,9 @@ function UsersAnimeLog({
       });
       return (
         <div className="category-div">
-          <LogCategory isMobile={isMobile}>{mapped}</LogCategory>
+          <LogCategory isMobile={isMobile} id="log-categ-id">
+            {mapped}
+          </LogCategory>
         </div>
       );
       return mapped;
@@ -429,7 +446,7 @@ function UsersAnimeLog({
   // };
 
   let message =
-    fetchedUserLogs[`${userListSelector}`]?.length > 0
+    fetchedUserLogs[`${userListSelector}`]?.length > 0 && !isLoading
       ? fetchedUserLogs[`${userListSelector}`].length + " entries"
       : "";
 
@@ -450,18 +467,22 @@ function UsersAnimeLog({
         <OptionSelector value="watching">watching</OptionSelector>
         <OptionSelector value="plan to watch">plan to watch</OptionSelector>
       </Selector>
-      {isLoading && <h2>loading...</h2>}
       {currentCategoryLog && currentCategoryLog}
+      {isLoading && <h2>loading...</h2>}
 
       {/* BUG: This doesn't work when we have logged exactly 5 (or however much is our limit) entries, it renders the button.
       But I thought that in theory, it wouldn't render again after pressing it once, because it should update, but ohhh, yeah, we might need one more state for that.  */}
       {/* BUG: Under the following rules, the category log updates with new entries as soon as its userListSelector is selected,
       instead of waiting for a button press to fetch the next entries. This is most likely happening due to a useEffect.
       THAT MEANS that there may be a conflict with our useEffect that's causing it to conflict with our 'load more' button click  */}
-      {(shouldCategoryUpdate[`${userListSelector}`] && isLoading === false) ||
+      {(shouldCategoryUpdate[`${userListSelector}`] &&
+        isLoading === false &&
+        fetchedUserLogs[`${userListSelector}`]?.length > 0) ||
       // °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°FOUND IT!!!  WHEN WE'VE JUST SPLIT THE LOG FOR ALPHABET REORDER, WE HAVE 12 ENTRIES AT THAT MOMENT!!!°°°°°°
       // AND THEN ON THE NEXT FETCH WE HAVE 17 ENTRIES IN THE LOG.
-      (isLoading === false && !isLastFetchEmpty[`${userListSelector}`]) ? (
+      (isLoading === false &&
+        !isLastFetchEmpty[`${userListSelector}`] &&
+        fetchedUserLogs[`${userListSelector}`]?.length > 0) ? (
         <button
           onClick={() => getUsersCategoryLog(userListSelector)}
           className="load-more-btn"
