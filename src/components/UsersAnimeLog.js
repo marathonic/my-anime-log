@@ -44,6 +44,8 @@ function UsersAnimeLog({
   isMobile,
   categLeftoverLength,
   updateCategLeftoverLength,
+  updateIsCategFullyFetched,
+  isCategFullyFetched,
 }) {
   const [placeholderCategoryState, setPlaceholderCategoryState] = useState({});
   const [lastEntryFetched, setLastEntryFetched] = useState(null);
@@ -181,6 +183,7 @@ function UsersAnimeLog({
 
       // lastCategDiv?.scrollIntoView(false);
       updateShouldCategoryUpdate({ [`${categ}`]: false });
+      updateIsCategFullyFetched({ [`${categ}`]: true });
       return;
     } else if (arr.length >= 1) {
       updateIsLastFetchEmpty({ [`${categ}`]: false }); //<-- this still doesn't fix our 'load more' button not rendering
@@ -476,12 +479,13 @@ function UsersAnimeLog({
       THAT MEANS that there may be a conflict with our useEffect that's causing it to conflict with our 'load more' button click  */}
       {(shouldCategoryUpdate[`${userListSelector}`] &&
         isLoading === false &&
+        isCategFullyFetched[`${userListSelector}`] === false &&
         fetchedUserLogs[`${userListSelector}`]?.length > 0) ||
       // °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°FOUND IT!!!  WHEN WE'VE JUST SPLIT THE LOG FOR ALPHABET REORDER, WE HAVE 12 ENTRIES AT THAT MOMENT!!!°°°°°°
       // AND THEN ON THE NEXT FETCH WE HAVE 17 ENTRIES IN THE LOG.
       (isLoading === false &&
+        isCategFullyFetched[`${userListSelector}`] === false &&
         !isLastFetchEmpty[`${userListSelector}`] &&
-        shouldCategoryUpdate[`${userListSelector}`] === true &&
         fetchedUserLogs[`${userListSelector}`]?.length > 0) ? (
         <button
           onClick={() => getUsersCategoryLog(userListSelector)}

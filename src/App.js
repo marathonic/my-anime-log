@@ -94,6 +94,15 @@ function App() {
     (categLeftoverLength, updates) => ({ ...categLeftoverLength, ...updates }),
     initialLeftoverLengths
   );
+  const initialFullyFetched = {
+    completed: false,
+    watching: false,
+    "plan to watch": false,
+  };
+  const [isCategFullyFetched, updateIsCategFullyFetched] = useReducer(
+    (isCategFullyFetched, updates) => ({ ...isCategFullyFetched, ...updates }),
+    initialFullyFetched
+  );
 
   // updates: updateAllTopAnime({ category: response.data })
 
@@ -279,6 +288,8 @@ function App() {
               updateFetchedUserLogs={updateFetchedUserLogs}
               categLeftoverLength={categLeftoverLength}
               updateCategLeftoverLength={updateCategLeftoverLength}
+              // isCategFullyFetched={isCategFullyFetched}
+              updateIsCategFullyFetched={updateIsCategFullyFetched}
             />
           }
         />
@@ -340,6 +351,8 @@ function App() {
                 setIsAlphabReorderRequired={setIsAlphabReorderRequired}
                 categLeftoverLength={categLeftoverLength}
                 updateCategLeftoverLength={updateCategLeftoverLength}
+                isCategFullyFetched={isCategFullyFetched}
+                updateIsCategFullyFetched={updateIsCategFullyFetched}
               />
             </ProtectedRoute>
           }

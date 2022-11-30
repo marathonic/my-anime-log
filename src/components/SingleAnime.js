@@ -89,6 +89,7 @@ function SingleAnime({
   updateFetchedUserLogs,
   categLeftoverLength,
   updateCategLeftoverLength,
+  updateIsCategFullyFetched,
 }) {
   const urlID = useParams();
   const animeID = urlID.mal_id;
@@ -219,6 +220,7 @@ function SingleAnime({
             updateFetchedUserLogs={updateFetchedUserLogs}
             categLeftoverLength={categLeftoverLength}
             updateCategLeftoverLength={updateCategLeftoverLength}
+            updateIsCategFullyFetched={updateIsCategFullyFetched}
           />
         )}
         {/* <span>{myAnimeData.synopsis}</span> */}

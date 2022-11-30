@@ -38,6 +38,7 @@ function Modal({
   updateFetchedUserLogs,
   updateCategLeftoverLength,
   categLeftoverLength,
+  updateIsCategFullyFetched,
 }) {
   const [listSelector, setListSelector] = useState(
     animeDataFromLog.status || "watching"
@@ -236,6 +237,9 @@ function Modal({
       setIsModalOpen(false);
       console.log("adding new entry to log...");
     }
+
+    // regardless of what happens next, we know that data has changed, because the condition above did not trigger a return:
+    updateIsCategFullyFetched({ [`${listSelector}`]: false });
 
     if (fetchedUserLogs[`${listSelector}`].length < 1) {
       //run our current code, it works well if the category log hasnt been selected yet.

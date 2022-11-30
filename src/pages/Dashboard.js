@@ -27,6 +27,8 @@ function Dashboard({
   setIsAlphabReorderRequired,
   categLeftoverLength,
   updateCategLeftoverLength,
+  isCategFullyFetched,
+  updateIsCategFullyFetched,
 }) {
   const [user, loading, error] = useAuthState(auth);
 
@@ -133,6 +135,8 @@ function Dashboard({
         setIsAlphabReorderRequired={setIsAlphabReorderRequired}
         categLeftoverLength={categLeftoverLength}
         updateCategLeftoverLength={updateCategLeftoverLength}
+        isCategFullyFetched={isCategFullyFetched}
+        updateIsCategFullyFetched={updateIsCategFullyFetched}
       />
       {/* {loggedCompleted && loggedCompleted} */}
 
