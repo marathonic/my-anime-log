@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import ReactPaginate from "react-paginate";
 import {
@@ -27,7 +27,7 @@ function SearchResults({ isMobile }) {
   const PER_PAGE = 10;
   const offset = PER_PAGE * currentPage;
   // going with Urvashi's guide, this is where we could make our currentPageData function
-
+  const resultsContainer = useRef(null);
   const currentPageData = allResults
     .slice(offset, offset + PER_PAGE)
     .map((result) => {
@@ -62,6 +62,7 @@ function SearchResults({ isMobile }) {
 
   const handlePageClick = ({ selected: selectedPage }) => {
     setCurrentPage(selectedPage);
+    resultsContainer.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   const pageCount = Math.ceil(allResults.length / PER_PAGE);
@@ -71,6 +72,7 @@ function SearchResults({ isMobile }) {
   // };
 
   useEffect(() => {
+    console.log("=====fetching data======");
     fetch(API_URL).then((response) =>
       response
         .json()
@@ -83,10 +85,10 @@ function SearchResults({ isMobile }) {
     );
   }, [API_URL]);
 
-  useEffect(() => {
-    console.log("pagination useEffect =>", pagination);
-    console.log("current page", "==>", currentPage);
-  }, [currentPage]);
+  // useEffect(() => {
+  // console.log("pagination useEffect =>", pagination);
+  // console.log("current page", "==>", currentPage);
+  // }, [currentPage]);
 
   if (loading) return <h1>Loading...</h1>;
   if (error) return <h2>error</h2>;
@@ -105,21 +107,52 @@ function SearchResults({ isMobile }) {
     );
   });
 
+  let noResultsMessage = (
+    <div className="no-results-container">
+      <h1>Whoops!</h1>
+      <span>
+        <h3>We couldn't find any results for: </h3>
+        {query.includes("&sfw") ? (
+          <p style={{ color: "orange" }}>{query.slice(0, -4)}</p>
+        ) : (
+          <p style={{ color: "orange" }}>query</p>
+        )}
+      </span>
+      <span>
+        <img
+          src="https://media.tenor.com/jaVORWcTiyEAAAAC/cute-fingers.gif"
+          alt="cat twiddling fingers gif"
+          style={{ width: "100%" }}
+        ></img>
+        <span>Please note, we use Romaji for the titles</span>
+        {/* <p>instead of </p> */}
+        {/* <p style={{ textDecoration: "line-through", color: "crimson" }}>
+          'Attack on Titan'
+        </p>
+        <p style={{ color: "lightgreen" }}>'Shingeki no Kyojin'</p> */}
+      </span>
+    </div>
+  );
+
+  let fewResultsCounter = (
+    <div className="few-results-container">
+      <p>{pagination.items.total} results</p>
+    </div>
+  );
+
   return (
-    <div>
+    <div ref={resultsContainer}>
       <h3 style={{ color: "white" }}>
         {pagination.items.total > 0
           ? `Search results for: ${
               query.includes("&sfw") ? query.slice(0, -4) : query
             }`
-          : `Sorry, couldn't find results for: ${
-              query.includes("&sfw") ? query.slice(0, -4) : query
-            }`}{" "}
+          : noResultsMessage}{" "}
       </h3>
       <ul>{currentPageData}</ul>
       {pagination.has_next_page && (
         <ReactPaginate
-          previousLabel={"Prev"}
+          previousLabel={currentPage > 0 ? "Prev" : ""}
           nextLabel={currentPage < pagination.last_visible_page ? "Next" : ""}
           pageCount={pageCount}
           onPageChange={handlePageClick}
@@ -129,6 +162,9 @@ function SearchResults({ isMobile }) {
           activeClassName={"pagination__link--active"}
         />
       )}
+      {pagination.items.total > 0 &&
+        !pagination.has_next_page &&
+        fewResultsCounter}
       {/* <ul>{myResults}</ul> */}
     </div>
   );
