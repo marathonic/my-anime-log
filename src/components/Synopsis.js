@@ -10,12 +10,21 @@ const Synopsis = ({
   showSynopsis,
 }) => {
   const formattedSynopsis = animeSynopsis.replaceAll(". ", ".\n\n");
+  const [hasSynopsisBeenClicked, setHasSynopsisBeenClicked] = useState(false);
 
   const handleSynopsis = () => {
     setShowSynopsis(!showSynopsis);
+    if (!hasSynopsisBeenClicked) {
+      setHasSynopsisBeenClicked(true);
+    }
   };
 
   useEffect(() => {
+    if (!hasSynopsisBeenClicked) return;
+    if (!showSynopsis) {
+      window.scrollTo(0, 0);
+      return;
+    }
     let synopsisId = document.querySelector("#synopsis-autoscroll");
     synopsisId?.scrollIntoView({
       behavior: "smooth",
@@ -26,7 +35,7 @@ const Synopsis = ({
 
   return (
     <section className={isModalOpen ? "synopsis-hidden" : "synopsis-section"}>
-      <span className="centered-span synopsis-bar">
+      <span className="centered-span synopsis-bar" id="synopsis-autoscroll">
         <h1>Synopsis</h1>
         <button onClick={handleSynopsis} className="synopsis-chevron">
           {showSynopsis ? <FiChevronUp /> : <FiChevronDown />}
@@ -34,9 +43,7 @@ const Synopsis = ({
       </span>
       <AnimeSynopsis showSynopsis={showSynopsis}>
         <span className="synopsis-span">
-          <p className="synopsis-text" id="synopsis-autoscroll">
-            {formattedSynopsis}
-          </p>
+          <p className="synopsis-text">{formattedSynopsis}</p>
         </span>
       </AnimeSynopsis>
     </section>
