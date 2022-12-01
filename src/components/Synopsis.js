@@ -1,14 +1,28 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AnimeSynopsis } from "./primedComps";
 import { FiChevronDown, FiChevronUp } from "react-icons/fi";
+import { useRef } from "react";
 
-const Synopsis = ({ animeSynopsis, isModalOpen }) => {
-  const [showSynopsis, setShowSynopsis] = useState(false);
+const Synopsis = ({
+  animeSynopsis,
+  isModalOpen,
+  setShowSynopsis,
+  showSynopsis,
+}) => {
   const formattedSynopsis = animeSynopsis.replaceAll(". ", ".\n\n");
 
   const handleSynopsis = () => {
     setShowSynopsis(!showSynopsis);
   };
+
+  useEffect(() => {
+    let synopsisId = document.querySelector("#synopsis-autoscroll");
+    synopsisId?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+      inline: "nearest",
+    });
+  }, [showSynopsis]);
 
   return (
     <section className={isModalOpen ? "synopsis-hidden" : "synopsis-section"}>
@@ -20,7 +34,9 @@ const Synopsis = ({ animeSynopsis, isModalOpen }) => {
       </span>
       <AnimeSynopsis showSynopsis={showSynopsis}>
         <span className="synopsis-span">
-          <p className="synopsis-text">{formattedSynopsis}</p>
+          <p className="synopsis-text" id="synopsis-autoscroll">
+            {formattedSynopsis}
+          </p>
         </span>
       </AnimeSynopsis>
     </section>

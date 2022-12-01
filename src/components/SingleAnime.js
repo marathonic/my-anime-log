@@ -11,6 +11,7 @@ import Synopsis from "./Synopsis";
 import Modal from "./Modal";
 import { useAuthState } from "react-firebase-hooks/auth";
 import ModalNoUser from "./ModalNoUser.js";
+import { useRef } from "react";
 
 const lowOpacity = {
   opacity: 1,
@@ -101,6 +102,7 @@ function SingleAnime({
   const [isFetchLocked, setIsFetchLocked] = useState(false);
   const [animeDataFromLog, setAnimeDataFromLog] = useState({});
   const [animeExistsInLog, setAnimeExistsInLog] = useState(false);
+  const [showSynopsis, setShowSynopsis] = useState(false);
 
   const toggleVisible = {
     visibility: isModalOpen ? "hidden" : "visible",
@@ -127,6 +129,11 @@ function SingleAnime({
   const myAnimeTitle = myAnimeData.title;
   const bigStyle = {
     fontSize: myAnimeTitle.length < 13 ? "3rem" : "1.6rem",
+  };
+
+  const scrollToSynopsis = () => {
+    let synopsisId = document.querySelector("#synopsis-autoscroll");
+    synopsisId?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
@@ -239,6 +246,8 @@ function SingleAnime({
       <Synopsis
         animeSynopsis={myAnimeData.synopsis}
         isModalOpen={isModalOpen}
+        showSynopsis={showSynopsis}
+        setShowSynopsis={setShowSynopsis}
       />
     </>
   );
