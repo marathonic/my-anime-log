@@ -103,20 +103,27 @@ function SearchResults({ isMobile }) {
   return (
     <div>
       <h3 style={{ color: "white" }}>
-        Search results for:{" "}
-        {query.includes("&sfw") ? query.slice(0, -4) : query}
+        {pagination.items.total > 0
+          ? `Search results for: ${
+              query.includes("&sfw") ? query.slice(0, -4) : query
+            }`
+          : `Sorry, couldn't find results for: ${
+              query.includes("&sfw") ? query.slice(0, -4) : query
+            }`}{" "}
       </h3>
       <ul>{currentPageData}</ul>
-      <ReactPaginate
-        previousLabel={"Prev"}
-        nextLabel={"Next"}
-        pageCount={pageCount}
-        onPageChange={handlePageClick}
-        containerClassName={"pagination"}
-        previousLinkClassName={"pagionation__link"}
-        nextLinkClassName={"pagination__link--disabled"}
-        activeClassName={"pagination__link--active"}
-      />
+      {pagination.has_next_page && (
+        <ReactPaginate
+          previousLabel={"Prev"}
+          nextLabel={"Next"}
+          pageCount={pageCount}
+          onPageChange={handlePageClick}
+          containerClassName={"pagination"}
+          previousLinkClassName={"pagionation__link"}
+          nextLinkClassName={"pagination__link--disabled"}
+          activeClassName={"pagination__link--active"}
+        />
+      )}
       {/* <ul>{myResults}</ul> */}
     </div>
   );
