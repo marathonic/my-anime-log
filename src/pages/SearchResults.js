@@ -83,6 +83,11 @@ function SearchResults({ isMobile }) {
     );
   }, [API_URL]);
 
+  useEffect(() => {
+    console.log("pagination useEffect =>", pagination);
+    console.log("current page", "==>", currentPage);
+  }, [currentPage]);
+
   if (loading) return <h1>Loading...</h1>;
   if (error) return <h2>error</h2>;
 
@@ -115,7 +120,7 @@ function SearchResults({ isMobile }) {
       {pagination.has_next_page && (
         <ReactPaginate
           previousLabel={"Prev"}
-          nextLabel={"Next"}
+          nextLabel={currentPage < pagination.last_visible_page ? "Next" : ""}
           pageCount={pageCount}
           onPageChange={handlePageClick}
           containerClassName={"pagination"}

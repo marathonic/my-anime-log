@@ -720,8 +720,25 @@ label {
     /* margin-right: 2%; */
   }
 
+  /* results & pagination */
+
   .result-title-mobile {
     margin-left: 3%;
+  }
+
+  .pagination {
+    width: 100%;
+    padding: 5%;
+    display: flex;
+    justify-content: space-evenly;
+    font-size: 1rem;
+    background-color: crimson;
+  }
+
+  .pagination__link--active {
+    text-decoration: underline;
+    font-size: 1.2rem;
+    font-weight: bold;
   }
 
   .centered-div {
