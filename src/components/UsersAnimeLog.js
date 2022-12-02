@@ -18,6 +18,7 @@ import { OptionSelector, Selector } from "../components/primedComps";
 import { useState, useEffect, useRef } from "react";
 import { AnimeCard, Category, LogCategory } from "../components/primedComps";
 import { Link } from "react-router-dom";
+import { MoonLoader } from "react-spinners";
 
 // backtick `
 
@@ -469,8 +470,12 @@ function UsersAnimeLog({
         <OptionSelector value="watching">watching</OptionSelector>
         <OptionSelector value="plan to watch">plan to watch</OptionSelector>
       </Selector>
+      {isLoading && (
+        <div className="loading-log-container">
+          <MoonLoader size={50} color="whitesmoke" />
+        </div>
+      )}
       {currentCategoryLog && currentCategoryLog}
-      {isLoading && <h2>loading...</h2>}
 
       {/* BUG: This doesn't work when we have logged exactly 5 (or however much is our limit) entries, it renders the button.
       But I thought that in theory, it wouldn't render again after pressing it once, because it should update, but ohhh, yeah, we might need one more state for that.  */}

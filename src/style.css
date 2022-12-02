@@ -489,6 +489,12 @@ label {
   margin-bottom: 12%;
 }
 
+/* users anime log */
+.loading-log-container {
+  margin: 20%;
+  padding: 0;
+}
+
 .load-more-btn {
   padding: 2%;
   font-size: 1.2rem;
