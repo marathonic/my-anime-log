@@ -6,6 +6,8 @@ import {
   ResultSpan,
   ResultThumbnail,
 } from "../components/primedComps";
+import { MoonLoader } from "react-spinners";
+import { IoSadOutline } from "react-icons/io5";
 
 function SearchResults({ isMobile }) {
   // following the pluralsight tutorial, allResults is our --hits-- array
@@ -90,7 +92,12 @@ function SearchResults({ isMobile }) {
   // console.log("current page", "==>", currentPage);
   // }, [currentPage]);
 
-  if (loading) return <h1>Loading...</h1>;
+  if (loading)
+    return (
+      <div className="processing-query-container">
+        <MoonLoader size={100} color={"white"} />
+      </div>
+    );
   if (error) return <h2>error</h2>;
 
   //   const getResults = () => {
@@ -119,11 +126,13 @@ function SearchResults({ isMobile }) {
         )}
       </span>
       <span>
+        {/* <IoSadOutline size={200} /> */}
         <img
           src="https://media.tenor.com/jaVORWcTiyEAAAAC/cute-fingers.gif"
           alt="cat twiddling fingers gif"
           style={{ width: "100%" }}
         ></img>
+
         <span>Please note, we use Romaji for the titles</span>
         {/* <p>instead of </p> */}
         {/* <p style={{ textDecoration: "line-through", color: "crimson" }}>

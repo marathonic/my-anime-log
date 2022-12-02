@@ -18,7 +18,7 @@ import { OptionSelector, Selector } from "../components/primedComps";
 import { useState, useEffect, useRef } from "react";
 import { AnimeCard, Category, LogCategory } from "../components/primedComps";
 import { Link } from "react-router-dom";
-import { MoonLoader } from "react-spinners";
+import { MoonLoader, FadeLoader, BeatLoader } from "react-spinners";
 
 // backtick `
 
@@ -404,7 +404,12 @@ function UsersAnimeLog({
       });
       return (
         <div className="category-div">
-          <LogCategory isMobile={isMobile} className="scrollbar" id="style-1">
+          <LogCategory
+            isMobile={isMobile}
+            isLoading={isLoading}
+            className="scrollbar"
+            id="style-1"
+          >
             {mapped}
           </LogCategory>
         </div>
@@ -448,10 +453,13 @@ function UsersAnimeLog({
   // }
   // };
 
-  let message =
-    fetchedUserLogs[`${userListSelector}`]?.length > 0 && !isLoading
-      ? fetchedUserLogs[`${userListSelector}`].length + " entries"
-      : "";
+  let message = (
+    <div className="entries-message-div">
+      {fetchedUserLogs[`${userListSelector}`]?.length > 0 && !isLoading
+        ? fetchedUserLogs[`${userListSelector}`].length + " entries"
+        : ""}
+    </div>
+  );
 
   return (
     <div className="centered-div">
@@ -470,12 +478,17 @@ function UsersAnimeLog({
         <OptionSelector value="watching">watching</OptionSelector>
         <OptionSelector value="plan to watch">plan to watch</OptionSelector>
       </Selector>
-      {isLoading && (
+      {isLoading && fetchedUserLogs[`${userListSelector}`]?.length === 0 && (
         <div className="loading-log-container">
           <MoonLoader size={50} color="whitesmoke" />
         </div>
       )}
       {currentCategoryLog && currentCategoryLog}
+      {isLoading && fetchedUserLogs[`${userListSelector}`]?.length > 0 && (
+        <div className="loading-more-log-container">
+          <BeatLoader size={20} color="whitesmoke" />
+        </div>
+      )}
 
       {/* BUG: This doesn't work when we have logged exactly 5 (or however much is our limit) entries, it renders the button.
       But I thought that in theory, it wouldn't render again after pressing it once, because it should update, but ohhh, yeah, we might need one more state for that.  */}

@@ -182,7 +182,9 @@ function Dashboard({
         </div>
         {/* <h3>Name: {user?.name}</h3> */}
         {/* <h3>Email verified: {user.emailVerified}</h3> */}
-        <button onClick={logout}>Log out</button>
+        <button onClick={logout} className="log-out-btn">
+          Sign out
+        </button>
       </div>
     </div>
   );
