@@ -17,6 +17,7 @@ const SearchBar = ({ isFetchInProgress, setIsFetchInProgress }) => {
 
   const getPredictionsFromAPI = async () => {
     // CONTINUE HERE: We want to know if the query is valid or not. Find the regex for it! If it's not valid, return instantly.
+
     const normalString = /^[a-zA-Z0-9 ]+$/i;
     let filteredStr = null;
 
@@ -53,6 +54,7 @@ const SearchBar = ({ isFetchInProgress, setIsFetchInProgress }) => {
   const handleText = debounce((text) => {
     // setIsFetchInProgress(true);
     console.log("run: handleText");
+
     setSearchQuery(text);
   }, 1000);
 
@@ -76,9 +78,17 @@ const SearchBar = ({ isFetchInProgress, setIsFetchInProgress }) => {
   };
 
   useEffect(() => {
+    if (document.querySelector("#searchbar-input").value.length >= 69) {
+      setSearchQuery(searchQuery.substring(0, 69));
+      let barText = document.querySelector("#searchbar-input");
+      let val = barText.value;
+      barText.value = val.substring(0, 69);
+      return;
+    }
     if (!searchQuery.length) {
       return;
     }
+
     handleDebouncedPredictions();
     // if (isFetchInProgress) {
     // console.log("debouncing...");
@@ -152,6 +162,7 @@ const SearchBar = ({ isFetchInProgress, setIsFetchInProgress }) => {
         placeholder={isFetchInProgress ? "please wait..." : "search..."}
         onChange={(e) => handleText(e.target.value)}
         disabled={isFetchInProgress}
+        id="searchbar-input"
         // onFocus={(e) => handleInputFocus()}
         // onBlur={handleInputBlur}
       />
