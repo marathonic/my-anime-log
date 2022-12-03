@@ -518,6 +518,12 @@ label {
   margin-top: 2%;
 }
 
+.load-more-btn:active,
+.load-more-btn:hover {
+  background-color: var(--soft-peach);
+  color: #19172b;
+}
+
 /* scroll bar */
 
 .scrollbar {
@@ -562,6 +568,12 @@ label {
   margin: 20px;
   font-weight: bold;
   border-radius: 6px;
+}
+
+.log-out-btn:active,
+.log-out-btn:hover {
+  background-color: crimson;
+  color: #19172b;
 }
 
 /* end of desktop */

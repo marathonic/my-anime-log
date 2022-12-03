@@ -163,6 +163,7 @@ const SearchBar = ({ isFetchInProgress, setIsFetchInProgress }) => {
         onChange={(e) => handleText(e.target.value)}
         disabled={isFetchInProgress}
         id="searchbar-input"
+        autoComplete="off"
         // onFocus={(e) => handleInputFocus()}
         // onBlur={handleInputBlur}
       />
