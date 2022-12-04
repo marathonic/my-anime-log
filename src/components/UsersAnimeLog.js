@@ -61,6 +61,8 @@ function UsersAnimeLog({
   );
   const [isLoading, setIsLoading] = useState(false);
   const scrollBottomRef = useRef(null);
+  const size = useWindowSize();
+
   // To render our anime:
   // -----WE could use a modified renderMapped (found in Home.js) to render our anime.
   // However, we'll probably want to use a <div> instead of a <span>, and change the className to "log-category", or something.
@@ -240,6 +242,8 @@ function UsersAnimeLog({
     // updateFetchedUserLogs({[`${e.target.value}`] : categLogObj})
   };
 
+  console.log("is Mobile ------> ", isMobile);
+
   //  const newGetUsersCategoryLogTest = async () => {
   //    const categRef = query(
   //      collection(db, "theNewUsers", user.uid, "animeLog"),
@@ -274,7 +278,7 @@ function UsersAnimeLog({
     });
     return (
       <div>
-        <LogCategory isMobile={isMobile}>{mapped}</LogCategory>
+        <LogCategory>{mapped}</LogCategory>
       </div>
     );
     return mapped;
@@ -370,6 +374,24 @@ function UsersAnimeLog({
   // newGetUsersCategoryLogTest();
   // }, [userListSelector]);
 
+  function useWindowSize() {
+    const [windowSize, setWindowSize] = useState({
+      width: undefined,
+      height: undefined,
+    });
+    useEffect(() => {
+      function handleResize() {
+        setWindowSize({
+          width: window.innerWidth,
+          height: window.innerHeight,
+        });
+      }
+      window.addEventListener("resize", handleResize);
+      handleResize();
+      return () => window.removeEventListener("resize", handleResize);
+    }, []);
+    return windowSize;
+  }
   useEffect(() => {
     if (!fetchedUserLogs[`${userListSelector}`]) return;
     console.log("TESTING------------------------------------------");
@@ -386,7 +408,7 @@ function UsersAnimeLog({
     // ---------------End of test on line above -------------------EDIT: DO THIS FOR THE BUTTON, NOT THE useEffect
     const categoryToMap = fetchedUserLogs[`${userListSelector}`];
     // setCurrentCategoryLog(category);
-    const renderLogCategory = (isMobile) => {
+    const renderLogCategory = () => {
       let mapped = categoryToMap.map((anime) => {
         return (
           <div className="test-margin" key={anime.mal_id} ref={scrollBottomRef}>
@@ -416,7 +438,7 @@ function UsersAnimeLog({
       );
       return mapped;
     };
-    setCurrentCategoryLog(renderLogCategory((isMobile = { isMobile })));
+    setCurrentCategoryLog(renderLogCategory());
     scrollBottomRef.current?.scrollIntoView({
       behavior: "smooth",
       block: "start",
@@ -461,9 +483,13 @@ function UsersAnimeLog({
     </div>
   );
 
+  console.log(size);
+
   return (
     <div className="centered-div">
       <h1 style={{ color: "white", fontSize: "3rem" }}>my Log</h1>
+      <p>H: {size.height}</p>
+      <p>W: {size.width}</p>
       <hr />
       <Selector
         defaultValue={userListSelector}

@@ -95,7 +95,7 @@ export const LogCategory = styled.div`
   align-items: center;
   flex-wrap: wrap;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   width: 100%;
   height: 20%;
   max-height: 30%;
@@ -104,14 +104,28 @@ export const LogCategory = styled.div`
   // gap: 10%;
   // padding: 5%;
   ${(props) =>
-    props.isMobile &&
+    props.isMobile === true &&
     css`
+      grid-template-columns: 1fr 1fr;
       background-color: #19173e;
       min-width: max-content;
       max-width: max-content;
       max-height: 38rem;
       overflow: auto;
     `};
+
+  ${(props) =>
+    props.isMobile === false &&
+    css`
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      background-color: yellow;
+      min-width: max-content;
+      max-width: max-content;
+      max-height: 38rem;
+      overflow: auto;
+    `};
+
+  background-color: ${(props) => (props.isMobile ? "gray" : "goldenrod")};
 `;
 
 export const AnimeCard = styled.div`
