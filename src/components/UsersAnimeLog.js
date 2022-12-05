@@ -14,7 +14,11 @@ import {
   startAfter,
   startAt,
 } from "firebase/firestore";
-import { OptionSelector, Selector } from "../components/primedComps";
+import {
+  LogCategoryDesktop,
+  OptionSelector,
+  Selector,
+} from "../components/primedComps";
 import { useState, useEffect, useRef } from "react";
 import { AnimeCard, Category, LogCategory } from "../components/primedComps";
 import { Link } from "react-router-dom";
@@ -198,110 +202,15 @@ function UsersAnimeLog({
     updateLatestEntryFetched({
       [`${categ}`]: querySnapshot.docs[querySnapshot.docs.length - 1],
     });
-    // let lastCategDiv = Array.from(
-    //   document.querySelectorAll(".thumbnail-category")
-    // ).pop();
-    // lastCategDiv?.scrollIntoView(false);
-    // console.log("lastEntryFetched, or startAfter", " ==> ", lastEntryFetched);
-    return;
-    // ------------------------------------------------------------------------------------------------
-
-    // const animeLogRef = collection(db, "theNewUsers", user.uid, "animeLog");
-    // const q = query(animeLogRef, where("status", "==", "completed"));
-    // const querySnapshot = await getDocs(q);
-    // querySnapshot.forEach((doc) => {
-    // console.log(doc.id, "==>", doc.data());
-    // });
-    // const q = query(
-    // collection(db, "theNewUsers", user.uid, "animeLog"),
-    // where("status", "==", "completed")
-    // );
-    // const querySnapshot = await getDocs(q);
-    // querySnapshot.docs.forEach((doc) => {
-    // console.log(doc.data());
-    // });
-    // const myDocs = querySnapshot.docs.map((doc) => doc.data());
-    // console.log(myDocs);
-
-    // querySnapshot.forEach((doc) => {
-    // console.log(doc.id, " => ", doc.data());
-    // });
-    // setPlaceholderCategoryState(querySnapshot);
-    // console.log("testing aaaaaa");
-    //categSnap.forEach((anime) => {
-    //  console.log(anime.id, "=>", anime.data());
-    //  // console.log(anime.data());
-    //})
-    // console.log("categSnap:")
-    // console.log(categSnap.data())
-    // trying out loaned ideas from Modaljs
-    // const categResponse = categSnap.data();
-    // const categLogObj = categResponse[`${userListSelector}`]
-    // console.log(categLogObj);
-    // return categLogObj;
-    // updateFetchedUserLogs({[`${e.target.value}`] : categLogObj})
   };
 
   console.log("is Mobile ------> ", isMobile);
-
-  //  const newGetUsersCategoryLogTest = async () => {
-  //    const categRef = query(
-  //      collection(db, "theNewUsers", user.uid, "animeLog"),
-  //      where("status", "==", "completed")
-  //    );
-  //    onSnapshot(categRef, (snapshot) => {
-  //      // Maps the documents and sets them to the `msgs` state.
-  //      updateFetchedUserLogs({
-  //        completed: snapshot.docs.map((doc) => ({
-  //          id: doc.id,
-  //          data: doc.data(),
-  //        })),
-  //      });
-  //    });
-  //  };
-
-  const renderLogCategory = (category, isMobile) => {
-    let mapped = category.map((anime) => {
-      return (
-        <span className="category-span" key={anime.mal_id}>
-          {/* what does AnimeCard do here? */}
-          <AnimeCard clickedAnime={anime} />
-          <Link to={`/anime/${anime.mal_id}`} key={anime.mal_id}>
-            <img
-              src={anime.thumbnailURL}
-              alt={anime.title}
-              className="thumbnail-category"
-            />
-          </Link>
-        </span>
-      );
-    });
-    return (
-      <div>
-        <LogCategory>{mapped}</LogCategory>
-      </div>
-    );
-    return mapped;
-  };
 
   // updates: updateFetchedUserLogs({ category: response.data })
 
   const handleSelection = (e) => {
     setUserListSelector(e.target.value);
-    // if(e.target.value === 'category') {
-    //   setLoggedCompleted(null);
-    // }
 
-    //if(e.target.value !== 'completed') {
-    //  setLoggedCompleted(null);
-    //}
-
-    // PLACEHOLDER. Make sure to change the line below. We want to --return-- based on a stateful parameter that tells us whether the log has been updated since we last loaded it.
-    // To accomplish the above, we'll want to always let this function run the first time, when fetchedUserLogs values are null.
-    // Once a value is no longer null, the next line will check our stateful variable.
-    // if(fetchedUserLogs[`${e.target.value}`] !== null && shouldCategoryUpdate[`${e.target.value}`] === false) return; //<-- always runs on first visit.
-    // alternatively, if category in log hasn't been checked before, OR if ... hmmm, I think shouldC-U- should be true at first.
-    // if(fetchedUserLogs[`${e.target.value}`] === null || shouldCategoryUpdate[`${e.target.value}`] === true)
     if (shouldCategoryUpdate[`${e.target.value}`] === false) {
       console.log(
         "shouldCategoryUpdate is false, returning before fetching data..."
@@ -444,7 +353,7 @@ function UsersAnimeLog({
       block: "start",
       inline: "nearest",
     });
-  }, [fetchedUserLogs, userListSelector]);
+  }, [fetchedUserLogs, userListSelector, isMobile]);
 
   // Handle the case where we leave a category selected, then update the log for that category, and come back to the dashboard.
   useEffect(() => {
