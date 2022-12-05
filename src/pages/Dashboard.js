@@ -5,6 +5,7 @@ import { auth, db, logout } from "../firebase.js";
 import { query, collection, getDocs, where } from "firebase/firestore";
 import UsersAnimeLog from "../components/UsersAnimeLog.js";
 import { OptionSelector, Selector } from "../components/primedComps";
+import SignOutModal from "../components/SignOutModal.js";
 
 function Dashboard({
   myUser,
@@ -37,6 +38,7 @@ function Dashboard({
     completed: false,
     planToWatch: false,
   });
+  const [isSignoutModalOpen, setIsSignoutModalOpen] = useState(false);
 
   const navigate = useNavigate();
 
@@ -182,9 +184,18 @@ function Dashboard({
         </div>
         {/* <h3>Name: {user?.name}</h3> */}
         {/* <h3>Email verified: {user.emailVerified}</h3> */}
-        <button onClick={logout} className="log-out-btn">
+        <button
+          onClick={() => setIsSignoutModalOpen(true)}
+          className="log-out-btn"
+        >
           Sign out
         </button>
+        {isSignoutModalOpen && (
+          <SignOutModal
+            logout={logout}
+            setIsSignoutModalOpen={setIsSignoutModalOpen}
+          />
+        )}
       </div>
     </div>
   );

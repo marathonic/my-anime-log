@@ -598,6 +598,31 @@ label {
   align-items: center;
 }
 
+.blur-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgb(0, 0, 0, 0.4);
+  backdrop-filter: blur(2px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.signout-modal {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  height: 22vh;
+  justify-content: space-around;
+  align-items: center;
+  background-color: white;
+  color: black;
+}
+
 /* end of desktop */
 
 @font-face {

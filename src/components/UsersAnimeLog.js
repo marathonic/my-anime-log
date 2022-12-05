@@ -348,11 +348,13 @@ function UsersAnimeLog({
       return mapped;
     };
     setCurrentCategoryLog(renderLogCategory());
-    scrollBottomRef.current?.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-      inline: "nearest",
-    });
+    if (isMobile) {
+      scrollBottomRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+        inline: "nearest",
+      });
+    }
   }, [fetchedUserLogs, userListSelector, isMobile]);
 
   // Handle the case where we leave a category selected, then update the log for that category, and come back to the dashboard.
