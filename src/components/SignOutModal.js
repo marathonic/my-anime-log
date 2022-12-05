@@ -1,22 +1,24 @@
 import React from "react";
+import "../styles/signout-modal-style.css";
+import { GoAlert } from "react-icons/go";
 
 function SignOutModal({ logout, setIsSignoutModalOpen }) {
   return (
     <div className="blur-bg">
       <div className="signout-modal">
-        <p style={{ fontWeight: "bold", fontSize: "2rem" }}> </p>
-        <br />
-        <p>Are you sure you want to sign out?</p>
-        <br />
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-around",
-            width: "100%",
-          }}
-        >
-          <button onClick={logout}>Yes</button>
-          <button onClick={() => setIsSignoutModalOpen(false)}>Nope</button>
+        <GoAlert color="goldenrod" size={60} />
+        <p>Sign out</p>
+        <p>Are you sure?</p>
+        <div className="signout-btn-container">
+          <button onClick={logout} className="signout-btn red">
+            Yes
+          </button>
+          <button
+            onClick={() => setIsSignoutModalOpen(false)}
+            className="signout-btn green"
+          >
+            Nope
+          </button>
         </div>
       </div>
     </div>
