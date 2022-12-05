@@ -118,7 +118,7 @@ export const LogCategory = styled.div`
     !props.isMobile &&
     css`
       grid-template-columns: 1fr 1fr 1fr 1fr;
-      background-color: white;
+      background-color: black;
       min-width: max-content;
       max-width: max-content;
       max-height: 38rem;

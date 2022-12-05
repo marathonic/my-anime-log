@@ -87,9 +87,11 @@ a:hover {
   /* max-height: 28%; */
 }
 
-.category-div {
-  /* padding: 9%; */
-}
+/* .category-div { */
+/* width: 100%; */
+/* display: flex; */
+/* justify-content: center; */
+/* } */
 
 .test-margin {
   margin: 4%;
@@ -574,6 +576,26 @@ label {
 .log-out-btn:hover {
   background-color: crimson;
   color: #19172b;
+}
+
+.test-margin .thumbnail-category,
+.loading-skeleton-thumbnails {
+  /* max-width: 9.36rem; */
+  /* max-height: 13.10rem; */
+  /* max-width: 9.36rem; */
+  /* max-height: 13.10rem; */
+  /* adjusted: */
+  width: 100%;
+  height: 100%;
+  /* margin: 2.3%; */
+}
+
+.centered-div {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 /* end of desktop */
