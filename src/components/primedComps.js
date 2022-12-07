@@ -86,6 +86,14 @@ export const Category = styled.div`
       width: 100%;
       overflow: auto;
     `}
+
+  ${(props) =>
+    !props.isMobile &&
+    css`
+      width: 100%;
+      overflow: auto;
+      justify-content: space-around;
+    `}
 `;
 
 export const LogCategory = styled.div`

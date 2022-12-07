@@ -27,6 +27,7 @@ export default function Home({
   setIsFetchInProgress,
 }) {
   let topOverall, topMovies, topSpecials, topPopular, topAiring, topUpcoming;
+  let propsIsMobile = isMobile;
   // to make it easier to FIND anime we don't know about, make it instead be:
   // topAiring, topUpcoming...
 
@@ -48,7 +49,7 @@ export default function Home({
     });
     return (
       <div>
-        <Category isMobile={isMobile}>{mapped}</Category>
+        <Category isMobile={propsIsMobile}>{mapped}</Category>
       </div>
     );
     return mapped;
@@ -193,7 +194,7 @@ export default function Home({
   */
   console.log(currentView);
   return (
-    <div>
+    <div className={!isMobile ? "desktop-placement-container" : ""}>
       {currentView === "search" && (
         <div className="landing-searchbar-container">
           <h1>myAnimeLog</h1>
@@ -202,7 +203,7 @@ export default function Home({
             setIsFetchInProgress={setIsFetchInProgress}
           />
 
-          <div className="centered-div">
+          <div className="centered-div landing-chevron">
             <span className="landing-down-chevron">
               <button
                 onClick={() => setCurrentView("explore")}

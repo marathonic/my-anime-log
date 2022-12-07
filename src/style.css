@@ -123,6 +123,20 @@ a:hover {
 
 /* searchbar */
 
+.desktop-placement-container {
+  min-height: 90vh;
+  height: 90vh;
+}
+
+.landing-searchbar-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: stretch;
+  margin-top: 20%;
+  height: 100%;
+}
+
 .searchbar-form {
   text-align: center;
 }
@@ -131,6 +145,7 @@ a:hover {
   background-color: rgba(255, 255, 255, 0.05);
   border: solid rgba(255, 255, 255, 0.7) 1px;
   min-width: 30%;
+  height: 70%;
   border-radius: 7px;
   color: white;
   font-size: 1.2rem;
@@ -139,16 +154,23 @@ a:hover {
 }
 
 .search-bar-btn {
-  height: 1.7rem;
-  width: 20%;
-  margin-block: 7%;
+  height: 2rem;
+  width: 90%;
+  /* margin-block: 7%; */
   background-color: var(--soft-peach);
   color: #1f1d36;
+  border-color: transparent;
+  border-end-end-radius: 24px;
+  border-bottom-left-radius: 24px;
 }
 
 .search-bar-btn:disabled {
   opacity: 70;
   background-color: palevioletred;
+}
+
+.centered-div.landing-chevron {
+  margin-top: 100px;
 }
 
 .centered-span,
@@ -654,6 +676,7 @@ label {
     flex-direction: column;
     align-items: center;
     margin-top: 20%;
+    height: auto;
   }
 
   .landing-down-chevron {
@@ -667,6 +690,17 @@ label {
     position: absolute;
     padding: 8.4rem;
     pointer-events: none;
+  }
+
+  .search-bar-btn {
+    height: 1.7rem;
+    width: 20%;
+    margin-block: 7%;
+    background-color: var(--soft-peach);
+    color: #1f1d36;
+    border-color: transparent;
+    border-end-end-radius: 0px;
+    border-bottom-left-radius: 0px;
   }
 
   .loading-skeleton-div {
