@@ -678,20 +678,20 @@ label {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 20%;
+    /* margin-top: 20%; */
     height: auto;
   }
 
   .landing-down-chevron {
     bottom: 0;
     position: absolute;
-    padding: 5rem;
+    padding-bottom: 5rem;
   }
 
   .landing-down-text {
-    bottom: 0;
+    /* bottom: 0; */
     position: absolute;
-    padding: 8.4rem;
+    padding-top: 46rem;
     pointer-events: none;
   }
 
