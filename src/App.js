@@ -1,5 +1,5 @@
 import "./style.css";
-import { AppContainer } from "./components/primedComps";
+import { AppContainer, Stars, Stars2, Stars3 } from "./components/primedComps";
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
@@ -267,6 +267,14 @@ function App() {
 
   return (
     <AppContainer>
+      {/*
+       */}
+      <div className="stars-test">
+        <Stars></Stars>
+        <Stars2></Stars2>
+        <Stars3></Stars3>
+      </div>
+
       <Navbar isMobile={isMobile} />
       <Routes>
         <Route

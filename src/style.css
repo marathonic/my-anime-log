@@ -695,6 +695,12 @@ label {
     pointer-events: none;
   }
 
+  .stars-test {
+    max-height: 100%;
+    max-width: 100%;
+    position: static;
+  }
+
   .search-bar-btn {
     height: 1.7rem;
     width: 20%;
