@@ -318,7 +318,7 @@ const animStar = keyframes`
     transform: translateY(0px);
   }
   to {
-    transform: translateY(360px);
+    transform: translateY(600px);
   }
 `;
 
