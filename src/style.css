@@ -33,14 +33,17 @@
 }
 
 html {
-  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 body {
   margin: 0;
   padding: 0;
   background-color: #1f1d36;
-  height: 100%;
+  background-color: seagreen;
+  background: radial-gradient(ellipse at bottom, #0e0c3f 0%, #090a0f 100%);
+
   color: white;
 }
 
