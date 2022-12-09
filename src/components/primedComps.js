@@ -207,12 +207,23 @@ export const TrailerContainer = styled.div`
   justify-content: center;
 
   ${(props) =>
-    props.isMobile === false &&
+    props.isMobile &&
     css`
       width: 100%;
       display: flex;
       justify-content: center;
       height: auto;
+      margin-bottom: auto;
+    `};
+
+  ${(props) =>
+    props.isMobile === false &&
+    css`
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      height: 30rem;
+      margin-bottom: 5%;
     `};
 
   ${(props) =>
@@ -237,6 +248,16 @@ export const VideoFrame = styled.iframe`
       margin-top: 1rem;
       margin-bottom: 3rem;
     `}
+
+  ${(props) =>
+    !props.isMobile &&
+    css`
+      width: 60%;
+      height: 100%;
+      position: relative;
+      margin-top: 0;
+      margin-bottom: 0;
+    `}
 `;
 
 export const AnimeSynopsis = styled.div`
@@ -254,6 +275,21 @@ export const AnimeSynopsis = styled.div`
     css`
       display: none;
       opacity: 0;
+    `}
+
+  ${(props) =>
+    !props.isMobile &&
+    css`
+      max-width: 50%;
+    `}
+
+
+  ${(props) =>
+    props.isMobile &&
+    css`
+      margin-top: 0px;
+      width: 100%;
+      // max-width: 50%;
     `}
 `;
 

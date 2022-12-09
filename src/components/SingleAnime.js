@@ -244,6 +244,7 @@ function SingleAnime({
         />
       )}
       <Synopsis
+        isMobile={isMobile}
         animeSynopsis={myAnimeData.synopsis}
         isModalOpen={isModalOpen}
         showSynopsis={showSynopsis}

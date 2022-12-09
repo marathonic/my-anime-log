@@ -8,6 +8,7 @@ const Synopsis = ({
   isModalOpen,
   setShowSynopsis,
   showSynopsis,
+  isMobile,
 }) => {
   const formattedSynopsis = animeSynopsis.replaceAll(". ", ".\n\n");
   const [hasSynopsisBeenClicked, setHasSynopsisBeenClicked] = useState(false);
@@ -41,7 +42,7 @@ const Synopsis = ({
           {showSynopsis ? <FiChevronUp /> : <FiChevronDown />}
         </button>
       </span>
-      <AnimeSynopsis showSynopsis={showSynopsis}>
+      <AnimeSynopsis showSynopsis={showSynopsis} isMobile={isMobile}>
         <span className="synopsis-span">
           <p className="synopsis-text">{formattedSynopsis}</p>
         </span>
