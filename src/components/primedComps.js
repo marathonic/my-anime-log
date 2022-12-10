@@ -126,7 +126,7 @@ export const LogCategory = styled.div`
     !props.isMobile &&
     css`
       grid-template-columns: 1fr 1fr 1fr 1fr;
-      background-color: black;
+      background-color: transparent;
       min-width: max-content;
       max-width: max-content;
       max-height: 38rem;
@@ -342,6 +342,11 @@ export const Selector = styled.select`
   // color: none <-- works the same
   font-weight: ${(props) => (props.isBold ? "bold" : 100)};
   margin-bottom: ${(props) => (props.isBold ? "3%" : 0)};
+  ${(props) =>
+    !props.isMobile &&
+    css`
+      margin-bottom: 1%;
+    `}
 `;
 
 export const OptionSelector = styled.option`

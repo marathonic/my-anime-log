@@ -23,6 +23,14 @@ import { useState, useEffect, useRef } from "react";
 import { AnimeCard, Category, LogCategory } from "../components/primedComps";
 import { Link } from "react-router-dom";
 import { MoonLoader, FadeLoader, BeatLoader } from "react-spinners";
+import {
+  BsAlignBottom,
+  BsAlignCenter,
+  BsAlignEnd,
+  BsAlignMiddle,
+  BsAlignStart,
+  BsAlignTop,
+} from "react-icons/bs";
 
 // backtick `
 
@@ -354,6 +362,8 @@ function UsersAnimeLog({
         block: "start",
         inline: "nearest",
       });
+    } else if (!isMobile) {
+      scrollBottomRef.current?.scrollIntoView(BsAlignBottom);
     }
   }, [fetchedUserLogs, userListSelector, isMobile]);
 
@@ -401,11 +411,12 @@ function UsersAnimeLog({
       <h1 style={{ color: "white", fontSize: "3rem" }}>my Log</h1>
       <p>H: {size.height}</p>
       <p>W: {size.width}</p>
-      <hr />
+      <hr className={!isMobile ? "hr-margin-exception" : ""} />
       <Selector
         defaultValue={userListSelector}
         onChange={handleSelection}
         isBold={true}
+        isMobile={isMobile}
       >
         {/* on the next line, try changing the value to value="" */}
         <OptionSelector hidden value={userListSelector}>

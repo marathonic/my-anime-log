@@ -596,10 +596,19 @@ label {
   justify-content: center;
   /* position: absolute; */
   bottom: 0;
-  margin-bottom: 12%;
+  margin-bottom: 3%;
+}
+
+.user-details-foot > hr {
+  margin: 0;
 }
 
 /* users anime log */
+
+.hr-margin-exception {
+  margin: 1%;
+}
+
 .loading-log-container {
   margin: 20%;
   padding: 0;
@@ -632,6 +641,7 @@ label {
 .load-more-btn:hover {
   background-color: var(--soft-peach);
   color: #19172b;
+  cursor: pointer;
 }
 
 /* scroll bar */
@@ -684,6 +694,7 @@ label {
 .log-out-btn:hover {
   background-color: crimson;
   color: #19172b;
+  cursor: pointer;
 }
 
 .test-margin .thumbnail-category,
@@ -1030,5 +1041,21 @@ label {
     min-width: max-content;
     max-width: max-content;
     min-height: 450px;
+  }
+
+  /* mobile user-details-foot */
+  .user-details-foot {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* position: absolute; */
+    bottom: 0;
+    margin-bottom: 12%;
+  }
+
+  .user-details-foot > hr {
+    margin-block: 5%;
   }
 }
