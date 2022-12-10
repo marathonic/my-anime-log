@@ -336,10 +336,17 @@ hr {
   /* position: absolute; */
   /* margin-top: 1%; */
   padding: 0;
+
+  margin-top: 7%;
   /* margin-top: 14.6%; */
 
   /* right: 0; */
   /* margin-right: 2%; */
+}
+
+.synopsis-chevron:hover {
+  color: yellow;
+  animation: glow 1s ease-in-out infinite alternate;
 }
 
 .top-anime {
@@ -749,6 +756,17 @@ label {
   justify-content: "space-around";
 }
 
+@keyframes glow {
+  from {
+    text-shadow: 6 6 16px #fff, 6 6 26px #fff, 6 6 36px #e66673,
+      6 6 46px #e66673, 6 6 56px #e66673, 6 6 66px #e66673, 6 6 76px #e60073;
+  }
+  to {
+    text-shadow: 0 0 20px #fff, 0 0 30px #fff839, 0 0 40px #fff839,
+      0 0 50px #fff839, 0 0 60px #fff839, 0 0 70px #fff839, 0 0 80px #fff839;
+  }
+}
+
 /* end of desktop */
 
 @font-face {
@@ -779,13 +797,13 @@ label {
   .landing-down-chevron {
     bottom: 0;
     position: absolute;
-    padding-bottom: 5rem;
+    padding-bottom: 4.7rem;
   }
 
   .landing-down-text {
-    /* bottom: 0; */
     position: absolute;
-    padding-top: 46rem;
+    bottom: 20%;
+    /* padding-top: 46rem; */
     pointer-events: none;
   }
 
@@ -960,6 +978,8 @@ label {
     /* position: absolute; */
     /* margin-top: 1%; */
     padding: 0;
+
+    margin-bottom: 17%;
     /* margin-top: 14.6%; */
 
     /* right: 0; */

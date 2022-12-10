@@ -8,6 +8,7 @@ import { MobileSkeletonTile } from "../components/LoadingSkeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import Skeleton from "react-loading-skeleton";
 import { FiChevronDown, FiChevronUp } from "react-icons/fi";
+import { BsChevronDoubleDown, BsChevronDoubleUp } from "react-icons/bs";
 
 export default function Home({
   handleSearch,
@@ -209,10 +210,12 @@ export default function Home({
                 onClick={() => setCurrentView("explore")}
                 className="synopsis-chevron"
               >
-                <FiChevronDown style={{ pointerEvents: "none" }} />
+                <BsChevronDoubleDown style={{ pointerEvents: "none" }} />
               </button>
             </span>
-            <span className="offset-span landing-down-text">explore</span>
+            <span className="offset-span landing-down-text chevr-down">
+              explore
+            </span>
           </div>
         </div>
       )}
@@ -230,9 +233,9 @@ export default function Home({
             onClick={() => setCurrentView("search")}
           >
             <button className="synopsis-chevron">
-              <FiChevronUp style={{ pointerEvents: "none" }} />
+              <BsChevronDoubleUp style={{ pointerEvents: "none" }} />
             </button>
-            <span className="offset-span">search</span>
+            <span className="offset-span chevr-up">search</span>
           </div>
           <span className="centered-span">
             <h1>Explore</h1>
