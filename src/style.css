@@ -191,15 +191,6 @@ a:hover {
   /* opacity: 90%; */
 }
 
-.add-list-btn {
-  width: 50%;
-  background-color: var(--soft-peach);
-  color: var(--dark-blue);
-  font-size: 1.2rem;
-  font-weight: bold;
-  border: transparent;
-}
-
 .pic-container {
   padding: 0;
   margin: 0;
@@ -219,6 +210,7 @@ a:hover {
 
 .details-section {
   width: 50%;
+  height: 7rem;
 }
 
 .desktop-title {
@@ -227,6 +219,23 @@ a:hover {
   margin: 0;
   padding: 0;
   /* margin-left: 1vw; */
+}
+
+.desktop-btn-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.add-list-btn {
+  width: 100%;
+  height: 100%;
+  background-color: var(--soft-peach);
+  font-size: 3rem;
+  color: var(--dark-blue);
+  font-weight: bold;
+  border: transparent;
 }
 
 /* Youtube trailer */
@@ -257,6 +266,80 @@ hr {
   width: 100%;
   display: flex;
   justify-content: center;
+}
+
+/* desktop synopsis section */
+.synopsis-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--mysterious-blue);
+  /* background-color: var(--pastel-white); */
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.synopsis-hidden {
+  display: none;
+}
+
+.synopsis-div {
+  opacity: 93%;
+  background-color: var(--mint-white);
+  max-width: 95%;
+  font-size: 1.5rem;
+  margin-bottom: 20%;
+  /* visibility: hidden; */
+}
+
+.centered-span.synopsis-bar {
+  width: 100%;
+  height: max-content;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bebop-blue);
+  z-index: 99;
+  /* position: -webkit-sticky; */
+  position: sticky;
+  top: 0;
+  padding: 0;
+}
+
+.synopsis-text {
+  white-space: pre-line;
+  /* text-indent: 2%; */
+  line-height: 1.2;
+  padding-left: 1%;
+  color: black;
+}
+
+.synopsis-text::first-letter {
+  font-size: 2rem;
+  /* letter-spacing: 1px; */
+}
+
+.synopsis-btn {
+  width: 100%;
+  background-color: var(--dark-blue);
+  color: whitesmoke;
+  border: transparent;
+  font-size: 1.2rem;
+}
+
+.synopsis-chevron {
+  /* margin-left: 20%; */
+  background-color: transparent;
+  border: transparent;
+  color: white;
+  font-size: 2rem;
+  /* position: absolute; */
+  /* margin-top: 1%; */
+  padding: 0;
+  /* margin-top: 14.6%; */
+
+  /* right: 0; */
+  /* margin-right: 2%; */
 }
 
 .top-anime {
@@ -787,6 +870,21 @@ label {
     margin-block: 1.2%;
   }
 
+  .details-section {
+    width: 50%;
+  }
+
+  /* mobile add to log btn log-button */
+  .add-list-btn {
+    width: 50%;
+    background-color: var(--soft-peach);
+    color: var(--dark-blue);
+    font-size: 1.2rem;
+    font-weight: bold;
+    border: transparent;
+  }
+
+  /* mobile synopsis section */
   .synopsis-section {
     width: 100%;
     display: flex;

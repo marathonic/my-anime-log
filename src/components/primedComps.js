@@ -280,7 +280,9 @@ export const AnimeSynopsis = styled.div`
   ${(props) =>
     !props.isMobile &&
     css`
-      max-width: 50%;
+      max-width: 60%;
+      margin-bottom: 2%;
+      margin-top: 5px;
     `}
 
 

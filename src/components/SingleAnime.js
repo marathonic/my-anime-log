@@ -178,6 +178,16 @@ function SingleAnime({
               <li className="card-li">{myAnimeData.status}</li>
               <li className="card-li">MAL Score: {myAnimeData.score}</li>
             </CardDetails>
+            <span className="desktop-btn-container">
+              <button
+                className="add-list-btn"
+                onClick={() => setIsModalOpen(true)}
+                style={toggleVisible}
+              >
+                <BsFillBookmarkPlusFill size={52} />
+                log
+              </button>
+            </span>
             {/* testing placement */}
             {/* {!isMobile && (
               <YoutubeEmbed embedId={myAnimeData.trailer.embed_url} />
