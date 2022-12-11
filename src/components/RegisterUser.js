@@ -54,32 +54,27 @@ function RegisterUser({ setMyUser }) {
     }
   }, [user, userName, loading]);
   return (
-    <div className="register-user">
-      <div className="registration-header">
-        <h1>Sign Up</h1>
-        <h3>Join MyAnimeLog to start tracking your anime. It's free!</h3>
-        <br />
-      </div>
-      <form className="user-registration-form">
-        <br />
-        <button
-          onClick={signInWithGoogle}
-          className="register-user-btn with-google"
-        >
+    <div className="login-register-container">
+      <span className="login-header">
+        <h3>Sign Up</h3>
+        {/* <h3>Join MyAnimeLog to start tracking your anime</h3> */}
+      </span>
+      <form className="login-form">
+        <button onClick={signInWithGoogle} className="login-btn with-google">
           <span className="btn-icon-span">
             <FcGoogle size={25} style={{ pointerEvents: "none" }} />
           </span>
           Sign Up With Google
         </button>
         <hr />
-        <h3>OR</h3>
+        <span style={{ color: "white" }}>or</span>
         {/* <br /> */}
         {/* <p>Sign up with email</p> */}
         <label htmlFor="registration-user-name">Name:</label>
         <input
           name="registration-user-name"
           type="text"
-          className="register-user-input"
+          className="login-input"
           value={userName}
           onChange={(e) => setUserName(e.target.value)}
           placeholder="Your Name"
@@ -88,7 +83,7 @@ function RegisterUser({ setMyUser }) {
         <input
           name="registration-email"
           type="email"
-          className="register-user-input"
+          className="login-input"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="e.g: kimi@email.com"
@@ -97,7 +92,7 @@ function RegisterUser({ setMyUser }) {
         <input
           name="registration-pw"
           type="password"
-          className="register-user-input"
+          className="login-input"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder="password"
@@ -109,11 +104,14 @@ function RegisterUser({ setMyUser }) {
           Sign Up With Email
         </button>
       </form>
-      <div className="signup-foot">
-        <span>
-          <h3>Already registered?</h3>
-          <Link to="/login">Log In</Link>
-        </span>
+      <div className="login-signup-div">
+        <hr />
+        <h3>Already registered?</h3>
+        <Link to="/login">
+          {""}
+          <br />
+          <h3 className="action-link">Log In</h3>
+        </Link>
       </div>
     </div>
   );

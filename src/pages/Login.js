@@ -118,7 +118,7 @@ function Login({ setMyUser }) {
   };
 
   return (
-    <div>
+    <div className="login-register-container">
       <span className="login-header">
         <h3>Login</h3>
       </span>
@@ -176,12 +176,12 @@ function Login({ setMyUser }) {
           </span>
         </div>
       </form>
-
       <div className="login-signup-div">
+        <hr />
         <h3>Don't have an account?</h3>
         <Link to="/register">
           {" "}
-          <br /> <h3 style={{ color: "lightgreen" }}>Sign up</h3>
+          <br /> <h3 className="action-link">Sign up</h3>
         </Link>
       </div>
     </div>
