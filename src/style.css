@@ -403,11 +403,19 @@ hr {
   font-size: 1.33rem;
 }
 
-/* login  / log in */
+/* desktop login form  / desktop log in form */
+
+.login-register-container-frame {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
 
 .login-register-container {
   height: 100%;
   margin-top: 2rem;
+  width: 50%;
 }
 
 .login-header {
@@ -417,14 +425,22 @@ hr {
 }
 
 .login-form {
-  height: 19rem;
+  min-height: 100%;
+  height: 50vh;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
   /* background-color: rgba(255, 255, 255, 0.1); */
   /* background-color: rgba(0, 0, 0, 0.3); */
-  margin-bottom: 10%;
+}
+
+.login-form > hr {
+  margin: 0;
+}
+
+.login-signup-div > hr {
+  margin: 0;
 }
 
 label {
@@ -943,6 +959,17 @@ label {
 
   /* mobile login form */
 
+  .login-register-container {
+    height: 100%;
+    margin-top: 2rem;
+  }
+
+  .login-header {
+    text-align: center;
+    font-size: 2rem;
+    padding-top: 10%;
+  }
+
   .login-form {
     height: 19rem;
     display: flex;
@@ -952,6 +979,191 @@ label {
     /* background-color: rgba(255, 255, 255, 0.1); */
     background-color: transparent;
     margin-block: 10%;
+  }
+
+  .login-input,
+  .login-btn {
+    text-align: center;
+    height: 10%;
+    border: transparent;
+    width: 47%;
+  }
+
+  .login-btn {
+    /* width: 47%; */
+    background-color: var(--soft-peach);
+  }
+
+  .login-form > hr {
+    margin-block: 5%;
+  }
+
+  .login-signup-div > hr {
+    margin-block: 5%;
+  }
+
+  .forgot-pw,
+  .login-signup-div {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 100%;
+  }
+
+  .forgot-pw-span {
+    max-width: 60%;
+    text-align: center;
+  }
+
+  .forgot-pw-span > h3 {
+    margin-block: 6%;
+  }
+
+  /* password reset */
+
+  .pw-reset {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    height: 12rem;
+    margin-block: 10%;
+  }
+
+  .pw-reset-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    /* 
+    height: 3.9rem;
+    */
+    height: max-content;
+    width: 100%;
+    /* width: 60%;
+    justify-content: space-between;
+     */
+  }
+  /* 
+.pw-reset-container > div {
+    width: 60%;
+    display: flex;
+    justify-content: flex-start;
+} */
+
+  .pw-reset-form {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    justify-content: space-between;
+  }
+
+  .pw-reset-input {
+    height: 97%;
+    margin-bottom: 3%;
+    font-size: 1.1rem;
+    padding: 1%;
+  }
+
+  .pw-reset-btn {
+    background-color: rgb(172, 21, 21);
+    border: transparent;
+    color: white;
+    font-size: 1rem;
+    padding: 2%;
+    font-weight: bold;
+  }
+
+  .pw-reset-foot {
+    margin-top: 10%;
+  }
+
+  .cyber-yellow {
+    color: yellow;
+  }
+
+  .pw-reset-btn:disabled {
+    background-color: #ebebe4;
+    color: var(--bebop-blue);
+  }
+
+  .warning-span {
+    width: 100%;
+    background-color: var(--soft-peach);
+    color: black;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .register-user {
+    width: 100%;
+    /* height: 30rem; */
+    height: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin-top: 10%;
+  }
+
+  .registration-header {
+    text-align: center;
+  }
+
+  .user-registration-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    height: 100%;
+    width: 100%;
+    background-color: var(--category-blue);
+    background-color: transparent;
+  }
+
+  .register-user-input {
+    width: 50%;
+    /* margin-block: 1rem  ; */
+    height: 10%;
+  }
+
+  .register-user-btn {
+    background-color: var(--soft-peach);
+    background-color: var(--mint-white);
+    /* font-family: "sans-serif"; */
+    padding: 8px;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    color: black;
+    text-align: center;
+    height: 10%;
+
+    /* text-align: center; */
+    height: 10%;
+    width: 47%;
+    border: transparent;
+  }
+
+  .login-btn.with-google {
+    background-color: var(--mint-white);
+    padding: 8px;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    height: 10%;
+  }
+
+  .with-google {
+    background-color: #ffffff;
+    /* height: 2rem; */
+    color: rgb(37, 61, 61);
+  }
+
+  .login-btn:disabled {
+    background-color: #ebebe4;
+    color: #c9c9c8;
   }
 
   /* mobile signup form */

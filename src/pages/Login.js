@@ -118,71 +118,73 @@ function Login({ setMyUser }) {
   };
 
   return (
-    <div className="login-register-container">
-      <span className="login-header">
-        <h3>Login</h3>
-      </span>
-      <form className="login-form" onSubmit={handleSubmit}>
-        {warningMessage && (
-          <span className="cyber-yellow warning-span">{warningMessage}</span>
-        )}
-        <button
-          className="login-btn with-google"
-          onClick={signInWithGoogle}
-          disabled={isBtnOnTimeout}
-        >
-          <span className="btn-icon-span">
-            <FcGoogle size={25} style={{ pointerEvents: "none" }} />
-          </span>
-          Log in with Google
-        </button>
-        <hr />
-        <span style={{ color: "white" }}>or</span>
-        <label htmlFor="email-input">email: </label>
-        <input
-          name="email-input"
-          type="email"
-          className="login-input"
-          value={email}
-          onChange={handleEmailInputChange}
-          placeholder="e.g: john@example.com"
-        />
-        <label htmlFor="email-password">password: </label>
-        <input
-          name="email-password"
-          type="password"
-          className="login-input"
-          value={password}
-          onChange={hanldePasswordInputChange}
-          placeholder="your password here"
-        />
-        <button className="login-btn" onClick={validateSignIn}>
-          Log In
-        </button>
-        <div className="forgot-pw">
-          <span className="forgot-pw-span">
-            <Link to="/reset">
-              <span
-                style={{
-                  textDecoration: "underline",
-                  letterSpacing: "1px",
-                  fontSize: "1.1rem",
-                  marginTop: "1rem",
-                }}
-              >
-                Forgot password
-              </span>
-            </Link>
-          </span>
+    <div className="login-register-container-frame">
+      <div className="login-register-container">
+        <span className="login-header">
+          <h3>Login</h3>
+        </span>
+        <form className="login-form" onSubmit={handleSubmit}>
+          {warningMessage && (
+            <span className="cyber-yellow warning-span">{warningMessage}</span>
+          )}
+          <button
+            className="login-btn with-google"
+            onClick={signInWithGoogle}
+            disabled={isBtnOnTimeout}
+          >
+            <span className="btn-icon-span">
+              <FcGoogle size={25} style={{ pointerEvents: "none" }} />
+            </span>
+            Log in with Google
+          </button>
+          <hr />
+          <span style={{ color: "white" }}>or</span>
+          <label htmlFor="email-input">email: </label>
+          <input
+            name="email-input"
+            type="email"
+            className="login-input"
+            value={email}
+            onChange={handleEmailInputChange}
+            placeholder="e.g: john@example.com"
+          />
+          <label htmlFor="email-password">password: </label>
+          <input
+            name="email-password"
+            type="password"
+            className="login-input"
+            value={password}
+            onChange={hanldePasswordInputChange}
+            placeholder="your password here"
+          />
+          <button className="login-btn" onClick={validateSignIn}>
+            Log In
+          </button>
+          <div className="forgot-pw">
+            <span className="forgot-pw-span">
+              <Link to="/reset">
+                <span
+                  style={{
+                    textDecoration: "underline",
+                    letterSpacing: "1px",
+                    fontSize: "1.1rem",
+                    marginTop: "1rem",
+                  }}
+                >
+                  Forgot password
+                </span>
+              </Link>
+            </span>
+          </div>
+        </form>
+        <div className="login-signup-div">
+          <hr />
+          <h3>Don't have an account?</h3>
+          <Link to="/register">
+            {" "}
+            <br /> <h3 className="action-link">Sign up</h3>
+          </Link>
         </div>
-      </form>
-      <div className="login-signup-div">
-        <hr />
-        <h3>Don't have an account?</h3>
-        <Link to="/register">
-          {" "}
-          <br /> <h3 className="action-link">Sign up</h3>
-        </Link>
       </div>
     </div>
   );
