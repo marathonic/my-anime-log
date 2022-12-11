@@ -341,11 +341,11 @@ export const Selector = styled.select`
   color: #19172b;
   // color: none <-- works the same
   font-weight: ${(props) => (props.isBold ? "bold" : 100)};
-  margin-bottom: ${(props) => (props.isBold ? "3%" : 0)};
+  margin-bottom: ${(props) => (props.isBold && props.isMobile ? "3%" : 0)};
   ${(props) =>
     !props.isMobile &&
     css`
-      margin-bottom: 1%;
+      margin-bottom: 0;
     `}
 `;
 

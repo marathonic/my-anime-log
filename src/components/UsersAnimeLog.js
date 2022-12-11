@@ -432,6 +432,16 @@ function UsersAnimeLog({
         </div>
       )}
       {currentCategoryLog && currentCategoryLog}
+      {!currentCategoryLog &&
+        shouldCategoryUpdate[`${userListSelector}`] &&
+        isLastFetchEmpty[`${userListSelector}`] && (
+          <div>
+            <h1>
+              This category is empty, go to the Explore section to find new
+              anime!
+            </h1>
+          </div>
+        )}
       {isLoading && fetchedUserLogs[`${userListSelector}`]?.length > 0 && (
         <div className="loading-more-log-container">
           <BeatLoader size={20} color="whitesmoke" />

@@ -268,7 +268,10 @@ function App() {
   return (
     <AppContainer>
       {/*
-       */}
+      DIFFERENT THEMES (Dark mode, etc...) 
+      To add Light theme / Dark theme or other theme options, 
+      wrap the <div className="stars-test"> below with a stateful var: {currentTheme === "stars" && <div className="stars-test"> }, 
+      and do the same for all the other themes. Obviously, create a stateful var for each theme first      */}
       <div className="stars-test">
         <Stars></Stars>
         <Stars2></Stars2>
