@@ -959,9 +959,17 @@ label {
 
   /* mobile login form */
 
+  .login-register-container-frame {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
   .login-register-container {
     height: 100%;
     margin-top: 2rem;
+    width: 100%;
   }
 
   .login-header {
