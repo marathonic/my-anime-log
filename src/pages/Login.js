@@ -119,7 +119,9 @@ function Login({ setMyUser }) {
 
   return (
     <div>
-      <h3>Log in</h3>
+      <span className="login-header">
+        <h3>Login</h3>
+      </span>
       <form className="login-form" onSubmit={handleSubmit}>
         {warningMessage && (
           <span className="cyber-yellow warning-span">{warningMessage}</span>

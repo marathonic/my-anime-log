@@ -272,13 +272,13 @@ function App() {
       To add Light theme / Dark theme or other theme options, 
       wrap the <div className="stars-test"> below with a stateful var: {currentTheme === "stars" && <div className="stars-test"> }, 
       and do the same for all the other themes. Obviously, create a stateful var for each theme first      */}
+
+      <Navbar isMobile={isMobile} />
       <div className="stars-test">
         <Stars></Stars>
         <Stars2></Stars2>
         <Stars3></Stars3>
       </div>
-
-      <Navbar isMobile={isMobile} />
       <Routes>
         <Route
           path="anime/:mal_id"

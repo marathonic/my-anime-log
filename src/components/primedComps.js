@@ -26,6 +26,8 @@ export const NavBar = styled.nav`
   justify-content: space-between;
   align-items:center;
   font-size: 2rem;
+  padding: 0;
+  margin: 0;
   
 `;
 

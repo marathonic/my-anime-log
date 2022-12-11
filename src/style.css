@@ -399,6 +399,11 @@ hr {
 
 /* login  / log in */
 
+.login-header {
+  text-align: center;
+  font-size: 2rem;
+}
+
 .login-form {
   height: 19rem;
   display: flex;
@@ -811,6 +816,13 @@ label {
     max-height: 100%;
     max-width: 100%;
     position: static;
+    /* With position: static, the Nav at the top appeared to have a little bit of margin */
+    /* Setting the position: fixed */
+    /* EDIT: position: fixed is good on Mobile, but not Desktop  */
+    /* margin: 0; */
+    /* padding: 0; */
+    position: static;
+    /* position: fixed; */
   }
 
   .search-bar-btn {
