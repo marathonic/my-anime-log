@@ -79,6 +79,10 @@ a:hover {
   color: var(--lightest-blue);
 }
 
+button:hover {
+  cursor: pointer;
+}
+
 .logo {
   width: 20%;
   color: var(--soft-peach);
@@ -606,7 +610,7 @@ label {
 .login-btn.with-google {
   background-color: var(--mint-white);
   padding: 8px;
-  width: 50%;
+  width: 47%;
   display: flex;
   align-items: center;
   text-align: center;
@@ -617,6 +621,12 @@ label {
   background-color: #ffffff;
   /* height: 2rem; */
   color: rgb(37, 61, 61);
+}
+
+.login-google-text {
+  width: 100%;
+  text-align: center;
+  margin-left: -25px;
 }
 
 .login-btn:disabled {
@@ -987,6 +997,22 @@ label {
     /* background-color: rgba(255, 255, 255, 0.1); */
     background-color: transparent;
     margin-block: 10%;
+  }
+
+  .login-btn.with-google {
+    background-color: var(--mint-white);
+    padding: 8px;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    height: 10%;
+  }
+
+  .with-google {
+    background-color: #ffffff;
+    /* height: 2rem; */
+    color: rgb(37, 61, 61);
   }
 
   .login-input,

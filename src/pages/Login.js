@@ -135,7 +135,7 @@ function Login({ setMyUser }) {
             <span className="btn-icon-span">
               <FcGoogle size={25} style={{ pointerEvents: "none" }} />
             </span>
-            Log in with Google
+            <span className="login-google-text">Log in with Google</span>
           </button>
           <hr />
           <span style={{ color: "white" }}>or</span>
