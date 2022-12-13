@@ -9,6 +9,7 @@ const Synopsis = ({
   setShowSynopsis,
   showSynopsis,
   isMobile,
+  isTrailerAvailable,
 }) => {
   const formattedSynopsis = animeSynopsis.replaceAll(". ", ".\n\n");
   const [hasSynopsisBeenClicked, setHasSynopsisBeenClicked] = useState(false);
@@ -21,6 +22,10 @@ const Synopsis = ({
   };
 
   useEffect(() => {
+    if (!isTrailerAvailable && !hasSynopsisBeenClicked && !isMobile) {
+      setShowSynopsis(true);
+      return;
+    }
     if (!hasSynopsisBeenClicked) return;
     if (!showSynopsis) {
       window.scrollTo(0, 0);

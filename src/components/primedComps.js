@@ -306,6 +306,7 @@ export const SynopsisBar = styled.span`
   justify-content: center;
   align-items: center;
   background-color: var(--bebop-blue);
+  background-color: transparent;
   z-index: 99;
   /* position: -webkit-sticky; */
   position: sticky;

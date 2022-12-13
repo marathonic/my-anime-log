@@ -253,6 +253,7 @@ function SingleAnime({
         isModalOpen={isModalOpen}
         showSynopsis={showSynopsis}
         setShowSynopsis={setShowSynopsis}
+        isTrailerAvailable={myAnimeData.trailer.embed_url}
       />
     </>
   );

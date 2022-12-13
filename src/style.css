@@ -303,7 +303,7 @@ hr {
   align-items: center;
   background-color: var(--mysterious-blue);
   /* background-color: var(--pastel-white); */
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
 .synopsis-hidden {
@@ -324,7 +324,9 @@ hr {
   height: max-content;
   display: flex;
   flex-direction: column;
-  background-color: var(--bebop-blue);
+  /* background-color: var(--bebop-blue); */
+  /* background-color: transparent; */
+  background-color: transparent;
   z-index: 99;
   /* position: -webkit-sticky; */
   position: sticky;
@@ -1278,6 +1280,7 @@ label {
     display: flex;
     flex-direction: column;
     background-color: var(--bebop-blue);
+    background-color: transparent;
     z-index: 99;
     /* position: -webkit-sticky; */
     position: sticky;
