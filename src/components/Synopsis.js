@@ -38,7 +38,10 @@ const Synopsis = ({
     <section className={isModalOpen ? "synopsis-hidden" : "synopsis-section"}>
       <span className="centered-span synopsis-bar" id="synopsis-autoscroll">
         <h1>Synopsis</h1>
-        <button onClick={handleSynopsis} className="synopsis-chevron">
+        <button
+          onClick={handleSynopsis}
+          className="synopsis-chevron chevron-margin-exception"
+        >
           {showSynopsis ? <FiChevronUp /> : <FiChevronDown />}
         </button>
       </span>

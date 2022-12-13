@@ -139,22 +139,50 @@ function SingleAnime({
   return (
     <>
       <AnimeCard isMobile={isMobile}>
-        {/* <h4 style={{ color: "white" }}>{message}</h4> */}
-        <div className="pic-container">
-          <CardThumbnail
-            src={myAnimeData.images.jpg.image_url}
-            alt={myAnimeData.title}
-            isMobile={isMobile}
-          />
-
-          <span className="card-title">
-            {/* Commenting out while beginning styling for desktop: 
-          <h3 style={bigStyle}>{myAnimeTitle}</h3> */}
-            {isMobile && <h3>{myAnimeTitle}</h3>}
+        {!isMobile && (
+          <span className="overview-splash">
+            <div className="pic-container">
+              <CardThumbnail
+                src={myAnimeData.images.jpg.image_url}
+                alt={myAnimeData.title}
+                isMobile={isMobile}
+              />
+            </div>
+            <div className="big-splash-container">
+              <div>
+                <span className="card-title">
+                  {/* Commenting out while beginning styling for desktop: 
+        <h3 style={bigStyle}>{myAnimeTitle}</h3> */}
+                  {isMobile && <h3>{myAnimeTitle}</h3>}
+                </span>
+              </div>
+              <div className="details-section">
+                <span className="desktop-title">
+                  <h2>{myAnimeTitle}</h2>
+                </span>
+              </div>
+              <CardDetails>
+                <li className="card-li">Episodes: {myAnimeData.episodes}</li>
+                <li className="card-li">{myAnimeData.status}</li>
+                <li className="card-li">MAL Score: {myAnimeData.score}</li>
+              </CardDetails>
+              <span className="desktop-btn-container">
+                <button
+                  className="add-list-btn"
+                  onClick={() => setIsModalOpen(true)}
+                  style={toggleVisible}
+                >
+                  <BsFillBookmarkPlusFill size={52} />
+                  log
+                </button>
+              </span>
+            </div>
           </span>
-        </div>
+        )}
+        {/* <h4 style={{ color: "white" }}>{message}</h4> */}
+
         {/* CONDITION: Render either layout depending on whether device is mobile or desktop */}
-        {isMobile ? (
+        {isMobile && (
           <>
             <span className="synopsis-btn-span">
               <button className="synopsis-btn">
@@ -167,32 +195,6 @@ function SingleAnime({
               <li className="card-li">MAL Score: {myAnimeData.score}</li>
             </CardDetails>
           </>
-        ) : (
-          <div className="details-section">
-            <span className="desktop-title">
-              <h2>{myAnimeTitle}</h2>
-            </span>
-
-            <CardDetails>
-              <li className="card-li">Episodes: {myAnimeData.episodes}</li>
-              <li className="card-li">{myAnimeData.status}</li>
-              <li className="card-li">MAL Score: {myAnimeData.score}</li>
-            </CardDetails>
-            <span className="desktop-btn-container">
-              <button
-                className="add-list-btn"
-                onClick={() => setIsModalOpen(true)}
-                style={toggleVisible}
-              >
-                <BsFillBookmarkPlusFill size={52} />
-                log
-              </button>
-            </span>
-            {/* testing placement */}
-            {/* {!isMobile && (
-              <YoutubeEmbed embedId={myAnimeData.trailer.embed_url} />
-            )} */}
-          </div>
         )}
         {/* Somewhere in this AnimeCard component,
       we want React-responsive to conditionally render

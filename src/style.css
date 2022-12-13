@@ -204,11 +204,8 @@ button:hover {
 .pic-container {
   padding: 0;
   margin: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-end;
-  flex-wrap: wrap;
+  width: max-content;
+  height: max-content;
 }
 
 .card-title {
@@ -220,7 +217,22 @@ button:hover {
 
 .details-section {
   width: 50%;
-  height: 7rem;
+  max-height: 7rem;
+}
+
+.overview-splash {
+  width: 60%;
+  display: flex;
+}
+
+.big-splash-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 0;
+  margin: 0;
 }
 
 .desktop-title {
@@ -246,6 +258,8 @@ button:hover {
   color: var(--dark-blue);
   font-weight: bold;
   border: transparent;
+  /* margin-top: -3%; */
+  /* max-height: 100px; */
 }
 
 /* Youtube trailer */
@@ -357,6 +371,10 @@ hr {
 .synopsis-chevron:hover {
   color: yellow;
   animation: glow 1s ease-in-out infinite alternate;
+}
+
+.chevron-margin-exception {
+  margin: 1%;
 }
 
 .top-anime {
@@ -1301,6 +1319,10 @@ label {
 
     /* right: 0; */
     /* margin-right: 2%; */
+  }
+
+  .chevron-margin-exception {
+    margin: 0;
   }
 
   /* results & pagination */

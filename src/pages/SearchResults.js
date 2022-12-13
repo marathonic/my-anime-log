@@ -79,6 +79,7 @@ function SearchResults({ isMobile }) {
       response
         .json()
         .then((responseData) => {
+          console.log(responseData.data);
           setAllResults(responseData.data);
           setPagination(responseData.pagination);
           setLoading(false);
