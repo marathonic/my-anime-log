@@ -183,10 +183,11 @@ export const CardDetails = styled.ul`
   background-color: #3f3351;
   justify-items: space-evenly;
   align-items: center;
-  gap: 3%;
-  padding-block: 5%;
+  // gap: 3%;
+  // height: 100%;
+  padding-block: 2%;
   color: white;
-  margin-block: 3%;
+  margin-block: 2%;
   font-size: 1.3rem;
 
   ${(props) =>

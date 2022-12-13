@@ -140,7 +140,7 @@ function SingleAnime({
     <>
       <AnimeCard isMobile={isMobile}>
         {!isMobile && (
-          <span className="overview-splash">
+          <div className="overview-splash">
             <div className="pic-container">
               <CardThumbnail
                 src={myAnimeData.images.jpg.image_url}
@@ -149,18 +149,9 @@ function SingleAnime({
               />
             </div>
             <div className="big-splash-container">
-              <div>
-                <span className="card-title">
-                  {/* Commenting out while beginning styling for desktop: 
-        <h3 style={bigStyle}>{myAnimeTitle}</h3> */}
-                  {isMobile && <h3>{myAnimeTitle}</h3>}
-                </span>
-              </div>
-              <div className="details-section">
-                <span className="desktop-title">
-                  <h2>{myAnimeTitle}</h2>
-                </span>
-              </div>
+              <span className="desktop-title">
+                <h2>{myAnimeTitle}</h2>
+              </span>
               <CardDetails>
                 <li className="card-li">Episodes: {myAnimeData.episodes}</li>
                 <li className="card-li">{myAnimeData.status}</li>
@@ -177,18 +168,19 @@ function SingleAnime({
                 </button>
               </span>
             </div>
-          </span>
+          </div>
         )}
         {/* <h4 style={{ color: "white" }}>{message}</h4> */}
 
         {/* CONDITION: Render either layout depending on whether device is mobile or desktop */}
         {isMobile && (
           <>
-            <span className="synopsis-btn-span">
-              <button className="synopsis-btn">
-                <FaQuestionCircle color="lightgreen" />
-              </button>
-            </span>
+            <CardThumbnail
+              src={myAnimeData.images.jpg.image_url}
+              alt={myAnimeData.title}
+              isMobile={isMobile}
+            />
+            <span className="synopsis-btn-span"></span>
             <CardDetails isMobile={isMobile}>
               <li className="card-li">Episodes: {myAnimeData.episodes}</li>
               <li className="card-li">{myAnimeData.status}</li>
