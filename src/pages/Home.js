@@ -247,7 +247,7 @@ export default function Home({
           {/* while the images are loading, we want to render divs that clearly indicate it, e.g: a sliding glow across each div */}
           {/* <Category isMobile={isMobile}>{topTen}</Category> */}
           <MobileSkeletonTile></MobileSkeletonTile>
-          {airing && <h3 className="categ-head">Airing this week</h3>}
+          {airing && <h3 className="categ-head">Airing this season</h3>}
           {topAiring}
           {upcoming && <h3 className="categ-head">Top Upcoming</h3>}
           {topUpcoming}

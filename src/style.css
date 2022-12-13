@@ -213,6 +213,7 @@ button:hover {
   display: flex;
   flex-wrap: wrap;
   text-align: center;
+  margin-top: 0;
 }
 
 .details-section {
@@ -980,6 +981,7 @@ label {
     display: flex;
     flex-wrap: wrap;
     text-align: center;
+    margin-top: 2%;
   }
 
   .card-li {

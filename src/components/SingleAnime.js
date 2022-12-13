@@ -180,6 +180,10 @@ function SingleAnime({
               alt={myAnimeData.title}
               isMobile={isMobile}
             />
+            <span className="card-title">
+              <h3>{myAnimeTitle}</h3>
+            </span>
+
             <span className="synopsis-btn-span"></span>
             <CardDetails isMobile={isMobile}>
               <li className="card-li">Episodes: {myAnimeData.episodes}</li>
