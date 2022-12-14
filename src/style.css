@@ -431,6 +431,11 @@ hr {
   font-size: 1.33rem;
 }
 
+/* results container */
+.result-list-item:hover {
+  background-color: rgba(220, 20, 60, 0.4);
+}
+
 /* desktop login form  / desktop log in form */
 
 .login-register-container-frame {

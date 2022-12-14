@@ -9,7 +9,6 @@ const Synopsis = ({
   setShowSynopsis,
   showSynopsis,
   isMobile,
-  isTrailerAvailable,
 }) => {
   const formattedSynopsis = animeSynopsis.replaceAll(". ", ".\n\n");
   const [hasSynopsisBeenClicked, setHasSynopsisBeenClicked] = useState(false);
@@ -22,10 +21,6 @@ const Synopsis = ({
   };
 
   useEffect(() => {
-    if (!isTrailerAvailable && !hasSynopsisBeenClicked && !isMobile) {
-      setShowSynopsis(true);
-      return;
-    }
     if (!hasSynopsisBeenClicked) return;
     if (!showSynopsis) {
       window.scrollTo(0, 0);
@@ -43,10 +38,7 @@ const Synopsis = ({
     <section className={isModalOpen ? "synopsis-hidden" : "synopsis-section"}>
       <span className="centered-span synopsis-bar" id="synopsis-autoscroll">
         <h1>Synopsis</h1>
-        <button
-          onClick={handleSynopsis}
-          className="synopsis-chevron chevron-margin-exception"
-        >
+        <button onClick={handleSynopsis} className="synopsis-chevron">
           {showSynopsis ? <FiChevronUp /> : <FiChevronDown />}
         </button>
       </span>

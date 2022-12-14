@@ -37,9 +37,13 @@ function SearchResults({ isMobile }) {
         // MAKE THESE INTO <Link /> Components, each to their own URL, just like in Home.js!
         //         <Link to={`/anime/${anime.mal_id}`} key={anime.mal_id}>
         // In this case, <Link to={`anime/${result.mal_id} key={result.mal_id}`}
-        <li style={{ color: "white" }} key={result.mal_id}>
+        <li
+          style={{ color: "white" }}
+          key={result.mal_id}
+          className="result-list-item"
+        >
           <Link to={`/anime/${result.mal_id}`} key={result.mal_id}>
-            <ResultSpan>
+            <ResultSpan isMobile={isMobile}>
               {/* <CardThumbnail
               src={result.images.jpg.image_url}
               alt={result.title}

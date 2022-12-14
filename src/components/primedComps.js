@@ -321,6 +321,18 @@ export const ResultSpan = styled.span`
   justify-content: flex-start;
   align-items: center;
   margin-block: 3%;
+
+  ${(props) =>
+    !props.isMobile &&
+    css`
+      max-width: 100%;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-block: 3%;
+      font-size: 1.6rem;
+    `}
 `;
 
 export const ResultThumbnail = styled.img`
