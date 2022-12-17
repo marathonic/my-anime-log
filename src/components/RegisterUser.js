@@ -16,10 +16,50 @@ function RegisterUser({ setMyUser }) {
   const [password, setPassword] = useState("");
   const [userName, setUserName] = useState("");
   const [user, loading, error] = useAuthState(auth);
+  const [warningMessage, setWarningMessage] = useState(null);
   const navigate = useNavigate();
 
-  const register = () => {
-    if (!userName) alert("Please enter a name");
+  const validateSignUp = async () => {
+    if (!userName.trim() || !email.trim() || !password.trim()) return;
+    let isValidEmail =
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (email.length <= 5 || !isValidEmail.test(email)) {
+      setWarningMessage("Invalid email address");
+      return;
+    }
+    try {
+      await register();
+    } catch (err) {
+      console.error(err);
+      if (err.code === "auth/invalid-email") {
+        setWarningMessage("invalid email");
+        return;
+      }
+      switch (err.code) {
+        case "auth/invalid-email":
+          setWarningMessage("invalid email");
+          break;
+
+        case "auth/user-not-found":
+          setWarningMessage("user not found");
+          break;
+
+        default:
+          break;
+      }
+      // if (err.code === "auth/wrong-password") {
+      //   setWarningMessage("wrong password");
+      // }
+    }
+
+    handleFormSubmit();
+  };
+
+  const register = (e) => {
+    // if (!userName) alert("Please enter a name");
+    e.preventDefault();
+    if (!email.trim() || !password.trim() || !userName.trim()) return;
+    if (!userName || !email || !password) return;
     // registerWithEmailAndPassword(userName, email, password);
     registerWithEmailAndPassword(auth, email, password);
   };
@@ -57,7 +97,7 @@ function RegisterUser({ setMyUser }) {
     <div className="login-register-container-frame">
       <div className="login-register-container">
         <span className="login-header">
-          <h3>Sign Up</h3>
+          <h3>Sign-up</h3>
           {/* <h3>Join MyAnimeLog to start tracking your anime</h3> */}
         </span>
         <form className="login-form">
@@ -98,7 +138,7 @@ function RegisterUser({ setMyUser }) {
             onChange={(e) => setPassword(e.target.value)}
             placeholder="password"
           />
-          <button onClick={register} className="register-user-btn">
+          <button onClick={(e) => register(e)} className="register-user-btn">
             <span className="btn-icon-span">
               <MdMail size={25} style={{ pointerEvents: "none" }} />
             </span>

@@ -178,8 +178,9 @@ button:hover {
 }
 
 .search-bar-btn:disabled {
-  opacity: 70;
+  opacity: 90;
   background-color: palevioletred;
+  background-color: darkslategray;
 }
 
 .centered-div.landing-chevron {
@@ -335,6 +336,8 @@ hr {
   /* background-color: transparent; */
   background-color: transparent;
   background-color: #090a0f;
+  background: radial-gradient(ellipse at bottom, #0e0c3f 0%, #090a0f 100%);
+
   z-index: 99;
   /* position: -webkit-sticky; */
   position: sticky;
@@ -1264,6 +1267,7 @@ label {
     font-size: 1.2rem;
     font-weight: bold;
     border: transparent;
+    border-radius: 0;
   }
 
   /* mobile synopsis section */

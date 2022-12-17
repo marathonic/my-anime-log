@@ -210,7 +210,7 @@ export default function Home({
                 onClick={() => setCurrentView("explore")}
                 className="synopsis-chevron"
               >
-                <BsChevronDoubleDown style={{ pointerEvents: "none" }} />
+                <FiChevronDown style={{ pointerEvents: "none" }} />
               </button>
             </span>
             <span className="offset-span landing-down-text chevr-down">
@@ -233,7 +233,7 @@ export default function Home({
             onClick={() => setCurrentView("search")}
           >
             <button className="synopsis-chevron">
-              <BsChevronDoubleUp style={{ pointerEvents: "none" }} />
+              <FiChevronUp style={{ pointerEvents: "none" }} />
             </button>
             <span className="offset-span chevr-up">search</span>
           </div>
