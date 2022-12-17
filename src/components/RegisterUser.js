@@ -19,40 +19,48 @@ function RegisterUser({ setMyUser }) {
   const [warningMessage, setWarningMessage] = useState(null);
   const navigate = useNavigate();
 
-  const validateSignUp = async () => {
-    if (!userName.trim() || !email.trim() || !password.trim()) return;
+  const validateSignUp = (e) => {
+    e.preventDefault();
+    if (!userName) {
+      setWarningMessage("please provide a Name");
+      return;
+    }
+    if (!email) {
+      setWarningMessage("please provide an Email");
+      return;
+    }
     let isValidEmail =
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (email.length <= 5 || !isValidEmail.test(email)) {
       setWarningMessage("Invalid email address");
       return;
     }
+    if (!userName.trim() || !email.trim() || !password.trim()) {
+      setWarningMessage("fields cannot be empty");
+      return;
+    }
+    if (password.length < 8) {
+      setWarningMessage("password must be at least 8 characters long");
+      return;
+    }
+
     try {
-      await register();
+      register();
     } catch (err) {
       console.error(err);
       if (err.code === "auth/invalid-email") {
         setWarningMessage("invalid email");
         return;
       }
-      switch (err.code) {
-        case "auth/invalid-email":
-          setWarningMessage("invalid email");
-          break;
 
-        case "auth/user-not-found":
-          setWarningMessage("user not found");
-          break;
-
-        default:
-          break;
-      }
       // if (err.code === "auth/wrong-password") {
       //   setWarningMessage("wrong password");
       // }
     }
 
-    handleFormSubmit();
+    registerWithEmailAndPassword(auth, email, password);
+
+    //register();
   };
 
   const register = (e) => {
@@ -93,6 +101,14 @@ function RegisterUser({ setMyUser }) {
       // EDIT: It now redirects us.
     }
   }, [user, userName, loading]);
+
+  useEffect(() => {
+    if (warningMessage) {
+      setWarningMessage(null);
+    }
+    //eslint-disable-next-line
+  }, [userName, email]);
+
   return (
     <div className="login-register-container-frame">
       <div className="login-register-container">
@@ -119,6 +135,7 @@ function RegisterUser({ setMyUser }) {
             value={userName}
             onChange={(e) => setUserName(e.target.value)}
             placeholder="Your Name"
+            autoComplete="off"
           />
           <label htmlFor="registration-email">Email:</label>
           <input
@@ -138,12 +155,16 @@ function RegisterUser({ setMyUser }) {
             onChange={(e) => setPassword(e.target.value)}
             placeholder="password"
           />
-          <button onClick={(e) => register(e)} className="register-user-btn">
+          <button
+            onClick={(e) => validateSignUp(e)}
+            className="register-user-btn"
+          >
             <span className="btn-icon-span">
               <MdMail size={25} style={{ pointerEvents: "none" }} />
             </span>
             Sign Up With Email
           </button>
+          <p>{warningMessage && warningMessage}</p>
         </form>
         <div className="login-signup-div">
           <hr />
