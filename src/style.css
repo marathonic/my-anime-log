@@ -175,6 +175,7 @@ button:hover {
   border-color: transparent;
   border-end-end-radius: 24px;
   border-bottom-left-radius: 24px;
+  margin-left: 0;
 }
 
 .search-bar-btn:disabled {
@@ -924,6 +925,8 @@ label {
     border-color: transparent;
     border-end-end-radius: 0px;
     border-bottom-left-radius: 0px;
+    /* border-top-left-radius: 3.3px; */
+    margin-left: -2.4px;
   }
 
   .loading-skeleton-div {
@@ -977,8 +980,10 @@ label {
     border-radius: 7px;
     color: white;
     font-size: 1.2rem;
-    padding: 0.5%;
+    padding: 0.4%;
     letter-spacing: 1px;
+    border-end-end-radius: 0;
+    border-right: none;
   }
 
   .pic-container {
