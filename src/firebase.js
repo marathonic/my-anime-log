@@ -105,9 +105,26 @@ const signInWithGoogle = async () => {
   }
 };
 
-const logInWithEmailAndPassword = async (email, password) => {
+const logInWithEmailAndPassword = async (email, password, user) => {
   try {
+    // check if email exists in database
+    const q = query(
+      collection(db, "theNewUsers"),
+      where("uid", "==", user.uid)
+    );
+    const docs = await getDocs(q);
+    if (docs.docs.length === 0) {
+      await setDoc(doc(db, "theNewUsers", user.uid), {
+        uid: user.uid,
+        name: user.displayName,
+        authProvider: "google",
+        email: user.email,
+      });
+    }
+
+    // if email exists,
     await signInWithEmailAndPassword(auth, email);
+    // if email does not exist, set warningMessage to "user does not exist"
   } catch (err) {
     console.error(err);
     alert(err.message);

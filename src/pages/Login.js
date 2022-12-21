@@ -34,18 +34,21 @@ function Login({ setMyUser }) {
       await signInWithEmailAndPassword(auth, email, password);
     } catch (err) {
       console.error(err);
-      switch (err.code) {
-        case "auth/wrong-password":
-          setWarningMessage("wrong password");
-          break;
-
-        case "auth/user-not-found":
-          setWarningMessage("user not found");
-          break;
-
-        default:
-          break;
-      }
+      let errorCode = err.code;
+      let trimmedErrorMsg = errorCode.substr(5);
+      setWarningMessage(trimmedErrorMsg.replace(/-/g, " "));
+      //switch (err.code) {
+      //  case "auth/wrong-password":
+      //    setWarningMessage("wrong password");
+      //    break;
+      //
+      //  case "auth/user-not-found":
+      //    setWarningMessage("user not found");
+      //    break;
+      //
+      //  default:
+      //    break;
+      //}
       // if (err.code === "auth/wrong-password") {
       //   setWarningMessage("wrong password");
       // }
@@ -59,7 +62,7 @@ function Login({ setMyUser }) {
       const fetchUserName = async () => {
         try {
           const q = query(
-            collection(db, "users"),
+            collection(db, "theNewUsers"),
             where("uid", "==", user?.uid)
           );
           const doc = await getDocs(q);
@@ -79,6 +82,7 @@ function Login({ setMyUser }) {
         }
       };
       fetchUserName();
+      console.log("running handleFormSubmit");
     }
   };
 
