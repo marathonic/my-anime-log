@@ -139,11 +139,18 @@ const registerWithEmailAndPassword = async (name, email, password) => {
     //
     // OK THIS IS WHERE WE'RE SETTING THE ROUTE FOR NEW USERS (email&pw):
     //
-    await addDoc(collection(db, "users"), {
+    //await addDoc(collection(db, "theNewUsers"), {
+    //  uid: user.uid,
+    //  name,
+    //  authProvider: "local",
+    //  email,
+    //});
+
+    await setDoc(doc(db, "theNewUsers", user.uid), {
       uid: user.uid,
-      name,
+      name: "TESTING NAME",
       authProvider: "local",
-      email,
+      email: "castleracer@outlook.com",
     });
   } catch (err) {
     console.error(err);

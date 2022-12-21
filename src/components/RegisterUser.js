@@ -78,7 +78,7 @@ function RegisterUser({ setMyUser }) {
       const fetchUserName = async () => {
         try {
           const q = query(
-            collection(db, "users"),
+            collection(db, "theNewUsers"),
             where("uid", "==", user?.uid)
           );
           const doc = await getDocs(q);
