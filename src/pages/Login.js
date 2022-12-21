@@ -57,6 +57,11 @@ function Login({ setMyUser }) {
     handleFormSubmit();
   };
 
+  const setEditedWarningMessage = (errorCode) => {
+    let trimmedErrorMsg = errorCode.substr(5);
+    setWarningMessage(trimmedErrorMsg.replace(/-/g, " "));
+  };
+
   const handleFormSubmit = () => {
     if (user) {
       const fetchUserName = async () => {

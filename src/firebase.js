@@ -40,6 +40,7 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 
 const googleProvider = new GoogleAuthProvider();
+
 const signInWithGoogle = async () => {
   try {
     const res = await signInWithPopup(auth, googleProvider);
@@ -131,7 +132,13 @@ const logInWithEmailAndPassword = async (email, password, user) => {
   }
 };
 
-const registerWithEmailAndPassword = async (auth, username, mail, password) => {
+const registerWithEmailAndPassword = async (
+  auth,
+  username,
+  mail,
+  password,
+  callback
+) => {
   try {
     const res = await createUserWithEmailAndPassword(auth, mail, password);
     const user = res.user;
@@ -154,6 +161,7 @@ const registerWithEmailAndPassword = async (auth, username, mail, password) => {
     });
   } catch (err) {
     console.error(err);
+    callback(err.code);
     alert(err.message);
   }
 };

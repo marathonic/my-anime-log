@@ -19,6 +19,11 @@ function RegisterUser({ setMyUser }) {
   const [warningMessage, setWarningMessage] = useState(null);
   const navigate = useNavigate();
 
+  const setEditedWarningMessage = (errorCode) => {
+    let trimmedErrorMsg = errorCode.substr(5);
+    setWarningMessage(trimmedErrorMsg.replace(/-/g, " "));
+  };
+
   const validateSignUp = (e) => {
     // e.preventDefault();
     if (!userName) {
@@ -69,7 +74,13 @@ function RegisterUser({ setMyUser }) {
     if (!email.trim() || !password.trim() || !userName.trim()) return;
     if (!userName || !email || !password) return;
     // registerWithEmailAndPassword(userName, email, password);
-    registerWithEmailAndPassword(auth, userName, email, password);
+    registerWithEmailAndPassword(
+      auth,
+      userName,
+      email,
+      password,
+      setEditedWarningMessage
+    );
   };
 
   useEffect(() => {
