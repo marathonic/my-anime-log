@@ -131,9 +131,9 @@ const logInWithEmailAndPassword = async (email, password, user) => {
   }
 };
 
-const registerWithEmailAndPassword = async (name, email, password) => {
+const registerWithEmailAndPassword = async (auth, username, mail, password) => {
   try {
-    const res = await createUserWithEmailAndPassword(auth, email, password);
+    const res = await createUserWithEmailAndPassword(auth, mail, password);
     const user = res.user;
     //
     //
@@ -148,9 +148,9 @@ const registerWithEmailAndPassword = async (name, email, password) => {
 
     await setDoc(doc(db, "theNewUsers", user.uid), {
       uid: user.uid,
-      name: "TESTING NAME",
+      name: username,
       authProvider: "local",
-      email: "castleracer@outlook.com",
+      email: mail,
     });
   } catch (err) {
     console.error(err);

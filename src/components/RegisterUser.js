@@ -20,7 +20,7 @@ function RegisterUser({ setMyUser }) {
   const navigate = useNavigate();
 
   const validateSignUp = (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     if (!userName) {
       setWarningMessage("please provide a Name");
       return;
@@ -48,28 +48,28 @@ function RegisterUser({ setMyUser }) {
       register();
     } catch (err) {
       console.error(err);
-      if (err.code === "auth/invalid-email") {
-        setWarningMessage("invalid email");
-        return;
-      }
+      // if (err.code === "auth/invalid-email") {
+      // setWarningMessage("invalid email");
+      // return;
+      // }
 
       // if (err.code === "auth/wrong-password") {
       //   setWarningMessage("wrong password");
       // }
     }
 
-    registerWithEmailAndPassword(auth, email, password);
+    // registerWithEmailAndPassword(auth, email, password);
 
     //register();
   };
 
   const register = (e) => {
     // if (!userName) alert("Please enter a name");
-    e.preventDefault();
+    // e.preventDefault();
     if (!email.trim() || !password.trim() || !userName.trim()) return;
     if (!userName || !email || !password) return;
     // registerWithEmailAndPassword(userName, email, password);
-    registerWithEmailAndPassword(auth, email, password);
+    registerWithEmailAndPassword(auth, userName, email, password);
   };
 
   useEffect(() => {
@@ -116,7 +116,7 @@ function RegisterUser({ setMyUser }) {
           <h3>Sign-up</h3>
           {/* <h3>Join MyAnimeLog to start tracking your anime</h3> */}
         </span>
-        <form className="login-form">
+        <form className="login-form" onSubmit={(e) => e.preventDefault()}>
           <button onClick={signInWithGoogle} className="login-btn with-google">
             <span className="btn-icon-span">
               <FcGoogle size={25} style={{ pointerEvents: "none" }} />
