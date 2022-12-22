@@ -336,7 +336,7 @@ export const ResultSpan = styled.span`
 `;
 
 export const ResultThumbnail = styled.img`
-  width: ${(props) => (props.isMobile ? "30%" : "10%")};
+  width: ${(props) => (props.isMobile ? "30%" : "25%")};
 `;
 
 export const Selector = styled.select`

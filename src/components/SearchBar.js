@@ -129,7 +129,7 @@ const SearchBar = ({ isFetchInProgress, setIsFetchInProgress }) => {
     const { ref, isComponentVisible } = useListWhenVisible(true);
 
     return (
-      <div ref={ref}>
+      <div ref={ref} className="suggestions-container">
         {isComponentVisible && <Suggestions results={predictions} />}
       </div>
     );

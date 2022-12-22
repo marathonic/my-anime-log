@@ -171,7 +171,7 @@ function SearchResults({ isMobile }) {
           pageCount={pageCount}
           onPageChange={handlePageClick}
           containerClassName={"pagination"}
-          previousLinkClassName={"pagionation__link"}
+          previousLinkClassName={"pagination__link"}
           nextLinkClassName={"pagination__link--disabled"}
           activeClassName={"pagination__link--active"}
         />

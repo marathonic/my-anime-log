@@ -10,7 +10,7 @@ const Synopsis = ({
   showSynopsis,
   isMobile,
 }) => {
-  const formattedSynopsis = animeSynopsis.replaceAll(". ", ".\n\n");
+  const formattedSynopsis = animeSynopsis?.replaceAll(". ", ".\n\n");
   const [hasSynopsisBeenClicked, setHasSynopsisBeenClicked] = useState(false);
 
   const handleSynopsis = () => {
@@ -36,12 +36,14 @@ const Synopsis = ({
 
   return (
     <section className={isModalOpen ? "synopsis-hidden" : "synopsis-section"}>
-      <span className="centered-span synopsis-bar" id="synopsis-autoscroll">
-        <h1>Synopsis</h1>
-        <button onClick={handleSynopsis} className="synopsis-chevron">
-          {showSynopsis ? <FiChevronUp /> : <FiChevronDown />}
-        </button>
-      </span>
+      {formattedSynopsis && (
+        <span className="centered-span synopsis-bar" id="synopsis-autoscroll">
+          <h1>Synopsis</h1>
+          <button onClick={handleSynopsis} className="synopsis-chevron">
+            {showSynopsis ? <FiChevronUp /> : <FiChevronDown />}
+          </button>
+        </span>
+      )}
       <AnimeSynopsis showSynopsis={showSynopsis} isMobile={isMobile}>
         <span className="synopsis-span">
           <p className="synopsis-text">{formattedSynopsis}</p>
