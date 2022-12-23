@@ -9,7 +9,7 @@ export default function Navbar({ isMobile }) {
       <UList>
         <li>
           <Link to="/">
-            <span className="logo">{isMobile ? <FaCompass /> : "Explore"}</span>
+            <span className="logo">{isMobile ? <FaHome /> : "Home"}</span>
           </Link>
         </li>
 
@@ -23,7 +23,9 @@ export default function Navbar({ isMobile }) {
           <MediaQuery max-width(640px)>{user ? <User /> : <FiLogin />}</MediaQuery>
           <MediaQuery min-width(desktop-width)> </MediaQuery>
           */}
-          <Link to="/dashboard">{isMobile ? <FaUser /> : "My Profile"}</Link>
+          <Link to="/dashboard">
+            <span className="logo"> {isMobile ? <FaUser /> : "My Log"}</span>
+          </Link>
         </li>
         {/* We can nest inside a component <MediaQuery> here,
             first we check if the user is logged in.

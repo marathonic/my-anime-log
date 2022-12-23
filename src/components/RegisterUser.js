@@ -136,7 +136,9 @@ function RegisterUser({ setMyUser, isMobile }) {
             <span className="btn-icon-span">
               <FcGoogle size={25} style={{ pointerEvents: "none" }} />
             </span>
-            Sign Up With Google
+            <span className="login-google-text">Sign up with Google</span>
+
+            {/* Sign Up With Google */}
           </button>
           <hr />
           <span style={{ color: "white" }}>or</span>
@@ -159,7 +161,7 @@ function RegisterUser({ setMyUser, isMobile }) {
             className="login-input"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            placeholder="e.g: kimi@email.com"
+            placeholder="Your Email"
           />
           <label htmlFor="registration-pw">Password:</label>
           <input
@@ -168,15 +170,12 @@ function RegisterUser({ setMyUser, isMobile }) {
             className="login-input"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            placeholder="password"
+            placeholder="Password"
           />
-          <button
-            onClick={(e) => validateSignUp(e)}
-            className="register-user-btn"
-          >
-            <span className="btn-icon-span">
+          <button onClick={(e) => validateSignUp(e)} className="login-btn">
+            {/* <span className="btn-icon-span">
               <MdMail size={25} style={{ pointerEvents: "none" }} />
-            </span>
+            </span> */}
             Sign Up With Email
           </button>
           <p>{warningMessage && warningMessage}</p>
