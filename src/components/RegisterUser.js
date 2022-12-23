@@ -130,7 +130,7 @@ function RegisterUser({ setMyUser, isMobile }) {
         </span>
         <form className="login-form" onSubmit={(e) => e.preventDefault()}>
           <button
-            onClick={isMobile ? mobileSignInWithGoogle : signInWithGoogle}
+            onClick={mobileSignInWithGoogle}
             className="login-btn with-google"
           >
             <span className="btn-icon-span">

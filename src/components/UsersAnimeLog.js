@@ -408,9 +408,9 @@ function UsersAnimeLog({
 
   return (
     <div className="centered-div">
-      <h1 style={{ color: "white", fontSize: "3rem" }}>my Log</h1>
-      <p>H: {size.height}</p>
-      <p>W: {size.width}</p>
+      <h1 className="my-log-h1">my anime log</h1>
+      {/* <p>H: {size.height}</p>
+      <p>W: {size.width}</p> */}
       <hr className={!isMobile ? "hr-margin-exception" : ""} />
       <Selector
         defaultValue={userListSelector}

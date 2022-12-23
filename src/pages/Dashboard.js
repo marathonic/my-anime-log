@@ -170,7 +170,9 @@ function Dashboard({
 
       {/*  */}
       <div className="user-details-foot">
-        <hr />
+        <span className="user-foot-span">
+          <hr className={!isMobile ? "foot-margin-exception" : ""} />
+        </span>
 
         {/* <h1>My Profile</h1> */}
 
