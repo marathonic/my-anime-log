@@ -6,11 +6,12 @@ import {
   auth,
   db,
   signInWithEmailAndPassword,
+  mobileSignInWithGoogle,
   signInWithGoogle,
 } from "../firebase.js";
 import { FcGoogle } from "react-icons/fc";
 
-function Login({ setMyUser }) {
+function Login({ setMyUser, isMobile }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [user, loading, error] = useAuthState(auth);
@@ -138,7 +139,7 @@ function Login({ setMyUser }) {
           )}
           <button
             className="login-btn with-google"
-            onClick={signInWithGoogle}
+            onClick={isMobile ? mobileSignInWithGoogle : signInWithGoogle}
             disabled={isBtnOnTimeout}
           >
             <span className="btn-icon-span">

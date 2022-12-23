@@ -5,6 +5,7 @@ import {
   getAuth,
   signInWithPopup,
   signInWithEmailAndPassword,
+  signInWithRedirect,
   createUserWithEmailAndPassword,
   sendPasswordResetEmail,
   signOut,
@@ -40,6 +41,13 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 
 const googleProvider = new GoogleAuthProvider();
+googleProvider.setCustomParameters({
+  prompt: "select_account",
+});
+
+const mobileSignInWithGoogle = async () => {
+  signInWithRedirect(auth, googleProvider);
+};
 
 const signInWithGoogle = async () => {
   try {
@@ -189,6 +197,7 @@ export {
   registerWithEmailAndPassword,
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
+  mobileSignInWithGoogle,
   signInWithGoogle,
   sendPasswordReset,
   logout,

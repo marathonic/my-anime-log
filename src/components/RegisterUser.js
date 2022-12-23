@@ -5,13 +5,14 @@ import { query, collection, getDocs, where } from "firebase/firestore";
 import {
   auth,
   db,
+  mobileSignInWithGoogle,
   registerWithEmailAndPassword,
   signInWithGoogle,
 } from "../firebase.js";
 import { FcGoogle } from "react-icons/fc";
 import { MdMail } from "react-icons/md";
 
-function RegisterUser({ setMyUser }) {
+function RegisterUser({ setMyUser, isMobile }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [userName, setUserName] = useState("");
@@ -128,7 +129,10 @@ function RegisterUser({ setMyUser }) {
           {/* <h3>Join MyAnimeLog to start tracking your anime</h3> */}
         </span>
         <form className="login-form" onSubmit={(e) => e.preventDefault()}>
-          <button onClick={signInWithGoogle} className="login-btn with-google">
+          <button
+            onClick={isMobile ? mobileSignInWithGoogle : signInWithGoogle}
+            className="login-btn with-google"
+          >
             <span className="btn-icon-span">
               <FcGoogle size={25} style={{ pointerEvents: "none" }} />
             </span>

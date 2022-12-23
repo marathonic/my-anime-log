@@ -374,13 +374,13 @@ function App() {
           path="/login"
           element={
             // <RestrictedRoute user={user}>
-            <Login setMyUser={setMyUser} />
+            <Login setMyUser={setMyUser} isMobile={isMobile} />
             // </RestrictedRoute>
           }
         ></Route>
         <Route
           path="/register"
-          element={<RegisterUser setMyUser={setMyUser} />}
+          element={<RegisterUser setMyUser={setMyUser} isMobile={isMobile} />}
         />
         <Route path="/reset" element={<PasswordReset />} />
         {/* <Route path="/dashboard" element={<Dashboard />} /> */}
