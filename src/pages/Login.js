@@ -139,7 +139,7 @@ function Login({ setMyUser, isMobile }) {
           )}
           <button
             className="login-btn with-google"
-            onClick={signInWithGoogle}
+            onClick={mobileSignInWithGoogle}
             disabled={isBtnOnTimeout}
           >
             <span className="btn-icon-span">
