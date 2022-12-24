@@ -104,6 +104,8 @@ function App() {
     initialFullyFetched
   );
 
+  const waitTime = 1200;
+
   // updates: updateAllTopAnime({ category: response.data })
 
   const fetchTopTen = async (category) => {
@@ -206,7 +208,7 @@ function App() {
 
       if (!allTopAnime.upcoming && currentView === "explore") {
         setIsFetchInProgress(true);
-        await new Promise((resolve) => setTimeout(resolve, 2000));
+        await new Promise((resolve) => setTimeout(resolve, waitTime));
         const topUpcoming = await fetchTopTen("upcoming");
         updateAllTopAnime({ upcoming: topUpcoming });
         setIsFetchInProgress(false);
@@ -216,9 +218,19 @@ function App() {
       if (!allTopAnime.overall && currentView === "explore") {
         if (currentView !== "explore") return;
         setIsFetchInProgress(true);
-        await new Promise((resolve) => setTimeout(resolve, 1000));
+        await new Promise((resolve) => setTimeout(resolve, waitTime));
         const topOverall = await fetchTopTen("overall");
         updateAllTopAnime({ overall: topOverall });
+        setIsFetchInProgress(false);
+      }
+
+      // popular
+      if (!allTopAnime.popular && currentView === "explore") {
+        if (currentView !== "explore") return;
+        setIsFetchInProgress(true);
+        await new Promise((resolve) => setTimeout(resolve, waitTime));
+        const topPopular = await fetchTopTen("popular");
+        updateAllTopAnime({ popular: topPopular });
         setIsFetchInProgress(false);
       }
 
@@ -230,19 +242,9 @@ function App() {
         //  return () => controller.abort();
         //}
         setIsFetchInProgress(true);
-        await new Promise((resolve) => setTimeout(resolve, 2000));
+        await new Promise((resolve) => setTimeout(resolve, waitTime));
         const topMovies = await fetchTopTen("movies");
         updateAllTopAnime({ movies: topMovies });
-        setIsFetchInProgress(false);
-      }
-
-      // popular
-      if (!allTopAnime.popular && currentView === "explore") {
-        if (currentView !== "explore") return;
-        setIsFetchInProgress(true);
-        await new Promise((resolve) => setTimeout(resolve, 2000));
-        const topPopular = await fetchTopTen("popular");
-        updateAllTopAnime({ popular: topPopular });
         setIsFetchInProgress(false);
       }
 

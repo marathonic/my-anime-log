@@ -138,7 +138,7 @@ function SearchResults({ isMobile }) {
           style={{ width: "100%" }}
         ></img>
 
-        <span>Please note, we use Romaji for the titles</span>
+        <span>Please note, our anime titles are in romaji</span>
         {/* <p>instead of </p> */}
         {/* <p style={{ textDecoration: "line-through", color: "crimson" }}>
           'Attack on Titan'

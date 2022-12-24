@@ -163,6 +163,10 @@ export default function Home({
   // topMovies = renderMapped(movies, (isMobile = { isMobile }));
   // }
 
+  popular
+    ? (topPopular = renderMapped(popular, (isMobile = { isMobile })))
+    : (topPopular = loadingSkeletonStrip);
+
   movies
     ? (topMovies = renderMapped(movies, (isMobile = { isMobile })))
     : (topMovies = loadingSkeletonStrip);
@@ -170,10 +174,6 @@ export default function Home({
   // if (popular) {
   // topPopular = renderMapped(popular, (isMobile = { isMobile }));
   // }
-
-  popular
-    ? (topPopular = renderMapped(popular, (isMobile = { isMobile })))
-    : (topPopular = loadingSkeletonStrip);
 
   // const loadingStrip = () => {
   //   for(let i = 0; i < 7; i++){
@@ -251,12 +251,12 @@ export default function Home({
           {topAiring}
           {upcoming && <h3 className="categ-head">Top Upcoming</h3>}
           {topUpcoming}
-          {overall && <h3 className="categ-head">Top anime</h3>}
+          {overall && <h3 className="categ-head">Top Rated</h3>}
           {topOverall}
-          {popular && <h3 className="categ-head">Most popular</h3>}
+          {popular && <h3 className="categ-head">Most Popular</h3>}
           {topPopular}
 
-          {movies && <h3 className="categ-head">Top movies</h3>}
+          {movies && <h3 className="categ-head">Top Movies</h3>}
           {topMovies}
         </div>
       )}
