@@ -170,6 +170,7 @@ button:hover {
 .search-bar-btn {
   height: 2rem;
   width: 90%;
+  max-width: 15.42rem;
   /* margin-block: 7%; */
   background-color: var(--soft-peach);
   color: #1f1d36;
@@ -998,17 +999,31 @@ label {
 
   /* mobile searchbar */
 
+  .search-bar-container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   .search-bar {
     background-color: rgba(255, 255, 255, 0.05);
-    border: solid white 1px;
+    /* border: solid white 1px; */
     max-width: 50%;
-    border-radius: 7px;
+    border: solid rgba(255, 255, 255, 0.3) 1px;
+    border-bottom: solid gray 2px;
+    /* border: auto; */
+    /* border-radius: 7px; */
+    /* border-radius: 0; */
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
     color: white;
     font-size: 1.2rem;
     padding: 0.4%;
     letter-spacing: 1px;
-    border-end-end-radius: 0;
-    border-right: none;
+    /* border-end-end-radius: 0; */
+    /* border-right: none; */
     height: 2rem;
   }
 

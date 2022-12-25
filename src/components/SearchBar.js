@@ -156,26 +156,29 @@ const SearchBar = ({ isFetchInProgress, setIsFetchInProgress }) => {
   return (
     // we could give it position: sticky; top:0, so we can still search when we're scrolled down.
     <form onSubmit={handleSubmit} className="searchbar-form">
-      <input
-        className="search-bar"
-        type="search"
-        placeholder={isFetchInProgress ? "please wait..." : "search..."}
-        onChange={(e) => handleText(e.target.value)}
-        disabled={isFetchInProgress}
-        id="searchbar-input"
-        autoComplete="off"
-        // onFocus={(e) => handleInputFocus()}
-        // onBlur={handleInputBlur}
-      />
+      <div className="search-bar-container">
+        <input
+          className="search-bar"
+          type="search"
+          placeholder={isFetchInProgress ? "please wait..." : "search..."}
+          onChange={(e) => handleText(e.target.value)}
+          disabled={isFetchInProgress}
+          id="searchbar-input"
+          autoComplete="off"
+          // onFocus={(e) => handleInputFocus()}
+          // onBlur={handleInputBlur}
+        />
+        <button className="search-bar-btn" disabled={isFetchInProgress}>
+          GO
+        </button>
+      </div>
+
       {searchQuery && predictions.length > 0 && (
         <ul className="suggestions-ul">
           <DropdownList />
           {/* <Suggestions results={predictions} /> */}
         </ul>
       )}
-      <button className="search-bar-btn" disabled={isFetchInProgress}>
-        GO
-      </button>
     </form>
   );
 };
