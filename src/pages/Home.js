@@ -202,6 +202,7 @@ export default function Home({
           <SearchBar
             isFetchInProgress={isFetchInProgress}
             setIsFetchInProgress={setIsFetchInProgress}
+            isMobile={isMobile}
           />
 
           <div className="centered-div landing-chevron">
