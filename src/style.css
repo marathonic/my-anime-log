@@ -1005,7 +1005,7 @@ label {
     /* border-radius: 7px; */
     color: white;
     font-size: 1.2rem;
-    padding: 0.4%;
+    padding: 2px;
     letter-spacing: 1px;
     /* border-end-end-radius: 0; */
     border-radius: 0;
@@ -1016,6 +1016,7 @@ label {
   .search-bar-btn {
     height: 2rem;
     width: 20%;
+    padding: 2px;
     /* margin-block: 7%; */
     background-color: var(--soft-peach);
     color: #1f1d36;
