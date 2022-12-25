@@ -335,8 +335,15 @@ export const ResultSpan = styled.span`
     `}
 `;
 
+// -----------+++++++++++++++++++++++++CONTINUE HERE -----------+++++++++++++++++++++++++++++++++++++
+// ISSUE TO SOLVE: Result pics have different sizes on mobile (on phone hardware). We had only set 'width' here, test out min-width and max-width.
+// We may wish to provide height measurements as well. If necessary, figure out what those would be.
+
 export const ResultThumbnail = styled.img`
   width: ${(props) => (props.isMobile ? "30%" : "25%")};
+
+  min-width: ${(props) => (props.isMobile ? "30%" : "25%")};
+  max-width: ${(props) => (props.isMobile ? "30%" : "25%")};
 `;
 
 export const Selector = styled.select`
