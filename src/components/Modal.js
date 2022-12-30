@@ -1,18 +1,10 @@
-import React, { useState, useEffect, useReducer } from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/modal-style.css";
 import { OptionSelector, Selector } from "./primedComps";
 import { AiFillPlusCircle, AiFillTrophy } from "react-icons/ai";
 import { FcPlanner } from "react-icons/fc";
-import { auth, db, logout } from "../firebase.js";
-import {
-  query,
-  collection,
-  getDocs,
-  where,
-  doc,
-  setDoc,
-  getDoc,
-} from "firebase/firestore";
+import { auth, db } from "../firebase.js";
+import { doc, setDoc, getDoc } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
 import Skeleton from "react-loading-skeleton";
 import _ from "lodash";
@@ -33,11 +25,9 @@ function Modal({
   setThumbnailURL,
   fetchedUserLogs,
   updateLatestEntryFetched,
-  isAlphabReorderRequired,
   setIsAlphabReorderRequired,
   updateFetchedUserLogs,
   updateCategLeftoverLength,
-  categLeftoverLength,
   updateIsCategFullyFetched,
 }) {
   const [listSelector, setListSelector] = useState(
@@ -45,22 +35,14 @@ function Modal({
   );
   const [episodesWatched, setEpisodesWatched] = useState(
     animeDataFromLog.watched || 0
-  ); // <-- useState(loggedEps || 0);
-  const [myScore, setMyScore] = useState(animeDataFromLog.score || ""); // <-- useState(loggedScore) || "";
-  // ^^ for both of the above: Set to user's log data for that anime. If null, set to 0 or "";
-  // To set the user's log data, use state.
-  // const [loggedEpisodes, setLoggedEpisodes] = useState(0).
-  // Then, inside a function: setLoggedEpisodes()
-  const [user, loading, error] = useAuthState(auth);
-  const [animeLog, setAnimeLog] = useState({});
-  const [isLoadingLog, setIsLoadingLog] = useState(false); //<-- SET TO FALSE TO TURN OFF
+  );
+  const [myScore, setMyScore] = useState(animeDataFromLog.score || "");
+  const [user] = useAuthState(auth);
+  const [isLoadingLog, setIsLoadingLog] = useState(false);
 
-  // We want to search the Firestore user for the animeID
+  // Search the Firestore user map for the animeID
   // structure:
-  // users --> randomStringDocument --> name, email, uid !== userID ? (castleracer: bolPu0WO...) -->
-  // We want the randomStringDocument, because the uid itself only holds the uid string, it doesn't hold our anime objects there.
-  // WE'RE GETTING KIRITO FROM name: Kirito. That's on the same level as our anime would be.
-  // The anime objects sit side by side with name, email, uid, etc.
+  // The animeLog object sits side by side with name, email, uid, etc.
 
   const handleSelection = (e) => {
     setListSelector(e.target.value);
@@ -87,7 +69,6 @@ function Modal({
     const { value } = e.target;
     if (!value || value <= 0) {
       setEpisodesWatched(0);
-      //OR: setEpisodesWatched(value); <--- experiment with this
       return;
     }
     if (value === episodesAired) return;
@@ -123,12 +104,6 @@ function Modal({
   };
 
   const handleScoreInputChange = (e) => {
-    // --------------BUG!!!
-    //User can input - subtraction sign right after a number.
-    // After which, user can link a lot of numbers, like so:
-    // 1-1.0167.957-301, etc...
-    // This is very alarming, solve ASAP.
-
     const { value } = e.target;
     if (Number(value) === "-") return;
     if (!value) {
@@ -138,9 +113,6 @@ function Modal({
 
     // no decimals allowed if input is less than 1
     if (value + myScore < 1) return;
-
-    // idea: if value.length >= 3 and there's no decimal point...
-    // other idea: if there is at least one leading zero and there is a decimal point, remove all leading zeroes (slice(n position that isnt zero))
 
     if (value === "1") {
       console.log("check for 10");
@@ -159,8 +131,7 @@ function Modal({
       return;
     }
     if (value > 10) return;
-    // score is a float number, for greater user experience.
-    // console.log(typeof value);
+    // score is a float number, for better user experience.
     setMyScore(parseFloat(value, 10));
 
     if (
@@ -183,16 +154,8 @@ function Modal({
       handleRedInputBorder("epsWatchedInput", "add");
       return;
     }
-    // -----------------------
-    // ----------CONTINUE HERE!!!
-    // NEXT STEP: Populate the inputs with the Firestore data in the useEffect.
-    // ^^^^^^^^
 
-    console.log("running handleConfirmClick");
-    // Let's just create a constructor function instead!
-
-    // We'd like to avoid calling Firestore if the data hasn't changed (if the inputs are === animeLog).
-    // constructor function:
+    //Avoid calling Firestore if animeLog data hasn't changed
     function AnimeLogEntry() {
       if (listSelector === "completed") {
         return {
@@ -215,57 +178,45 @@ function Modal({
       }
     }
 
-    // our possible solution, using our constructor function:
+    // using our constructor function:
     let myAnime = AnimeLogEntry();
     console.log("myAnime", "==>", myAnime);
     console.log("animeDataFromLog", "==>", animeDataFromLog);
 
-    // I suspect the line below might have been rendered obsolete when we changed our Firestore structure
     if (_.isEqual(myAnime, animeDataFromLog)) {
-      console.log("data has not changed, returning...");
-      // updateShouldCategoryUpdate({ [`${listSelector}`]: false });
       setIsModalOpen(false);
       return;
     }
 
-    // --------NEW FUNCTIONALITY: Check for alphabetical order:
+    // Check for alphabetical order:
     function addNewEntryToLog() {
       setDoc(doc(db, "theNewUsers", user.uid, "animeLog", animeID), myAnime);
       setThumbnailURL(animeThumbnailURL);
       updateShouldCategoryUpdate({ [`${listSelector}`]: true });
       setIsFetchLocked(false);
       setIsModalOpen(false);
-      console.log("adding new entry to log...");
     }
 
-    // regardless of what happens next, we know that data has changed, because the condition above did not trigger a return:
+    // We know that data has changed, because the code above did not trigger a return:
     updateIsCategFullyFetched({ [`${listSelector}`]: false });
 
     if (fetchedUserLogs[`${listSelector}`].length < 1) {
-      //run our current code, it works well if the category log hasnt been selected yet.
+      //Always works as expected if the category log hasn't been rendered yet.
       addNewEntryToLog();
     } else {
-      // the category has been rendered before, so let's
+      // the category has been rendered before
       // check whether the new entry comes before our last rendered entry in alphabetical order
       const newEntryName = myAnime.name;
       const currentLog = fetchedUserLogs[`${listSelector}`];
-      const lastRendered = currentLog[currentLog.length - 1];
       const lastRenderedName = currentLog[currentLog.length - 1].name;
-
-      console.log("last rendered name", "==>", lastRenderedName);
-      console.log("new entry name", "==>", newEntryName);
 
       const isNewEntryBeforeLastRendered =
         lastRenderedName.localeCompare(newEntryName);
 
-      // Category has been rendered before, handle case where the new entry comes alphabetically before the last rendered entry:
+      // Handle case where the new entry comes before the last rendered entry alphabetically:
       if (isNewEntryBeforeLastRendered === 1) {
-        setIsAlphabReorderRequired({ [`${listSelector}`]: true }); //<-- it worked well just now, and we got TypeError: setIsAlphabReorderRequired is not a function, because we hadn't imported it from Dashboard.js yet. But, the button did not display. Instead, we got the message 'end of log'
-        // adding the line above works the same, but we still aren't getting the 'load more' button.
-        // WAIT, that functionality is over in UsersAnimeLog, the render of the load more button.
-        console.log(isNewEntryBeforeLastRendered);
-        console.log("---the new entry comes before the last rendered--- ");
-        //ENTRY COMES BEFORE LAST RENDERED ENTRY ALPHABETICALLY
+        setIsAlphabReorderRequired({ [`${listSelector}`]: true });
+        //Entry should come before last rendered (alphabetically)
         //Find out where exactly:
         let currentlyRenderedInCateg = [...fetchedUserLogs[`${listSelector}`]];
         for (let i = 0; i < currentlyRenderedInCateg.length; i++) {
@@ -274,29 +225,19 @@ function Modal({
             currentRender.name
           );
           if (newEntryComesBeforeCurrentEntry === -1) {
-            console.log(newEntryName, "comes before", currentRender.name);
-            console.log("cutoff point will be", "==>", currentRender.name);
             let trimmedCategTest = [...currentLog.slice(0, i), myAnime];
-            // isCategTrimmed is categ trimmed . If yes, record the length.
-            // alt: record the length of the category here. Then, compare to the fetchedUserLog's category in UsersAnimeLog. If the length of that one over there has less length than this one, that means we're rendering the trimmed log, so we still have more to render. After making a query and getting the remaining data in the log, we will set the state variable to false.
-            // There must be leftover length, because we're trimming before the last entry before this newest entry.
+            // Handle leftover log entries
             updateCategLeftoverLength({
               [`${listSelector}`]:
                 currentlyRenderedInCateg.length - trimmedCategTest.length,
             });
-            console.log("our category would become", "==>", trimmedCategTest);
             updateFetchedUserLogs({ [`${listSelector}`]: trimmedCategTest });
-            // we might want to wait() between these two functions.
+            // we could wait() between these two functions if switching back end to a low bandwidth option.
             addNewEntryToLog();
-
-            //let's try fetching and setting to a the doc snapshot:
-            // NOTE: WE MIGHT NOT NEED TO DO THIS, LET'S TRY JUST SETTING IT LOCALLY.
-            console.log("waiting 1 sec...");
             const wait = async () => {
               await new Promise((resolve) => setTimeout(resolve, 1000));
             };
             wait();
-            console.log("wait completed");
             updateLatestEntryFetched({ [`${listSelector}`]: myAnime });
             const getTestModifiedCategoryLog = async () => {
               const docRef = doc(
@@ -318,9 +259,10 @@ function Modal({
             return;
           }
         }
-        // the loop returns if it matches, so if we're here, the loop didn't find any alphabetical priors to the last entry.
-        // handle case where the new entry does not come before the last rendered
+        // The loop above returns on match.
+        // We're here, so the loop didn't find entries that come alphabetically before the last entry.
 
+        // Handle case where the new entry does not come before the last rendered
         const getModifiedCategoryLog = async () => {
           const docRef = doc(db, "theNewUsers", user?.uid, "animeLog", animeID);
           const docSnap = await getDoc(docRef);
@@ -340,13 +282,13 @@ function Modal({
       setIsModalOpen(false);
     }
 
-    // data has changed, so log the new data:
-    // NOTE: Commenting out while testing:
-    // setDoc(doc(db, "theNewUsers", user.uid, "animeLog", animeID), myAnime);
-    // setThumbnailURL(animeThumbnailURL);
-    // updateShouldCategoryUpdate({ [`${listSelector}`]: true });
-    // setIsFetchLocked(false);
-    // setIsModalOpen(false);
+    // If scaling app in the future, we should change how we retrieve the images to display on the users' dashboard (myLog) page.
+    // Solving it now would be over-engineering for a problem that does not currently exist.
+    // We don't want to spam request the cdn
+    // In case a million users decided to spam reload their myLog at the same time.
+    // We could store a low res webp of the cover of each anime that the user adds to their log.
+    // And keep those images in a database such as Firebase Storage.
+    // That would reduce load on the cdn considerably. However, we only need to limit log length.
   };
 
   const loadingLogSkeleton = (
@@ -395,7 +337,6 @@ function Modal({
                   ></Skeleton>
                 </div>
               </div>
-              {/* Save should also close the modal when clicked */}
               <div className="actionsContainer">
                 <Skeleton className="cancel-btn" width={"30%"} height={"20%"}>
                   baseColor="silver"
@@ -414,42 +355,6 @@ function Modal({
     </>
   );
 
-  // Let's try to avoid unnecessary requests to firebase.
-  // if data has been fetched and nothing has changed, don't fetch again.
-  // for this, we will want to run a check when we click Confirm:
-  // We will save the info from the first fetch to state
-  // inside onClick for Confirm btn, check if the input value matches state.
-  // As long as the input values (completed: false, watched: n, rating: n, planToWatch: true)
-  // As long as those input values don't change, it'll never refetch new data from firebase, regardless of how many times we click the button.
-  // However, if the data is indeed different, we want to setShouldFetchNewData(true);
-  // useEffect(() => {
-  // if (loading) return;
-
-  //    if (user) {
-  //      const fetchUserData = async () => {
-  //        try {
-  //          const q = query(
-  //            collection(db, "users"),
-  //            where("uid", "==", user?.uid)
-  //          );
-  //          const doc = await getDocs(q);
-  //
-  //          //
-  //          const data = doc.docs[0].data();
-  //          //
-  //          console.log("user data below this line---");
-  //          console.log(data);
-  //          console.log("--ANIMEID WE'RE VIEWING:");
-  //          console.log(animeID);
-  //        } catch (err) {
-  //          console.error(err);
-  //          alert("error fetching user data");
-  //        }
-  //      };
-  //      fetchUserData();
-  //    }
-  //  }, [user, loading, animeID]);
-
   useEffect(() => {
     if (isFetchLocked) return;
     const getAnimeLogFromDatabase = async () => {
@@ -467,19 +372,12 @@ function Modal({
         if (animeSnap.exists()) {
           console.log("Document data:", animeSnap.data());
           const snapResponse = animeSnap.data();
-          // const snapResponse = snapResponse[`${animeID}`];
           setAnimeDataFromLog(snapResponse);
-          // test if the following are needed, since on first render they'll be sent to SingleAnime:
-          // and if not found, useState OR (  ||  ) clause sets them.
           setListSelector(snapResponse.status);
           setEpisodesWatched(snapResponse.watched);
           setMyScore(snapResponse.score);
           setAnimeExistsInLog(true);
-          // const animeDataInLog = animeSnap.data();
-
-          console.log(snapResponse);
         } else {
-          console.log("No such anime in the user's log");
           setAnimeExistsInLog(false);
         }
 
@@ -525,8 +423,6 @@ function Modal({
 
                     <span className="details-span watching">
                       <label htmlFor="epsWatchedInput">Watched: </label>
-                      {/* <div className="eps-input-div"> */}
-                      {/* might want to experiment with a green + circle just off the top right corner of the input */}
                       <input
                         type="number"
                         min={1}
@@ -549,7 +445,6 @@ function Modal({
                           />
                         </button>
                       )}
-                      {/* </div> */}
                     </span>
 
                     <span className="details-span watching">
@@ -589,24 +484,17 @@ function Modal({
                 )}
                 {listSelector === "plan to watch" && (
                   <span className="details-span plan-to-watch">
-                    {/* planner */}
                     <FcPlanner size={125} />
                   </span>
                 )}
-                {/* END ------------------^^^^^^^^^^^  */}
-                {/* ------------------^^^^^^^^^^^  */}
                 <Selector value={listSelector} onChange={handleSelection}>
                   <OptionSelector value="plan to watch">
                     Plan to watch
                   </OptionSelector>
                   <OptionSelector value="watching">Watching</OptionSelector>
                   <OptionSelector value="completed">Completed</OptionSelector>
-                  {/* <option ></option> */}
-                  {/* <option ></option> */}
-                  {/* <option ></option> */}
                 </Selector>
               </div>
-              {/* Save should also close the modal when clicked */}
               <div className="actionsContainer">
                 <button
                   type="button"

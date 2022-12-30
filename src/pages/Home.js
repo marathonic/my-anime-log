@@ -1,22 +1,14 @@
-import { useReducer, useState } from "react";
 import { Link } from "react-router-dom";
 import { Category, Sidebar } from "../components/primedComps";
 import SearchBar from "../components/SearchBar";
 import { AnimeCard } from "../components/primedComps";
-import { initial } from "lodash";
 import { MobileSkeletonTile } from "../components/LoadingSkeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import Skeleton from "react-loading-skeleton";
 import { FiChevronDown, FiChevronUp } from "react-icons/fi";
-import { BsChevronDoubleDown, BsChevronDoubleUp } from "react-icons/bs";
 
 export default function Home({
-  handleSearch,
-  search,
-  setSearch,
-  animeList,
   isMobile,
-  allTopAnime,
   overall,
   movies,
   airing,
@@ -27,16 +19,13 @@ export default function Home({
   isFetchInProgress,
   setIsFetchInProgress,
 }) {
-  let topOverall, topMovies, topSpecials, topPopular, topAiring, topUpcoming;
+  let topOverall, topMovies, topPopular, topAiring, topUpcoming;
   let propsIsMobile = isMobile;
-  // to make it easier to FIND anime we don't know about, make it instead be:
-  // topAiring, topUpcoming...
 
   const renderMapped = (category, isMobile) => {
     let mapped = category.map((anime) => {
       return (
         <span className="category-span" key={anime.mal_id}>
-          {/* what does AnimeCard do here? */}
           <AnimeCard clickedAnime={anime} />
           <Link to={`/anime/${anime.mal_id}`} key={anime.mal_id}>
             <img
@@ -53,10 +42,7 @@ export default function Home({
         <Category isMobile={propsIsMobile}>{mapped}</Category>
       </div>
     );
-    return mapped;
   };
-
-  // let myOverall;
 
   const loadingSkeletonStrip = (
     <>
@@ -144,10 +130,6 @@ export default function Home({
     </>
   );
 
-  // if (overall) {
-  // topOverall = renderMapped(overall, (isMobile = { isMobile }));
-  // }
-
   airing
     ? (topAiring = renderMapped(airing, (isMobile = { isMobile })))
     : (topAiring = loadingSkeletonStrip);
@@ -159,9 +141,6 @@ export default function Home({
   overall
     ? (topOverall = renderMapped(overall, (isMobile = { isMobile })))
     : (topOverall = loadingSkeletonStrip);
-  // if (movies) {
-  // topMovies = renderMapped(movies, (isMobile = { isMobile }));
-  // }
 
   popular
     ? (topPopular = renderMapped(popular, (isMobile = { isMobile })))
@@ -171,29 +150,6 @@ export default function Home({
     ? (topMovies = renderMapped(movies, (isMobile = { isMobile })))
     : (topMovies = loadingSkeletonStrip);
 
-  // if (popular) {
-  // topPopular = renderMapped(popular, (isMobile = { isMobile }));
-  // }
-
-  // const loadingStrip = () => {
-  //   for(let i = 0; i < 7; i++){
-  //     <div className="loading-skeleton-thumbnails">
-  //     <Skeleton
-  //       height={"13.10rem"}
-  //       width={"9.36rem"}
-  //       highlightColor="#3f3351"
-  //       baseColor="#42032C"
-  //     />
-  //   </div>
-  //   }
-  // }
-
-  /* 
-   const topTen = allTopAnime.map((anime) => {
-   
-   });
-  */
-  console.log(currentView);
   return (
     <div className={!isMobile ? "desktop-placement-container" : ""}>
       {currentView === "search" && (
@@ -221,12 +177,6 @@ export default function Home({
         </div>
       )}
 
-      {/* Chevron down: EXPLORE <-- the page ends here, a chevron will
-      conditionally render an Explore section.
-
-      In the Explore section, a Chevron up will conditionally
-      render the SearchBar
-    */}
       {currentView === "explore" && (
         <div>
           <div
@@ -242,11 +192,6 @@ export default function Home({
             <h1>Explore</h1>
           </span>
           <Sidebar></Sidebar>
-          {/* look into lazy loading, it's exactly what we want here to polish up our presentation */}
-          {/* Right now, if the images haven't loaded, the section just isn't showing. */}
-          {/* We want to fix that:  */}
-          {/* while the images are loading, we want to render divs that clearly indicate it, e.g: a sliding glow across each div */}
-          {/* <Category isMobile={isMobile}>{topTen}</Category> */}
           <MobileSkeletonTile></MobileSkeletonTile>
           {airing && <h3 className="categ-head">Airing this season</h3>}
           {topAiring}

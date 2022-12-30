@@ -1,42 +1,30 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import ReactPaginate from "react-paginate";
-import {
-  CardThumbnail,
-  ResultSpan,
-  ResultThumbnail,
-} from "../components/primedComps";
+import { ResultSpan, ResultThumbnail } from "../components/primedComps";
 import { MoonLoader } from "react-spinners";
 import { IoSadOutline } from "react-icons/io5";
 
 function SearchResults({ isMobile }) {
-  // following the pluralsight tutorial, allResults is our --hits-- array
   const [allResults, setAllResults] = useState([]);
   const [pagination, setPagination] = useState([]);
-  // const [pageCount, setPageCount] = useState(1);
   const [currentPage, setCurrentPage] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const q = useParams();
   const query = q.searchQuery;
-  // how to fix random anime that match 1 word? Let's use a regex, we'll ask for strict matches!
-  // so we'll only be returning strict matches, like items that have 'dragon ball' in the title.
-  // that way, we won't be getting back 'Kobayashi-san Chi no Maid Dragon', for example, when we're looking for Dragon Ball, and viceversa.
+  // Dealing with results that match 1 word:
+  // Using a regex, ask for strict matches, like items that have 'dragon ball' in the title.
+  // that way, we won't be getting back 'Kobayashi-san Chi no Maid Dragon' as the first result when we're looking for Dragon Ball.
   const API_URL = `https://api.jikan.moe/v4/anime?q=${query}&order_by=scored_by&sort=desc`;
-  // const API_URL = `https://api.jikan.moe/v4/anime?q=${query}&page=${currentPage}`;
-  //   if above doesn't work, try:
-  //   const API_URL = `https://api.jikan.moe/v4/search/anime?q=${query}&sfw`;
   const PER_PAGE = 10;
   const offset = PER_PAGE * currentPage;
-  // going with Urvashi's guide, this is where we could make our currentPageData function
+  // pagination implemented with help from Urvashi's article on dev.to
   const resultsContainer = useRef(null);
   const currentPageData = allResults
     .slice(offset, offset + PER_PAGE)
     .map((result) => {
       return (
-        // MAKE THESE INTO <Link /> Components, each to their own URL, just like in Home.js!
-        //         <Link to={`/anime/${anime.mal_id}`} key={anime.mal_id}>
-        // In this case, <Link to={`anime/${result.mal_id} key={result.mal_id}`}
         <li
           style={{ color: "white" }}
           key={result.mal_id}
@@ -44,17 +32,12 @@ function SearchResults({ isMobile }) {
         >
           <Link to={`/anime/${result.mal_id}`} key={result.mal_id}>
             <ResultSpan isMobile={isMobile}>
-              {/* <CardThumbnail
-              src={result.images.jpg.image_url}
-              alt={result.title}
-            /> */}
               <ResultThumbnail
                 src={result.images.jpg.image_url}
                 alt={result.title}
                 isMobile={isMobile}
               />
 
-              {/* <img src={result.images.jpg.image_url} alt={result.title} /> */}
               <p className="result-title-mobile">
                 {result.title.length <= 43
                   ? result.title
@@ -73,17 +56,12 @@ function SearchResults({ isMobile }) {
 
   const pageCount = Math.ceil(allResults.length / PER_PAGE);
 
-  // const handlePageChange = (selectedObject) => {
-  //   setCurrentPage(selectedObject.selected);
-  // };
-
   useEffect(() => {
-    console.log("=====fetching data======");
     fetch(API_URL).then((response) =>
       response
         .json()
         .then((responseData) => {
-          console.log(responseData.data);
+          // console.log(responseData.data);
           setAllResults(responseData.data);
           setPagination(responseData.pagination);
           setLoading(false);
@@ -92,11 +70,6 @@ function SearchResults({ isMobile }) {
     );
   }, [API_URL]);
 
-  // useEffect(() => {
-  // console.log("pagination useEffect =>", pagination);
-  // console.log("current page", "==>", currentPage);
-  // }, [currentPage]);
-
   if (loading)
     return (
       <div className="processing-query-container">
@@ -104,10 +77,6 @@ function SearchResults({ isMobile }) {
       </div>
     );
   if (error) return <h2>error</h2>;
-
-  //   const getResults = () => {
-  //  pasted into useEffect
-  //   };
 
   console.log(pagination);
 
@@ -131,7 +100,6 @@ function SearchResults({ isMobile }) {
         )}
       </span>
       <span>
-        {/* <IoSadOutline size={200} /> */}
         <img
           src="https://media.tenor.com/jaVORWcTiyEAAAAC/cute-fingers.gif"
           alt="cat twiddling fingers gif"
@@ -139,11 +107,6 @@ function SearchResults({ isMobile }) {
         ></img>
 
         <span>Please note, our anime titles are in romaji</span>
-        {/* <p>instead of </p> */}
-        {/* <p style={{ textDecoration: "line-through", color: "crimson" }}>
-          'Attack on Titan'
-        </p>
-        <p style={{ color: "lightgreen" }}>'Shingeki no Kyojin'</p> */}
       </span>
     </div>
   );
@@ -179,7 +142,6 @@ function SearchResults({ isMobile }) {
       {pagination.items.total > 0 &&
         !pagination.has_next_page &&
         fewResultsCounter}
-      {/* <ul>{myResults}</ul> */}
     </div>
   );
 }

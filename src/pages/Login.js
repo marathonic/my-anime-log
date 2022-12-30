@@ -7,21 +7,16 @@ import {
   db,
   signInWithEmailAndPassword,
   mobileSignInWithGoogle,
-  signInWithGoogle,
 } from "../firebase.js";
 import { FcGoogle } from "react-icons/fc";
 
 function Login({ setMyUser, isMobile }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [user, loading, error] = useAuthState(auth);
+  const [user, loading] = useAuthState(auth);
   const [warningMessage, setWarningMessage] = useState(null);
   const [isBtnOnTimeout, setIsBtnOnTimeout] = useState(true);
   const navigate = useNavigate();
-
-  // const validateEmailAndPassword = () => {
-  //   if (!email.trim() || !password.trim()) return;
-  // };
 
   const validateSignIn = async () => {
     if (!email.trim() || !password.trim()) return;
@@ -38,30 +33,15 @@ function Login({ setMyUser, isMobile }) {
       let errorCode = err.code;
       let trimmedErrorMsg = errorCode.substr(5);
       setWarningMessage(trimmedErrorMsg.replace(/-/g, " "));
-      //switch (err.code) {
-      //  case "auth/wrong-password":
-      //    setWarningMessage("wrong password");
-      //    break;
-      //
-      //  case "auth/user-not-found":
-      //    setWarningMessage("user not found");
-      //    break;
-      //
-      //  default:
-      //    break;
-      //}
-      // if (err.code === "auth/wrong-password") {
-      //   setWarningMessage("wrong password");
-      // }
     }
 
     handleFormSubmit();
   };
-
-  const setEditedWarningMessage = (errorCode) => {
-    let trimmedErrorMsg = errorCode.substr(5);
-    setWarningMessage(trimmedErrorMsg.replace(/-/g, " "));
-  };
+  // previously written as a reusable function, but less readable:
+  // const setEditedWarningMessage = (errorCode) => {
+  // let trimmedErrorMsg = errorCode.substr(5);
+  // setWarningMessage(trimmedErrorMsg.replace(/-/g, " "));
+  // };
 
   const handleFormSubmit = () => {
     if (user) {
@@ -72,23 +52,16 @@ function Login({ setMyUser, isMobile }) {
             where("uid", "==", user?.uid)
           );
           const doc = await getDocs(q);
-          console.log(doc);
-          //
           const data = doc.docs[0].data();
-          //
-          console.log(data);
-          console.log("--------------NAME BELOW THIS LINE----------");
-          console.log(data.name);
-          //
-          // setUserName(data.name);
-          setMyUser(data.name); // <--- set the user name
+          // console.log(data);
+          //set the user name (username)
+          setMyUser(data.name);
         } catch (err) {
           console.error(err);
           alert("error fetching user data");
         }
       };
       fetchUserName();
-      console.log("running handleFormSubmit");
     }
   };
 
@@ -108,7 +81,6 @@ function Login({ setMyUser, isMobile }) {
 
   useEffect(() => {
     if (loading) {
-      // loading screen...
       return;
     }
     if (user) navigate("/dashboard");

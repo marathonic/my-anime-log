@@ -3,7 +3,6 @@ import { AppContainer, Stars, Stars2, Stars3 } from "./components/primedComps";
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
-import Profile from "./pages/Profile";
 import { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import SingleAnime from "./components/SingleAnime";
@@ -18,16 +17,15 @@ import Dashboard from "./pages/Dashboard";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "./firebase";
 import { useLocation } from "react-router-dom";
-import RestrictedRoute from "./components/RestrictedRoute";
 
 function App() {
   const [animeList, setAnimeList] = useState([]);
   const [topAnime, setTopAnime] = useState([]);
   const [search, setSearch] = useState("");
-  // const [user, setUser] = useState(null);
-  const [user, loading, error] = useAuthState(auth);
+  const [user] = useAuthState(auth);
   const [myUser, setMyUser] = useState([]);
   const initialAnime = {};
+  // updates to allTopAnime: updateAllTopAnime({ category: response.data })
   const [allTopAnime, updateAllTopAnime] = useReducer(
     (allTopAnime, updates) => ({ ...allTopAnime, ...updates }),
     initialAnime
@@ -36,8 +34,7 @@ function App() {
   const [currentView, setCurrentView] = useState("search");
   const isMobile = useMediaQuery({ query: "(max-width:428px)" });
   const [isFetchInProgress, setIsFetchInProgress] = useState(false);
-  // --------------ATTENTION: Changed initialUserLogs = { completed: null, watching: null, "plan to watch": null}, to be:
-  // ----------EDIT: OUR NEW FUNCTIONALITY BREAKS WHEN SWITCHING CATEGORIES. LOOK FOR THE CULPRIT.-----------------------
+
   const initialUserLogs = {
     completed: [],
     watching: [],
@@ -49,7 +46,7 @@ function App() {
   );
   const [loggedCompleted, setLoggedCompleted] = useState(null);
   const [userListSelector, setUserListSelector] = useState("choose category");
-  // indicates whether the log for the category should be updated.
+  // indicate whether the log for the category should be updated.
   const initialUserCategories = {
     completed: true,
     watching: true,
@@ -73,6 +70,7 @@ function App() {
   );
   const [thumbnailURL, setThumbnailURL] = useState("");
   const [currentCategoryLog, setCurrentCategoryLog] = useState([]);
+  // indicate whether most recently added entry comes before last rendered (triggers alphabetical reorder before next render)
   const initialAlphabStatus = {
     completed: false,
     watching: false,
@@ -105,8 +103,6 @@ function App() {
   );
 
   const waitTime = 1200;
-
-  // updates: updateAllTopAnime({ category: response.data })
 
   const fetchTopTen = async (category) => {
     let searchTerm;
@@ -147,14 +143,11 @@ function App() {
     const res = await fetch(URL);
     const resData = await res.json();
     return resData.data;
-    // updateAllTopAnime({ [`${category}`]: resData.data });
-    // await new Promise((resolve) => setTimeout(resolve, 6000));
   };
 
   const handleSearch = (e) => {
     e.preventDefault();
     fetchAnime(search);
-    // fetchAnime(search);
   };
 
   const fetchAnime = async (animeName) => {
@@ -168,32 +161,12 @@ function App() {
   const location = useLocation();
 
   useEffect(() => {
-    // console.log(location.pathname);
-    // if (location.pathname !== "/") {
-    // return;
-    // }
-
     if (location.pathname !== "/") return;
-    // if (currentView !== "explore") return;
     if (allTopAnime.length === 4) return;
-    // getTopAnime();
     const getAllMyTopAnime = async () => {
-      // we can set all at the end at once: updateAllTopAnime({movies: topMovies, airing: topAiring, popular: topPopular})
-      // but then the user would have to wait several seconds before our content displays.
-      // Let's set each one individually as soon as it's ready:
-
-      // ---------------
-      // -----------------CONTINUE HERE:
-      // Found an edge case:
-      // If user asks for a search (whether autocomplete or full)
-      // within 1 second of a category fetching, we get 428:
-      // too many requests. Let's find a way around it!
-
-      // airing
       if (!allTopAnime.airing && currentView === "explore") {
         if (currentView !== "explore") {
           const controller = new AbortController();
-          console.log("aborting fetch...");
           return () => controller.abort();
         }
         if (currentView !== "explore") return;
@@ -236,31 +209,12 @@ function App() {
 
       // movies
       if (!allTopAnime.movies && currentView === "explore") {
-        //if (currentView !== "explore") {
-        //  const controller = new AbortController();
-        //  console.log("aborting fetch...");
-        //  return () => controller.abort();
-        //}
         setIsFetchInProgress(true);
         await new Promise((resolve) => setTimeout(resolve, waitTime));
         const topMovies = await fetchTopTen("movies");
         updateAllTopAnime({ movies: topMovies });
         setIsFetchInProgress(false);
       }
-
-      // We're still missing --specials--, --upcoming--, --OVAs--...
-
-      // What if the user spam reloads the page several times in a row? we may wish to handle that
-      // We would need to check if the page has been reloaded within the last second.
-      // If so, throttle (fire another setTimeout before the first request):
-      // if(timeFromLastReload <= 1200) { await new Promise((resolve) => setTimeout(resolve,1200)) }
-      // __previous code:
-      // await new Promise((resolve) => setTimeout(resolve, 1200));
-      // updateAllTopAnime({
-      //   movies: topMovies,
-      //   airing: topAiring,
-      //   popular: topPopular,
-      // });
     };
 
     getAllMyTopAnime();
@@ -270,10 +224,11 @@ function App() {
   return (
     <AppContainer>
       {/*
-      DIFFERENT THEMES (Dark mode, etc...) 
-      To add Light theme / Dark theme or other theme options, 
-      wrap the <div className="stars-test"> below with a stateful var: {currentTheme === "stars" && <div className="stars-test"> }, 
-      and do the same for all the other themes. Obviously, create a stateful var for each theme first      */}
+      Background Themes (Dark mode, etc...):
+      Unnecessary at this point, but could easily be implemented in the future, if so desired. 
+      There's many different ways to add Light / Dark or other theme options. The quickest, but least elegant: 
+      wrap the <div className="stars-test"> below in a stateful var: {currentTheme === "stars" && <div className="stars-test"> }, 
+      and do the same for the other theme. Evidently, create a stateful var for the theme first. NOTE: This would only change the bg*/}
 
       <Navbar isMobile={isMobile} />
       <div className="stars-test">
@@ -301,7 +256,6 @@ function App() {
               updateFetchedUserLogs={updateFetchedUserLogs}
               categLeftoverLength={categLeftoverLength}
               updateCategLeftoverLength={updateCategLeftoverLength}
-              // isCategFullyFetched={isCategFullyFetched}
               updateIsCategFullyFetched={updateIsCategFullyFetched}
             />
           }
@@ -339,7 +293,6 @@ function App() {
           path="/dashboard"
           element={
             <ProtectedRoute user={user}>
-              {/* <Profile /> */}
               <Dashboard
                 myUser={myUser}
                 setMyUser={setMyUser}
@@ -371,21 +324,16 @@ function App() {
           }
         ></Route>
 
-        {/* We could protect these routes, make them accessible only if there's no user */}
+        {/* Instead of using a RestrictedRoute, redirect from within the Login component */}
         <Route
           path="/login"
-          element={
-            // <RestrictedRoute user={user}>
-            <Login setMyUser={setMyUser} isMobile={isMobile} />
-            // </RestrictedRoute>
-          }
+          element={<Login setMyUser={setMyUser} isMobile={isMobile} />}
         ></Route>
         <Route
           path="/register"
           element={<RegisterUser setMyUser={setMyUser} isMobile={isMobile} />}
         />
         <Route path="/reset" element={<PasswordReset />} />
-        {/* <Route path="/dashboard" element={<Dashboard />} /> */}
       </Routes>
     </AppContainer>
   );
