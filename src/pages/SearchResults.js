@@ -4,6 +4,7 @@ import ReactPaginate from "react-paginate";
 import { ResultSpan, ResultThumbnail } from "../components/primedComps";
 import { MoonLoader } from "react-spinners";
 import { IoSadOutline } from "react-icons/io5";
+// consider using IoSadOutline instead of the <img> of the cat twiddling thumbs.
 
 function SearchResults({ isMobile }) {
   const [allResults, setAllResults] = useState([]);
