@@ -37,11 +37,6 @@ function Login({ setMyUser, isMobile }) {
 
     handleFormSubmit();
   };
-  // previously written as a reusable function, but less readable:
-  // const setEditedWarningMessage = (errorCode) => {
-  // let trimmedErrorMsg = errorCode.substr(5);
-  // setWarningMessage(trimmedErrorMsg.replace(/-/g, " "));
-  // };
 
   const handleFormSubmit = () => {
     if (user) {

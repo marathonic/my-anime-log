@@ -79,7 +79,6 @@ export const Category = styled.div`
   align-items: center;
   justify-content: start;
   background-color: #3f3351;
-  // background-color: rgba(255, 255, 255, 0.1);
   overflow: hidden;
 
   ${(props) =>
@@ -99,8 +98,6 @@ export const Category = styled.div`
 `;
 
 export const LogCategory = styled.div`
-  // justify-content: center;
-  // padding-left: 5%;
   justify-items: space-between;
   align-items: center;
   flex-wrap: wrap;
@@ -111,8 +108,6 @@ export const LogCategory = styled.div`
   max-height: 30%;
   background-color: #19172b;
   overflow: hidden;
-  // gap: 10%;
-  // padding: 5%;
   ${(props) =>
     props.isMobile &&
     css`
@@ -134,8 +129,6 @@ export const LogCategory = styled.div`
       max-height: 38rem;
       overflow: auto;
     `};
-
-  // background-color: ${(props) => (props.isMobile ? "gray" : "goldenrod")};
 `;
 
 export const AnimeCard = styled.div`
@@ -171,7 +164,6 @@ export const CardThumbnail = styled.img`
     props.isMobile &&
     css`
       max-width: 50%;
-      // padding: 2.6%;
     `}
 `;
 
@@ -183,8 +175,6 @@ export const CardDetails = styled.ul`
   background-color: #3f3351;
   justify-items: space-evenly;
   align-items: center;
-  // gap: 3%;
-  // height: 100%;
   padding-block: 2%;
   color: white;
   margin-block: 2%;
@@ -294,7 +284,6 @@ export const AnimeSynopsis = styled.div`
     css`
       margin-top: 0px;
       width: 100%;
-      // max-width: 50%;
     `}
 `;
 
@@ -308,7 +297,6 @@ export const SynopsisBar = styled.span`
   background-color: var(--bebop-blue);
   background-color: transparent;
   z-index: 99;
-  /* position: -webkit-sticky; */
   position: sticky;
   top: 0;
 `;

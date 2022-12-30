@@ -7,16 +7,14 @@ import {
   db,
   mobileSignInWithGoogle,
   registerWithEmailAndPassword,
-  signInWithGoogle,
 } from "../firebase.js";
 import { FcGoogle } from "react-icons/fc";
-import { MdMail } from "react-icons/md";
 
 function RegisterUser({ setMyUser, isMobile }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [userName, setUserName] = useState("");
-  const [user, loading, error] = useAuthState(auth);
+  const [user, loading] = useAuthState(auth);
   const [warningMessage, setWarningMessage] = useState(null);
   const navigate = useNavigate();
 
@@ -26,7 +24,6 @@ function RegisterUser({ setMyUser, isMobile }) {
   };
 
   const validateSignUp = (e) => {
-    // e.preventDefault();
     if (!userName) {
       setWarningMessage("please provide a Name");
       return;
@@ -54,27 +51,12 @@ function RegisterUser({ setMyUser, isMobile }) {
       register();
     } catch (err) {
       console.error(err);
-      // if (err.code === "auth/invalid-email") {
-      // setWarningMessage("invalid email");
-      // return;
-      // }
-
-      // if (err.code === "auth/wrong-password") {
-      //   setWarningMessage("wrong password");
-      // }
     }
-
-    // registerWithEmailAndPassword(auth, email, password);
-
-    //register();
   };
 
   const register = (e) => {
-    // if (!userName) alert("Please enter a name");
-    // e.preventDefault();
     if (!email.trim() || !password.trim() || !userName.trim()) return;
     if (!userName || !email || !password) return;
-    // registerWithEmailAndPassword(userName, email, password);
     registerWithEmailAndPassword(
       auth,
       userName,
@@ -94,12 +76,8 @@ function RegisterUser({ setMyUser, isMobile }) {
             where("uid", "==", user?.uid)
           );
           const doc = await getDocs(q);
-          console.log(doc);
-          //
           const data = doc.docs[0].data();
-          //
-          console.log(data);
-          //
+          // console.log(data);
           setUserName(data.name);
           setMyUser(data.name);
         } catch (err) {
@@ -109,9 +87,8 @@ function RegisterUser({ setMyUser, isMobile }) {
       };
       fetchUserName();
       navigate("/dashboard", { replace: true });
-      // IT'S NOT REDIRECTING US UPON REGISTRATION. FIND OUT WHY.
-      // EDIT: It now redirects us.
     }
+    // eslint-disable-next-line
   }, [user, userName, loading]);
 
   useEffect(() => {
@@ -126,7 +103,6 @@ function RegisterUser({ setMyUser, isMobile }) {
       <div className="login-register-container">
         <span className="login-header">
           <h3>Sign-up</h3>
-          {/* <h3>Join MyAnimeLog to start tracking your anime</h3> */}
         </span>
         <form className="login-form" onSubmit={(e) => e.preventDefault()}>
           <button
@@ -137,13 +113,9 @@ function RegisterUser({ setMyUser, isMobile }) {
               <FcGoogle size={25} style={{ pointerEvents: "none" }} />
             </span>
             <span className="login-google-text">Sign up with Google</span>
-
-            {/* Sign Up With Google */}
           </button>
           <hr />
           <span style={{ color: "white" }}>or</span>
-          {/* <br /> */}
-          {/* <p>Sign up with email</p> */}
           <label htmlFor="registration-user-name">Name:</label>
           <input
             name="registration-user-name"
@@ -173,9 +145,6 @@ function RegisterUser({ setMyUser, isMobile }) {
             placeholder="Password"
           />
           <button onClick={(e) => validateSignUp(e)} className="login-btn">
-            {/* <span className="btn-icon-span">
-              <MdMail size={25} style={{ pointerEvents: "none" }} />
-            </span> */}
             Sign Up With Email
           </button>
           <p>{warningMessage && warningMessage}</p>

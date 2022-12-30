@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { AnimeSynopsis } from "./primedComps";
 import { FiChevronDown, FiChevronUp } from "react-icons/fi";
-import { useRef } from "react";
 
 const Synopsis = ({
   animeSynopsis,
@@ -32,6 +31,7 @@ const Synopsis = ({
       block: "start",
       inline: "nearest",
     });
+    // eslint-disable-next-line
   }, [showSynopsis]);
 
   return (

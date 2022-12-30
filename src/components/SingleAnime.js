@@ -1,34 +1,30 @@
 import React, { useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useState } from "react";
-import { auth, db, logout } from "../firebase.js";
+import { auth } from "../firebase.js";
 import { AnimeCard, CardThumbnail, CardDetails } from "./primedComps";
 import { BsFillBookmarkPlusFill } from "react-icons/bs";
-import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import Skeleton from "react-loading-skeleton";
 import YoutubeEmbed from "./YoutubeTrailer";
-import { FaQuestion, FaQuestionCircle } from "react-icons/fa";
 import Synopsis from "./Synopsis";
 import Modal from "./Modal";
 import { useAuthState } from "react-firebase-hooks/auth";
 import ModalNoUser from "./ModalNoUser.js";
-import { useRef } from "react";
 
 const lowOpacity = {
   opacity: 1,
 };
 
 const loadingSkeletonSingleAnime = (
-  // There's a slight Flash because of the contrast. We may wish to go with the darker palette after all.
   <>
-    {/* ; <--- this ";" was here, commenting it out to see if that's the thing that we were seeing be active during loading which we though was a ":" */}
     <AnimeCard isMobile={true}>
       <div className="pic-container">
         <Skeleton
           duration={0.6}
           height={"18.22rem"}
           width={"11.71rem"}
-          highlightColor="#3f3351" //previously: silver
-          baseColor="#42032C" //previously: darkgrey
+          highlightColor="#3f3351"
+          baseColor="#42032C"
           style={lowOpacity}
         />
         <br />
@@ -64,8 +60,6 @@ const loadingSkeletonSingleAnime = (
           width={130}
           baseColor="#42032C"
           highlightColor="#3f3351"
-          // baseColor="#42032C" cool but a little hard to see if page loads too fast
-          // highlightColor="#3f3351"
           style={lowOpacity}
         />
       </h3>
@@ -73,10 +67,7 @@ const loadingSkeletonSingleAnime = (
   </>
 );
 
-// END LOADINGSKELETONSINGLEANIME
-
 function SingleAnime({
-  message,
   isMobile,
   setIsModalOpen,
   isModalOpen,
@@ -85,7 +76,6 @@ function SingleAnime({
   fetchedUserLogs,
   latestEntryFetched,
   updateLatestEntryFetched,
-  isAlphabReorderRequired,
   setIsAlphabReorderRequired,
   updateFetchedUserLogs,
   categLeftoverLength,
@@ -121,20 +111,10 @@ function SingleAnime({
     );
   }, [API_URL]);
 
-  // if (loading) return <h1>Loading...</h1>;
   if (loading) return loadingSkeletonSingleAnime;
   if (error) return <h2>Error</h2>;
 
-  //   conditional font size for the title
   const myAnimeTitle = myAnimeData.title;
-  const bigStyle = {
-    fontSize: myAnimeTitle.length < 13 ? "3rem" : "1.6rem",
-  };
-
-  const scrollToSynopsis = () => {
-    let synopsisId = document.querySelector("#synopsis-autoscroll");
-    synopsisId?.scrollIntoView({ behavior: "smooth" });
-  };
 
   return (
     <>
@@ -170,9 +150,8 @@ function SingleAnime({
             </div>
           </div>
         )}
-        {/* <h4 style={{ color: "white" }}>{message}</h4> */}
 
-        {/* CONDITION: Render either layout depending on whether device is mobile or desktop */}
+        {/* Render either layout depending on whether device is mobile or desktop */}
         {isMobile && (
           <>
             <CardThumbnail
@@ -192,14 +171,7 @@ function SingleAnime({
             </CardDetails>
           </>
         )}
-        {/* Somewhere in this AnimeCard component,
-      we want React-responsive to conditionally render
-      either the "add" button, or an "update" button,
-      based on whether the anime's ID is stored in the firebase object for the user.
-      (Each user will have an entry in Firestore that contains 2 objects, 
-      1 for Credentials <email, password> and 1 for their Log <watching, plan to watch, etc...>)  */}
 
-        {/* Commenting The following lines while beginning styling for desktop: */}
         {isMobile && (
           <button
             className="add-list-btn"
@@ -238,11 +210,7 @@ function SingleAnime({
             updateIsCategFullyFetched={updateIsCategFullyFetched}
           />
         )}
-        {/* <span>{myAnimeData.synopsis}</span> */}
-        {/* Anime trailer */}
-        {/* <h5>{myAnimeData.trailer.youtube_id}</h5> */}
         {isMobile && <hr />}
-        {/* {isMobile && <YoutubeEmbed embedId={myAnimeData.trailer.embed_url} />} */}
       </AnimeCard>
       {myAnimeData.trailer.embed_url !== null && (
         <YoutubeEmbed

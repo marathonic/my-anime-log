@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { auth, sendPasswordReset } from "../firebase";
+import { auth } from "../firebase";
 import { sendPasswordResetEmail } from "firebase/auth";
 
 function PasswordReset() {
@@ -15,18 +15,9 @@ function PasswordReset() {
   const [countdownActive, setCountdownActive] = useState(false);
   const navigate = useNavigate();
 
-  // we're making a slightly modified version of sendPasswordReset here,
-  // so that we can easily display an "Email not found" message on screen.
-  // --------------------------CONTINUE HERE-------------------
-  // Next, upon clicking the "Send password request" button,
-  // we want to disable it for the next 60 seconds.
-  // next day:
-  // NOTE: We may wish to implement a verifyE
-
   const mySendPasswordReset = async (email) => {
     try {
       if (!email.trim()) return;
-      // if (email.length <= 3) return;
       let reggae =
         /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       if (email.length <= 5 || !reggae.test(email)) {
@@ -59,6 +50,7 @@ function PasswordReset() {
   useEffect(() => {
     if (loading) return;
     if (user) navigate("/dashboard");
+    // eslint-disable-next-line
   }, [user, loading]);
 
   useEffect(() => {
@@ -113,14 +105,9 @@ function PasswordReset() {
             placeholder="e.g: example@email.com"
           />
 
-          <button
-            className="pw-reset-btn"
-            disabled={countdownActive}
-            // onClick={() => }
-          >
+          <button className="pw-reset-btn" disabled={countdownActive}>
             {!countdownActive && <span>Send password reset email</span>}
             {countdownActive && <span>Try again in {countdown}</span>}
-            {/* {countdownActive && countdown} */}
           </button>
         </form>
       </div>

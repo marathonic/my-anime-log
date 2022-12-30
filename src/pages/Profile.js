@@ -2,9 +2,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../firebase";
 
 export default function Profile() {
-  const [user, loading, error] = useAuthState(auth);
-
-  // This works very well, and it's a lot shorter than Dashboard.js
+  const [user] = useAuthState(auth);
 
   return (
     <div>

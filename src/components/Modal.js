@@ -285,7 +285,7 @@ function Modal({
     // If scaling app in the future, we should change how we retrieve the images to display on the users' dashboard (myLog) page.
     // Solving it now would be over-engineering for a problem that does not currently exist.
     // We don't want to spam request the cdn
-    // In case a million users decided to spam reload their myLog at the same time.
+    // in case a million users decided to spam reload their myLog at the same time.
     // We could store a low res webp of the cover of each anime that the user adds to their log.
     // And keep those images in a database such as Firebase Storage.
     // That would reduce load on the cdn considerably. However, we only need to limit log length.

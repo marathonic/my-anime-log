@@ -88,8 +88,6 @@ function Dashboard({
         updateIsCategFullyFetched={updateIsCategFullyFetched}
       />
 
-      <div></div>
-
       <div className="user-details-foot">
         <span className="user-foot-span">
           <hr className={!isMobile ? "foot-margin-exception" : ""} />

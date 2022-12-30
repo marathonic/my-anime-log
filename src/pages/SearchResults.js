@@ -13,7 +13,7 @@ function SearchResults({ isMobile }) {
   const [error, setError] = useState(null);
   const q = useParams();
   const query = q.searchQuery;
-  // Dealing with results that match 1 word:
+  // Dealing with results that share a word in the title:
   // Using a regex, ask for strict matches, like items that have 'dragon ball' in the title.
   // that way, we won't be getting back 'Kobayashi-san Chi no Maid Dragon' as the first result when we're looking for Dragon Ball.
   const API_URL = `https://api.jikan.moe/v4/anime?q=${query}&order_by=scored_by&sort=desc`;
@@ -80,14 +80,6 @@ function SearchResults({ isMobile }) {
 
   console.log(pagination);
 
-  const myResults = allResults.map((result) => {
-    return (
-      <li style={{ color: "white" }} key={result.mal_id}>
-        {result.title}
-      </li>
-    );
-  });
-
   let noResultsMessage = (
     <div className="no-results-container">
       <h1>Whoops!</h1>
@@ -102,7 +94,7 @@ function SearchResults({ isMobile }) {
       <span>
         <img
           src="https://media.tenor.com/jaVORWcTiyEAAAAC/cute-fingers.gif"
-          alt="cat twiddling fingers gif"
+          alt="cat twiddling fingers"
           style={{ width: "100%" }}
         ></img>
 

@@ -20,7 +20,6 @@ import { useLocation } from "react-router-dom";
 
 function App() {
   const [animeList, setAnimeList] = useState([]);
-  const [topAnime, setTopAnime] = useState([]);
   const [search, setSearch] = useState("");
   const [user] = useAuthState(auth);
   const [myUser, setMyUser] = useState([]);
@@ -241,7 +240,6 @@ function App() {
           path="anime/:mal_id"
           element={
             <SingleAnime
-              topAnime={topAnime}
               message={"HELLO FROM LINE 55 IN APP.JS"}
               isMobile={isMobile}
               isModalOpen={isModalOpen}
@@ -268,7 +266,7 @@ function App() {
 
         <Route
           path="/"
-          // this should probably be the index page, just leave this word here --> index
+          // If required by deployment, make this the index, just delete this comment and leave just this word on this line --> index
           element={
             <Home
               search={search}

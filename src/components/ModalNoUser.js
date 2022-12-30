@@ -10,7 +10,6 @@ function ModalNoUser({ setIsModalOpen }) {
         <div className="centered">
           <div className="modal">
             <div className="modalHeader">
-              {/* <h1>Modal</h1> */}
               <h5 className="heading">Oops!</h5>
               <button
                 className="closeBtn"
