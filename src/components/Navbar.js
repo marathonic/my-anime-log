@@ -9,13 +9,13 @@ export default function Navbar({ isMobile }) {
       <UList>
         <li>
           <Link to="/">
-            <span className="logo">{isMobile ? <FaHome /> : "Home"}</span>
+            <span className="navLink">{isMobile ? <FaHome /> : "Home"}</span>
           </Link>
         </li>
 
         <li>
           <Link to="/dashboard">
-            <span className="logo"> {isMobile ? <FaUser /> : "My Log"}</span>
+            <span className="navLink"> {isMobile ? <FaUser /> : "My Log"}</span>
           </Link>
         </li>
       </UList>

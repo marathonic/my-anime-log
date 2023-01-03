@@ -337,20 +337,14 @@ export const ResultThumbnail = styled.img`
 export const Selector = styled.select`
   width: 70%;
   height: 1.8rem;
-  // text-align-last: right;
   padding-left: 5%;
-  // direction: rtl;
   font-size: 1.1rem;
   text-align: center;
 
-  // background-color: #e9a6a6;
   background-color: whitesmoke;
-  // background-color: palegoldenrod;
 
-  // conditional: Selector is used in the Modal and the UsersAnimeLog. We want the following styles only when in UsersAnimeLog:
   font-size: ${(props) => (props.isBold ? "1.3rem" : "1rem")};
   color: #19172b;
-  // color: none <-- works the same
   font-weight: ${(props) => (props.isBold ? "bold" : 100)};
   margin-bottom: ${(props) => (props.isBold && props.isMobile ? "3%" : 0)};
   ${(props) =>
@@ -363,7 +357,6 @@ export const Selector = styled.select`
 export const OptionSelector = styled.option`
   font-size: 1rem;
   width: 100%;
-  // justify-content: center;
   text-align: center;
 `;
 
@@ -417,8 +410,6 @@ export const Stars = styled.div`
   animation-iteration-count: linear infinite;
   &:after {
     content: " ";
-    // position: absolute;
-    // top: 2000px;
     width: 1px;
     height: 1px;
     background: transparent;
@@ -496,8 +487,6 @@ export const Stars2 = styled.div`
   animation-iteration-count: linear infinite;
   &:after {
     content: " ";
-    // position: absolute;
-    // top: 2000px;
     width: 1.6px;
     height: 1.6px;
     background: transparent;
@@ -577,8 +566,6 @@ export const Stars3 = styled.div`
   animation-iteration-count: linear infinite;
   &:after {
     content: " ";
-    // position: absolute;
-    // top: 2000px;
     width: 1.3px;
     height: 1.3px;
     background: transparent;

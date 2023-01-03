@@ -3,8 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import ReactPaginate from "react-paginate";
 import { ResultSpan, ResultThumbnail } from "../components/primedComps";
 import { MoonLoader } from "react-spinners";
-import { IoSadOutline } from "react-icons/io5";
-// consider using IoSadOutline instead of the <img> of the cat twiddling thumbs.
+import { CgSmileSad } from "react-icons/cg";
 
 function SearchResults({ isMobile }) {
   const [allResults, setAllResults] = useState([]);
@@ -20,7 +19,7 @@ function SearchResults({ isMobile }) {
   const API_URL = `https://api.jikan.moe/v4/anime?q=${query}&order_by=scored_by&sort=desc`;
   const PER_PAGE = 10;
   const offset = PER_PAGE * currentPage;
-  // pagination implemented with help from Urvashi's article on dev.to
+  // pagination implemented with help from Urvashi's article on Medium(https://ihsavru.medium.com/react-paginate-implementing-pagination-in-react-f199625a5c8e)
   const resultsContainer = useRef(null);
   const currentPageData = allResults
     .slice(offset, offset + PER_PAGE)
@@ -93,11 +92,7 @@ function SearchResults({ isMobile }) {
         )}
       </span>
       <span>
-        <img
-          src="https://media.tenor.com/jaVORWcTiyEAAAAC/cute-fingers.gif"
-          alt="cat twiddling fingers"
-          style={{ width: "100%" }}
-        ></img>
+        <CgSmileSad size={180} color="silver" style={{ width: "100%" }} />
 
         <span>Please note, our anime titles are in romaji</span>
       </span>

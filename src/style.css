@@ -27,8 +27,8 @@
   /* reds */
   --soft-peach: #e9a6a6;
 
-  /* alt font-family: 'Jost', sans-serif; */
-  font-family: "Questrial-Regular, sans-serif";
+  font-family: "sans-serif";
+  font-family: "Questrial-Regular";
 }
 
 html {
@@ -82,10 +82,9 @@ button:hover {
   cursor: pointer;
 }
 
-.logo {
+.navLink {
   width: 20%;
   color: var(--soft-peach);
-  /* font-family: 'Yellowtail-Regular', sans-serif; */
 }
 
 .category-span {
@@ -262,9 +261,14 @@ button:hover {
 }
 
 .no-results-container {
+  height: 100%;
   width: 100%;
   text-align: center;
-  margin-top: 33%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 13%;
 }
 
 .few-results-container {
@@ -861,9 +865,6 @@ label {
 @font-face {
   font-family: Jost;
   src: url("./assets/fonts/Jost-VariableFont_wght.ttf") format("truetype");
-
-  font-family: Yellowtail-Regular;
-  src: url("./assets/fonts/Yellowtail-Regular.ttf") format("truetype");
 
   font-family: Questrial-Regular;
   src: url("./assets/fonts/Questrial-Regular.ttf") format("truetype");

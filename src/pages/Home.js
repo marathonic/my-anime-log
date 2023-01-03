@@ -154,7 +154,7 @@ export default function Home({
     <div className={!isMobile ? "desktop-placement-container" : ""}>
       {currentView === "search" && (
         <div className="landing-searchbar-container">
-          <h1>myAnimeLog</h1>
+          <h1 className="myAnimeLogo">myAnimeLog</h1>
           <SearchBar
             isFetchInProgress={isFetchInProgress}
             setIsFetchInProgress={setIsFetchInProgress}
