@@ -13,6 +13,7 @@
 
 +JS  
 +CSS  
++[Jikan API](https://jikan.moe/)
 +[Firebase](https://firebase.google.com/): Firestore & Authentication   
 +[React & bundled libraries](https://reactjs.org/)  
 +[React Paginate](https://www.npmjs.com/package/react-paginate)  
