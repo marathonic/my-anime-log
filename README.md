@@ -7,7 +7,7 @@
 +It is easier to settle on the inevitable compromises between idealism and pragmatism when the end goals are rigid, but the methods flexible.     
 +Learned the most cost-efficient ways of pinging the database, and to only request data after all possible local checks have passed.   
 +Reducers can be extremely versatile and convenient for complex data structures.  
-+It's OK to document potential future problems (at massive scale), but do not overengineer for problems that are unlikely to ever exist. Time is money.  
++It's OK to document potential future problems (at mass scale), but do not overengineer for problems that are unlikely to ever exist. Time is money.  
 
 ### Technologies used    
 
