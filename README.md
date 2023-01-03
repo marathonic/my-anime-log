@@ -22,5 +22,5 @@
 +[React Loading Skeleton](https://www.npmjs.com/package/react-loading-skeleton)  
 +[React Responsive](https://www.npmjs.com/package/react-responsive)  
 +[Styled Components](https://styled-components.com/)      
-+Helper libraries: [Lodash](https://lodash.com/ "Lodash") (for debouncing)      
++Helper libraries: [Lodash](https://lodash.com/ "Lodash") (debounce function)      
 +Deployed with [Vercel](https://vercel.com)  
