@@ -1,15 +1,23 @@
-# Getting Started with Create React App
+# MyAnimeLog: An anime tracker powered by the free [Jikan API](https://jikan.moe/).
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Development XP & takeaways
 
-## Available Scripts
++The JIkan API is limited to 1 request per second. This required some creative thinking to limit outgoing requests across the app.
++Investing the time to design a clean blueprint of the data flow in the app can save a lot of bandwidth. 
++It can be easier to settle on the inevitable compromises between idealism and pragmatism when the end goals are rigid, but the methods flexible.   
++Learned the most cost-efficient ways of pinging the database, and to only request data after all possible local checks have passed. 
++It's OK to document potential future problems (at massive scale), but do not overengineer for problems that are unlikely to ever exist. Time is money.
 
-In the project directory, you can run:
+### Technologies used
 
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
++JS
++CSS
++[Firebase](https://firebase.google.com/): Firestore & Authentication
++[React & bundled libraries](https://reactjs.org/)
++[Styled Components](https://styled-components.com/)
++[React Icons](https://react-icons.github.io/react-icons/)
++[React Loading Skeleton](https://www.npmjs.com/package/react-loading-skeleton)
++Helper libraries: [Lodash](https://lodash.com/ "Lodash")
 
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
