@@ -13,8 +13,8 @@
 
 +JS  
 +CSS  
-+[Jikan API](https://jikan.moe/)
-+[Firebase](https://firebase.google.com/): Firestore & Authentication   
++[Jikan API](https://jikan.moe/)  
++[Firebase](https://firebase.google.com/): Firestore & Authentication     
 +[React & bundled libraries](https://reactjs.org/)  
 +[React Paginate](https://www.npmjs.com/package/react-paginate)  
 +[React Spinners](https://www.davidhu.io/react-spinners/)
@@ -22,5 +22,5 @@
 +[React Loading Skeleton](https://www.npmjs.com/package/react-loading-skeleton)
 +[React Responsive](https://www.npmjs.com/package/react-responsive)
 +[Styled Components](https://styled-components.com/)    
-+Helper libraries: [Lodash](https://lodash.com/ "Lodash") (for debouncing)  
++Helper libraries: [Lodash](https://lodash.com/ "Lodash") (for debouncing)    
 +Deployed with [Vercel](https://vercel.com)
