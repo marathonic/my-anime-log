@@ -1,20 +1,24 @@
 import React from "react";
-import "../styles/signout-modal-style.css";
+import "../styles/about-modal-style.css";
 import { FaGithub } from "react-icons/fa";
 
 function AboutModal({ logout, setIsAboutModalOpen }) {
   return (
     <div className="blur-bg">
       <div className="about-modal">
-        <h3>About this website</h3>
-        <p>An anime tracker inspired by MyAnimeList.</p>
-        <p>Results powered by the Jikan API.</p>
-        <p>For educational purposes only.</p>
-        <p>No copyright infringement intended.</p>
-        <p>Developer: </p>
-        <span>
+        <h3 className="about-title">About this website</h3>
+        <ul className="about-ul">
+          <li>Free anime tracker, inspired by MyAnimeList.</li>
+          <li>Results powered by the Jikan API.</li>
+          <li>For educational purposes only.</li>
+          <li>No copyright infringement intended.</li>
+        </ul>
+        <span className="about-dev-title">
+          <h4>Developer</h4>
+        </span>
+        <span className="about-dev-links">
           <a
-            className="about-link"
+            className="about-link-text"
             href="https://github.com/marathonic/my-anime-log"
           >
             <FaGithub size={30} />
@@ -24,7 +28,7 @@ function AboutModal({ logout, setIsAboutModalOpen }) {
         <div className="signout-btn-container">
           <button
             onClick={() => setIsAboutModalOpen(false)}
-            className="signout-btn green"
+            className="close-btn green"
           >
             close
           </button>

@@ -849,6 +849,39 @@ label {
   justify-content: "space-around";
 }
 
+.question-mark-div {
+  width: max-content;
+  height: max-content;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  margin: 5%;
+  color: rgba(144, 238, 144, 0.5);
+}
+
+.question-mark-div:hover {
+  cursor: pointer;
+}
+
+.about-modal {
+  max-width: 30%;
+  height: 30%;
+  background-color: transparent;
+  border-radius: 12px;
+  border: solid white 2px;
+  display: flex;
+  flex-direction: column;
+  height: 42%;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 6px;
+  color: white;
+}
+
+.about-link {
+  font-weight: bold;
+}
+
 @keyframes glow {
   from {
     text-shadow: 6 6 16px #fff, 6 6 26px #fff, 6 6 36px #e66673,
@@ -878,35 +911,6 @@ label {
     flex-direction: column;
     align-items: center;
     height: auto;
-  }
-
-  .question-mark-div {
-    width: max-content;
-    height: max-content;
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    margin: 5%;
-    color: rgba(144, 238, 144, 0.5);
-  }
-
-  .about-modal {
-    width: 70%;
-    height: 30%;
-    background-color: transparent;
-    border-radius: 12px;
-    border: solid white 2px;
-    display: flex;
-    flex-direction: column;
-    height: 42%;
-    justify-content: space-around;
-    align-items: center;
-    border-radius: 6px;
-    color: white;
-  }
-
-  .about-link {
-    font-weight: bold;
   }
 
   .landing-down-chevron {
@@ -964,6 +968,13 @@ label {
     border-end-end-radius: 7px;
     border-top-right-radius: 7px;
     border-bottom-right-radius: 7px;
+  }
+
+  /* mobile about modal */
+  .about-modal {
+    width: 70%;
+    max-width: 80%;
+    height: 30%;
   }
 
   .loading-skeleton-div {

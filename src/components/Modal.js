@@ -298,7 +298,6 @@ function Modal({
           <div className="modal">
             <form>
               <div className="modalHeader">
-                {/* <h1>Modal</h1> */}
                 <button type="button" className="closeBtn" disabled={true}>
                   -
                 </button>

@@ -29,65 +29,107 @@
   font-weight: bold;
 }
 
-.signout-btn-container {
+.close-btn-container {
   width: 100%;
   display: flex;
   justify-content: space-around;
 }
 
-.signout-btn {
+.close-btn {
   border: transparent;
   border-radius: 6px;
-  font-size: 1.2rem;
+  font-size: 1rem;
   color: white;
   width: 6rem;
   height: 4rem;
   margin-bottom: 4px;
 }
 
-.signout-btn:hover {
+.close-btn:hover {
   cursor: pointer;
 }
 
-.signout-btn.red {
+.close-btn.red {
   background-color: crimson;
 }
 
-.signout-btn.green {
-  background-color: seagreen;
+.close-btn.green {
+  background-color: white;
 }
 
-@media only screen and (max-width: 480px) {
-  .signout-modal {
-    display: flex;
-    flex-direction: column;
-    width: 70%;
-    height: 22vh;
-    justify-content: space-between;
-    align-items: center;
-    background-color: white;
-    color: black;
-    border-radius: 6px;
+.about-modal {
+  min-height: max-content;
+  background-color: black;
+  height: 50%;
+  width: 80%;
+  font-size: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.about-title {
+  margin-top: 1rem;
+  color: lightgreen;
+}
+
+.about-ul {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  text-align: center;
+}
+
+.about-dev-title {
+  margin-block: 1rem;
+  color: lightgreen;
+  font-size: 1.2rem;
+}
+
+.about-dev-links {
+  padding-bottom: 10%;
+}
+
+.about-link-text:hover,
+.about-link-text:active {
+  color: yellow;
+}
+
+.about-link-text {
+  font-size: 1.2rem;
+}
+
+.close-btn-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.close-btn {
+  border: transparent;
+  border-radius: 6px;
+  font-size: 1rem;
+  color: black;
+  width: 5rem;
+  height: 1.8rem;
+  margin-bottom: 0;
+}
+
+@media only screen and (min-width: 480px) {
+  .about-modal,
+  .about-dev-title {
+    font-size: 1.3rem;
+  }
+
+  .about-link-text {
     font-size: 1.4rem;
+    padding: 1rem;
   }
 
-  .signout-modal p:first-of-type {
-    font-weight: bold;
-  }
-
-  .signout-btn-container {
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
-  }
-
-  .signout-btn {
-    border: transparent;
-    border-radius: 6px;
+  .close-btn {
     font-size: 1.2rem;
-    color: white;
-    width: 5rem;
-    height: 3rem;
-    margin-bottom: 0;
   }
 }
