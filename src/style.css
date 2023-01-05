@@ -880,6 +880,35 @@ label {
     height: auto;
   }
 
+  .question-mark-div {
+    width: max-content;
+    height: max-content;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    margin: 5%;
+    color: rgba(144, 238, 144, 0.5);
+  }
+
+  .about-modal {
+    width: 70%;
+    height: 30%;
+    background-color: transparent;
+    border-radius: 12px;
+    border: solid white 2px;
+    display: flex;
+    flex-direction: column;
+    height: 42%;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 6px;
+    color: white;
+  }
+
+  .about-link {
+    font-weight: bold;
+  }
+
   .landing-down-chevron {
     bottom: 0;
     position: absolute;

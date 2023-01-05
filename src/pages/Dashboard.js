@@ -36,8 +36,6 @@ function Dashboard({
 
   const navigate = useNavigate();
 
-  console.log(latestEntryFetched);
-
   useEffect(() => {
     if (loading) return <h1>LOADING...</h1>;
     if (!user) return navigate("/");

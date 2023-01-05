@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useState } from "react";
 import { Category, Sidebar } from "../components/primedComps";
 import SearchBar from "../components/SearchBar";
 import { AnimeCard } from "../components/primedComps";
@@ -6,6 +7,8 @@ import { MobileSkeletonTile } from "../components/LoadingSkeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import Skeleton from "react-loading-skeleton";
 import { FiChevronDown, FiChevronUp } from "react-icons/fi";
+import { BsFillInfoCircleFill } from "react-icons/bs";
+import AboutModal from "../components/AboutModal";
 
 export default function Home({
   isMobile,
@@ -19,6 +22,7 @@ export default function Home({
   isFetchInProgress,
   setIsFetchInProgress,
 }) {
+  const [isAboutModalOpen, setIsAboutModalOpen] = useState(false);
   let topOverall, topMovies, topPopular, topAiring, topUpcoming;
   let propsIsMobile = isMobile;
 
@@ -154,6 +158,15 @@ export default function Home({
     <div className={!isMobile ? "desktop-placement-container" : ""}>
       {currentView === "search" && (
         <div className="landing-searchbar-container">
+          {isAboutModalOpen && (
+            <AboutModal setIsAboutModalOpen={setIsAboutModalOpen} />
+          )}
+          <div
+            className="question-mark-div"
+            onClick={() => setIsAboutModalOpen(true)}
+          >
+            <BsFillInfoCircleFill size={25} style={{ pointerEvents: "none" }} />
+          </div>
           <h1 className="myAnimeLogo">myAnimeLog</h1>
           <SearchBar
             isFetchInProgress={isFetchInProgress}
